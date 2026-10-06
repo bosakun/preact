@@ -1,0 +1,24 @@
+{
+  "checked_at": "2026-10-06T09:53:24.432992+00:00",
+  "status": "passed-bounded-private-publication-candidate-review",
+  "revision": "bda05ec31a24b0c6d411a1b6c3bd70ca5ef74962",
+  "proposed_destination": "bosakun/preact",
+  "published": false,
+  "approval_received": false,
+  "tracked_files": 334,
+  "tracked_bytes": 18343688,
+  "reachable_git_blobs": 866,
+  "reachable_blob_bytes": 47025694,
+  "configured_secret_values_absent": true,
+  "unexpected_private_tracked_paths": 0,
+  "scope": "Exact configured local credential and native runner-key byte matching in tracked candidate files and reachable HEAD Git blobs; structural private-path exclusion. Not comprehensive disclosure review or approval.",
+  "limits": [
+    "Later commits require a new exact-payload manifest and approval.",
+    "Repository creation/public push was previously rejected by automatic approval review; no retry or alternate publication path.",
+    "Ownership, historical unknown credentials, rights, entrant attestations and public anonymous reproducibility remain administrative/unverified gates."
+  ],
+  "private_manifest_sha256": "e56d2cab148396c0d948a21715fee7bd10fd31fdfd3e74af4ed18aea9ea899a1",
+  "private_manifest_path": ".cache/publication-candidate-final.json",
+  "revision_scope": "Audited exact candidate at this checkpoint; later administrative receipt/progress commits require final matching review before approval.",
+  "archival_status_note": "Historical bounded credential check only. The later full private-history publication audit returned BLOCK. This report does not approve the fresh public candidate; see public-release-validation.json and the exact external publication audit."
+}

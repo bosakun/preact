@@ -1,0 +1,92 @@
+{
+  "checked_on": "2026-10-05",
+  "status": "passed-private-clean-checkout-current-trust-ui",
+  "scope": "Actual private local clone, offline hash-locked dependency setup, full regression and fresh local browser execution. Not public anonymous clone, remote CI, sponsor validation or GPU execution.",
+  "python": "3.12.13",
+  "python_distributions": 54,
+  "source_hash": "5720e2416adbf466488ce3aec800ac22906288e5b5b473eaeff0c36b5227415e",
+  "module_origin": "<validation-workspace>/preact-clean-trust-072db5f/src/preact/core/models.py",
+  "node": "v26.7.0",
+  "uv": "uv 0.11.29 (Homebrew 2026-07-15 aarch64-apple-darwin)",
+  "revision": "072db5fe0497ae211e8e7a4df7c675a774147c46",
+  "checkout": "<validation-workspace>/preact-clean-trust-072db5f",
+  "setup": {
+    "python": "uv sync --python 3.12 --frozen --offline --extra dev --extra physical --extra sandbox",
+    "node": "npm ci --offline",
+    "node_packages_added": 56,
+    "npm_audit_reported_vulnerabilities": 0
+  },
+  "pytest": {
+    "passed": 304,
+    "duration_seconds": 77.79
+  },
+  "ruff_check": {
+    "status": "passed",
+    "targets": "src tests workers scripts"
+  },
+  "ruff_format": {
+    "status": "passed",
+    "files": 115,
+    "targets": "src tests workers scripts"
+  },
+  "generated_contracts": "regenerated; tracked contract files unchanged",
+  "frontend_build": {
+    "status": "passed TypeScript and Vite",
+    "duration_seconds": 7.56
+  },
+  "browser": {
+    "passed": 6,
+    "duration_seconds": 15.6,
+    "database": "separate fresh SQLite",
+    "port": 8132,
+    "mode": "local",
+    "source": "private clean checkout",
+    "sponsor_inference": false
+  },
+  "api_shutdown_completed": true,
+  "api_tracebacks_observed": false,
+  "temporary_config_removed": true,
+  "tracked_clone_changes": [
+    "reports/physical-tree.png",
+    "reports/repository-workflow.png",
+    "reports/software-tree.png"
+  ],
+  "lock_sha256": {
+    "uv.lock": "6424ae51ff535382df11b30aa08921be86c5b281588f6b4c65eabddf93148c5c",
+    "web/package-lock.json": "9bb1dde4d16d03e007e732960a65a3774d10b50d7d08ab5a72545c24e92f3f82"
+  },
+  "frontend_source_sha256": {
+    "web/src/main.tsx": "22bfef76b58f5ae2cfae090bd52a1f7af1abc70bf805cf43e9673be8a81379a5",
+    "web/src/style.css": "6e650f4aa52e94f95c5fda2f4134e65f5ca4f61d73d0f51ea95357bd3d8bec6e"
+  },
+  "built_assets_sha256": {
+    "web/dist/assets/index-BhgstiJY.js": "3827351fa500a0c86cff3f27d5db80acbc12972a3ededa80be9faa1d84036b29",
+    "web/dist/assets/index-DaBukLq-.css": "930cd62c6ecb43a79abe2008acd93c24755f3f569e987b9d7685e34d4e1d636f",
+    "web/dist/index.html": "ef04a7332d437feaef877419ec82fd4e7809c9a638ef88bb09c8cb87039b7f24"
+  },
+  "retained_screenshot_sha256": {
+    ".cache/clean-trust-screenshots/physical-tree.png": "e0d90b80dff70ec2e85de30d5fe005e09511129962ad86f21efa6781df295b4b",
+    ".cache/clean-trust-screenshots/repository-workflow.png": "5bd09c3856a503f11157688a65d529efee2ce958f315b8820c8947f8f7573723",
+    ".cache/clean-trust-screenshots/software-tree.png": "eeffeb08ce9628b8e04e8c106a65c59ee139ffb2049fff8b0ef7434b6b26cda2"
+  },
+  "log_sha256": {
+    ".cache/clean-trust-python-setup.log": "91a1bad8b5366bad0c8b21dcd8f7bc7cd0996c6319677e323afc3f3a9eb4af24",
+    ".cache/clean-trust-node-setup.log": "515a54b2853bdc70fc725f5c2b2fafb51d5107d58c0968099b5227e4c892e227",
+    ".cache/clean-trust-pytest.log": "7783597dbad131bd1c1a764802596e012f89436dc5c7b37cb0f09e938f630c36",
+    ".cache/clean-trust-ruff-check-documented.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    ".cache/clean-trust-ruff-format-documented.log": "2fcba2071ad461b6c9a1655f5f7af639c36f5ea07efd65ca7e56a9a0fa53b912",
+    ".cache/clean-trust-contracts.log": "f506726335d1f8c9ebc3db31c17bba5c188aebfd868e28f78647e091cb16c677",
+    ".cache/clean-trust-build.log": "ad6ddde97a6dc2a42025bcdb8f16e2ad1237e83385f3d70218d61e9c16f188af",
+    ".cache/clean-trust-browser.log": "5a199f1848b575a15530de7d3f454067d1fddb75451930410572e806a0eb90ed",
+    ".cache/clean-trust-api-shutdown.log": "f0407993777eb0a9a1995ece1600123797d1b665cc7a1e68471d392996aafd3e",
+    ".cache/clean-trust-ruff-format.log": "467a1a8b7f7aebb5859efbc64cf4ee0b5257430270389c2e96011f0a69ff4805"
+  },
+  "configured_secret_values_absent_from_logs": true,
+  "disclosure_review_scope": "Configured local credentials and runner key only; no comprehensive publication review.",
+  "initial_check_failure": {
+    "scope": "An overly broad ruff format --check . included an input fixture outside the README/CI targets.",
+    "resolution": "Preserved fixture unchanged and reran the exact documented formatter targets; all 115 target files pass."
+  },
+  "limits": "Defensive binding fix remains queued on a separate branch. Node v26.7 local checkout differs from CI Node 22; pinned Node 22 production container/browser proof is recorded separately. Concurrent host verification may contribute to model-cohort latency. Public, sponsor, GPU, participant and final release gates remain open.",
+  "publication_path_note": "Machine-specific receipt paths are illustrative normalized locations. Original private receipts and original artifact hashes are preserved; measurements and validation scope are unchanged."
+}

@@ -1,0 +1,195 @@
+{
+  "checked_on": "2026-10-05",
+  "status": "calibration-complete-held-out-started",
+  "source_hash": "5720e2416adbf466488ce3aec800ac22906288e5b5b473eaeff0c36b5227415e",
+  "calibration_protocol_hash": "5c5de233ef2a17608aef016a75843aeebc68660b827be617c6a3d4bea96d2da1",
+  "held_out_protocol_hash": "69a3e5b24ad66e3033cda615394f33bdc6128114840d43b8caaa40b81160421b",
+  "calibration_hash": "4d4adb42f7e70469116658a7a5c82b2a9689f8a8806b254ff7c236d1599503c0",
+  "model_profile": {
+    "manifest": {
+      "schema_version": "1",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16",
+      "checkpoint_revision": "dfaf35de3e30f1867dd8dbc38a7fc9fb52d3914f",
+      "original_weights_sha256": "55d4e2519456c4a9bddf596b0748d630e3b2ce6ff6f4c2b7ed3e07e2b00dad42",
+      "model_sha256": "ca5e1bd8663465a81579274345f045f7a49cb5a96f350d859bb0ec725c1a7c59",
+      "quantization": "Q4_K_M",
+      "runner_revision": "0faee5004297c3bcfa40b7bf11750127b8c1fd7d",
+      "runner_build": "b1-0faee50",
+      "runner_files": {
+        "libggml-base.0.25.3.dylib": "a3665395aa55369723fcaae1f1d4a4a10444a22bc4cc2bedfa229dc0a141232b",
+        "libggml-base.0.dylib": "a3665395aa55369723fcaae1f1d4a4a10444a22bc4cc2bedfa229dc0a141232b",
+        "libggml-base.dylib": "a3665395aa55369723fcaae1f1d4a4a10444a22bc4cc2bedfa229dc0a141232b",
+        "libggml-blas.0.25.3.dylib": "d2c0b041328d706ebbe4a84237782ce7c410b8b83b7061dc6772b97854d5da27",
+        "libggml-blas.0.dylib": "d2c0b041328d706ebbe4a84237782ce7c410b8b83b7061dc6772b97854d5da27",
+        "libggml-blas.dylib": "d2c0b041328d706ebbe4a84237782ce7c410b8b83b7061dc6772b97854d5da27",
+        "libggml-cpu.0.25.3.dylib": "554f0f29181029e62153297839b1c890c2a69ea726b714d5315086dc3d4b8731",
+        "libggml-cpu.0.dylib": "554f0f29181029e62153297839b1c890c2a69ea726b714d5315086dc3d4b8731",
+        "libggml-cpu.dylib": "554f0f29181029e62153297839b1c890c2a69ea726b714d5315086dc3d4b8731",
+        "libggml-metal.0.25.3.dylib": "59c5b581999052f50308e4abc26ed88a2a01b7827f43be24bc7b1c875f940f31",
+        "libggml-metal.0.dylib": "59c5b581999052f50308e4abc26ed88a2a01b7827f43be24bc7b1c875f940f31",
+        "libggml-metal.dylib": "59c5b581999052f50308e4abc26ed88a2a01b7827f43be24bc7b1c875f940f31",
+        "libggml.0.25.3.dylib": "e340aa14fe3b8970e2c56f9b31fd28839415d40bb6de410382f7d9aefda1ca4c",
+        "libggml.0.dylib": "e340aa14fe3b8970e2c56f9b31fd28839415d40bb6de410382f7d9aefda1ca4c",
+        "libggml.dylib": "e340aa14fe3b8970e2c56f9b31fd28839415d40bb6de410382f7d9aefda1ca4c",
+        "libllama-common.0.5.0.dylib": "906ea52594f20588f95bd79e98571b4001dcb46413f3196e20b82cfe74260be3",
+        "libllama-common.0.dylib": "906ea52594f20588f95bd79e98571b4001dcb46413f3196e20b82cfe74260be3",
+        "libllama-common.dylib": "906ea52594f20588f95bd79e98571b4001dcb46413f3196e20b82cfe74260be3",
+        "libllama-quantize-impl.dylib": "f630487ffc5956971b1f9024e87705b1e5513f9f4fac683a1cae1543d5217d47",
+        "libllama-server-impl.dylib": "4660f555181ef5074e573a90136fb2c64f7a63a267a70bc7feea5aa74636dd9d",
+        "libllama.0.5.0.dylib": "fc1116717f5949024ffb9444676de409ca646615f08b2ed76423fcd3b752de90",
+        "libllama.0.dylib": "fc1116717f5949024ffb9444676de409ca646615f08b2ed76423fcd3b752de90",
+        "libllama.dylib": "fc1116717f5949024ffb9444676de409ca646615f08b2ed76423fcd3b752de90",
+        "libmtmd.0.5.0.dylib": "8613483310c76d5c8f35d09bc9ce44c20dabbfc67f6baeb0484e3a5cb81c0e75",
+        "libmtmd.0.dylib": "8613483310c76d5c8f35d09bc9ce44c20dabbfc67f6baeb0484e3a5cb81c0e75",
+        "libmtmd.dylib": "8613483310c76d5c8f35d09bc9ce44c20dabbfc67f6baeb0484e3a5cb81c0e75",
+        "llama-server": "545cfc8c4d2029da7208c1d448412006cec6b567a4fa579b6639ddf83dce795a"
+      },
+      "hardware": "Apple M5",
+      "acceleration": "Apple Metal; measured 43/43 layers offloaded",
+      "license_url": "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-nemotron-open-model-license/",
+      "license_sha256": "2ffd837856bb99d4cee13d17f0b597ecfeb95c38e30abc08d3dffef7d589881d"
+    },
+    "capabilities": {
+      "schema_version": "1",
+      "engine_id": "local-nemotron:nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16",
+      "version": "d68b84fdb4f17548d74af2a98b5fef115fe5ec2f49ad004215d29e56adfb2c40",
+      "family": "nemotron",
+      "domains": [
+        "software",
+        "physical"
+      ],
+      "evidence": "inference",
+      "tier": 0,
+      "max_horizon": 1,
+      "produces_successor": false,
+      "applicability": "Real local model reasoning; never measured safety or live Nebius/NVIDIA simulation",
+      "refines_engine_ids": [],
+      "max_samples": 1,
+      "verification_checks": null,
+      "estimated_cost_usd": null,
+      "estimated_latency_seconds": null
+    }
+  },
+  "metrics": {
+    "software/direct": {
+      "n": 60,
+      "success_rate": 0.9166666666666666,
+      "unsafe_episode_rate": 0.08333333333333333,
+      "unsafe_episode_bounds": [
+        0.08333333333333333,
+        0.08333333333333333
+      ],
+      "unsafe_observation_coverage": 1.0,
+      "unsafe_action_rate": 0.06666666666666667,
+      "unsafe_action_bounds": [
+        0.06666666666666667,
+        0.06666666666666667
+      ],
+      "success_wilson_95": [
+        0.8193083153188752,
+        0.9638800759495141
+      ],
+      "unsafe_wilson_95": [
+        0.03611992405048589,
+        0.18069168468112481
+      ],
+      "abstention_rate": 0.0,
+      "infrastructure_failure_rate": 0.0,
+      "brier": 0.1323529411764706,
+      "log_loss": 3.6570469124031755,
+      "ece_10_bins": 0.13235294117647065,
+      "risk_brier": 0.25,
+      "risk_log_loss": 6.907755278982886,
+      "risk_ece_10_bins": 0.25,
+      "labeled_risk_predictions": 68,
+      "continuous_errors": {},
+      "labeled_predictions": 68,
+      "latency_p50_ms": 13576.784521021182,
+      "latency_p95_ms": 23905.826833011815,
+      "mean_calls": 1.25,
+      "mean_agent_calls": 1.25,
+      "mean_execution_calls": 1.25,
+      "mean_aborted_before_dispatch": 0,
+      "cost_coverage": 0.0,
+      "mean_cost_usd": null,
+      "allocated_infrastructure_cost_usd": null,
+      "mean_simulation_calls": 0,
+      "mean_disagreement": 0.0
+    },
+    "physical/direct": {
+      "n": 60,
+      "success_rate": 0.5,
+      "unsafe_episode_rate": 0.5,
+      "unsafe_episode_bounds": [
+        0.5,
+        0.5
+      ],
+      "unsafe_observation_coverage": 1.0,
+      "unsafe_action_rate": 0.21428571428571427,
+      "unsafe_action_bounds": [
+        0.21428571428571427,
+        0.21428571428571427
+      ],
+      "success_wilson_95": [
+        0.37734812427246284,
+        0.6226518757275372
+      ],
+      "unsafe_wilson_95": [
+        0.37734812427246284,
+        0.6226518757275372
+      ],
+      "abstention_rate": 0.0,
+      "infrastructure_failure_rate": 0.0,
+      "brier": 0.21428571428571427,
+      "log_loss": 5.920933096271189,
+      "ece_10_bins": 0.2142857142857143,
+      "risk_brier": 0.37952714285714284,
+      "risk_log_loss": 7.306647641542229,
+      "risk_ece_10_bins": 0.3614285714285715,
+      "labeled_risk_predictions": 140,
+      "continuous_errors": {},
+      "labeled_predictions": 140,
+      "latency_p50_ms": 34116.51462499867,
+      "latency_p95_ms": 67988.39183399105,
+      "mean_calls": 2.3333333333333335,
+      "mean_agent_calls": 1.5,
+      "mean_execution_calls": 2.3333333333333335,
+      "mean_aborted_before_dispatch": 0,
+      "cost_coverage": 0.0,
+      "mean_cost_usd": null,
+      "allocated_infrastructure_cost_usd": null,
+      "mean_simulation_calls": 0,
+      "mean_disagreement": 0.0
+    }
+  },
+  "ledger": {
+    "status": "complete-cohort-alignment-audited",
+    "scope": "Archived execution/outcome/error alignment only; no new inference or integration certification",
+    "protocol_hash": "5c5de233ef2a17608aef016a75843aeebc68660b827be617c6a3d4bea96d2da1",
+    "source_hash": "5720e2416adbf466488ce3aec800ac22906288e5b5b473eaeff0c36b5227415e",
+    "split": "calibration",
+    "audited_episodes": 120,
+    "expected_episodes": 120,
+    "counts": {
+      "predictions": 215,
+      "executed_actions": 215,
+      "aligned_error_rows": 208,
+      "unexecuted_predictions_without_observed_labels": 0
+    }
+  },
+  "limitations": [
+    "Official NVIDIA checkpoint executed locally with Q4_K_M derivatives on Apple M5 Metal; not NVIDIA GPU, Nebius, Cosmos or Isaac validation.",
+    "Authored tasks were already exposed by heuristic evaluation and the one-seed model pilot; this is replication, not a new blind population.",
+    "Executed action postcondition labels differ from eventual task completion. Seven software forecasts have unknown success and receive no invented error label.",
+    "No prior frozen trust is applied during independent Direct calibration collection; raw and calibrated scores therefore coincide.",
+    "Model API/hardware/energy/infrastructure prices are unknown; cost coverage is zero.",
+    "Concurrent host work and sequential scheduling confound latency; no isolated performance improvement claimed.",
+    "The 1920-episode held-out and ablation comparison is in progress; calibration data alone does not demonstrate PreAct benefit."
+  ],
+  "external_acceptance": {
+    "nebius": false,
+    "nvidia_gpu": false,
+    "cosmos": false,
+    "isaac": false
+  }
+}

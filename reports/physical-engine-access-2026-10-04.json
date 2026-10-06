@@ -1,0 +1,25 @@
+{
+  "configured": {
+    "NEBIUS_API_KEY": false,
+    "NEBIUS_MODEL": false,
+    "CONTREE_API_KEY": false,
+    "CONTREE_IMAGE": false,
+    "NEBIUS_ACCESS_TOKEN": false,
+    "NEBIUS_PROJECT_ID": false,
+    "S3_BUCKET": false,
+    "S3_ENDPOINT": false,
+    "AWS_ACCESS_KEY_ID": false,
+    "AWS_SECRET_ACCESS_KEY": false,
+    "ISAAC_ENDPOINT": false,
+    "ISAAC_STRONG_ENDPOINT": false,
+    "COSMOS_ENDPOINT": false,
+    "COSMOS_REPO_PATH": false,
+    "COSMOS_REVISION": false,
+    "WORKER_TOKEN": false
+  },
+  "isaac_launcher_configured": true,
+  "isaac_launcher_available": false,
+  "ffmpeg_on_current_path": false,
+  "nebius_cli_available": false,
+  "cloud_profile_exists": false
+}

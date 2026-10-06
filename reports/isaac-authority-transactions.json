@@ -1,0 +1,19 @@
+{
+  "scope": "Actual local PostgreSQL authority transactions; injected SDK, not NVIDIA/GPU validation",
+  "worker_sha256": "3615e8865d5ed4448f91587527d1b68759a607a4724e2498070e76f50e6dc962",
+  "independent_database_clients": 3,
+  "concurrent_action_responses": [
+    200,
+    409
+  ],
+  "dispatches_in_concurrent_scenario": 1,
+  "duplicate_receipt_returned_same_observation": true,
+  "stale_action_rejected": true,
+  "cancelled_episode_requires_reconciliation_after_reconnect": true,
+  "receipt_and_state_conflict_rolled_back": true,
+  "episode_ids": [
+    "4ff8a5684f2c4e519fc9c8e3196631e2",
+    "136c01eb3caa4eb39d907f33fbc5bdbf",
+    "3dcdfa73a733487a96e8f323b4f5cdbd"
+  ]
+}

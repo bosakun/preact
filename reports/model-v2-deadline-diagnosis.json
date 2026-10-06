@@ -1,0 +1,145 @@
+{
+  "scope": "Two diagnostic reruns of an exposed timeout case; not replacement benchmark episodes or new held-out evidence",
+  "source_hash": "44a3b88efeeef1e2daafb724a98d18c2503c2c5c6404864b1da396e416c7d9b1",
+  "original_protocol_hash": "69a3e5b24ad66e3033cda615394f33bdc6128114840d43b8caaa40b81160421b",
+  "task_id": "clearance-09",
+  "fixture_hash": "24e39cf23fa4090ec459eb4aedada15d9ecc8aeb1589d2f48f5fc9f5157cf05e",
+  "seed": 0,
+  "max_episode_seconds": 300,
+  "model_profile": {
+    "manifest": {
+      "schema_version": "1",
+      "model": "nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16",
+      "checkpoint_revision": "dfaf35de3e30f1867dd8dbc38a7fc9fb52d3914f",
+      "original_weights_sha256": "55d4e2519456c4a9bddf596b0748d630e3b2ce6ff6f4c2b7ed3e07e2b00dad42",
+      "model_sha256": "ca5e1bd8663465a81579274345f045f7a49cb5a96f350d859bb0ec725c1a7c59",
+      "quantization": "Q4_K_M",
+      "runner_revision": "0faee5004297c3bcfa40b7bf11750127b8c1fd7d",
+      "runner_build": "b1-0faee50",
+      "runner_files": {
+        "libggml-base.0.25.3.dylib": "a3665395aa55369723fcaae1f1d4a4a10444a22bc4cc2bedfa229dc0a141232b",
+        "libggml-base.0.dylib": "a3665395aa55369723fcaae1f1d4a4a10444a22bc4cc2bedfa229dc0a141232b",
+        "libggml-base.dylib": "a3665395aa55369723fcaae1f1d4a4a10444a22bc4cc2bedfa229dc0a141232b",
+        "libggml-blas.0.25.3.dylib": "d2c0b041328d706ebbe4a84237782ce7c410b8b83b7061dc6772b97854d5da27",
+        "libggml-blas.0.dylib": "d2c0b041328d706ebbe4a84237782ce7c410b8b83b7061dc6772b97854d5da27",
+        "libggml-blas.dylib": "d2c0b041328d706ebbe4a84237782ce7c410b8b83b7061dc6772b97854d5da27",
+        "libggml-cpu.0.25.3.dylib": "554f0f29181029e62153297839b1c890c2a69ea726b714d5315086dc3d4b8731",
+        "libggml-cpu.0.dylib": "554f0f29181029e62153297839b1c890c2a69ea726b714d5315086dc3d4b8731",
+        "libggml-cpu.dylib": "554f0f29181029e62153297839b1c890c2a69ea726b714d5315086dc3d4b8731",
+        "libggml-metal.0.25.3.dylib": "59c5b581999052f50308e4abc26ed88a2a01b7827f43be24bc7b1c875f940f31",
+        "libggml-metal.0.dylib": "59c5b581999052f50308e4abc26ed88a2a01b7827f43be24bc7b1c875f940f31",
+        "libggml-metal.dylib": "59c5b581999052f50308e4abc26ed88a2a01b7827f43be24bc7b1c875f940f31",
+        "libggml.0.25.3.dylib": "e340aa14fe3b8970e2c56f9b31fd28839415d40bb6de410382f7d9aefda1ca4c",
+        "libggml.0.dylib": "e340aa14fe3b8970e2c56f9b31fd28839415d40bb6de410382f7d9aefda1ca4c",
+        "libggml.dylib": "e340aa14fe3b8970e2c56f9b31fd28839415d40bb6de410382f7d9aefda1ca4c",
+        "libllama-common.0.5.0.dylib": "906ea52594f20588f95bd79e98571b4001dcb46413f3196e20b82cfe74260be3",
+        "libllama-common.0.dylib": "906ea52594f20588f95bd79e98571b4001dcb46413f3196e20b82cfe74260be3",
+        "libllama-common.dylib": "906ea52594f20588f95bd79e98571b4001dcb46413f3196e20b82cfe74260be3",
+        "libllama-quantize-impl.dylib": "f630487ffc5956971b1f9024e87705b1e5513f9f4fac683a1cae1543d5217d47",
+        "libllama-server-impl.dylib": "4660f555181ef5074e573a90136fb2c64f7a63a267a70bc7feea5aa74636dd9d",
+        "libllama.0.5.0.dylib": "fc1116717f5949024ffb9444676de409ca646615f08b2ed76423fcd3b752de90",
+        "libllama.0.dylib": "fc1116717f5949024ffb9444676de409ca646615f08b2ed76423fcd3b752de90",
+        "libllama.dylib": "fc1116717f5949024ffb9444676de409ca646615f08b2ed76423fcd3b752de90",
+        "libmtmd.0.5.0.dylib": "8613483310c76d5c8f35d09bc9ce44c20dabbfc67f6baeb0484e3a5cb81c0e75",
+        "libmtmd.0.dylib": "8613483310c76d5c8f35d09bc9ce44c20dabbfc67f6baeb0484e3a5cb81c0e75",
+        "libmtmd.dylib": "8613483310c76d5c8f35d09bc9ce44c20dabbfc67f6baeb0484e3a5cb81c0e75",
+        "llama-server": "545cfc8c4d2029da7208c1d448412006cec6b567a4fa579b6639ddf83dce795a"
+      },
+      "hardware": "Apple M5",
+      "acceleration": "Apple Metal; measured 43/43 layers offloaded",
+      "license_url": "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-nemotron-open-model-license/",
+      "license_sha256": "2ffd837856bb99d4cee13d17f0b597ecfeb95c38e30abc08d3dffef7d589881d"
+    },
+    "capabilities": {
+      "schema_version": "1",
+      "engine_id": "local-nemotron:nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16",
+      "version": "d68b84fdb4f17548d74af2a98b5fef115fe5ec2f49ad004215d29e56adfb2c40",
+      "family": "nemotron",
+      "domains": [
+        "software",
+        "physical"
+      ],
+      "evidence": "inference",
+      "tier": 0,
+      "max_horizon": 1,
+      "produces_successor": false,
+      "applicability": "Real local model reasoning; never measured safety or live Nebius/NVIDIA simulation",
+      "refines_engine_ids": [],
+      "max_samples": 1,
+      "verification_checks": null,
+      "estimated_cost_usd": null,
+      "estimated_latency_seconds": null
+    }
+  },
+  "order": [
+    "preact",
+    "frozen"
+  ],
+  "rows": [
+    {
+      "variant": "preact",
+      "success": true,
+      "status": "complete",
+      "unsafe": false,
+      "steps": 3,
+      "calls": 32,
+      "agent_calls": 5,
+      "simulation_calls": 16,
+      "latency_ms": 142292.04087500693,
+      "infrastructure_error": null,
+      "unsafe_observation_known": true,
+      "run_id": "403f3cbf8170437fb12090e64c9f074a",
+      "archive_sha256": "a8c21b0121712d41d6d70166dacc9b91b8a3d355dd59f94329c65a74dc83c48a",
+      "alignment_audit": {
+        "predictions": 32,
+        "executed_actions": 3,
+        "aligned_error_rows": 6,
+        "unexecuted_predictions_without_observed_labels": 26
+      }
+    },
+    {
+      "variant": "frozen",
+      "success": true,
+      "status": "complete",
+      "unsafe": false,
+      "steps": 3,
+      "calls": 32,
+      "agent_calls": 5,
+      "simulation_calls": 16,
+      "latency_ms": 159104.99175003497,
+      "infrastructure_error": null,
+      "unsafe_observation_known": true,
+      "run_id": "33901707d214484c93a8be0649871425",
+      "archive_sha256": "c41dee8c2649d605f0b4099fcf134895b3fac8fdcf0ee7c2f3f7c9892f339f2a",
+      "alignment_audit": {
+        "predictions": 32,
+        "executed_actions": 3,
+        "aligned_error_rows": 6,
+        "unexecuted_predictions_without_observed_labels": 26
+      }
+    }
+  ],
+  "initial_attempt": {
+    "error_type": "ConnectError",
+    "generated_episodes": 0,
+    "output": ".cache/benchmark-review/deadline-diagnosis-v2"
+  },
+  "limitations": [
+    "Current defensive source differs only in generated-code repair grammar from original cohort source.",
+    "Single case and sequential host execution cannot establish causal component benefits.",
+    "Original six primary timeouts and complete cohort remain unchanged.",
+    "Actual local NVIDIA inference and Cartesian MuJoCo only; no Nebius, Cosmos or Isaac GPU validation."
+  ],
+  "original_timeout_archive_sha256": "db3f4d93b87d5e1de4f4e902479b0e244f78420c505cf9dd1b6f68e2f2c064e4",
+  "semantic_comparison": {
+    "excluded_fields": [
+      "action.id"
+    ],
+    "original_observed_prefix_matches": true,
+    "original_observed_prefix_actions": 2,
+    "both_diagnostic_observed_actions_match": true,
+    "diagnostic_observed_actions": 3,
+    "diagnostic_action_semantics_sha256": "e339bb9c05a6fe96a9a511e7f4c15ec6aa20ea704d83e278f458642c52ee923c"
+  },
+  "conclusion": "Original deadline did not reproduce on this case under current host conditions; no architecture or benchmark-policy change justified. Original six frozen timeouts remain failures."
+}

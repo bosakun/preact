@@ -1,0 +1,1047 @@
+{
+  "protocol_hash": "acd93060e3d1523a8cb7cae38452bc6466f0c3ad4ad088fb428c7f4c6d9c0f3e",
+  "source_hash": "6c76b1990933808490b19a36915278c1425e251033499a71c344e4b73a98014a",
+  "scope": "Bounded first-party program patches and Cartesian MuJoCo scene instances; local heuristic, not sponsor-model evaluation",
+  "split": "held_out",
+  "limitations": [
+    "Authored task families, not independently sourced repositories or robot hardware",
+    "Program oracle sampling is reproducible but not a security boundary for arbitrary code",
+    "MuJoCo scene dynamics are observed; no real visual perception or NVIDIA validation",
+    "Direct and PreAct use identical candidates and cheap ranking; no LLM in this local protocol",
+    "Zero local API cost excludes CPU and operational infrastructure cost"
+  ],
+  "metrics": {
+    "software/direct": {
+      "n": 120,
+      "success_rate": 0.875,
+      "unsafe_episode_rate": 0.125,
+      "unsafe_episode_bounds": [
+        0.125,
+        0.125
+      ],
+      "unsafe_observation_coverage": 1.0,
+      "unsafe_action_rate": 0.10135135135135136,
+      "unsafe_action_bounds": [
+        0.10135135135135136,
+        0.10135135135135136
+      ],
+      "success_wilson_95": [
+        0.8039690855177497,
+        0.9227657111903032
+      ],
+      "unsafe_wilson_95": [
+        0.07723428880969682,
+        0.19603091448225032
+      ],
+      "abstention_rate": 0.0,
+      "infrastructure_failure_rate": 0.0,
+      "brier": 0.09153513513513513,
+      "log_loss": 0.33091678144268666,
+      "ece_10_bins": 0.021351351351351355,
+      "risk_brier": 0.09617027027027027,
+      "risk_log_loss": 0.38276650713017546,
+      "risk_ece_10_bins": 0.07135135135135136,
+      "labeled_risk_predictions": 148,
+      "continuous_errors": {},
+      "labeled_predictions": 148,
+      "latency_p50_ms": 76.39216649840819,
+      "latency_p95_ms": 162.33429200656246,
+      "mean_calls": 1.2333333333333334,
+      "mean_agent_calls": 0,
+      "mean_execution_calls": 1.2333333333333334,
+      "mean_aborted_before_dispatch": 0,
+      "cost_coverage": 1.0,
+      "mean_cost_usd": 0.0,
+      "allocated_infrastructure_cost_usd": null,
+      "mean_simulation_calls": 0,
+      "mean_disagreement": 0.0
+    },
+    "software/preact": {
+      "n": 120,
+      "success_rate": 1.0,
+      "unsafe_episode_rate": 0.0,
+      "unsafe_episode_bounds": [
+        0.0,
+        0.0
+      ],
+      "unsafe_observation_coverage": 1.0,
+      "unsafe_action_rate": 0.0,
+      "unsafe_action_bounds": [
+        0.0,
+        0.0
+      ],
+      "success_wilson_95": [
+        0.9689797289440706,
+        1
+      ],
+      "unsafe_wilson_95": [
+        0,
+        0.031020271055929513
+      ],
+      "abstention_rate": 0.0,
+      "infrastructure_failure_rate": 0.0,
+      "brier": 0.0031999999999999967,
+      "log_loss": 0.041690804470025496,
+      "ece_10_bins": 0.040000000000000036,
+      "risk_brier": 0.00045,
+      "risk_log_loss": 0.015229603742854276,
+      "risk_ece_10_bins": 0.015,
+      "labeled_risk_predictions": 240,
+      "continuous_errors": {
+        "goal_progress": {
+          "n": 120,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        },
+        "test_pass_fraction": {
+          "n": 120,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        }
+      },
+      "labeled_predictions": 240,
+      "latency_p50_ms": 237.38581300131045,
+      "latency_p95_ms": 328.0471670004772,
+      "mean_calls": 5.333333333333333,
+      "mean_agent_calls": 0,
+      "mean_execution_calls": 1,
+      "mean_aborted_before_dispatch": 0,
+      "cost_coverage": 1.0,
+      "mean_cost_usd": 0.0,
+      "allocated_infrastructure_cost_usd": null,
+      "mean_simulation_calls": 0,
+      "mean_disagreement": 0.15399999999999997
+    },
+    "software/flat": {
+      "n": 120,
+      "success_rate": 1.0,
+      "unsafe_episode_rate": 0.0,
+      "unsafe_episode_bounds": [
+        0.0,
+        0.0
+      ],
+      "unsafe_observation_coverage": 1.0,
+      "unsafe_action_rate": 0.0,
+      "unsafe_action_bounds": [
+        0.0,
+        0.0
+      ],
+      "success_wilson_95": [
+        0.9689797289440706,
+        1
+      ],
+      "unsafe_wilson_95": [
+        0,
+        0.031020271055929513
+      ],
+      "abstention_rate": 0.0,
+      "infrastructure_failure_rate": 0.0,
+      "brier": 0.0031999999999999967,
+      "log_loss": 0.041690804470025496,
+      "ece_10_bins": 0.040000000000000036,
+      "risk_brier": 0.00045,
+      "risk_log_loss": 0.015229603742854276,
+      "risk_ece_10_bins": 0.015,
+      "labeled_risk_predictions": 240,
+      "continuous_errors": {
+        "goal_progress": {
+          "n": 120,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        },
+        "test_pass_fraction": {
+          "n": 120,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        }
+      },
+      "labeled_predictions": 240,
+      "latency_p50_ms": 203.2906875028857,
+      "latency_p95_ms": 272.37599999352824,
+      "mean_calls": 4,
+      "mean_agent_calls": 0,
+      "mean_execution_calls": 1,
+      "mean_aborted_before_dispatch": 0,
+      "cost_coverage": 1.0,
+      "mean_cost_usd": 0.0,
+      "allocated_infrastructure_cost_usd": null,
+      "mean_simulation_calls": 0,
+      "mean_disagreement": 0.1522222222222222
+    },
+    "software/fixed": {
+      "n": 120,
+      "success_rate": 1.0,
+      "unsafe_episode_rate": 0.0,
+      "unsafe_episode_bounds": [
+        0.0,
+        0.0
+      ],
+      "unsafe_observation_coverage": 1.0,
+      "unsafe_action_rate": 0.0,
+      "unsafe_action_bounds": [
+        0.0,
+        0.0
+      ],
+      "success_wilson_95": [
+        0.9689797289440706,
+        1
+      ],
+      "unsafe_wilson_95": [
+        0,
+        0.031020271055929513
+      ],
+      "abstention_rate": 0.0,
+      "infrastructure_failure_rate": 0.0,
+      "brier": 0.0031999999999999967,
+      "log_loss": 0.041690804470025496,
+      "ece_10_bins": 0.040000000000000036,
+      "risk_brier": 0.00045,
+      "risk_log_loss": 0.015229603742854276,
+      "risk_ece_10_bins": 0.015,
+      "labeled_risk_predictions": 240,
+      "continuous_errors": {
+        "goal_progress": {
+          "n": 120,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        },
+        "test_pass_fraction": {
+          "n": 120,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        }
+      },
+      "labeled_predictions": 240,
+      "latency_p50_ms": 245.14883350639138,
+      "latency_p95_ms": 348.06729199772235,
+      "mean_calls": 5.333333333333333,
+      "mean_agent_calls": 0,
+      "mean_execution_calls": 1,
+      "mean_aborted_before_dispatch": 0,
+      "cost_coverage": 1.0,
+      "mean_cost_usd": 0.0,
+      "allocated_infrastructure_cost_usd": null,
+      "mean_simulation_calls": 0,
+      "mean_disagreement": 0.15399999999999997
+    },
+    "software/frozen": {
+      "n": 120,
+      "success_rate": 1.0,
+      "unsafe_episode_rate": 0.0,
+      "unsafe_episode_bounds": [
+        0.0,
+        0.0
+      ],
+      "unsafe_observation_coverage": 1.0,
+      "unsafe_action_rate": 0.0,
+      "unsafe_action_bounds": [
+        0.0,
+        0.0
+      ],
+      "success_wilson_95": [
+        0.9689797289440706,
+        1
+      ],
+      "unsafe_wilson_95": [
+        0,
+        0.031020271055929513
+      ],
+      "abstention_rate": 0.0,
+      "infrastructure_failure_rate": 0.0,
+      "brier": 0.0031999999999999967,
+      "log_loss": 0.041690804470025496,
+      "ece_10_bins": 0.040000000000000036,
+      "risk_brier": 0.00045,
+      "risk_log_loss": 0.015229603742854276,
+      "risk_ece_10_bins": 0.015,
+      "labeled_risk_predictions": 240,
+      "continuous_errors": {
+        "goal_progress": {
+          "n": 120,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        },
+        "test_pass_fraction": {
+          "n": 120,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        }
+      },
+      "labeled_predictions": 240,
+      "latency_p50_ms": 242.3405834924779,
+      "latency_p95_ms": 343.5732499929145,
+      "mean_calls": 5.333333333333333,
+      "mean_agent_calls": 0,
+      "mean_execution_calls": 1,
+      "mean_aborted_before_dispatch": 0,
+      "cost_coverage": 1.0,
+      "mean_cost_usd": 0.0,
+      "allocated_infrastructure_cost_usd": null,
+      "mean_simulation_calls": 0,
+      "mean_disagreement": 0.15399999999999997
+    },
+    "software/single": {
+      "n": 120,
+      "success_rate": 0.0,
+      "unsafe_episode_rate": 0.0,
+      "unsafe_episode_bounds": [
+        0.0,
+        0.0
+      ],
+      "unsafe_observation_coverage": 1.0,
+      "unsafe_action_rate": null,
+      "unsafe_action_bounds": null,
+      "success_wilson_95": [
+        0,
+        0.031020271055929513
+      ],
+      "unsafe_wilson_95": [
+        0,
+        0.031020271055929513
+      ],
+      "abstention_rate": 1.0,
+      "infrastructure_failure_rate": 0.0,
+      "brier": null,
+      "log_loss": null,
+      "ece_10_bins": null,
+      "risk_brier": null,
+      "risk_log_loss": null,
+      "risk_ece_10_bins": null,
+      "labeled_risk_predictions": 0,
+      "continuous_errors": {},
+      "labeled_predictions": 0,
+      "latency_p50_ms": 20.549354499962647,
+      "latency_p95_ms": 27.92662499996368,
+      "mean_calls": 2,
+      "mean_agent_calls": 0,
+      "mean_execution_calls": 0,
+      "mean_aborted_before_dispatch": 0,
+      "cost_coverage": 1.0,
+      "mean_cost_usd": 0.0,
+      "allocated_infrastructure_cost_usd": null,
+      "mean_simulation_calls": 0,
+      "mean_disagreement": 0.0
+    },
+    "software/no_disagreement": {
+      "n": 120,
+      "success_rate": 1.0,
+      "unsafe_episode_rate": 0.0,
+      "unsafe_episode_bounds": [
+        0.0,
+        0.0
+      ],
+      "unsafe_observation_coverage": 1.0,
+      "unsafe_action_rate": 0.0,
+      "unsafe_action_bounds": [
+        0.0,
+        0.0
+      ],
+      "success_wilson_95": [
+        0.9689797289440706,
+        1
+      ],
+      "unsafe_wilson_95": [
+        0,
+        0.031020271055929513
+      ],
+      "abstention_rate": 0.0,
+      "infrastructure_failure_rate": 0.0,
+      "brier": 0.0031999999999999967,
+      "log_loss": 0.041690804470025496,
+      "ece_10_bins": 0.040000000000000036,
+      "risk_brier": 0.00045,
+      "risk_log_loss": 0.015229603742854276,
+      "risk_ece_10_bins": 0.015,
+      "labeled_risk_predictions": 240,
+      "continuous_errors": {
+        "goal_progress": {
+          "n": 120,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        },
+        "test_pass_fraction": {
+          "n": 120,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        }
+      },
+      "labeled_predictions": 240,
+      "latency_p50_ms": 239.70943749736762,
+      "latency_p95_ms": 339.1566250065807,
+      "mean_calls": 5.333333333333333,
+      "mean_agent_calls": 0,
+      "mean_execution_calls": 1,
+      "mean_aborted_before_dispatch": 0,
+      "cost_coverage": 1.0,
+      "mean_cost_usd": 0.0,
+      "allocated_infrastructure_cost_usd": null,
+      "mean_simulation_calls": 0,
+      "mean_disagreement": 0.15399999999999997
+    },
+    "software/online": {
+      "n": 120,
+      "success_rate": 1.0,
+      "unsafe_episode_rate": 0.0,
+      "unsafe_episode_bounds": [
+        0.0,
+        0.0
+      ],
+      "unsafe_observation_coverage": 1.0,
+      "unsafe_action_rate": 0.0,
+      "unsafe_action_bounds": [
+        0.0,
+        0.0
+      ],
+      "success_wilson_95": [
+        0.9689797289440706,
+        1
+      ],
+      "unsafe_wilson_95": [
+        0,
+        0.031020271055929513
+      ],
+      "abstention_rate": 0.0,
+      "infrastructure_failure_rate": 0.0,
+      "brier": 0.0031999999999999967,
+      "log_loss": 0.041690804470025496,
+      "ece_10_bins": 0.040000000000000036,
+      "risk_brier": 0.00045,
+      "risk_log_loss": 0.015229603742854276,
+      "risk_ece_10_bins": 0.015,
+      "labeled_risk_predictions": 240,
+      "continuous_errors": {
+        "goal_progress": {
+          "n": 120,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        },
+        "test_pass_fraction": {
+          "n": 120,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        }
+      },
+      "labeled_predictions": 240,
+      "latency_p50_ms": 243.16243799694348,
+      "latency_p95_ms": 339.26291699754074,
+      "mean_calls": 5.333333333333333,
+      "mean_agent_calls": 0,
+      "mean_execution_calls": 1,
+      "mean_aborted_before_dispatch": 0,
+      "cost_coverage": 1.0,
+      "mean_cost_usd": 0.0,
+      "allocated_infrastructure_cost_usd": null,
+      "mean_simulation_calls": 0,
+      "mean_disagreement": 0.15399999999999997
+    },
+    "physical/direct": {
+      "n": 120,
+      "success_rate": 0.525,
+      "unsafe_episode_rate": 0.475,
+      "unsafe_episode_bounds": [
+        0.475,
+        0.475
+      ],
+      "unsafe_observation_coverage": 1.0,
+      "unsafe_action_rate": 0.1701492537313433,
+      "unsafe_action_bounds": [
+        0.1701492537313433,
+        0.1701492537313433
+      ],
+      "success_wilson_95": [
+        0.43626835924004914,
+        0.6121806272071544
+      ],
+      "unsafe_wilson_95": [
+        0.3878193727928457,
+        0.5637316407599509
+      ],
+      "abstention_rate": 0.0,
+      "infrastructure_failure_rate": 0.0,
+      "brier": 0.14932537313432837,
+      "log_loss": 0.4989451343600799,
+      "ece_10_bins": 0.0901492537313433,
+      "risk_brier": 0.16084029850746268,
+      "risk_log_loss": 0.6219148054566804,
+      "risk_ece_10_bins": 0.1401492537313433,
+      "labeled_risk_predictions": 335,
+      "continuous_errors": {},
+      "labeled_predictions": 335,
+      "latency_p50_ms": 67.09799950476736,
+      "latency_p95_ms": 138.4331659937743,
+      "mean_calls": 2.7916666666666665,
+      "mean_agent_calls": 0,
+      "mean_execution_calls": 2.7916666666666665,
+      "mean_aborted_before_dispatch": 0,
+      "cost_coverage": 1.0,
+      "mean_cost_usd": 0.0,
+      "allocated_infrastructure_cost_usd": null,
+      "mean_simulation_calls": 0,
+      "mean_disagreement": 0.0
+    },
+    "physical/preact": {
+      "n": 120,
+      "success_rate": 0.8333333333333334,
+      "unsafe_episode_rate": 0.0,
+      "unsafe_episode_bounds": [
+        0.0,
+        0.0
+      ],
+      "unsafe_observation_coverage": 1.0,
+      "unsafe_action_rate": 0.0,
+      "unsafe_action_bounds": [
+        0.0,
+        0.0
+      ],
+      "success_wilson_95": [
+        0.756545606089762,
+        0.8894408798729518
+      ],
+      "unsafe_wilson_95": [
+        0,
+        0.031020271055929513
+      ],
+      "abstention_rate": 0.16666666666666666,
+      "infrastructure_failure_rate": 0.0,
+      "brier": 0.0031999999999999967,
+      "log_loss": 0.041690804470025496,
+      "ece_10_bins": 0.040000000000000036,
+      "risk_brier": 0.00045,
+      "risk_log_loss": 0.015229603742854276,
+      "risk_ece_10_bins": 0.015,
+      "labeled_risk_predictions": 670,
+      "continuous_errors": {
+        "contacts": {
+          "n": 335,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        },
+        "tracking_error": {
+          "n": 335,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        },
+        "target_distance": {
+          "n": 335,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        },
+        "goal_progress": {
+          "n": 335,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        },
+        "object_position": {
+          "n": 335,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        }
+      },
+      "labeled_predictions": 670,
+      "latency_p50_ms": 448.537396005122,
+      "latency_p95_ms": 717.2816249949392,
+      "mean_calls": 30.583333333333332,
+      "mean_agent_calls": 0,
+      "mean_execution_calls": 2.7916666666666665,
+      "mean_aborted_before_dispatch": 0,
+      "cost_coverage": 1.0,
+      "mean_cost_usd": 0.0,
+      "allocated_infrastructure_cost_usd": null,
+      "mean_simulation_calls": 15.291666666666666,
+      "mean_disagreement": 0.2450261128573244
+    },
+    "physical/flat": {
+      "n": 120,
+      "success_rate": 0.65,
+      "unsafe_episode_rate": 0.0,
+      "unsafe_episode_bounds": [
+        0.0,
+        0.0
+      ],
+      "unsafe_observation_coverage": 1.0,
+      "unsafe_action_rate": 0.0,
+      "unsafe_action_bounds": [
+        0.0,
+        0.0
+      ],
+      "success_wilson_95": [
+        0.5612115776488139,
+        0.7294823410344072
+      ],
+      "unsafe_wilson_95": [
+        0,
+        0.031020271055929513
+      ],
+      "abstention_rate": 0.35,
+      "infrastructure_failure_rate": 0.0,
+      "brier": 0.0031999999999999967,
+      "log_loss": 0.041690804470025496,
+      "ece_10_bins": 0.040000000000000036,
+      "risk_brier": 0.00045,
+      "risk_log_loss": 0.015229603742854276,
+      "risk_ece_10_bins": 0.015,
+      "labeled_risk_predictions": 626,
+      "continuous_errors": {
+        "contacts": {
+          "n": 313,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        },
+        "tracking_error": {
+          "n": 313,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        },
+        "target_distance": {
+          "n": 313,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        },
+        "goal_progress": {
+          "n": 313,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        },
+        "object_position": {
+          "n": 313,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        }
+      },
+      "labeled_predictions": 626,
+      "latency_p50_ms": 206.7145829932997,
+      "latency_p95_ms": 412.9537499975413,
+      "mean_calls": 11.916666666666666,
+      "mean_agent_calls": 0,
+      "mean_execution_calls": 2.6083333333333334,
+      "mean_aborted_before_dispatch": 0,
+      "cost_coverage": 1.0,
+      "mean_cost_usd": 0.0,
+      "allocated_infrastructure_cost_usd": null,
+      "mean_simulation_calls": 5.958333333333333,
+      "mean_disagreement": 0.19655740740740738
+    },
+    "physical/fixed": {
+      "n": 120,
+      "success_rate": 0.8333333333333334,
+      "unsafe_episode_rate": 0.0,
+      "unsafe_episode_bounds": [
+        0.0,
+        0.0
+      ],
+      "unsafe_observation_coverage": 1.0,
+      "unsafe_action_rate": 0.0,
+      "unsafe_action_bounds": [
+        0.0,
+        0.0
+      ],
+      "success_wilson_95": [
+        0.756545606089762,
+        0.8894408798729518
+      ],
+      "unsafe_wilson_95": [
+        0,
+        0.031020271055929513
+      ],
+      "abstention_rate": 0.16666666666666666,
+      "infrastructure_failure_rate": 0.0,
+      "brier": 0.0031999999999999967,
+      "log_loss": 0.041690804470025496,
+      "ece_10_bins": 0.040000000000000036,
+      "risk_brier": 0.00045,
+      "risk_log_loss": 0.015229603742854276,
+      "risk_ece_10_bins": 0.015,
+      "labeled_risk_predictions": 670,
+      "continuous_errors": {
+        "contacts": {
+          "n": 335,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        },
+        "tracking_error": {
+          "n": 335,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        },
+        "target_distance": {
+          "n": 335,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        },
+        "goal_progress": {
+          "n": 335,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        },
+        "object_position": {
+          "n": 335,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        }
+      },
+      "labeled_predictions": 670,
+      "latency_p50_ms": 441.36810450436315,
+      "latency_p95_ms": 691.4620000025025,
+      "mean_calls": 30.583333333333332,
+      "mean_agent_calls": 0,
+      "mean_execution_calls": 2.7916666666666665,
+      "mean_aborted_before_dispatch": 0,
+      "cost_coverage": 1.0,
+      "mean_cost_usd": 0.0,
+      "allocated_infrastructure_cost_usd": null,
+      "mean_simulation_calls": 15.291666666666666,
+      "mean_disagreement": 0.2450261128573244
+    },
+    "physical/frozen": {
+      "n": 120,
+      "success_rate": 0.8333333333333334,
+      "unsafe_episode_rate": 0.0,
+      "unsafe_episode_bounds": [
+        0.0,
+        0.0
+      ],
+      "unsafe_observation_coverage": 1.0,
+      "unsafe_action_rate": 0.0,
+      "unsafe_action_bounds": [
+        0.0,
+        0.0
+      ],
+      "success_wilson_95": [
+        0.756545606089762,
+        0.8894408798729518
+      ],
+      "unsafe_wilson_95": [
+        0,
+        0.031020271055929513
+      ],
+      "abstention_rate": 0.16666666666666666,
+      "infrastructure_failure_rate": 0.0,
+      "brier": 0.0031999999999999967,
+      "log_loss": 0.041690804470025496,
+      "ece_10_bins": 0.040000000000000036,
+      "risk_brier": 0.00045,
+      "risk_log_loss": 0.015229603742854276,
+      "risk_ece_10_bins": 0.015,
+      "labeled_risk_predictions": 670,
+      "continuous_errors": {
+        "contacts": {
+          "n": 335,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        },
+        "tracking_error": {
+          "n": 335,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        },
+        "target_distance": {
+          "n": 335,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        },
+        "goal_progress": {
+          "n": 335,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        },
+        "object_position": {
+          "n": 335,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        }
+      },
+      "labeled_predictions": 670,
+      "latency_p50_ms": 430.1913329982199,
+      "latency_p95_ms": 742.8899999940768,
+      "mean_calls": 30.583333333333332,
+      "mean_agent_calls": 0,
+      "mean_execution_calls": 2.7916666666666665,
+      "mean_aborted_before_dispatch": 0,
+      "cost_coverage": 1.0,
+      "mean_cost_usd": 0.0,
+      "allocated_infrastructure_cost_usd": null,
+      "mean_simulation_calls": 15.291666666666666,
+      "mean_disagreement": 0.2450261128573244
+    },
+    "physical/single": {
+      "n": 120,
+      "success_rate": 0.0,
+      "unsafe_episode_rate": 0.0,
+      "unsafe_episode_bounds": [
+        0.0,
+        0.0
+      ],
+      "unsafe_observation_coverage": 1.0,
+      "unsafe_action_rate": null,
+      "unsafe_action_bounds": null,
+      "success_wilson_95": [
+        0,
+        0.031020271055929513
+      ],
+      "unsafe_wilson_95": [
+        0,
+        0.031020271055929513
+      ],
+      "abstention_rate": 1.0,
+      "infrastructure_failure_rate": 0.0,
+      "brier": null,
+      "log_loss": null,
+      "ece_10_bins": null,
+      "risk_brier": null,
+      "risk_log_loss": null,
+      "risk_ece_10_bins": null,
+      "labeled_risk_predictions": 0,
+      "continuous_errors": {},
+      "labeled_predictions": 0,
+      "latency_p50_ms": 27.161270496435463,
+      "latency_p95_ms": 44.9873750039842,
+      "mean_calls": 3,
+      "mean_agent_calls": 0,
+      "mean_execution_calls": 0,
+      "mean_aborted_before_dispatch": 0,
+      "cost_coverage": 1.0,
+      "mean_cost_usd": 0.0,
+      "allocated_infrastructure_cost_usd": null,
+      "mean_simulation_calls": 0,
+      "mean_disagreement": 0.0
+    },
+    "physical/no_disagreement": {
+      "n": 120,
+      "success_rate": 0.8333333333333334,
+      "unsafe_episode_rate": 0.0,
+      "unsafe_episode_bounds": [
+        0.0,
+        0.0
+      ],
+      "unsafe_observation_coverage": 1.0,
+      "unsafe_action_rate": 0.0,
+      "unsafe_action_bounds": [
+        0.0,
+        0.0
+      ],
+      "success_wilson_95": [
+        0.756545606089762,
+        0.8894408798729518
+      ],
+      "unsafe_wilson_95": [
+        0,
+        0.031020271055929513
+      ],
+      "abstention_rate": 0.16666666666666666,
+      "infrastructure_failure_rate": 0.0,
+      "brier": 0.0031999999999999967,
+      "log_loss": 0.041690804470025496,
+      "ece_10_bins": 0.040000000000000036,
+      "risk_brier": 0.00045,
+      "risk_log_loss": 0.015229603742854276,
+      "risk_ece_10_bins": 0.015,
+      "labeled_risk_predictions": 670,
+      "continuous_errors": {
+        "contacts": {
+          "n": 335,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        },
+        "tracking_error": {
+          "n": 335,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        },
+        "target_distance": {
+          "n": 335,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        },
+        "goal_progress": {
+          "n": 335,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        },
+        "object_position": {
+          "n": 335,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        }
+      },
+      "labeled_predictions": 670,
+      "latency_p50_ms": 432.87422900175443,
+      "latency_p95_ms": 698.8476249971427,
+      "mean_calls": 30.583333333333332,
+      "mean_agent_calls": 0,
+      "mean_execution_calls": 2.7916666666666665,
+      "mean_aborted_before_dispatch": 0,
+      "cost_coverage": 1.0,
+      "mean_cost_usd": 0.0,
+      "allocated_infrastructure_cost_usd": null,
+      "mean_simulation_calls": 15.291666666666666,
+      "mean_disagreement": 0.2450261128573244
+    },
+    "physical/online": {
+      "n": 120,
+      "success_rate": 0.8333333333333334,
+      "unsafe_episode_rate": 0.0,
+      "unsafe_episode_bounds": [
+        0.0,
+        0.0
+      ],
+      "unsafe_observation_coverage": 1.0,
+      "unsafe_action_rate": 0.0,
+      "unsafe_action_bounds": [
+        0.0,
+        0.0
+      ],
+      "success_wilson_95": [
+        0.756545606089762,
+        0.8894408798729518
+      ],
+      "unsafe_wilson_95": [
+        0,
+        0.031020271055929513
+      ],
+      "abstention_rate": 0.16666666666666666,
+      "infrastructure_failure_rate": 0.0,
+      "brier": 0.0031999999999999967,
+      "log_loss": 0.041690804470025496,
+      "ece_10_bins": 0.040000000000000036,
+      "risk_brier": 0.00045,
+      "risk_log_loss": 0.015229603742854276,
+      "risk_ece_10_bins": 0.015,
+      "labeled_risk_predictions": 670,
+      "continuous_errors": {
+        "contacts": {
+          "n": 335,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        },
+        "tracking_error": {
+          "n": 335,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        },
+        "target_distance": {
+          "n": 335,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        },
+        "goal_progress": {
+          "n": 335,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        },
+        "object_position": {
+          "n": 335,
+          "mean_error": 0.0,
+          "interval_coverage": null,
+          "interval_sample_count": 0
+        }
+      },
+      "labeled_predictions": 670,
+      "latency_p50_ms": 478.4399169948301,
+      "latency_p95_ms": 802.9983330052346,
+      "mean_calls": 30.583333333333332,
+      "mean_agent_calls": 0,
+      "mean_execution_calls": 2.7916666666666665,
+      "mean_aborted_before_dispatch": 0,
+      "cost_coverage": 1.0,
+      "mean_cost_usd": 0.0,
+      "allocated_infrastructure_cost_usd": null,
+      "mean_simulation_calls": 15.291666666666666,
+      "mean_disagreement": 0.2450261128573244
+    }
+  },
+  "paired_analysis": {
+    "software": {
+      "paired_tasks": 24,
+      "paired_episodes": 120,
+      "success": {
+        "mean_task_delta": 0.125,
+        "task_cluster_bootstrap_95": [
+          0.0,
+          0.25
+        ]
+      },
+      "unsafe": {
+        "mean_task_delta": -0.125,
+        "task_cluster_bootstrap_95": [
+          -0.2916666666666667,
+          0.0
+        ]
+      },
+      "steps": {
+        "mean_task_delta": -0.23333333333333334,
+        "task_cluster_bootstrap_95": [
+          -0.39999999999999997,
+          -0.08333333333333333
+        ]
+      },
+      "warning": null
+    },
+    "physical": {
+      "paired_tasks": 24,
+      "paired_episodes": 120,
+      "success": {
+        "mean_task_delta": 0.30833333333333335,
+        "task_cluster_bootstrap_95": [
+          0.13312500000000002,
+          0.47500000000000003
+        ]
+      },
+      "unsafe": {
+        "mean_task_delta": -0.475,
+        "task_cluster_bootstrap_95": [
+          -0.6666666666666666,
+          -0.26666666666666666
+        ]
+      },
+      "steps": {
+        "mean_task_delta": 0.0,
+        "task_cluster_bootstrap_95": [
+          -0.4002083333333333,
+          0.45
+        ]
+      },
+      "warning": null
+    }
+  }
+}

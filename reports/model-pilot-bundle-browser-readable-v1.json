@@ -1,0 +1,80 @@
+{
+  "status": "passed-two-world-recorded-model-bundle-browser",
+  "scope": "Actual exported historical local NVIDIA/MuJoCo evidence in current shared renderer. Recorded replay only; no new inference, execution or calibration labels.",
+  "checked_on": "2026-10-05",
+  "worlds": {
+    "software": {
+      "run_id": "2fa226ad53484ef5891d07cd99c648aa",
+      "status": "recorded",
+      "rendered_future_cards": 3,
+      "visible_error_rows": 2,
+      "initial_executed_card_width": 249.4117431640625,
+      "screenshot": ".cache/benchmark-review/browser-model-pilot-readable-v1/software.png",
+      "screenshot_sha256": "475c2387685ea366532384ec7818904fb1ab29f37a92309e2084dae91af2fba6"
+    },
+    "physical": {
+      "run_id": "524e3f125f6142ce95b2f904e63defd7",
+      "status": "recorded",
+      "rendered_future_cards": 4,
+      "visible_error_rows": 2,
+      "initial_executed_card_width": 169.46429443359375,
+      "screenshot": ".cache/benchmark-review/browser-model-pilot-readable-v1/physical.png",
+      "screenshot_sha256": "4be23bb73af8c3e6224f8738af85a2f343ad5107ad3c8bbb97193812f71dc5b4"
+    }
+  },
+  "page_errors": [],
+  "non_get_requests": [],
+  "run_count_before": 2,
+  "run_count_after": 2,
+  "live_nebius_validation": false,
+  "cosmos_validation": false,
+  "isaac_gpu_validation": false,
+  "served_runtime_source_hash": "5720e2416adbf466488ce3aec800ac22906288e5b5b473eaeff0c36b5227415e",
+  "recorded_original_source_hash": "6c76b1990933808490b19a36915278c1425e251033499a71c344e4b73a98014a",
+  "presentation_stage": "after readability repair",
+  "replay_database_final_audit": {
+    "runs": [
+      [
+        "2fa226ad53484ef5891d07cd99c648aa",
+        "recorded"
+      ],
+      [
+        "524e3f125f6142ce95b2f904e63defd7",
+        "recorded"
+      ]
+    ],
+    "prediction_error_rows": 0,
+    "execution_receipts": 0,
+    "jobs": 0
+  },
+  "review_api_clean_shutdown": true,
+  "frontend_source_sha256": {
+    "web/src/main.tsx": "ffb3d2612dbb02abb61a331ad18a5791bd001b9d7e4836091844b0809bb4e09f",
+    "web/src/style.css": "0a6e038d89dc96958938c787d9c0d97ecbdaaa22dcdd4477e2266a240e5e012e"
+  },
+  "production_assets_sha256": {
+    "web/dist/assets/index-BcUDRFvv.js": "cc6dc795c71bca104d4befe89753c7b5939a04d5db79bfa26701066d9b61b7d7",
+    "web/dist/assets/index-CC7u39kq.css": "a4ad94c0d717436ac0d28dc016feeb34e63fdfc906883a028b9f462b44907dbd",
+    "web/dist/index.html": "0e10047290ae04fd7f85f0623ce8ba8998068831963359719c311f1cb529b220"
+  },
+  "fresh_local_browser_suite": {
+    "passed": 6,
+    "duration_seconds": 12.9,
+    "log": ".cache/readable-tree-browser-tests.log",
+    "log_sha256": "2d1d596cfe1aacaf368045ddad342538f14d4a23220ba08c9c3844a575514da2",
+    "separate_database": ".cache/readable-tree-browser.db",
+    "api_clean_shutdown": true,
+    "model_inference": false
+  },
+  "build": {
+    "status": "passed TypeScript and Vite production build",
+    "log": ".cache/bundle-readable-tree-build.log",
+    "log_sha256": "4571065d020798d3a1f62ff1e1bc4194f90e18b6f447d4b748923a3e99154f78"
+  },
+  "current_local_screenshots_sha256": {
+    "reports/software-tree.png": "1cf69ef9193054d82d7eb066a3f1345103afa6d7cf384fbe1d0daddb074b387a",
+    "reports/physical-tree.png": "b3b15f225c4759703d797306d49d7bcad6ff87d354dcfcfb95dce6b1cf4cce9e",
+    "reports/repository-workflow.png": "8eb8753d82d956a7e2fa57d46e40cadd5e3cbe437d0b07860a3a6cf9c3e541c5"
+  },
+  "limits": "Local browser proof; archived inference is historical. Earlier image, footage and operational screenshot receipts retain their original frontend scope. Human comprehension, public judge access and sponsor services remain unvalidated."
+}

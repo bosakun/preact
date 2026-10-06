@@ -1,0 +1,71 @@
+{
+  "checked_on": "2026-10-05",
+  "status": "passed-local-production-readable-tree",
+  "scope": "Actual rebuilt non-root PostgreSQL app and browser validation on loopback; no public, Nebius, Cosmos or Isaac GPU validation. Frozen runtime source preserved.",
+  "source_hash": "5720e2416adbf466488ce3aec800ac22906288e5b5b473eaeff0c36b5227415e",
+  "frontend_revision": "bf19c7c",
+  "image_id": "sha256:d638561b14b959431a6cd44dbf8ba3c30f2aef886d9ff8543ce2101c77be8b92",
+  "uid": 10001,
+  "compose_project": "preact-verify",
+  "health": {
+    "status": "ok",
+    "mode": "local",
+    "live_sponsor_validation": false
+  },
+  "browser": {
+    "passed": 6,
+    "duration_seconds": 19.5,
+    "database": "existing PostgreSQL; no reset",
+    "service_tracebacks": 0
+  },
+  "preserved_prior_runs": {
+    "d90d29b350724f79957d3b2743a260d7": {
+      "status": "complete",
+      "success": true,
+      "unsafe": false
+    },
+    "bf7e8a70b48d41b1a750bd62aca94b37": {
+      "status": "complete",
+      "success": true,
+      "unsafe": false
+    }
+  },
+  "actual_container_frontend_assets_sha256": {
+    "web/dist/assets/index-BcUDRFvv.js": "cc6dc795c71bca104d4befe89753c7b5939a04d5db79bfa26701066d9b61b7d7",
+    "web/dist/assets/index-CC7u39kq.css": "a4ad94c0d717436ac0d28dc016feeb34e63fdfc906883a028b9f462b44907dbd",
+    "web/dist/index.html": "0e10047290ae04fd7f85f0623ce8ba8998068831963359719c311f1cb529b220"
+  },
+  "frontend_source_sha256": {
+    "web/src/main.tsx": "ffb3d2612dbb02abb61a331ad18a5791bd001b9d7e4836091844b0809bb4e09f",
+    "web/src/style.css": "0a6e038d89dc96958938c787d9c0d97ecbdaaa22dcdd4477e2266a240e5e012e"
+  },
+  "screenshots_sha256": {
+    "reports/software-tree.png": "82d162c1758920ec1c31764a246e23741c4bec52297b8855763743c9c5f65f4f",
+    "reports/physical-tree.png": "edf35944d7228955d73a5c835b2fd3d9f1e67dd183aac6491e8235103c080087",
+    "reports/repository-workflow.png": "20866f4dd5d3abc0446ba0c2dc180e831461f3d172c4325749f559e518669200"
+  },
+  "log_sha256": {
+    ".cache/readable-tree-container-build.log": "7cfe540ed6db1be662d381df13285f11ff95071c99ef0d6aae848b642368f306",
+    ".cache/readable-tree-container-up.log": "9560f8f36ce74f97f3c3e9d0c2840f65ce4cacef6bedd972853ffd7a20f5d945",
+    ".cache/readable-tree-container-up-correct-project.log": "15aeef1fa3c7fff4a1cdeca727b3d7042192e9949fb1e5e08082e1ee31eedc9c",
+    ".cache/readable-tree-production-browser.log": "7014ac9808f5121d6fdb5ea098cd64b9ca979dc09622862e408fae5c4861f3ba",
+    ".cache/readable-tree-container-service.log": "f29def12d6c8fc3dbdd4b959ebe2c3dc8570e246948d846353b921b79429a265"
+  },
+  "configured_secret_values_absent_from_retained_logs": true,
+  "disclosure_review_scope": "Configured local credentials and runner key only; no comprehensive publication review.",
+  "initial_failure": {
+    "condition": "Default Compose project attempted a second loopback app and encountered an allocated port. Existing app remained running.",
+    "repair": "Removed the never-started app and unused network, confirmed existing project, tagged the build for that project and updated only its app successfully."
+  },
+  "access": "127.0.0.1:8000 only; existing local app remains running",
+  "external_acceptance": {
+    "public_repository": false,
+    "public_judge_url": false,
+    "nebius": false,
+    "cosmos": false,
+    "isaac_gpu": false,
+    "remote_ci": false,
+    "youtube": false
+  },
+  "limits": "Defensive bindings fix remains queued on separate branch. Earlier footage and operational screenshot receipts preserve earlier renderer provenance. These local heuristic/Python/MuJoCo runs invoke no model inference. Host work may contribute to contemporaneous benchmark latency."
+}

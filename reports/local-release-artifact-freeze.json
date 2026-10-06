@@ -1,0 +1,76 @@
+{
+  "checked_at": "2026-10-06T09:51:42.187054+00:00",
+  "status": "passed-pinned-private-local-release-artifact-freeze",
+  "source_revision": "b9a38f85f99d79d1fdb02d37724ed150ec2781de",
+  "runtime_source_hash": "44a3b88efeeef1e2daafb724a98d18c2503c2c5c6404864b1da396e416c7d9b1",
+  "scope": "Frozen offline private distributions, full tracked-source archive and complete-history Git bundle with actual fresh private bundle clone/setup/import; not a public release or new test suite run.",
+  "distribution": {
+    "status": "passed-distribution-integrity",
+    "scope": "Source/assets/license/private-path integrity; not installed execution, secret scanning or sponsor validation",
+    "artifacts": {
+      "preact_runtime-0.1.0-py3-none-any.whl": {
+        "sha256": "e009c45acd65e5bb0b2e6fbad9e3150eb4ab77b5de59839c695ee893ea0a9c73",
+        "bytes": 120981,
+        "files": 63,
+        "matched_python_sources": 56
+      },
+      "preact_runtime-0.1.0.tar.gz": {
+        "sha256": "40b44b38f8d52fee552d345f076079f3869223410923adc9ced27e97fb3c35de",
+        "bytes": 1185274,
+        "files": 215,
+        "matched_python_sources": 56
+      }
+    }
+  },
+  "source_archive": {
+    "path": ".cache/preact-source-b9a38f8.tar.gz",
+    "sha256": "6a00b0214d708263495e0e79a5a872430c9b9919d706f5a0928cd1ba05c9839c",
+    "bytes": 3553646,
+    "matched_tracked_files": 333
+  },
+  "git_bundle": {
+    "path": ".cache/preact-source-b9a38f8.bundle",
+    "sha256": "d493d772d3f7fc40536ac74cc792a9cd819b7a58c40bba936394cc56182c5c1a",
+    "bytes": 9691178,
+    "complete_history_verified": true,
+    "actual_clone": "<validation-workspace>/preact-release-bundle-b9a38f8",
+    "exact_revision_and_all_tracked_bytes_match": true,
+    "locked_offline_setup": true,
+    "import_metadata": {
+      "source_hash": "44a3b88efeeef1e2daafb724a98d18c2503c2c5c6404864b1da396e416c7d9b1",
+      "import_path": "<validation-workspace>/preact-release-bundle-b9a38f8/src/preact/__init__.py",
+      "python": "3.12.13",
+      "installed_distribution_count": 54
+    }
+  },
+  "installed_execution": {
+    "exact_wheel_bytes_match_prior_validated_install": true,
+    "receipt": "reports/defensive-bindings-installed-wheel.json",
+    "new_installed_tests": false
+  },
+  "configured_credentials_absent_from_source_archive_and_logs": true,
+  "disclosure_review_scope": "Exact configured local credential values/native runner key and private-path checks; not comprehensive publication review.",
+  "log_sha256": {
+    ".cache/defensive-release-dist-b9a38f8-build.log": "ae25f3affab783982b6647c836fd43233824abe9cce8c7e0e17a232064ff735e",
+    ".cache/defensive-release-bundle-clone.log": "d061b79bebaed2dc7a2ec2d279ba8169fb22ff5f78d6046e5f9d6226c1854a95",
+    ".cache/defensive-release-bundle-setup.log": "bec1e8845c4b1adcb2e2763971f1f1d8c2339fb54d505fdb09a3f899d697ba5e"
+  },
+  "initial_bundle_check": {
+    "issue": "Fresh clone intentionally has no virtual environment; version check preceded setup.",
+    "remediation": "Run documented locked offline uv setup; actual own-source import succeeds."
+  },
+  "related_evidence": [
+    "reports/defensive-release-validation.json",
+    "reports/local-model-defensive-footage.json",
+    "reports/model-v2-ledger-audit-complete.json",
+    "reports/model-v2-bundle-validation.json"
+  ],
+  "published": false,
+  "limits": [
+    "Pinned release artifacts retain this revision; later administrative/progress receipts do not change their scope.",
+    "330 independent-checkout tests and six browser cases are reused from matching runtime/frontend bytes, not rerun in this bundle clone.",
+    "Raw footage/model weights/benchmark archives and secrets remain private, outside tracked-source archive.",
+    "Public repository/judge/YouTube, remote CI, sponsor/GPU/human/entrant gates remain open."
+  ],
+  "publication_path_note": "Machine-specific receipt paths are illustrative normalized locations. Original private receipts and original artifact hashes are preserved; measurements and validation scope are unchanged."
+}

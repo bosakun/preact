@@ -1,0 +1,51 @@
+{
+  "checked_on": "2026-10-05",
+  "status": "defensive-mitigation-validated-main-application-queued",
+  "scope": "First-party bounded repair grammar; structural rejected fixtures are never executed. No reusable bypass, escape or privilege-escalation material.",
+  "property": "Approved operations and module helper call targets have immutable, unambiguous bindings; reserved definitions are rejected.",
+  "baseline": "Four non-executed structural fixtures demonstrated the missing binding invariant.",
+  "local_branch": "defensive/evaluator-bindings",
+  "patch_commits": [
+    "89e979998f65ded8253070120b542cacea7cb300",
+    "7ed6c13a1d0bab994a31b0eef99f1875a136bb07"
+  ],
+  "root_application": "applied-and-validated",
+  "current_root_source_hash": "5720e2416adbf466488ce3aec800ac22906288e5b5b473eaeff0c36b5227415e",
+  "isolated_source_hash": "44a3b88efeeef1e2daafb724a98d18c2503c2c5c6404864b1da396e416c7d9b1",
+  "validation": {
+    "new_structural_cases": 26,
+    "focused_cases": 34,
+    "focused_seconds": 3.93,
+    "full_cases": 317,
+    "full_seconds": 38.8,
+    "lint": "passed",
+    "format_files": 112,
+    "existing_candidate_grammar": "preserved; semantic violations still require executable verification"
+  },
+  "application_barriers": [
+    "Wait for the owned frozen supervisor to terminate with its original process identity.",
+    "Require completed pipeline state, exact protocol/source/model, all 1920 task/condition/seed members and complete ledger alignment.",
+    "Require clean tracked worktree before applying pinned commits; validate expected source and rerun root tests/lint/format."
+  ],
+  "cloud_activation": "Do not enable generated-code cloud operation before the mitigation is applied and validated. No admitted cloud access currently exists.",
+  "live_sponsor_validation": false,
+  "log_sha256": {
+    "defensive-bindings-focused-final.log": "637ce06d7f0274ca95c2bbe5b49996938759027e9735a35cc8a877ab10e2032e",
+    "defensive-bindings-full-final.log": "cf39970685760a97377ed068665116184532f0660a3a99a2dbe46c923fc73d68",
+    "defensive-bindings-format-final.log": "08a6f81023ff0ea3c8b53845f1b8c00d66f580c7277f7ca6121dad2281a9c914"
+  },
+  "installed_branch_evidence": "reports/defensive-bindings-installed-wheel.json",
+  "root_source_hash": "44a3b88efeeef1e2daafb724a98d18c2503c2c5c6404864b1da396e416c7d9b1",
+  "root_tests": {
+    "passed": 330,
+    "seconds": 32.14
+  },
+  "benchmark_source_hash": "5720e2416adbf466488ce3aec800ac22906288e5b5b473eaeff0c36b5227415e",
+  "benchmark_scope": "Preserved complete pre-mitigation local-model cohort; cloud-generated repair grammar is tested separately",
+  "root_log_sha256": {
+    "defensive-bindings-apply.log": "1fbb505ea00e6ab9d89d4b2acd8ab5bef91f3bd52139815c3f4421ea17e674c8",
+    "defensive-bindings-root-full.log": "827969e36971fec7cd1a80aab9ed6115c260ccad2d289f98d25875934311f530",
+    "defensive-bindings-root-lint.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "defensive-bindings-root-format.log": "67e4bf8f396fefa7f8830b9533fb5eb02129af09cf3d399e36ec9c6d6b248625"
+  }
+}

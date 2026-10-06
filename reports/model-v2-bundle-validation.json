@@ -1,0 +1,51 @@
+{
+  "scope": "Audited recorded evidence; no new inference, execution, deployment or sponsor validation",
+  "source_hash": "5720e2416adbf466488ce3aec800ac22906288e5b5b473eaeff0c36b5227415e",
+  "protocol_hash": "69a3e5b24ad66e3033cda615394f33bdc6128114840d43b8caaa40b81160421b",
+  "completed_episodes": 1920,
+  "artifact_count": 21511,
+  "status": "complete-recorded-cohort-bundled",
+  "bundle_bytes": 88944340,
+  "bundle_sha256": "1c88fad8f45140bd00e896246ac96e2b3b21a4fc8af5f122baec98562fe58fad",
+  "member_count": 23438,
+  "publication": "private local artifact; not uploaded",
+  "checked_on": "2026-10-06",
+  "member_checksums_verified": 23437,
+  "zip_crc": "passed",
+  "calibration_sha256": "df043767ecadbae6c5f22cde49a78a1894b8c4b17d907ef4dec40dd902da46c9",
+  "configured_private_runner_key_absent": true,
+  "secret_scan_scope": "Configured private runner key only; not a comprehensive disclosure review",
+  "actual_replay": {
+    "software": {
+      "archived_episode": "cohort/software-absolute_distance-preact-0.json",
+      "original_run_id": "961a980abf544edeb5b0d1b74be7a165",
+      "imported_run_id": "0dfebd883813475093c274ca52990cb2",
+      "status": "recorded",
+      "event_count": 60,
+      "copied_artifacts": 6,
+      "new_execution": false,
+      "new_calibration_labels": false
+    },
+    "physical": {
+      "archived_episode": "cohort/physical-clearance-07-preact-0.json",
+      "original_run_id": "915fade0e1444c099e2a7e9db1474c09",
+      "imported_run_id": "6186bbac6aa34c06b8ccb469e49caf99",
+      "status": "recorded",
+      "event_count": 246,
+      "copied_artifacts": 28,
+      "new_execution": false,
+      "new_calibration_labels": false
+    }
+  },
+  "destination_counts": {
+    "runs": 2,
+    "executions": 0,
+    "prediction_errors": 0,
+    "jobs": 0
+  },
+  "current_source_scope": "Recorded import on defensive main source; original cohort remains frozen at its earlier source",
+  "private_bundle_path": ".cache/benchmark-review/model-complete-v2.zip",
+  "live_nebius_validation": false,
+  "cosmos_validation": false,
+  "isaac_gpu_validation": false
+}

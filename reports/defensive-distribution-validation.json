@@ -1,0 +1,54 @@
+{
+  "checked_at": "2026-10-06T09:41:51.639387+00:00",
+  "status": "passed-applied-source-private-distribution-integrity",
+  "scope": "Fresh private wheel/sdist builds and archive audit. Prior installed execution is reused only because the wheel bytes match exactly; no new installed tests or sponsor/GPU validation.",
+  "source_revision": "484f2b5",
+  "source_hash": "44a3b88efeeef1e2daafb724a98d18c2503c2c5c6404864b1da396e416c7d9b1",
+  "directory": ".cache/defensive-final-dist-484f2b5",
+  "archive_integrity": {
+    "status": "passed-distribution-integrity",
+    "scope": "Source/assets/license/private-path integrity; not installed execution, secret scanning or sponsor validation",
+    "artifacts": {
+      "preact_runtime-0.1.0-py3-none-any.whl": {
+        "sha256": "e009c45acd65e5bb0b2e6fbad9e3150eb4ab77b5de59839c695ee893ea0a9c73",
+        "bytes": 120981,
+        "files": 63,
+        "matched_python_sources": 56
+      },
+      "preact_runtime-0.1.0.tar.gz": {
+        "sha256": "7bda568a0f87b8a5b9462c140dff86b27c930e20f88cf772b888835c2f73fe2b",
+        "bytes": 1182665,
+        "files": 215,
+        "matched_python_sources": 56
+      }
+    }
+  },
+  "reused_installed_execution": {
+    "receipt": "reports/defensive-bindings-installed-wheel.json",
+    "wheel_sha256": "e009c45acd65e5bb0b2e6fbad9e3150eb4ab77b5de59839c695ee893ea0a9c73",
+    "exact_byte_match": true,
+    "prior_copied_regressions": 32,
+    "prior_shared_core_episodes": [
+      "software",
+      "physical",
+      "release"
+    ],
+    "new_installed_tests": false
+  },
+  "initial_failure": {
+    "error": "PyPI DNS failure resolving hatchling; no artifact produced",
+    "remediation": "Offline populated cache; both subsequent builds passed"
+  },
+  "configured_secret_values_absent_from_archive_contents_and_logs": true,
+  "disclosure_scope": "Configured local credential values and native runner key only; not comprehensive publication review.",
+  "log_sha256": {
+    ".cache/defensive-final-dist-build.log": "0ccf4ac7a68f4ebc9f9ebe3c8af7fef53763bec0680b43cba37e14cb96e8a3be",
+    ".cache/defensive-final-dist-offline-build.log": "768c3b4301f0073928047370a7648593bab55dd68c189798004f921b31ce3793",
+    ".cache/defensive-final-dist-484f2b5-build.log": "6661b81c423819a6248b14d6a262ecd19fde4c359653b8f836a3e516b973178c"
+  },
+  "limits": [
+    "A source distribution is a runtime/development package, not the complete public repository or submission evidence bundle.",
+    "Build revision is pinned; later documentation edits require a newly frozen final archive.",
+    "Public package/repository publication, anonymous setup, remote CI and sponsor integrations remain unvalidated."
+  ]
+}

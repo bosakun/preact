@@ -1,0 +1,54 @@
+{
+  "checked_on": "2026-10-04",
+  "status": "passed-local-clean-checkout",
+  "commit": "d1d3a931c14a39b5792886d1b20095b987f7726f",
+  "source_hash": "6c76b1990933808490b19a36915278c1425e251033499a71c344e4b73a98014a",
+  "scope": "Private independent local Git clone; locked application dependencies, trusted Python/MuJoCo and Chromium. No public clone, remote CI, sponsor access or NVIDIA model cache bundled.",
+  "installation": {
+    "python": "3.12.13",
+    "locked_distributions": 54,
+    "offline_attempt": "failed: cached MuJoCo wheel unavailable; no lock/source changes",
+    "repair": "successful exact frozen online installation",
+    "node_packages_added": 56,
+    "node_offline_install": "passed",
+    "npm_audit_vulnerabilities": 0
+  },
+  "validation": {
+    "pytest": {
+      "passed": 265,
+      "seconds": 56.66
+    },
+    "ruff_check": "passed",
+    "ruff_format": {
+      "passed": true,
+      "files": 107,
+      "scope": "src tests workers scripts; scenario assets intentionally outside formatter targets"
+    },
+    "generated_contracts": "unchanged",
+    "frontend_build": "passed",
+    "chromium": {
+      "passed": 5,
+      "seconds": 15.1,
+      "mode": "local",
+      "api_port": 8110,
+      "database": "fresh isolated SQLite",
+      "first_invocation": "failed: npm exec resolved temporary config from repository root",
+      "repair": "successful direct Playwright invocation from web directory"
+    }
+  },
+  "tracked_checkout_modifications": [
+    "reports/physical-tree.png",
+    "reports/repository-workflow.png",
+    "reports/software-tree.png"
+  ],
+  "api_shutdown_requested": true,
+  "external_acceptance": {
+    "public_repository": false,
+    "remote_ci": false,
+    "nebius": false,
+    "cosmos": false,
+    "isaac_gpu": false
+  },
+  "implementation_and_lock_modifications": false,
+  "api_shutdown_completed": true
+}

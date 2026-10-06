@@ -1,0 +1,185 @@
+{
+  "checked_at": "2026-10-06T09:47:50.973963+00:00",
+  "status": "passed-private-live-local-model-footage-validation",
+  "source_revision": "484f2b5fbfc8a91cde65d55c3276a9ed464c2939",
+  "runtime_source_hash": "44a3b88efeeef1e2daafb724a98d18c2503c2c5c6404864b1da396e416c7d9b1",
+  "scope": "Actual local NVIDIA Nemotron Q4_K_M inference on Apple Metal, trusted Python probes and Cartesian MuJoCo simulation. No Nebius, Cosmos, Isaac GPU or hardware evidence.",
+  "model_inference_in_clip": true,
+  "source_revision_scope": "Actual recording-start revision; recorder, runtime and served frontend sources unchanged at review.",
+  "recorder_and_frontend_sha256": {
+    "scripts/record_local_demo.mjs": "9e8f96652087e812f4a725ad7f6e1d694f75d064616c129c6fe1b5f191ba3a6c",
+    "web/src/main.tsx": "22bfef76b58f5ae2cfae090bd52a1f7af1abc70bf805cf43e9673be8a81379a5",
+    "web/src/style.css": "6e650f4aa52e94f95c5fda2f4134e65f5ca4f61d73d0f51ea95357bd3d8bec6e"
+  },
+  "runs": [
+    {
+      "id": "2c556d01c1bc464aa585c45226a15e06",
+      "domain": "software",
+      "status": "complete",
+      "success": true,
+      "unsafe": false,
+      "steps": 2,
+      "latency_ms": 42666.09133401653,
+      "cost_known": false,
+      "events": 117,
+      "ledger_alignment": {
+        "predictions": 12,
+        "executed_actions": 2,
+        "aligned_error_rows": 4,
+        "unexecuted_predictions_without_observed_labels": 8
+      },
+      "model_version": "d68b84fdb4f17548d74af2a98b5fef115fe5ec2f49ad004215d29e56adfb2c40",
+      "measured_outcome_provenance": [
+        "trusted-local-repository"
+      ],
+      "agent_request_ids": [
+        "chatcmpl-iXobqd8VdFqngVpcL0XryDAWYSV51txm",
+        "chatcmpl-VO2G9g6juUBlWPFaxnJa6MpNMastro9o",
+        "chatcmpl-Xjfj2WySFY4Be8WGYtwLaIkkOBpr8Ma6"
+      ],
+      "prediction_archive_sha256": "8955270626146e51c4926e52a851baf413bd43b45627f0f79971f0f54b1bc819"
+    },
+    {
+      "id": "2c018caa50ba4c9db7de951d7b6854e8",
+      "domain": "physical",
+      "status": "complete",
+      "success": true,
+      "unsafe": false,
+      "steps": 3,
+      "latency_ms": 105572.41508300649,
+      "cost_known": false,
+      "events": 237,
+      "ledger_alignment": {
+        "predictions": 26,
+        "executed_actions": 3,
+        "aligned_error_rows": 6,
+        "unexecuted_predictions_without_observed_labels": 20
+      },
+      "model_version": "d68b84fdb4f17548d74af2a98b5fef115fe5ec2f49ad004215d29e56adfb2c40",
+      "measured_outcome_provenance": [
+        "mujoco-cartesian-lab"
+      ],
+      "agent_request_ids": [
+        "chatcmpl-oek471ebcqVv386ySubqEs4bQOjyeuas",
+        "chatcmpl-6lLGQkNQmnNGM63jRMPHxgPcX1DjoiDv",
+        "chatcmpl-DqJVW3V5vzwC4dFnSbGWbxhN4wcg7rXF",
+        "chatcmpl-FxIJ2JYTSIXnKxjnESa3HWzbK8V6AXpE"
+      ],
+      "prediction_archive_sha256": "075dff0f9d0a1273a95f3a3b820801740a8a8d6293fe6847ca3e55ce375aefc2"
+    }
+  ],
+  "database_counts": {
+    "runs": 2,
+    "executions": 5,
+    "prediction_errors": 10,
+    "jobs": 0
+  },
+  "durable_events": [
+    {
+      "id": "2c556d01c1bc464aa585c45226a15e06",
+      "domain": "software",
+      "event_hash": "9dfcfdc918a623d87d26dd4ab652dc4cad3b325ecd1762c9cbc91a155b3df025",
+      "events": 117,
+      "matched": true
+    },
+    {
+      "id": "2c018caa50ba4c9db7de951d7b6854e8",
+      "domain": "physical",
+      "event_hash": "df2ae9a474462d68e803249c2fbaf69ecea14c5d55b097d33deb813c496100c9",
+      "events": 237,
+      "matched": true
+    }
+  ],
+  "browser_page_errors": [],
+  "mode": "local-model",
+  "max_episode_seconds": 300,
+  "recording_wall_seconds": 282.712,
+  "raw_video": {
+    "path": ".cache/demo-footage-defensive-484f2b5/page@164d58e561b97dd2ef010d651bd4e5fc.webm",
+    "sha256": "a50946ea5a46500fd4c473db1cffc12735dde92c91eedaefebb5fd3bb146de90",
+    "decoded_frames": 7287,
+    "duration_seconds": 291.48
+  },
+  "review_video": {
+    "path": ".cache/demo-footage-defensive-484f2b5/local-model-review-timing-corrected.mp4",
+    "sha256": "ef08f4324961ffe33152219a15273fd8ae6ed62c57bb6008c91680250f97d1f8",
+    "decoded_frames": 3713,
+    "duration_seconds": 148.51999999999998,
+    "duration_error_vs_waiting_only_mapping_seconds": 0.014000000000038426
+  },
+  "waiting_compression": [
+    {
+      "domain": "software",
+      "start_seconds": 5.181,
+      "end_seconds": 49.221,
+      "start": 5.181,
+      "end": 49.221,
+      "factor": 11.01
+    },
+    {
+      "domain": "physical",
+      "start_seconds": 94.45,
+      "end_seconds": 201.356,
+      "start": 94.45,
+      "end": 201.356,
+      "factor": 26.726499999999998
+    }
+  ],
+  "visual_review": {
+    "raw_boundary_frames": true,
+    "measured_physical_release": true,
+    "explicit_waiting_scope_caption": true,
+    "honest_losses_caption": true
+  },
+  "frame_sha256": {
+    ".cache/demo-footage-defensive-484f2b5/model-final-caption.png": "b917fcf3301f841f300f91fbef7eaa93fcb68eabc92dbf15d8db3e2adf4e193b",
+    ".cache/demo-footage-defensive-484f2b5/model-review-frame.png": "74d37b743b3d38cf83305ca0d34c94d9d210cd0884014148a5020951c99d5ad1",
+    ".cache/demo-footage-defensive-484f2b5/model-waiting-caption.png": "dc50b39463b340830847cbcb0c0c03426d42c69f8a5ca28c078bbc7fa5d40bf2",
+    ".cache/demo-footage-defensive-484f2b5/raw-boundary-201.36.png": "ac5c2441708d1eccbda13221751f480da8e98ec46f0ab1f1b1d46d5e56a3887f",
+    ".cache/demo-footage-defensive-484f2b5/raw-boundary-49.2.png": "10435a49da5dd0e28e736451678143c45d08095738297117db95f67d45370989",
+    ".cache/demo-footage-defensive-484f2b5/raw-boundary-5.2.png": "f099cd4c3730b2f43b06ab1d4cd2f5bbb493da8b33fd48b9710f5a254d700b2b",
+    ".cache/demo-footage-defensive-484f2b5/raw-boundary-94.44.png": "b22b5a8f56567ba929379ef2b29bd63f2d19dc0e09a497dc3a4eec2dd3f348d3",
+    ".cache/demo-footage-defensive-484f2b5/raw-boundary-review.png": "68edfcbfc0548ee84725946324dfe0fc150d470913b963a8ba6409aaa1e7facd"
+  },
+  "api_shutdown": "Verified owned PID 49987 SIGTERM; graceful lifespan shutdown; wrapper exit 143. Native model server and PostgreSQL app left running.",
+  "configured_secret_values_absent_from_retained_text_evidence": true,
+  "disclosure_scope": "Configured local credentials and runner key exact matching only, not comprehensive publication review.",
+  "log_sha256": {
+    ".cache/defensive-model-recording-api.log": "4dec72f6d710095ffeab874a068a984afd114b6f148af532570d19924fac2d60",
+    ".cache/defensive-model-recording.log": "23091d5f3c711f0d6817ef99db272ef1954498124bdf92730bae7aaa0d4c36e0",
+    ".cache/defensive-model-media-edit.log": "d79e6cc2637ddee0ea251d341ab791702050d638ca0191c3a8acbe567e5cfad9",
+    ".cache/defensive-model-media-edit-corrected.log": "7d8097ec354134d06063b598161753a41dd6201bbb762a6d4028e08316514de2"
+  },
+  "retained_evidence_sha256": {
+    ".cache/demo-footage-defensive-484f2b5/durable-event-check.json": "55d4d5c8636c7e8619df48fd91dbb9e2b7d4e9b659ca621ad954c8f58fc9d25d",
+    ".cache/demo-footage-defensive-484f2b5/evidence.json": "e725530508a04b597536ed3594fb51d2e2a4833eeac8d3da24cfa1f47f76d257",
+    ".cache/demo-footage-defensive-484f2b5/ledger-review.json": "93cd7e845d1d8bf1ab7a5caf965d3b259ab50e21c9b98218458afb8a4dc74574",
+    ".cache/demo-footage-defensive-484f2b5/media-review-initial.json": "a21178e385a490e9908171cba6d8adcf7f5a1b34a9121e4a1adb238abc06cb2b",
+    ".cache/demo-footage-defensive-484f2b5/media-review.json": "1810ca08dbaaafe03675e2c4b62781fe272b9d9204e53546f420deefa3e85fa3",
+    ".cache/demo-footage-defensive-484f2b5/physical-events.json": "075dff0f9d0a1273a95f3a3b820801740a8a8d6293fe6847ca3e55ce375aefc2",
+    ".cache/demo-footage-defensive-484f2b5/software-events.json": "8955270626146e51c4926e52a851baf413bd43b45627f0f79971f0f54b1bc819"
+  },
+  "corrected_failure": {
+    "initial_edit_duration_seconds": 140.56,
+    "initial_edit_retained": true,
+    "issue": "Frame-time truncation dropped frames beyond intended compressed waiting.",
+    "repair": "Rounded frame scheduling; corrected actual decode matches waiting-only timing within one frame.",
+    "initial_missing_pillow_frame_export": "Offline cached Pillow added to media-only execution; retry passed."
+  },
+  "rights_scope": "Repository-authored UI/scene and English captions; no third-party music, stock media or model weights in footage.",
+  "external_acceptance": {
+    "nebius": false,
+    "cosmos": false,
+    "isaac_gpu": false,
+    "hardware": false,
+    "public_upload": false,
+    "physical_track_qualification": false,
+    "human_study": false
+  },
+  "limits": [
+    "Actual local NVIDIA-model/Core evidence, not a new benchmark or generalization result.",
+    "Raw video duration and recorder wall duration differ; actual media duration is established by decoding, not wall timing.",
+    "Physical view includes simulation/tree/replay; no claim of continuous hardware or Isaac operation.",
+    "Public YouTube, actual sponsor integration footage and final track acceptance remain absent."
+  ]
+}

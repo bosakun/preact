@@ -1,0 +1,64 @@
+{
+  "scope": "Read-only actual archives and tampered in-memory copies; no new inference or original archive changes",
+  "auditor_sha256": "1420d2560ee0716ca484e04ef4fe9d790ea83ef202f1c7199a1141384d99c71e",
+  "audits": {
+    "model-calibration": {
+      "status": "complete-cohort-alignment-audited",
+      "scope": "Archived execution/outcome/error alignment only; no new inference or integration certification",
+      "protocol_hash": "2696cf8cac3191eb2eec6a6cd12217938ce509ae8c527ad31fa081947bc4ab1a",
+      "source_hash": "6c76b1990933808490b19a36915278c1425e251033499a71c344e4b73a98014a",
+      "split": "calibration",
+      "audited_episodes": 24,
+      "expected_episodes": 24,
+      "counts": {
+        "predictions": 46,
+        "executed_actions": 46,
+        "aligned_error_rows": 45,
+        "unexecuted_predictions_without_observed_labels": 0
+      },
+      "archive_checksum_map_sha256": "2c67647ddc07234c2d3ba32c03249c44196ee5b81a6dec403c0092445cb92aa1"
+    },
+    "local-held-out": {
+      "status": "complete-cohort-alignment-audited",
+      "scope": "Archived execution/outcome/error alignment only; no new inference or integration certification",
+      "protocol_hash": "acd93060e3d1523a8cb7cae38452bc6466f0c3ad4ad088fb428c7f4c6d9c0f3e",
+      "source_hash": "6c76b1990933808490b19a36915278c1425e251033499a71c344e4b73a98014a",
+      "split": "held_out",
+      "audited_episodes": 1920,
+      "expected_episodes": 1920,
+      "counts": {
+        "predictions": 24543,
+        "executed_actions": 3191,
+        "aligned_error_rows": 5899,
+        "unexecuted_predictions_without_observed_labels": 18644
+      },
+      "archive_checksum_map_sha256": "9b4637a7a96e94723bdd33b7d8f84ab26cb8b5b190e088a6dfeb6faf92bfb3cb"
+    },
+    "model-pilot": {
+      "status": "partial-snapshot",
+      "scope": "Archived execution/outcome/error alignment only; no new inference or integration certification",
+      "protocol_hash": "7c4bb73a5f74c9703cc7f539ef9bd39edbdc549452abbef3455e394b31ffd49d",
+      "source_hash": "6c76b1990933808490b19a36915278c1425e251033499a71c344e4b73a98014a",
+      "split": "held_out",
+      "audited_episodes": 316,
+      "expected_episodes": 384,
+      "counts": {
+        "predictions": 3144,
+        "executed_actions": 451,
+        "aligned_error_rows": 841,
+        "unexecuted_predictions_without_observed_labels": 2303
+      },
+      "archive_checksum_map_sha256": "f0d20e7627c255ca4afda3d81482b96acbf64155f339f80b8b062d0df53cb4ec"
+    }
+  },
+  "rejected": {
+    "deleted_known_label_and_event": "Missing/unaligned known executed prediction label",
+    "deleted_executed_comparison": "Missing/unaligned executed comparison"
+  },
+  "reproduction_before_fix": {
+    "archive": "physical-perception-dynamics-04-direct-0.json",
+    "scope": "Injected in-memory deletion; original archives unchanged",
+    "prediction_id": "c700f32e623644af89277901f5971479",
+    "before_fix": "accepted missing known executed forecast label"
+  }
+}

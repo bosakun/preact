@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "scope": "Historical v13 local CPU/fixture/checkout/PostgreSQL evidence; see physical-engine-contract-verification.json for newer boundary source",
+  "runtime_source_hash": "e635d7b0960cc7d124fbca61a5641e7657ec726215562f9e480870924106767c",
+  "held_out_protocol_hash": "912a3c4fe5eb3c0234a8592401afb59dd58d602a1c79837499e3511ad3189673",
+  "calibration_episodes": 120,
+  "held_out_and_ablation_episodes": 1920,
+  "infrastructure_failures": 0,
+  "current_full_python_tests": 188,
+  "clean_checkout": {
+    "revision": "e70b569",
+    "python_tests": 187,
+    "python_distributions": 54,
+    "offline_install": true,
+    "lint_format": true,
+    "contracts_unchanged": true,
+    "production_build": true,
+    "browser_cases": 5,
+    "database": "fresh SQLite",
+    "temporary_api_stopped": true
+  },
+  "wheel_boundary_checks_before_encoder_guard": 66,
+  "current_installed_wheel_isaac_checks": 16,
+  "cpu_sdk_bridge_cases": 16,
+  "sdk_bundle_sha256": "33b1f4db35b322558426fd1bfd84bfea4ffe86b0c4bf2fc3b1702da2782d0e2e",
+  "production_browser_cases": 5,
+  "local_database": "PostgreSQL 17.11",
+  "authority_and_cancellation_proofs": "rerun successfully; injected SDK/cleanup",
+  "nvidia_validated": false,
+  "sources": {
+    "src/preact/core/models.py": "f164c6c6d91c19dd791226bd734b43b92b8e3eb19b973e1961d1823f51446935",
+    "src/preact/engines/sdk_bridge.py": "1b53851c8d8cfc076ea2abe2c50ea885213b94a0a61f9a2a97b9e7347f5f0ac3",
+    "src/preact/engines/isaac.py": "2e28be4eee6d723b058b527754f11ceec41f81d492bc12b5a0b4c734d080edc1",
+    "workers/isaac_step.py": "a591317267b88881454855b69a231e5dc43f5b30d8b6d3ea60518fb0e21a48af",
+    "scripts/install_isaac_bridge.py": "868bdb39f704c0a73617f73bf0d6ebc214e58ee071528ed415e0f504311461f3",
+    "scripts/verify_isaac_bridge.py": "18eae6b7075b5937fef0ba8a965dc117af69d3269c5a67225ff6ca68004de5cf"
+  },
+  "superseded_by": "physical-engine-contract-verification.json"
+}

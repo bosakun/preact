@@ -1,0 +1,148 @@
+{
+  "checked_at": "2026-10-06T09:37:26.232550+00:00",
+  "status": "passed-applied-defensive-local-release-validation",
+  "source_revision": "76b61231d8d244f6497e8dcea66944d9a8cb43cf",
+  "source_hash": "44a3b88efeeef1e2daafb724a98d18c2503c2c5c6404864b1da396e416c7d9b1",
+  "scope": "Actual private offline-cache checkout and rebuilt local non-root PostgreSQL app. Local Python/MuJoCo episodes; no public deployment or sponsor/GPU validation.",
+  "clean_checkout": {
+    "path": "<validation-workspace>/preact-clean-defensive-76b6123",
+    "metadata": {
+      "revision": "76b61231d8d244f6497e8dcea66944d9a8cb43cf",
+      "import_path": "<validation-workspace>/preact-clean-defensive-76b6123/src/preact/__init__.py",
+      "source_hash": "44a3b88efeeef1e2daafb724a98d18c2503c2c5c6404864b1da396e416c7d9b1",
+      "python": "3.12.13",
+      "installed_distribution_count": 54,
+      "node": "v26.7.0",
+      "uv": "uv 0.11.29 (Homebrew 2026-07-15 aarch64-apple-darwin)",
+      "checksums": {
+        "uv.lock": "6424ae51ff535382df11b30aa08921be86c5b281588f6b4c65eabddf93148c5c",
+        "web/package-lock.json": "9bb1dde4d16d03e007e732960a65a3774d10b50d7d08ab5a72545c24e92f3f82",
+        "web/src/contracts.ts": "6fcf711fedf48b8eb3375842079502a7f6953cea0b7ecd97015670082df4ffa1",
+        "web/src/contracts.schema.json": "18c033a8044e01844e091a7d681137397a942d211ebe21c1cb8e3231301aec81",
+        "web/dist/assets/index-BhgstiJY.js": "3827351fa500a0c86cff3f27d5db80acbc12972a3ededa80be9faa1d84036b29",
+        "web/dist/assets/index-DaBukLq-.css": "930cd62c6ecb43a79abe2008acd93c24755f3f569e987b9d7685e34d4e1d636f",
+        "web/dist/index.html": "ef04a7332d437feaef877419ec82fd4e7809c9a638ef88bb09c8cb87039b7f24"
+      }
+    },
+    "setup": "Frozen offline uv dev/physical/sandbox and npm lock setup",
+    "pytest": {
+      "passed": 330,
+      "seconds": 38.74
+    },
+    "ruff": {
+      "checked_files": 116,
+      "passed": true
+    },
+    "contracts_unchanged": true,
+    "typescript_vite_build": {
+      "passed": true,
+      "seconds": 1.07
+    },
+    "browser": {
+      "passed": 6,
+      "seconds": 7.5,
+      "database": "fresh separate SQLite"
+    },
+    "api_shutdown": "verified owned PID 49148 SIGTERM; graceful lifespan shutdown; wrapper exit 143",
+    "temporary_config_removed": true
+  },
+  "production": {
+    "compose_project": "preact-verify",
+    "access": "127.0.0.1:8000",
+    "image": {
+      "image": "sha256:36d1a6ae40625ee92eb309c23502be391bc5c116df93288c9ee380585815a99d",
+      "health": "healthy",
+      "user": "preact"
+    },
+    "python": "3.12.15",
+    "uid": 10001,
+    "assets_sha256": {
+      "web/dist/assets/index-BhgstiJY.js": "3827351fa500a0c86cff3f27d5db80acbc12972a3ededa80be9faa1d84036b29",
+      "web/dist/assets/index-DaBukLq-.css": "930cd62c6ecb43a79abe2008acd93c24755f3f569e987b9d7685e34d4e1d636f",
+      "web/dist/index.html": "ef04a7332d437feaef877419ec82fd4e7809c9a638ef88bb09c8cb87039b7f24"
+    },
+    "browser": {
+      "passed": 6,
+      "seconds": 8.1
+    },
+    "preservation": {
+      "all_prior_run_hashes_preserved": true,
+      "prior_run_count": 116,
+      "before": {
+        "runs": 116,
+        "executions": 296,
+        "prediction_errors": 548,
+        "jobs": 0
+      },
+      "after_start": {
+        "runs": 116,
+        "executions": 296,
+        "prediction_errors": 548,
+        "jobs": 0
+      },
+      "after_browser": {
+        "runs": 122,
+        "executions": 312,
+        "prediction_errors": 578,
+        "jobs": 0
+      }
+    },
+    "service_tracebacks": 0,
+    "service_error_lines": 0
+  },
+  "screenshots_sha256": {
+    "reports/physical-tree.png": "77bae6eb66bef9a3e0108b8eefef371feb558d4619618d13df4f666818bdbd6a",
+    "reports/software-tree.png": "5188559b83f3a062b6067e04a58e83f2abef169d3b0f10aa300a2e46666890d1",
+    "reports/repository-workflow.png": "db3657a329c95745af2e63708b11bc545e6f8451e923bc62dd7693f32e1a87f9"
+  },
+  "clean_screenshots_sha256": {
+    ".cache/defensive-clean-screenshots/physical-tree.png": "5b5134e341ed794ebe3690446b55a9c8c2bc0470be0e7ee31cb567096c25bbb3",
+    ".cache/defensive-clean-screenshots/repository-workflow.png": "84a047cc31b39224dff7bf331fceb48afc48afb6bcbb8f3519580c6c6ce6386b",
+    ".cache/defensive-clean-screenshots/software-tree.png": "546994cc4713c32519f7ff00dd02e234d0f334d186666ce485f3788b51b13295"
+  },
+  "log_sha256": {
+    ".cache/defensive-clean-api.log": "78aa62b00da3433d1e7df543ef29c5501262b929ae9e9825ae399d6e20cebb3d",
+    ".cache/defensive-clean-browser.log": "f0215dc29b3ab36bd7993320baac7839b24cd4a7512c6feee12efbb2b1327b44",
+    ".cache/defensive-clean-build.log": "1e5dcd34f7f4eba285f9e1514211bf976c21f9affdfe042adb4d7b1a2f707834",
+    ".cache/defensive-clean-contracts.log": "f506726335d1f8c9ebc3db31c17bba5c188aebfd868e28f78647e091cb16c677",
+    ".cache/defensive-clean-format.log": "67e4bf8f396fefa7f8830b9533fb5eb02129af09cf3d399e36ec9c6d6b248625",
+    ".cache/defensive-clean-lint.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    ".cache/defensive-clean-npm-ci.log": "42160b0bb973d1960895f0f5dd3b7a27c7b462c105610bd5b0acfa61a136bb67",
+    ".cache/defensive-clean-pytest.log": "980ded90e9da3852ff538590d4e07e826b021afd586102ddf81a88764015a6aa",
+    ".cache/defensive-clean-sync.log": "78d4cfafe5ad1957defe36e8106e481d7fcd3db796dbd4bc3789203adb3a31e1",
+    ".cache/defensive-production-api.log": "fcb7b38b927002a9ab9ad2675ec8239ca7b74e0293b4cf47f88a116c2d75fd06",
+    ".cache/defensive-production-browser.log": "b3658952254780d9af83762c65a72bff87bf5709886f7be71e1a8a7172111bdf",
+    ".cache/defensive-production-build.log": "0e74f6225dba459909387650f4b35a7af02a12d8862c80f653c1592c46c257c3",
+    ".cache/defensive-production-start.log": "15aeef1fa3c7fff4a1cdeca727b3d7042192e9949fb1e5e08082e1ee31eedc9c"
+  },
+  "retained_metadata_sha256": {
+    ".cache/defensive-clean-metadata.json": "a85ebf5ea1c0e95afbb4beea9aea66b8b78090200d298033cdb056d2330369f9",
+    ".cache/defensive-production-after-browser.json": "0942561971bbe3471c0ff41ed978ab3ed9eaa401a514fe9367e29393ec427361",
+    ".cache/defensive-production-after-start.json": "a6508d34f5b163d427f0e1dd11d025cac431c9de4b2bd8f839a36e580f6e9c01",
+    ".cache/defensive-production-assets.json": "23894310b55c8c5dda3ccc58a8f8aef351ec5c647e3945b497afb226848835bd",
+    ".cache/defensive-production-before.json": "84ac38faffd6cda3b52db27731307120ae56cc853bdba2ec7901ff12856b6a30",
+    ".cache/defensive-production-image.json": "f6803185c3e9b117d65c9cc431fa7f0e0719e7a9d65219d8c8db4fb4a189b0eb"
+  },
+  "configured_secret_values_absent_from_logs": true,
+  "disclosure_review_scope": "Configured local key/password values and native runner key only; not comprehensive publication review.",
+  "sdk_bridge": {
+    "bundle_sha256": "bca73c6c9eb1be6c47374b91e2af37b3170764c115d59919c1d8b84a69ec54cf",
+    "exact_bytes_match_prior_cpu_bridge": true,
+    "reused_evidence": "reports/proposal-repair-sdk-bridge.json",
+    "prior_cpu_cases": 16,
+    "new_cpu_run": false,
+    "nvidia_gpu_validation": false
+  },
+  "external_acceptance": {
+    "nebius": false,
+    "cosmos": false,
+    "isaac_gpu": false,
+    "public_judge_url": false,
+    "public_repository": false,
+    "remote_ci": false,
+    "youtube": false,
+    "human_study": false
+  },
+  "remaining": "Refresh private release distributions and footage; complete actual sponsor/cloud/GPU/human/public/administrative gates.",
+  "publication_path_note": "Machine-specific receipt paths are illustrative normalized locations. Original private receipts and original artifact hashes are preserved; measurements and validation scope are unchanged."
+}

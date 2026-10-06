@@ -1,0 +1,49 @@
+{
+  "status": "passed-two-world-recorded-model-bundle-browser",
+  "scope": "Actual exported historical local NVIDIA/MuJoCo evidence in current shared renderer. Recorded replay only; no new inference, execution or calibration labels.",
+  "checked_on": "2026-10-05",
+  "worlds": {
+    "software": {
+      "run_id": "2fa226ad53484ef5891d07cd99c648aa",
+      "status": "recorded",
+      "rendered_future_cards": 4,
+      "visible_error_rows": 2,
+      "screenshot": ".cache/benchmark-review/browser-model-pilot-v1/software.png",
+      "screenshot_sha256": "2da595d09786b7eaf743fe9655d524b4b653f74f40c767d55c5c153268272eec"
+    },
+    "physical": {
+      "run_id": "524e3f125f6142ce95b2f904e63defd7",
+      "status": "recorded",
+      "rendered_future_cards": 11,
+      "visible_error_rows": 2,
+      "screenshot": ".cache/benchmark-review/browser-model-pilot-v1/physical.png",
+      "screenshot_sha256": "92e3aa3e209a0a17a516feac2008c33169ed91bb245dc141ffb012193a387fba"
+    }
+  },
+  "page_errors": [],
+  "non_get_requests": [],
+  "run_count_before": 2,
+  "run_count_after": 2,
+  "live_nebius_validation": false,
+  "cosmos_validation": false,
+  "isaac_gpu_validation": false,
+  "served_runtime_source_hash": "5720e2416adbf466488ce3aec800ac22906288e5b5b473eaeff0c36b5227415e",
+  "recorded_original_source_hash": "6c76b1990933808490b19a36915278c1425e251033499a71c344e4b73a98014a",
+  "presentation_stage": "before readability repair",
+  "replay_database_final_audit": {
+    "runs": [
+      [
+        "2fa226ad53484ef5891d07cd99c648aa",
+        "recorded"
+      ],
+      [
+        "524e3f125f6142ce95b2f904e63defd7",
+        "recorded"
+      ]
+    ],
+    "prediction_error_rows": 0,
+    "execution_receipts": 0,
+    "jobs": 0
+  },
+  "review_api_clean_shutdown": true
+}

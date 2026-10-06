@@ -1,0 +1,594 @@
+{
+  "schema_version": 1,
+  "source_hash": "a4af1237026383f53d58a3187863b4e469d4602e8d392b99da177aed50945fa9",
+  "fixtures": {
+    "software": {
+      "development": [
+        {
+          "id": "ceil_batches",
+          "family": "logic",
+          "hash": "0180d7135303f7234e50054fb8b9b075bdf9417ab61f8e54c2285187669260ab"
+        },
+        {
+          "id": "inclusive_sum",
+          "family": "logic",
+          "hash": "727b31e755cc766e4b09900c98d326d0628329a9dfca6cf6fc32bfe707127941"
+        },
+        {
+          "id": "owner_or_admin",
+          "family": "behavioral-security",
+          "hash": "31541c0bcdb32268d40313c0b02adedefd77d569361b871f9286eef5f5bf7d9f"
+        },
+        {
+          "id": "admin_role",
+          "family": "behavioral-security",
+          "hash": "1f4e074576e49b01b706431bb40ebed3ddbc77d6c438fff26c4094a102291180"
+        },
+        {
+          "id": "tls_default",
+          "family": "dependency-configuration",
+          "hash": "c1cf287885ad9b78cdb6e502ee47e6f5edfb949d2c9483375bf5c6424459097e"
+        },
+        {
+          "id": "timeout_default",
+          "family": "dependency-configuration",
+          "hash": "34088a6c850acf3ba80cdb5c5efe359b7fb11ac2de50f13c732bc32565637274"
+        }
+      ],
+      "calibration": [
+        {
+          "id": "clamp_fraction",
+          "family": "logic",
+          "hash": "0426ea73e151d86759f54ffaa0bac71b1cbe4629c8ee3c6b995e96998fa167d8"
+        },
+        {
+          "id": "overlap_length",
+          "family": "logic",
+          "hash": "75972e75cdf752a2169bfa9745c9f8d7e934652b02b9c4903108ac4432973990"
+        },
+        {
+          "id": "wrap_index",
+          "family": "logic",
+          "hash": "3ca49abf2c1103214d0e5df90e93a834e339237abfc52cc181708ff8b5c36109"
+        },
+        {
+          "id": "capped_backoff",
+          "family": "logic",
+          "hash": "989a013fa92ccc663a84ac60c995a997c25a7a4a8d61a90ff3de86bac0580fa2"
+        },
+        {
+          "id": "allow_transfer",
+          "family": "behavioral-security",
+          "hash": "c8e37d35adf9422ce819eb1547db947309ff7fd366165ea1fc726e3193c6aeae"
+        },
+        {
+          "id": "production_tls",
+          "family": "behavioral-security",
+          "hash": "9539e7a67d36aec0299c234f9dc3feac11c3c408b26c4fa1afb784f39d9cc868"
+        },
+        {
+          "id": "safe_relative_path",
+          "family": "behavioral-security",
+          "hash": "91cb660a7680801627a6d9b25f6c96e76d7888c4a097dde2eaabdb53a0c59007"
+        },
+        {
+          "id": "allowed_host",
+          "family": "behavioral-security",
+          "hash": "3521b6423f0aa76b921930921220d91231e59e3504f162c169cab89566a1fcd6"
+        },
+        {
+          "id": "cache_enabled",
+          "family": "dependency-configuration",
+          "hash": "8ea34230d5a7b60d69f715e286b2958c479d20f64a7768f4dac542bf545ea68a"
+        },
+        {
+          "id": "schema_supported",
+          "family": "dependency-configuration",
+          "hash": "4943e8650de58e2ee255be8d5c77645f8c5b4f1eca9a7b4d28e68a8b0f615fa8"
+        },
+        {
+          "id": "retry_limit",
+          "family": "dependency-configuration",
+          "hash": "2b47a1a8da0dec7604bdfe936e5b2b331d74e2881995f37f07ae867551b3980c"
+        },
+        {
+          "id": "worker_capacity",
+          "family": "dependency-configuration",
+          "hash": "b3a044cde6a825548b5405533876bb52011b91b415b68301baa6983f42881a75"
+        }
+      ],
+      "held_out": [
+        {
+          "id": "elapsed_seconds",
+          "family": "logic",
+          "hash": "25ba093959a05b07f0ebfa28724fcc50b4ebaa6ce73914d188ee1ad19a674ce7"
+        },
+        {
+          "id": "absolute_distance",
+          "family": "logic",
+          "hash": "f8facadde08c2761977bfaeead9d06d117e9601378d7fc626b8d14487e74a4cc"
+        },
+        {
+          "id": "fahrenheit",
+          "family": "logic",
+          "hash": "01db5adf16e64c8b9dc2edb29a876d3ae73e02ccdffdbd4b36625222d27f6fe3"
+        },
+        {
+          "id": "remaining_quota",
+          "family": "logic",
+          "hash": "0eaf6ef22f1f29f351432d3e3a986c140795d50d013d4ef00f41c509274f7935"
+        },
+        {
+          "id": "basis_points",
+          "family": "logic",
+          "hash": "5c630388962da4328db9de07ddea687f10c79c837a23b637c458d140cd55031a"
+        },
+        {
+          "id": "safe_ratio",
+          "family": "logic",
+          "hash": "983c273b084929dd8ff9accdd679e653b90ae0dba12e294a6debefa80a7f85eb"
+        },
+        {
+          "id": "page_end",
+          "family": "logic",
+          "hash": "72801da20f33c921d98be62c141904ba7cce75452196c6d1879bfd01da2f756a"
+        },
+        {
+          "id": "weighted_average",
+          "family": "logic",
+          "hash": "348090c97aa949610dc04239bb92912624b189766fbbc4f630fed91117635026"
+        },
+        {
+          "id": "strong_length",
+          "family": "behavioral-security",
+          "hash": "4155db8f1e17ea1b4197cf4c5d3b900be75ee9d5742d7aa47638e4e4120584a0"
+        },
+        {
+          "id": "budget_access",
+          "family": "behavioral-security",
+          "hash": "93aeabac30a6625b914aaf94ee080838e367345b3d4c626bbfb1fee97882c74a"
+        },
+        {
+          "id": "grant_admin",
+          "family": "behavioral-security",
+          "hash": "4f9259a74306fff6c6244676ca66505a8bde7bff0bb1f7030a8bc031096fe410"
+        },
+        {
+          "id": "valid_port",
+          "family": "behavioral-security",
+          "hash": "9e0e72fb5e5a1a73b27b142115084aafaf617b03b8c721aaf163653a1b9f3c00"
+        },
+        {
+          "id": "safe_redirect",
+          "family": "behavioral-security",
+          "hash": "c13fa48b80c23b1768c4f268e5fc1cdbb2eba0ff34ec4e25694435691e41994d"
+        },
+        {
+          "id": "private_access",
+          "family": "behavioral-security",
+          "hash": "499c1cfbc4a75d47759e18d8e12e57c5ac0a05169695b15b85fdb95c2765eb41"
+        },
+        {
+          "id": "confirmed_delete",
+          "family": "behavioral-security",
+          "hash": "2e36489d1decc4b3c65f6fcdda63ab9ac04c398060e8adc2fcb1784fcd3b418b"
+        },
+        {
+          "id": "read_permission",
+          "family": "behavioral-security",
+          "hash": "626b4e50c163a74aee8034c2c59ecc8d22038a31e9944522a8f0fdbefd0ce6fd"
+        },
+        {
+          "id": "port_default",
+          "family": "dependency-configuration",
+          "hash": "0da44702d0d9eb092634e773e5dac0dbbe945944b7edc27a118378929e4afdb3"
+        },
+        {
+          "id": "strict_feature_flag",
+          "family": "dependency-configuration",
+          "hash": "40fbe4302ec908a7d6222ce83743e0ce858862f6daa55e7bc1a27f3cf3367c99"
+        },
+        {
+          "id": "migration_transaction",
+          "family": "dependency-configuration",
+          "hash": "1c5ae9570bc12517d7f4390dd74c874974b49834105b886e7d1e966adb5c88e5"
+        },
+        {
+          "id": "log_level",
+          "family": "dependency-configuration",
+          "hash": "1c33e8a5a4778513f2d03e6d101080811f86672bf9b84888d746e3312a4d6ca9"
+        },
+        {
+          "id": "nonnegative_ttl",
+          "family": "dependency-configuration",
+          "hash": "2b264cc53083f211f4c897cacbd5be4c3ffe894ab03e7e2daa6f1b4b07c99071"
+        },
+        {
+          "id": "version_at_least",
+          "family": "dependency-configuration",
+          "hash": "5683b194334af7e0dc85119c0db9b1c5239cb934c4cc37bf6aa0304432167071"
+        },
+        {
+          "id": "queue_overflow",
+          "family": "dependency-configuration",
+          "hash": "734437aad7875503d72e43ab19510e0de00bf839b2ecfdcff7f7b3b845c066f3"
+        },
+        {
+          "id": "batch_size",
+          "family": "dependency-configuration",
+          "hash": "802c98c3360765ed21c57028f99fc9d4889d28639f51f2868e8cbb69fa3cae93"
+        }
+      ]
+    },
+    "physical": {
+      "development": [
+        {
+          "id": "clearance-00",
+          "family": "clearance",
+          "hash": "656763e03b160d0d563b4045af938251fc3196e237cc3f077ea84eb6146b9a6b"
+        },
+        {
+          "id": "clearance-01",
+          "family": "clearance",
+          "hash": "b48f172dc38ec17fbc86b0adcbfc39b28ecb6cb583114b032fb8603643ad9b27"
+        },
+        {
+          "id": "grasp-place-00",
+          "family": "grasp-place",
+          "hash": "5b9aeb873a4c69f5e76eb888b11aff6a723b76d8af0f41d5727712e59fe09bc0"
+        },
+        {
+          "id": "grasp-place-01",
+          "family": "grasp-place",
+          "hash": "040ffe30f28ea5d887166fa43917c01685031caa531ecac0636ae0c8509907c2"
+        },
+        {
+          "id": "perception-dynamics-00",
+          "family": "perception-dynamics",
+          "hash": "1a0e34c1fb8053a38e4cc0fc594a745c68010ab70d2d3d79c2a9d96c5140d328"
+        },
+        {
+          "id": "perception-dynamics-01",
+          "family": "perception-dynamics",
+          "hash": "899e0c98b3c0efb215a46eece727209b767abb37d8e92cfba7dc960fc5084f86"
+        }
+      ],
+      "calibration": [
+        {
+          "id": "clearance-02",
+          "family": "clearance",
+          "hash": "c66c77fd4195552259a435b25525069595a8c5e5b1ff8f87f4e054ce32e074a3"
+        },
+        {
+          "id": "clearance-03",
+          "family": "clearance",
+          "hash": "4a1e971a3abe49bdef97a1d0811834e15e2a1d948e26932b0da34975134e42d4"
+        },
+        {
+          "id": "clearance-04",
+          "family": "clearance",
+          "hash": "50fc9f1500a565174eaaf8539d13094c7c94088e0c4ccb155895cca3ad795a33"
+        },
+        {
+          "id": "clearance-05",
+          "family": "clearance",
+          "hash": "2c914598191623e4a7dce7e8bd7f2ad798a1b134ea014a6b96f28fd0a10431c7"
+        },
+        {
+          "id": "grasp-place-02",
+          "family": "grasp-place",
+          "hash": "d12f84856ac662d60443a9e9517e29d2a31ea00c519ad4504ca83742ee3cf9af"
+        },
+        {
+          "id": "grasp-place-03",
+          "family": "grasp-place",
+          "hash": "5aed6017c0c266e85c31c8c046aa30984caaf22d850d3fb8de57bc47b8bdde66"
+        },
+        {
+          "id": "grasp-place-04",
+          "family": "grasp-place",
+          "hash": "dbd875cc805c6bf11f056ea999f6f737bb426a562824d84b54f83367bf512162"
+        },
+        {
+          "id": "grasp-place-05",
+          "family": "grasp-place",
+          "hash": "f5ac9653715067d6304e9cd74db234fbf9313f16fedaf39b2fbbd4e3c9f64595"
+        },
+        {
+          "id": "perception-dynamics-02",
+          "family": "perception-dynamics",
+          "hash": "12ad9ec5be78673db8898647d7b640ac357a281ff660652b4e0d847251486943"
+        },
+        {
+          "id": "perception-dynamics-03",
+          "family": "perception-dynamics",
+          "hash": "697561d0307501a0d672a5c53bfabf9420c3b020d6cece0f438ed8b435f93190"
+        },
+        {
+          "id": "perception-dynamics-04",
+          "family": "perception-dynamics",
+          "hash": "3fb0e960002965ba91cd95fb1958af7bc7980f780a578e27fc4386cd8a4d3b2a"
+        },
+        {
+          "id": "perception-dynamics-05",
+          "family": "perception-dynamics",
+          "hash": "297acf3dbda5c46310b319af07628feed8a2608acb2d3e70df8418bd631c8f3e"
+        }
+      ],
+      "held_out": [
+        {
+          "id": "clearance-06",
+          "family": "clearance",
+          "hash": "271251ab8524df42b93bb6d91ce4dda5e8178e032bec85e02640f1657b41a741"
+        },
+        {
+          "id": "clearance-07",
+          "family": "clearance",
+          "hash": "610bf89cb2980bc5459f560c1092a02da92c6fa49196d0bdba3f439c844c2094"
+        },
+        {
+          "id": "clearance-08",
+          "family": "clearance",
+          "hash": "a6d5b68bf4af5c9f9552d238d1b5c533dc605943b2ecdaae244a5fcf38cb5c64"
+        },
+        {
+          "id": "clearance-09",
+          "family": "clearance",
+          "hash": "24e39cf23fa4090ec459eb4aedada15d9ecc8aeb1589d2f48f5fc9f5157cf05e"
+        },
+        {
+          "id": "clearance-10",
+          "family": "clearance",
+          "hash": "cb37dd7578b7042327548405746bd15aa3cd4d1c59e9ad9ab41704a3471d5ad8"
+        },
+        {
+          "id": "clearance-11",
+          "family": "clearance",
+          "hash": "c375513f11822c3784028c6ca3fdedc8a0cd43d7bd04dd83fd35d1084fd08341"
+        },
+        {
+          "id": "clearance-12",
+          "family": "clearance",
+          "hash": "4e888ccd2c214af004919c84968a93ab11a5e599dfdd048cccabe8a738b47542"
+        },
+        {
+          "id": "clearance-13",
+          "family": "clearance",
+          "hash": "17df4f08f9d4cabd43e58a00fa8865f8bdc7cac84a526524aca944e8c84db270"
+        },
+        {
+          "id": "grasp-place-06",
+          "family": "grasp-place",
+          "hash": "ae8113c9380f6d57b7a14ddc8adda396cbe62fe6837005fcc924dc437df54d99"
+        },
+        {
+          "id": "grasp-place-07",
+          "family": "grasp-place",
+          "hash": "2a6e4dd6c64b27f1fb3ce2d7ccd4bc6adb743b13db5c414361f8fe86bf185965"
+        },
+        {
+          "id": "grasp-place-08",
+          "family": "grasp-place",
+          "hash": "c959bc9f47c72298d162b40b8e07e93d7a05811ff1ad37c96df674f25509fcf4"
+        },
+        {
+          "id": "grasp-place-09",
+          "family": "grasp-place",
+          "hash": "a9410a455b0aa396b559cea30c74e9eab31f5785d05202be8dd48a91cebc3f50"
+        },
+        {
+          "id": "grasp-place-10",
+          "family": "grasp-place",
+          "hash": "07a78eec90bb1e06cca69f7357db15aa2c2db78cccdbde70799565bdf4e03aa6"
+        },
+        {
+          "id": "grasp-place-11",
+          "family": "grasp-place",
+          "hash": "2f5af4574c2a3a7475d8a70769217cfc66be215c54a9bc61b3620c1d0b11c447"
+        },
+        {
+          "id": "grasp-place-12",
+          "family": "grasp-place",
+          "hash": "954109a4cc6846944ccf64daa7e0eb09c069ef925dbf42cdcd9a0cbedad5ed2c"
+        },
+        {
+          "id": "grasp-place-13",
+          "family": "grasp-place",
+          "hash": "36b07001b51f2c0bef4b647888bad7d8d1069354e16bfc7d7f0a31d794000c98"
+        },
+        {
+          "id": "perception-dynamics-06",
+          "family": "perception-dynamics",
+          "hash": "6b3a5b7ff2894a0576e8de3d5fb1647135432a296b8d7685f24f9fd97fe54301"
+        },
+        {
+          "id": "perception-dynamics-07",
+          "family": "perception-dynamics",
+          "hash": "60b1a4e39fef1f638cde50312fd0167fb6c654f6863afc8d7b2cd5d47564aff2"
+        },
+        {
+          "id": "perception-dynamics-08",
+          "family": "perception-dynamics",
+          "hash": "07c9acb2ea55d51818b98f950fd71e0ecf010f1bea7acc6f13329700cfbfffa4"
+        },
+        {
+          "id": "perception-dynamics-09",
+          "family": "perception-dynamics",
+          "hash": "6f149bc103e3e45c71a3cc546d9f31b5db345d30b85443765673bb473a6ec493"
+        },
+        {
+          "id": "perception-dynamics-10",
+          "family": "perception-dynamics",
+          "hash": "8e9cdf5f53f731b52f6f92017477063370e6d035302e1a73341805ec998624e8"
+        },
+        {
+          "id": "perception-dynamics-11",
+          "family": "perception-dynamics",
+          "hash": "d614f514d0b0f058713df5b2dbd3ca8fa9390e52fa6283f334438a16906a039b"
+        },
+        {
+          "id": "perception-dynamics-12",
+          "family": "perception-dynamics",
+          "hash": "0b40678116086efe6540fe1063c4918882ed90de31ccfbf0a4c334b92a78468d"
+        },
+        {
+          "id": "perception-dynamics-13",
+          "family": "perception-dynamics",
+          "hash": "43fee1e912293774de34f09377bc01d2a2f7335de7e1f4c0e30170f26048da5c"
+        }
+      ]
+    }
+  },
+  "policies": {
+    "direct": {
+      "schema_version": "1",
+      "max_depth": 3,
+      "width": 3,
+      "max_nodes": 40,
+      "max_calls": 80,
+      "max_seconds": 120,
+      "max_cost_usd": 1,
+      "max_risk": 0.05,
+      "min_success": 0.6,
+      "disagreement_threshold": 0.2,
+      "uncertainty_threshold": 0.25,
+      "search": true,
+      "adaptive": true,
+      "calibration": false
+    },
+    "preact": {
+      "schema_version": "1",
+      "max_depth": 3,
+      "width": 3,
+      "max_nodes": 40,
+      "max_calls": 80,
+      "max_seconds": 120,
+      "max_cost_usd": 1,
+      "max_risk": 0.05,
+      "min_success": 0.6,
+      "disagreement_threshold": 0.2,
+      "uncertainty_threshold": 0.25,
+      "search": true,
+      "adaptive": true,
+      "calibration": true
+    },
+    "flat": {
+      "schema_version": "1",
+      "max_depth": 3,
+      "width": 3,
+      "max_nodes": 40,
+      "max_calls": 80,
+      "max_seconds": 120,
+      "max_cost_usd": 1,
+      "max_risk": 0.05,
+      "min_success": 0.6,
+      "disagreement_threshold": 0.2,
+      "uncertainty_threshold": 0.25,
+      "search": false,
+      "adaptive": true,
+      "calibration": true
+    },
+    "fixed": {
+      "schema_version": "1",
+      "max_depth": 3,
+      "width": 3,
+      "max_nodes": 40,
+      "max_calls": 80,
+      "max_seconds": 120,
+      "max_cost_usd": 1,
+      "max_risk": 0.05,
+      "min_success": 0.6,
+      "disagreement_threshold": 0.2,
+      "uncertainty_threshold": 0.25,
+      "search": true,
+      "adaptive": false,
+      "calibration": true
+    },
+    "frozen": {
+      "schema_version": "1",
+      "max_depth": 3,
+      "width": 3,
+      "max_nodes": 40,
+      "max_calls": 80,
+      "max_seconds": 120,
+      "max_cost_usd": 1,
+      "max_risk": 0.05,
+      "min_success": 0.6,
+      "disagreement_threshold": 0.2,
+      "uncertainty_threshold": 0.25,
+      "search": true,
+      "adaptive": true,
+      "calibration": false
+    },
+    "single": {
+      "schema_version": "1",
+      "max_depth": 3,
+      "width": 3,
+      "max_nodes": 40,
+      "max_calls": 80,
+      "max_seconds": 120,
+      "max_cost_usd": 1,
+      "max_risk": 0.05,
+      "min_success": 0.6,
+      "disagreement_threshold": 0.2,
+      "uncertainty_threshold": 0.25,
+      "search": true,
+      "adaptive": true,
+      "calibration": true
+    },
+    "no_disagreement": {
+      "schema_version": "1",
+      "max_depth": 3,
+      "width": 3,
+      "max_nodes": 40,
+      "max_calls": 80,
+      "max_seconds": 120,
+      "max_cost_usd": 1,
+      "max_risk": 0.05,
+      "min_success": 0.6,
+      "disagreement_threshold": 1.0,
+      "uncertainty_threshold": 0.25,
+      "search": true,
+      "adaptive": true,
+      "calibration": true
+    },
+    "online": {
+      "schema_version": "1",
+      "max_depth": 3,
+      "width": 3,
+      "max_nodes": 40,
+      "max_calls": 80,
+      "max_seconds": 120,
+      "max_cost_usd": 1,
+      "max_risk": 0.05,
+      "min_success": 0.6,
+      "disagreement_threshold": 0.2,
+      "uncertainty_threshold": 0.25,
+      "search": true,
+      "adaptive": true,
+      "calibration": true
+    }
+  },
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "python": "3.12.13",
+  "mujoco": "3.14.0",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "lock_hash": "cbbfc109f8604695548da650d7812a78eb052f1c3824f752e82d04a0a0eaef8a",
+  "calibration_hash": null,
+  "scope": "Bounded first-party program patches and Cartesian MuJoCo scene instances; local heuristic, not sponsor-model evaluation",
+  "analysis": "Task/seed pairs; 2000 task-cluster bootstrap draws, seed 1729; abstention is failure; frozen calibration primary; online separate",
+  "limitations": [
+    "Authored task families, not independently sourced repositories or robot hardware",
+    "Program oracle sampling is reproducible but not a security boundary for arbitrary code",
+    "MuJoCo scene dynamics are observed; no real visual perception or NVIDIA validation",
+    "Direct and PreAct use identical candidates and cheap ranking; no LLM in this local protocol",
+    "Zero local API cost excludes CPU and operational infrastructure cost"
+  ],
+  "protocol_hash": "14a98ab75f608dba6e6e284db0468edb822cce1612927ea45afed1111f20c498"
+}

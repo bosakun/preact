@@ -1,0 +1,55 @@
+{
+  "scope": "Audited recorded evidence; no new inference, execution, deployment or sponsor validation",
+  "source_hash": "6c76b1990933808490b19a36915278c1425e251033499a71c344e4b73a98014a",
+  "protocol_hash": "7c4bb73a5f74c9703cc7f539ef9bd39edbdc549452abbef3455e394b31ffd49d",
+  "completed_episodes": 384,
+  "artifact_count": 4257,
+  "status": "complete-recorded-cohort-bundled",
+  "bundle_bytes": 17491983,
+  "bundle_sha256": "073567eb4075c0ef0116257be1afee644ab254ab7372bd337d0d71380a325fd4",
+  "member_count": 4648,
+  "publication": "private local artifact; not uploaded",
+  "checked_on": "2026-10-05",
+  "member_checksums_verified": 4647,
+  "zip_crc": "passed",
+  "calibration_hash": "69d614f61045ac09296926a3f68e3a9e139620be2db241578f4690eaea4b61bf",
+  "configured_private_runner_key_absent": true,
+  "secret_scan_scope": "Configured private runner key only; not a comprehensive disclosure review",
+  "actual_replay": {
+    "physical": {
+      "archived_episode": "cohort/physical-clearance-07-preact-0.json",
+      "original_run_id": "f3423578354a4aa88336dbd0f2fac4e6",
+      "imported_run_id": "524e3f125f6142ce95b2f904e63defd7",
+      "status": "recorded",
+      "event_count": 246,
+      "copied_artifacts": 28,
+      "new_execution": false,
+      "new_calibration_labels": false
+    },
+    "software": {
+      "archived_episode": "cohort/software-absolute_distance-preact-0.json",
+      "original_run_id": "0e19695128f44e20937faa43be8b0735",
+      "imported_run_id": "2fa226ad53484ef5891d07cd99c648aa",
+      "status": "recorded",
+      "event_count": 61,
+      "copied_artifacts": 6,
+      "new_execution": false,
+      "new_calibration_labels": false
+    }
+  },
+  "regression": {
+    "focused_passed": 6,
+    "focused_seconds": 7.92,
+    "full_passed": 304,
+    "full_seconds": 50.22,
+    "lint": "passed",
+    "format_files": 115,
+    "root_source_hash": "5720e2416adbf466488ce3aec800ac22906288e5b5b473eaeff0c36b5227415e",
+    "full_log_sha256": "b81a0564015c84f4fc1a07ec49f700c62753ad94d85b5bb0ba25b1c156199d04"
+  },
+  "private_bundle_path": ".cache/benchmark-review/model-pilot-complete-v1.zip",
+  "live_nebius_validation": false,
+  "cosmos_validation": false,
+  "isaac_gpu_validation": false,
+  "exporter_sha256": "387fbdaba3ff2fb85bbb80e265005c20ea7c08d5d6811e07d200ca5181bece8a"
+}

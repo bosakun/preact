@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-04",
+  "scope": "Local worker lifecycle, transport and fixture launchers; no hosted Nebius/NVIDIA/model/GPU validation",
+  "source_checkpoint": "e517ab6",
+  "python": "3.12.13",
+  "full_python_tests": 164,
+  "wheel_boundary_tests": 38,
+  "remote_lifecycle_tests": 18,
+  "cosmos_lifecycle_tests": 8,
+  "isaac_lifecycle_tests": 6,
+  "sources": {
+    "src/preact/core/interfaces.py": "452181eceb614fd95d2a9dc4fcbd048cbab8f9e482a2812b9e44363447eaa7b7",
+    "src/preact/core/runtime.py": "2824d6dcc8b8992f3883af3b94de1e96b1e246c401443a6425fa7c83bb120add",
+    "src/preact/engines/remote.py": "5d281b377cba8cfa4be8f7bdda40ac743f38c4735c536c6314df754f32707eb5",
+    "src/preact/engines/cosmos.py": "eb83a24a6522a8ebf959ecf40c5afe01333787db29a8f18312ed409441846afa",
+    "src/preact/engines/isaac.py": "c0189989ea186b686d6b4a7a6b6b5b77e67255d51f33248ccab7757059234f1b",
+    "src/preact/engines/process.py": "7886efbd0175e5e57058570edd899f018d043c2e620710ed9d4d928d6fc40fe0"
+  },
+  "reproductions": {
+    "remote_repeated_cancellation": {
+      "caller_finished_before_delete_drain": true,
+      "transport_fixture": true
+    },
+    "cosmos_blocking_artifact": {
+      "injected_read_seconds": 0.08,
+      "maximum_heartbeat_gap_seconds": 0.1681,
+      "cold_preparation_included": true
+    },
+    "launcher_child": {
+      "child_alive_after_cancellation": true,
+      "caller_pending_after_seconds": 0.1,
+      "actual_local_fixture_process": true
+    }
+  },
+  "verified_repairs": [
+    "Whole remote admission/poll deadline",
+    "No blind resubmission of unconfirmed admission",
+    "Repeated cancellation drains bounded cleanup",
+    "Terminal failed jobs never return predictions",
+    "Completed predictions retain worker job IDs",
+    "Core failure/cancellation events retain bounded diagnostics",
+    "Storage preparation/persistence off-loop",
+    "Scratch removal waits for preparation drain",
+    "POSIX invocation session terminated and launcher reaped",
+    "Cleanup denial/deadline remains unconfirmed",
+    "Nominal GPU/visual cost unknown",
+    "Visual native task probabilities remain unknown"
+  ],
+  "gpu_memory_reclamation_verified": false
+}

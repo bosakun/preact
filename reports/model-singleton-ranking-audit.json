@@ -1,0 +1,69 @@
+{
+  "status": "measured-avoidable-ranking-requests",
+  "scope": "Read-only actual archive audit; no extra inference or task/evaluator/policy changes",
+  "source_hash": "6c76b1990933808490b19a36915278c1425e251033499a71c344e4b73a98014a",
+  "archive": "reports/cohort-model-held-out-v1/physical-clearance-06-preact-0.json",
+  "archive_sha256": "ad6ad759f0f7cb3a68811ccd3953e63f16bc54ecbd17622552df96193591891d",
+  "task": "clearance-06",
+  "variant": "preact",
+  "episode_status": "failed",
+  "episode_latency_ms": 300004.6027500066,
+  "completed_safe_actions": 3,
+  "singleton_rank_requests": [
+    {
+      "receipt_seq": 45,
+      "request_id": "chatcmpl-UJOBsWOzERdo8UaJ5XYSYX8dsj6zr4Rm",
+      "parent_id": "0a18681e179e43e6a4a621528fd4b9ff",
+      "observed_proposal_stage_interval_seconds": 8.846677,
+      "interval_scope": "Between preceding Core event and metered proposal receipt; includes local proposal and client/serving work, not isolated GPU execution"
+    },
+    {
+      "receipt_seq": 99,
+      "request_id": "chatcmpl-WHanzkAS4MQqJQCSrH6KfPtG58q5k7QR",
+      "parent_id": "57b230efdd124d63a78c786e54c42d25",
+      "observed_proposal_stage_interval_seconds": 8.653234,
+      "interval_scope": "Between preceding Core event and metered proposal receipt; includes local proposal and client/serving work, not isolated GPU execution"
+    },
+    {
+      "receipt_seq": 164,
+      "request_id": "chatcmpl-o3b6y0tFvJPuByINUlU7m8pllJ7mQjBp",
+      "parent_id": "1063b17b908b4fe689edd9ab431a4d44",
+      "observed_proposal_stage_interval_seconds": 0.934854,
+      "interval_scope": "Between preceding Core event and metered proposal receipt; includes local proposal and client/serving work, not isolated GPU execution"
+    },
+    {
+      "receipt_seq": 191,
+      "request_id": "chatcmpl-n3BstB4H2Gf1Ulauh5iR8pyeVLhHuAyA",
+      "parent_id": "7e38ca5d9ab64e4fa0cebd5547e62a59",
+      "observed_proposal_stage_interval_seconds": 4.891526,
+      "interval_scope": "Between preceding Core event and metered proposal receipt; includes local proposal and client/serving work, not isolated GPU execution"
+    },
+    {
+      "receipt_seq": 225,
+      "request_id": "chatcmpl-viQNe5isOgR1hSWB9ikdd32YpnAN1PER",
+      "parent_id": "8351fa84b1d24e179fd8ff37af125ba4",
+      "observed_proposal_stage_interval_seconds": 8.716793,
+      "interval_scope": "Between preceding Core event and metered proposal receipt; includes local proposal and client/serving work, not isolated GPU execution"
+    },
+    {
+      "receipt_seq": 239,
+      "request_id": "chatcmpl-SkafN8T5dVqOQoqcXHPilwZvV95q67AF",
+      "parent_id": "51761a143e1049eea0f1ae9ccfc717fb",
+      "observed_proposal_stage_interval_seconds": 0.846117,
+      "interval_scope": "Between preceding Core event and metered proposal receipt; includes local proposal and client/serving work, not isolated GPU execution"
+    },
+    {
+      "receipt_seq": 271,
+      "request_id": "chatcmpl-SLU4nG4SOPzDVmJld8PtPAMi6t16ZpOZ",
+      "parent_id": "bc8d969ea0e6426fb811852a1670683e",
+      "observed_proposal_stage_interval_seconds": 4.92497,
+      "interval_scope": "Between preceding Core event and metered proposal receipt; includes local proposal and client/serving work, not isolated GPU execution"
+    }
+  ],
+  "singleton_request_count": 7,
+  "observed_total_stage_interval_seconds": 37.814170999999995,
+  "formal_reason": "Current schema for one candidate permits only ranking [0]; request cannot alter candidate ordering. Skipping ranking cannot bypass prediction, verification, authorization or execution.",
+  "proposed_repair": "Skip ranking for zero/one choices; accurately refund unused declared proposal reservations only when successful adapters explicitly certify complete usage receipts. Retain conservative accounting on failures and uninstrumented adapters.",
+  "repair_status": "not-applied; source remains frozen until original pilot finishes",
+  "benchmark_constraints": "Preserve original full pilot and failed budget result. Recalibrate and freeze a new five-seed source/model protocol after general repair verification; no route, evaluator or safety/budget tuning."
+}

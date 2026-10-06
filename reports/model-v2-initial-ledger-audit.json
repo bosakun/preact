@@ -1,0 +1,33 @@
+{
+  "status": "partial-snapshot",
+  "scope": "Archived execution/outcome/error alignment only; no new inference or integration certification",
+  "protocol_hash": "69a3e5b24ad66e3033cda615394f33bdc6128114840d43b8caaa40b81160421b",
+  "source_hash": "5720e2416adbf466488ce3aec800ac22906288e5b5b473eaeff0c36b5227415e",
+  "split": "held_out",
+  "audited_episodes": 16,
+  "expected_episodes": 1920,
+  "counts": {
+    "predictions": 74,
+    "executed_actions": 14,
+    "aligned_error_rows": 26,
+    "unexecuted_predictions_without_observed_labels": 48
+  },
+  "archive_sha256": {
+    "software-elapsed_seconds-direct-0.json": "487c7548836c37725523260f7b2a2cca59b06310598ac80b36f751ffc6ce4ded",
+    "software-elapsed_seconds-direct-1.json": "4fa4f72145823b09f6e8c2a7fc9468028aaf7b442746b2dd4de67554aeed8cdc",
+    "software-elapsed_seconds-fixed-0.json": "65b758382e5b171110bf2ea2cadcfb115f82323d206c58af5704b0ab03424535",
+    "software-elapsed_seconds-fixed-1.json": "0ebe5d329aca02796c6c63170f2b65e674dab3e153385200c7ee731edcba5ec7",
+    "software-elapsed_seconds-flat-0.json": "da39d9dcce6dd1ef84035692e76ab62fb5a1fd4eaec676077a754d6b19457f8c",
+    "software-elapsed_seconds-flat-1.json": "3260fd9e739d853b12e3cd833e773600e95e15bdb3ecf6d34a67efe89b6fc894",
+    "software-elapsed_seconds-frozen-0.json": "90da1ac2f238b45258344431074d450b2e29dc74ef9622abe597d84765c1f25b",
+    "software-elapsed_seconds-frozen-1.json": "d820f9edbe0d612b9c7be1497fcb552edafbaf74dece7dd99412ecd85fc3a535",
+    "software-elapsed_seconds-no_disagreement-0.json": "4629e48c8986aa605f5c4be18dea56944f347ab552f01ca06a6015da685c7dff",
+    "software-elapsed_seconds-no_disagreement-1.json": "c939a7c216751f77a2897b113e5fa820fbd995bbe378cc991f3db630247f2188",
+    "software-elapsed_seconds-online-0.json": "abd1557fdfbcead899e86b4a16c8eec8d3ab80149412de47cfddfb830aa7c150",
+    "software-elapsed_seconds-online-1.json": "b212d0d99cc77bfd1abca1b19a731db77ee9df5f4c8f73575c2856d67189960c",
+    "software-elapsed_seconds-preact-0.json": "52ea8f996a11d75827bbed1ba83cba4aac0e228243abef2c5fbe9348633c0b27",
+    "software-elapsed_seconds-preact-1.json": "ec327372cc6d54a30cb689bdcf15c5e3531c119a9d00ca5568df75bd1c9cb23b",
+    "software-elapsed_seconds-single-0.json": "636e017654aa8d560f82f1b5ed90f0153c58b58913423922ee5d6700c28ee2f7",
+    "software-elapsed_seconds-single-1.json": "e99d50689b4c9a9a3f66338908a71d21478a18f3eef4018cf129fd8e3d491b06"
+  }
+}

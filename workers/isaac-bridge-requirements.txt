@@ -1,0 +1,6 @@
+# SDK-side dependencies only. Do not install the API's uv.lock into Isaac Python.
+# Preserve the SDK's installed NumPy with a constraint when installing this file.
+pydantic==2.13.5
+SQLAlchemy==2.1.3
+boto3==1.43.108
+mediapy==1.2.7

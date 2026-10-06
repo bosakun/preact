@@ -1,0 +1,27 @@
+{
+  "name": "preact-future-tree",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "contracts": "cd .. && .venv/bin/python scripts/export_contracts.py && cd web && node generate-contracts.mjs",
+    "build": "tsc -b && vite build",
+    "test": "playwright test",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@xyflow/react": "^12.8.0",
+    "lucide-react": "^0.468.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "json-schema-to-typescript": "^16.0.0",
+    "typescript": "^5.8.0",
+    "vite": "^6.3.0"
+  }
+}

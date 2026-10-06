@@ -1,0 +1,9 @@
+{
+  "scope": "Tampered in-memory copies of an actual archive; no benchmark results modified",
+  "rejected": {
+    "corrupted_observed_label": "Success label mismatch",
+    "unexecuted_branch_labeled": "Unexecuted prediction labeled",
+    "mismatched_execution_receipt": "Receipt mismatch",
+    "duplicated_event_sequence": "Event ordering/uniqueness mismatch"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "scope": "actual local Docker PostgreSQL, not Nebius",
+  "source_hash": "b90882ef36904b0f3a72e363ec0e53f80284e5d9b9a804e58bcc0ed829e66ff9",
+  "postgres_version": "17.11 (Debian 17.11-1.pgdg13+2)",
+  "connection_settings": {
+    "statement_timeout": "5s",
+    "lock_timeout": "1s",
+    "idle_in_transaction_session_timeout": "10s"
+  },
+  "lock_timeout_seconds": 1.0076,
+  "heartbeat_count": 141,
+  "max_heartbeat_gap_seconds": 0.0077,
+  "timed_out_write_rolled_back": true,
+  "subsequent_write_sequence": 1,
+  "episode_budget_seconds": 0.1,
+  "intent_drain_seconds": 0.4312,
+  "action_dispatches": 0,
+  "uncertain_intent_status": "interrupted",
+  "blind_retry_rejected": true
+}

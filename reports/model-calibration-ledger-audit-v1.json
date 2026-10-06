@@ -1,0 +1,41 @@
+{
+  "status": "complete-cohort-alignment-audited",
+  "scope": "Archived execution/outcome/error alignment only; no new inference or integration certification",
+  "protocol_hash": "2696cf8cac3191eb2eec6a6cd12217938ce509ae8c527ad31fa081947bc4ab1a",
+  "source_hash": "6c76b1990933808490b19a36915278c1425e251033499a71c344e4b73a98014a",
+  "split": "calibration",
+  "audited_episodes": 24,
+  "expected_episodes": 24,
+  "counts": {
+    "predictions": 46,
+    "executed_actions": 46,
+    "aligned_error_rows": 45,
+    "unexecuted_predictions_without_observed_labels": 0
+  },
+  "archive_sha256": {
+    "physical-clearance-02-direct-0.json": "73fa5f4e33028a585a06a6a152581fa5c608fa3aea77702ca763d98eccfc39f7",
+    "physical-clearance-03-direct-0.json": "d9dd659c1959d5b4aac68ab47f07c0ab067fdcd6303f78b63dde3004f9d93285",
+    "physical-clearance-04-direct-0.json": "62bf62cb11dd49028b0c51053977374133eebf1a71e32ab20c95ba2c43f88bcf",
+    "physical-clearance-05-direct-0.json": "13285541860c6c291dd55430618da5ebec000e7764300e58dbb46312ad668b33",
+    "physical-grasp-place-02-direct-0.json": "80ddb05e4cd4a3986919f839d5b74fac8afd1e8cb232eb2a1432da052c5db811",
+    "physical-grasp-place-03-direct-0.json": "29988944b3c95e762de5cb08bee06ac2299ca44d49e25d94943de1a8ed716b8e",
+    "physical-grasp-place-04-direct-0.json": "96f8607cf912277e2ee6a503c26cac8f67b66c102d03fc305cd6b08407f40d39",
+    "physical-grasp-place-05-direct-0.json": "dd0f1e72885d91b51a77bda4b584d6ba84b5ae16f633d4ef5225e8dead83b4ff",
+    "physical-perception-dynamics-02-direct-0.json": "774a4ab830563ab19d99aa71a5205c3d2636e4c0be4a32462f40c931a7aad15d",
+    "physical-perception-dynamics-03-direct-0.json": "212e08ea21e01e9260af7d07ed147dd6cf0101bb4f1283581bdc768a974a9db8",
+    "physical-perception-dynamics-04-direct-0.json": "a03e20fae07514994fa30723119b4c7c56c7ba0e4cdbf682bc67dd5441a0e40d",
+    "physical-perception-dynamics-05-direct-0.json": "2be0b1372a55e74328c1abc1e27f81ce7924585769ffb32c6b9014e579ee3bd6",
+    "software-allow_transfer-direct-0.json": "1128a8f1264bf9cdae390faee41e427c679a01b2d5ecfcec051e5c100bfaa7e5",
+    "software-allowed_host-direct-0.json": "92c33ac32762eef0d751ea42bf8fecf207544cf0a02e27fc229cb32366a92811",
+    "software-cache_enabled-direct-0.json": "bfe403b00139875788abddcfb6db0f2448e48a6b29f149bcf5bf6058db655f1e",
+    "software-capped_backoff-direct-0.json": "bccc1c942d2cff2dcd971cb9d81377be5cec3f033ef67525a3bf6656ec7b59d8",
+    "software-clamp_fraction-direct-0.json": "7854bac729f724dce99a1a4e666ab7fd9607109938f6ba6a18111da65e9372b8",
+    "software-overlap_length-direct-0.json": "865b2f17b30cbe25ac3fb2e2e966a8df9596d0d4954cfb8b227082fc6b75add1",
+    "software-production_tls-direct-0.json": "409d194b06d0be8b18f91ba74d9368403e957f07653a85c352d4f1f84473c108",
+    "software-retry_limit-direct-0.json": "9089e3a29fe30d3d70d87f095eabe7de51c80382c13e56078e25c8a192ad283d",
+    "software-safe_relative_path-direct-0.json": "1937076eee895b186c6ab694848531671dda37847e7f7c86c23de96435a06e16",
+    "software-schema_supported-direct-0.json": "200cb5cd8d9a9e4f5966ff11924ff0b21d7344caf2d26c76939a046db79b1012",
+    "software-worker_capacity-direct-0.json": "d571af913da8d3fe846e1a750b46066d7a4191d7801845ad50e9403b7babf11e",
+    "software-wrap_index-direct-0.json": "3a4ffe76dd6d2f0314f38d7588ae93b926806bbf37b5a46dd2e8875dba835437"
+  }
+}

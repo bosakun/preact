@@ -1,0 +1,40 @@
+{
+  "scope": "Actual archives and one tampered in-memory copy; no new inference or benchmark modifications",
+  "auditor_sha256": "23d5abbefe80d069bf25e2ebd93a77b4b2acb791d459f8a59f73a5c072176ede",
+  "audits": {
+    "model-calibration": {
+      "status": "complete-cohort-alignment-audited",
+      "episodes": 24,
+      "counts": {
+        "predictions": 46,
+        "executed_actions": 46,
+        "aligned_error_rows": 45,
+        "unexecuted_predictions_without_observed_labels": 0
+      },
+      "protocol_hash": "2696cf8cac3191eb2eec6a6cd12217938ce509ae8c527ad31fa081947bc4ab1a"
+    },
+    "local-held-out": {
+      "status": "complete-cohort-alignment-audited",
+      "episodes": 1920,
+      "counts": {
+        "predictions": 24543,
+        "executed_actions": 3191,
+        "aligned_error_rows": 5899,
+        "unexecuted_predictions_without_observed_labels": 18644
+      },
+      "protocol_hash": "acd93060e3d1523a8cb7cae38452bc6466f0c3ad4ad088fb428c7f4c6d9c0f3e"
+    },
+    "model-pilot": {
+      "status": "partial-snapshot",
+      "episodes": 281,
+      "counts": {
+        "predictions": 2435,
+        "executed_actions": 370,
+        "aligned_error_rows": 690,
+        "unexecuted_predictions_without_observed_labels": 1745
+      },
+      "protocol_hash": "7c4bb73a5f74c9703cc7f539ef9bd39edbdc549452abbef3455e394b31ffd49d"
+    }
+  },
+  "hypothetical_execution_rejected": true
+}

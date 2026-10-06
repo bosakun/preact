@@ -1,0 +1,12 @@
+{
+  "scope": "Audited recorded evidence; no new inference, execution, deployment or sponsor validation",
+  "source_hash": "5720e2416adbf466488ce3aec800ac22906288e5b5b473eaeff0c36b5227415e",
+  "protocol_hash": "69a3e5b24ad66e3033cda615394f33bdc6128114840d43b8caaa40b81160421b",
+  "completed_episodes": 1920,
+  "artifact_count": 21511,
+  "status": "complete-recorded-cohort-bundled",
+  "bundle_bytes": 88944340,
+  "bundle_sha256": "1c88fad8f45140bd00e896246ac96e2b3b21a4fc8af5f122baec98562fe58fad",
+  "member_count": 23438,
+  "publication": "private local artifact; not uploaded"
+}

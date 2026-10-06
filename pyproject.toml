@@ -1,0 +1,42 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "preact-runtime"
+version = "0.1.0"
+description = "A counterfactual runtime that verifies futures before agents act"
+license = "Apache-2.0"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi>=0.115,<1", "uvicorn>=0.34,<1", "pydantic>=2.10,<3",
+  "httpx>=0.28,<1", "sqlalchemy>=2.0,<3", "psycopg[binary]>=3.2,<4",
+  "numpy>=2.2,<3", "scipy>=1.15,<2", "boto3>=1.36,<2",
+  "python-dotenv>=1,<2",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "pytest-asyncio>=0.25,<2", "hypothesis>=6,<7", "ruff>=0.11,<1"]
+physical = ["mujoco>=3.3,<4"]
+sandbox = ["contree-sdk", "contree-client"]
+
+[project.scripts]
+preact = "preact.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/preact", "workers"]
+
+[tool.hatch.build.targets.sdist]
+include = ["/src/", "/workers/", "/web/src/", "/web/e2e/", "/web/*.json", "/web/*.ts", "/web/*.mjs", "/web/index.html", "/scripts/", "/tests/", "/docs/", "/assets/", "/benchmarks/", "/deploy/", "/README.md", "/LICENSE", "/pyproject.toml", "/uv.lock", "/.env.example"]
+exclude = ["/.cache/**", "/.preact/**", "**/.terraform/**", "**/__pycache__/**", "**/*.pyc", "**/*.tfstate*", "**/*.tfvars", "**/node_modules/**"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]

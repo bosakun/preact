@@ -1,0 +1,45 @@
+{
+  "scope": "Executed action postconditions only; task completion is scored separately; selection bias applies",
+  "metrics": {
+    "physical/direct/local-nemotron:nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16@d68b84fdb4f17548d74af2a98b5fef115fe5ec2f49ad004215d29e56adfb2c40": {
+      "raw": {
+        "brier": 0.21428571428571427,
+        "log_loss": 5.920933096271189,
+        "ece": 0.2142857142857143,
+        "n": 140
+      },
+      "calibrated": {
+        "brier": 0.21428571428571427,
+        "log_loss": 5.920933096271189,
+        "ece": 0.2142857142857143,
+        "n": 140
+      },
+      "risk": {
+        "brier": 0.37952714285714284,
+        "log_loss": 7.306647641542229,
+        "ece": 0.3614285714285715,
+        "n": 140
+      }
+    },
+    "software/direct/local-nemotron:nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16@d68b84fdb4f17548d74af2a98b5fef115fe5ec2f49ad004215d29e56adfb2c40": {
+      "raw": {
+        "brier": 0.1323529411764706,
+        "log_loss": 3.6570469124031755,
+        "ece": 0.13235294117647065,
+        "n": 68
+      },
+      "calibrated": {
+        "brier": 0.1323529411764706,
+        "log_loss": 3.6570469124031755,
+        "ece": 0.13235294117647065,
+        "n": 68
+      },
+      "risk": {
+        "brier": 0.25,
+        "log_loss": 6.907755278982886,
+        "ece": 0.25,
+        "n": 68
+      }
+    }
+  }
+}

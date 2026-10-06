@@ -1,0 +1,92 @@
+{
+  "checked_on": "2026-10-05",
+  "status": "passed-two-world-recorded-trust-alignment",
+  "scope": "Actual original local NVIDIA/Python/MuJoCo model archives in current renderer; recorded replay only, no fresh inference or execution.",
+  "recorded_source_hash": "6c76b1990933808490b19a36915278c1425e251033499a71c344e4b73a98014a",
+  "worlds": {
+    "software": {
+      "run_id": "2fa226ad53484ef5891d07cd99c648aa",
+      "recorded": true,
+      "first_outcome_seq": 54,
+      "decision_input_seq": 2,
+      "aligned_trust_update_seq": 59,
+      "exact_before_after_payload_match": true,
+      "unexecuted_branch_has_no_update": true,
+      "replay_before_outcome_has_no_update": true,
+      "snapshot_sha256": "e282dc9119d8d0b7a86b0479240faf7d4e8bd695fcc40355f5ba65d1029556a4",
+      "screenshot": ".cache/benchmark-review/browser-model-pilot-trust-v1/software.png",
+      "screenshot_sha256": "5389d91019943bf4cd83f9fac74a09617a89bf1a85892e05a9e6a1390bda129a"
+    },
+    "physical": {
+      "run_id": "524e3f125f6142ce95b2f904e63defd7",
+      "recorded": true,
+      "first_outcome_seq": 150,
+      "decision_input_seq": 2,
+      "aligned_trust_update_seq": 155,
+      "exact_before_after_payload_match": true,
+      "unexecuted_branch_has_no_update": true,
+      "replay_before_outcome_has_no_update": true,
+      "snapshot_sha256": "ee734c4e3bb35962710d7c46ed1009b3eb39e7678303026f4c524a21784d1f99",
+      "screenshot": ".cache/benchmark-review/browser-model-pilot-trust-v1/physical.png",
+      "screenshot_sha256": "29c69864a9759c947fcd6efebc4895c40f5dad30fae7a7ef1329b6f51fb512f3"
+    }
+  },
+  "page_errors": [],
+  "non_get_requests": [],
+  "run_count_before": 2,
+  "run_count_after": 2,
+  "live_nebius_validation": false,
+  "cosmos_validation": false,
+  "isaac_gpu_validation": false,
+  "served_runtime_source_hash": "5720e2416adbf466488ce3aec800ac22906288e5b5b473eaeff0c36b5227415e",
+  "frontend_source_sha256": {
+    "web/src/main.tsx": "22bfef76b58f5ae2cfae090bd52a1f7af1abc70bf805cf43e9673be8a81379a5",
+    "web/src/style.css": "6e650f4aa52e94f95c5fda2f4134e65f5ca4f61d73d0f51ea95357bd3d8bec6e"
+  },
+  "production_assets_sha256": {
+    "web/dist/assets/index-BhgstiJY.js": "3827351fa500a0c86cff3f27d5db80acbc12972a3ededa80be9faa1d84036b29",
+    "web/dist/assets/index-DaBukLq-.css": "930cd62c6ecb43a79abe2008acd93c24755f3f569e987b9d7685e34d4e1d636f",
+    "web/dist/index.html": "ef04a7332d437feaef877419ec82fd4e7809c9a638ef88bb09c8cb87039b7f24"
+  },
+  "replay_database_final_audit": {
+    "runs": [
+      [
+        "2fa226ad53484ef5891d07cd99c648aa",
+        "recorded"
+      ],
+      [
+        "524e3f125f6142ce95b2f904e63defd7",
+        "recorded"
+      ]
+    ],
+    "prediction_error_rows": 0,
+    "execution_receipts": 0,
+    "jobs": 0
+  },
+  "review_apis_clean_shutdown": true,
+  "browser_suite": {
+    "passed": 6,
+    "duration_seconds": 12.3,
+    "database": "separate local SQLite",
+    "log": ".cache/trust-round-browser-final.log",
+    "log_sha256": "1b58e1ea49289637fb0ffa90c4d5a2714226b20d173c6773edbc4b38ecaa6fba",
+    "properties": [
+      "exact first and second decision snapshot payloads",
+      "no update for unexecuted branch",
+      "no future update before replayed outcome"
+    ]
+  },
+  "initial_regression": {
+    "status": "failed as expected before repair",
+    "condition": "First Physical decision displayed final-round reliability counts",
+    "log": ".cache/trust-round-regression-before-fix.log",
+    "log_sha256": "2e6b679037815ff1fdc7530c21a3ebfd07c8324cf7eaa9907c0dc77be7d97cf5"
+  },
+  "final_build": {
+    "status": "passed TypeScript and Vite",
+    "log": ".cache/trust-round-frontend-build-final.log",
+    "log_sha256": "db60a157ec0c3b86e348ceb31953dc41580f4f018843b948bcecf9bde5b2bbfe"
+  },
+  "limits": "Archived primary comparison freezes calibration; unchanged recorded snapshots stay unchanged. UI does not infer increases, label alternatives or claim causal calibration benefits. Earlier container/video/screenshot receipts retain their original frontend scope; human and sponsor gates remain open.",
+  "production_validation": "reports/trust-round-production-validation-v1.json"
+}

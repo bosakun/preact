@@ -1,0 +1,525 @@
+{
+  "scope": "Executed action postconditions only; task completion is scored separately; selection bias applies",
+  "metrics": {
+    "physical/direct/local-nemotron:nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16@7fcc95dcab8e057838b5674d579adde0959f3f76b186a5aa28e4fd9900ef1c44": {
+      "raw": {
+        "brier": 0.3333333333333333,
+        "log_loss": 9.21034037197685,
+        "ece": 0.33333333333333337,
+        "n": 45
+      },
+      "calibrated": {
+        "brier": 0.3333333333333333,
+        "log_loss": 9.21034037197685,
+        "ece": 0.33333333333333337,
+        "n": 45
+      },
+      "risk": {
+        "brier": 0.35940222222222223,
+        "log_loss": 4.929890665101159,
+        "ece": 0.3593333333333334,
+        "n": 45
+      }
+    },
+    "physical/fixed/local-nemotron:nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16@7fcc95dcab8e057838b5674d579adde0959f3f76b186a5aa28e4fd9900ef1c44": {
+      "raw": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 59
+      },
+      "calibrated": {
+        "brier": 0.02326448209219365,
+        "log_loss": 0.11324015417703429,
+        "ece": 0.09889129603670192,
+        "n": 59
+      },
+      "risk": {
+        "brier": 0.5048627118644068,
+        "log_loss": 13.649793718020323,
+        "ece": 0.5516949152542373,
+        "n": 59
+      }
+    },
+    "physical/fixed/mujoco@1": {
+      "raw": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 59
+      },
+      "calibrated": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 59
+      },
+      "risk": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 59
+      }
+    },
+    "physical/flat/local-nemotron:nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16@7fcc95dcab8e057838b5674d579adde0959f3f76b186a5aa28e4fd9900ef1c44": {
+      "raw": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 55
+      },
+      "calibrated": {
+        "brier": 0.02193761916753606,
+        "log_loss": 0.10825740730784221,
+        "ece": 0.09473684210526315,
+        "n": 55
+      },
+      "risk": {
+        "brier": 0.41536,
+        "log_loss": 11.132447870992886,
+        "ece": 0.4705454545454545,
+        "n": 55
+      }
+    },
+    "physical/flat/mujoco@1": {
+      "raw": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 55
+      },
+      "calibrated": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 55
+      },
+      "risk": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 55
+      }
+    },
+    "physical/frozen/local-nemotron:nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16@7fcc95dcab8e057838b5674d579adde0959f3f76b186a5aa28e4fd9900ef1c44": {
+      "raw": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 59
+      },
+      "calibrated": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 59
+      },
+      "risk": {
+        "brier": 0.5048627118644068,
+        "log_loss": 13.649793718020323,
+        "ece": 0.5516949152542373,
+        "n": 59
+      }
+    },
+    "physical/frozen/mujoco@1": {
+      "raw": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 59
+      },
+      "calibrated": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 59
+      },
+      "risk": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 59
+      }
+    },
+    "physical/no_disagreement/local-nemotron:nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16@7fcc95dcab8e057838b5674d579adde0959f3f76b186a5aa28e4fd9900ef1c44": {
+      "raw": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 59
+      },
+      "calibrated": {
+        "brier": 0.02326448209219365,
+        "log_loss": 0.11324015417703429,
+        "ece": 0.09889129603670192,
+        "n": 59
+      },
+      "risk": {
+        "brier": 0.5048627118644068,
+        "log_loss": 13.649793718020323,
+        "ece": 0.5516949152542373,
+        "n": 59
+      }
+    },
+    "physical/no_disagreement/mujoco@1": {
+      "raw": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 59
+      },
+      "calibrated": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 59
+      },
+      "risk": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 59
+      }
+    },
+    "physical/online/local-nemotron:nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16@7fcc95dcab8e057838b5674d579adde0959f3f76b186a5aa28e4fd9900ef1c44": {
+      "raw": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 59
+      },
+      "calibrated": {
+        "brier": 0.011396447221176983,
+        "log_loss": 0.07362465847479638,
+        "ece": 0.06697292922437234,
+        "n": 59
+      },
+      "risk": {
+        "brier": 0.5048627118644068,
+        "log_loss": 13.649793718020323,
+        "ece": 0.5516949152542373,
+        "n": 59
+      }
+    },
+    "physical/online/mujoco@1": {
+      "raw": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 59
+      },
+      "calibrated": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 59
+      },
+      "risk": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 59
+      }
+    },
+    "physical/preact/local-nemotron:nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16@7fcc95dcab8e057838b5674d579adde0959f3f76b186a5aa28e4fd9900ef1c44": {
+      "raw": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 58
+      },
+      "calibrated": {
+        "brier": 0.023617833798912625,
+        "log_loss": 0.1142603771581853,
+        "ece": 0.09968887736582831,
+        "n": 58
+      },
+      "risk": {
+        "brier": 0.5135241379310345,
+        "log_loss": 13.88425062187606,
+        "ece": 0.5603448275862069,
+        "n": 58
+      }
+    },
+    "physical/preact/mujoco@1": {
+      "raw": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 58
+      },
+      "calibrated": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 58
+      },
+      "risk": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 58
+      }
+    },
+    "software/direct/local-nemotron:nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16@7fcc95dcab8e057838b5674d579adde0959f3f76b186a5aa28e4fd9900ef1c44": {
+      "raw": {
+        "brier": 0.11538461538461539,
+        "log_loss": 3.1881947441464864,
+        "ece": 0.11538461538461542,
+        "n": 26
+      },
+      "calibrated": {
+        "brier": 0.11538461538461539,
+        "log_loss": 3.1881947441464864,
+        "ece": 0.11538461538461542,
+        "n": 26
+      },
+      "risk": {
+        "brier": 0.15384615384615385,
+        "log_loss": 4.250926325528315,
+        "ece": 0.15384615384615385,
+        "n": 26
+      }
+    },
+    "software/fixed/local-nemotron:nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16@7fcc95dcab8e057838b5674d579adde0959f3f76b186a5aa28e4fd9900ef1c44": {
+      "raw": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 24
+      },
+      "calibrated": {
+        "brier": 0.001700680272108842,
+        "log_loss": 0.024702657385240603,
+        "ece": 0.023809523809523836,
+        "n": 24
+      },
+      "risk": {
+        "brier": 0.041666666666666664,
+        "log_loss": 1.151292546497981,
+        "ece": 0.041666666666666664,
+        "n": 24
+      }
+    },
+    "software/fixed/local-tests@1": {
+      "raw": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 24
+      },
+      "calibrated": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 24
+      },
+      "risk": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 24
+      }
+    },
+    "software/flat/local-nemotron:nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16@7fcc95dcab8e057838b5674d579adde0959f3f76b186a5aa28e4fd9900ef1c44": {
+      "raw": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 24
+      },
+      "calibrated": {
+        "brier": 0.001700680272108842,
+        "log_loss": 0.024702657385240603,
+        "ece": 0.023809523809523836,
+        "n": 24
+      },
+      "risk": {
+        "brier": 0.041666666666666664,
+        "log_loss": 1.151292546497981,
+        "ece": 0.041666666666666664,
+        "n": 24
+      }
+    },
+    "software/flat/local-tests@1": {
+      "raw": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 24
+      },
+      "calibrated": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 24
+      },
+      "risk": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 24
+      }
+    },
+    "software/frozen/local-nemotron:nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16@7fcc95dcab8e057838b5674d579adde0959f3f76b186a5aa28e4fd9900ef1c44": {
+      "raw": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 24
+      },
+      "calibrated": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 24
+      },
+      "risk": {
+        "brier": 0.041666666666666664,
+        "log_loss": 1.151292546497981,
+        "ece": 0.041666666666666664,
+        "n": 24
+      }
+    },
+    "software/frozen/local-tests@1": {
+      "raw": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 24
+      },
+      "calibrated": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 24
+      },
+      "risk": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 24
+      }
+    },
+    "software/no_disagreement/local-nemotron:nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16@7fcc95dcab8e057838b5674d579adde0959f3f76b186a5aa28e4fd9900ef1c44": {
+      "raw": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 24
+      },
+      "calibrated": {
+        "brier": 0.001700680272108842,
+        "log_loss": 0.024702657385240603,
+        "ece": 0.023809523809523836,
+        "n": 24
+      },
+      "risk": {
+        "brier": 0.041666666666666664,
+        "log_loss": 1.151292546497981,
+        "ece": 0.041666666666666664,
+        "n": 24
+      }
+    },
+    "software/no_disagreement/local-tests@1": {
+      "raw": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 24
+      },
+      "calibrated": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 24
+      },
+      "risk": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 24
+      }
+    },
+    "software/online/local-nemotron:nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16@7fcc95dcab8e057838b5674d579adde0959f3f76b186a5aa28e4fd9900ef1c44": {
+      "raw": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 24
+      },
+      "calibrated": {
+        "brier": 0.0011473758093730143,
+        "log_loss": 0.019982211678245248,
+        "ece": 0.019384372901207314,
+        "n": 24
+      },
+      "risk": {
+        "brier": 0.041666666666666664,
+        "log_loss": 1.151292546497981,
+        "ece": 0.041666666666666664,
+        "n": 24
+      }
+    },
+    "software/online/local-tests@1": {
+      "raw": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 24
+      },
+      "calibrated": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 24
+      },
+      "risk": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 24
+      }
+    },
+    "software/preact/local-nemotron:nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16@7fcc95dcab8e057838b5674d579adde0959f3f76b186a5aa28e4fd9900ef1c44": {
+      "raw": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 24
+      },
+      "calibrated": {
+        "brier": 0.001700680272108842,
+        "log_loss": 0.024702657385240603,
+        "ece": 0.023809523809523836,
+        "n": 24
+      },
+      "risk": {
+        "brier": 0.041666666666666664,
+        "log_loss": 1.151292546497981,
+        "ece": 0.041666666666666664,
+        "n": 24
+      }
+    },
+    "software/preact/local-tests@1": {
+      "raw": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 24
+      },
+      "calibrated": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 24
+      },
+      "risk": {
+        "brier": 0.0,
+        "log_loss": 9.999778782803785e-13,
+        "ece": 0.0,
+        "n": 24
+      }
+    }
+  }
+}

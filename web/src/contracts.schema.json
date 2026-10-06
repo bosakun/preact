@@ -1,0 +1,1346 @@
+{
+  "$defs": {
+    "Action": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "kind": {
+          "title": "Kind",
+          "type": "string"
+        },
+        "state_id": {
+          "title": "State Id",
+          "type": "string"
+        },
+        "payload": {
+          "additionalProperties": true,
+          "title": "Payload",
+          "type": "object"
+        },
+        "rationale": {
+          "default": "",
+          "title": "Rationale",
+          "type": "string"
+        },
+        "duration": {
+          "default": 1.0,
+          "exclusiveMinimum": 0,
+          "title": "Duration",
+          "type": "number"
+        }
+      },
+      "required": [
+        "schema_version",
+        "id",
+        "name",
+        "kind",
+        "state_id",
+        "payload",
+        "rationale",
+        "duration"
+      ],
+      "title": "Action",
+      "type": "object"
+    },
+    "Capabilities": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "engine_id": {
+          "title": "Engine Id",
+          "type": "string"
+        },
+        "version": {
+          "title": "Version",
+          "type": "string"
+        },
+        "family": {
+          "title": "Family",
+          "type": "string"
+        },
+        "domains": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Domains",
+          "type": "array"
+        },
+        "evidence": {
+          "$ref": "#/$defs/EvidenceKind"
+        },
+        "tier": {
+          "minimum": 0,
+          "title": "Tier",
+          "type": "integer"
+        },
+        "max_horizon": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Max Horizon",
+          "type": "integer"
+        },
+        "produces_successor": {
+          "default": false,
+          "title": "Produces Successor",
+          "type": "boolean"
+        },
+        "applicability": {
+          "title": "Applicability",
+          "type": "string"
+        },
+        "refines_engine_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Refines Engine Ids",
+          "type": "array"
+        },
+        "max_samples": {
+          "default": 1,
+          "maximum": 200,
+          "minimum": 1,
+          "title": "Max Samples",
+          "type": "integer"
+        },
+        "verification_checks": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Verification Checks"
+        },
+        "estimated_cost_usd": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Estimated Cost Usd"
+        },
+        "estimated_latency_seconds": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Estimated Latency Seconds"
+        }
+      },
+      "required": [
+        "schema_version",
+        "engine_id",
+        "version",
+        "family",
+        "domains",
+        "evidence",
+        "tier",
+        "max_horizon",
+        "produces_successor",
+        "applicability",
+        "refines_engine_ids",
+        "max_samples",
+        "verification_checks",
+        "estimated_cost_usd",
+        "estimated_latency_seconds"
+      ],
+      "title": "Capabilities",
+      "type": "object"
+    },
+    "Decision": {
+      "enum": [
+        "execute",
+        "verify_more",
+        "abstain",
+        "task_complete"
+      ],
+      "title": "Decision",
+      "type": "string"
+    },
+    "Estimate": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "lower": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Lower"
+        },
+        "upper": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Upper"
+        },
+        "uncertainty": {
+          "default": 1,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Uncertainty",
+          "type": "number"
+        },
+        "measured": {
+          "default": false,
+          "title": "Measured",
+          "type": "boolean"
+        }
+      },
+      "title": "Estimate",
+      "type": "object",
+      "required": [
+        "schema_version",
+        "value",
+        "lower",
+        "upper",
+        "uncertainty",
+        "measured"
+      ]
+    },
+    "Evaluation": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "success": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Success"
+        },
+        "stakes": {
+          "default": 0,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Stakes",
+          "type": "number"
+        },
+        "success_lower": {
+          "title": "Success Lower",
+          "type": "number"
+        },
+        "risk_upper": {
+          "title": "Risk Upper",
+          "type": "number"
+        },
+        "uncertainty": {
+          "title": "Uncertainty",
+          "type": "number"
+        },
+        "disagreement": {
+          "title": "Disagreement",
+          "type": "number"
+        },
+        "unresolved_disagreement": {
+          "default": 0,
+          "title": "Unresolved Disagreement",
+          "type": "number"
+        },
+        "disagreement_by_claim": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Disagreement By Claim",
+          "type": "object"
+        },
+        "utility": {
+          "title": "Utility",
+          "type": "number"
+        },
+        "checks": {
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "title": "Checks",
+          "type": "object"
+        },
+        "violations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Violations",
+          "type": "array"
+        },
+        "evidence_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "schema_version",
+        "success",
+        "stakes",
+        "success_lower",
+        "risk_upper",
+        "uncertainty",
+        "disagreement",
+        "unresolved_disagreement",
+        "disagreement_by_claim",
+        "utility",
+        "checks",
+        "violations",
+        "evidence_ids"
+      ],
+      "title": "Evaluation",
+      "type": "object"
+    },
+    "EvidenceKind": {
+      "enum": [
+        "inference",
+        "generated_visual",
+        "executable",
+        "simulation",
+        "observation"
+      ],
+      "title": "EvidenceKind",
+      "type": "string"
+    },
+    "FutureOutcome": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "probability": {
+          "$ref": "#/$defs/Estimate"
+        },
+        "state": {
+          "$ref": "#/$defs/State"
+        },
+        "assumptions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Assumptions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "schema_version",
+        "label",
+        "probability",
+        "state",
+        "assumptions"
+      ],
+      "title": "FutureOutcome",
+      "type": "object"
+    },
+    "GateResult": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "decision": {
+          "$ref": "#/$defs/Decision"
+        },
+        "reasons": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Reasons",
+          "type": "array"
+        },
+        "state_id": {
+          "title": "State Id",
+          "type": "string"
+        },
+        "action_hash": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Action Hash"
+        },
+        "evidence_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "policy_hash": {
+          "default": "",
+          "title": "Policy Hash",
+          "type": "string"
+        },
+        "expires_at": {
+          "title": "Expires At",
+          "type": "number"
+        }
+      },
+      "required": [
+        "schema_version",
+        "decision",
+        "reasons",
+        "state_id",
+        "action_hash",
+        "evidence_ids",
+        "policy_hash",
+        "expires_at"
+      ],
+      "title": "GateResult",
+      "type": "object"
+    },
+    "Observation": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "state": {
+          "$ref": "#/$defs/State"
+        },
+        "success": {
+          "title": "Success",
+          "type": "boolean"
+        },
+        "unsafe": {
+          "title": "Unsafe",
+          "type": "boolean"
+        },
+        "metrics": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Metrics",
+          "type": "object"
+        },
+        "vectors": {
+          "additionalProperties": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array"
+          },
+          "title": "Vectors",
+          "type": "object"
+        },
+        "checks": {
+          "additionalProperties": {
+            "type": "boolean"
+          },
+          "title": "Checks",
+          "type": "object"
+        },
+        "receipt": {
+          "title": "Receipt",
+          "type": "string"
+        },
+        "success_metric": {
+          "default": "action_postconditions/v1",
+          "title": "Success Metric",
+          "type": "string"
+        },
+        "risk_metric": {
+          "default": "constraint_violation/v1",
+          "title": "Risk Metric",
+          "type": "string"
+        },
+        "artifacts": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Artifacts",
+          "type": "object"
+        },
+        "execution_calls": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Execution Calls",
+          "type": "integer"
+        },
+        "cost_usd": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cost Usd"
+        }
+      },
+      "required": [
+        "schema_version",
+        "state",
+        "success",
+        "unsafe",
+        "metrics",
+        "vectors",
+        "checks",
+        "receipt",
+        "success_metric",
+        "risk_metric",
+        "artifacts",
+        "execution_calls",
+        "cost_usd"
+      ],
+      "title": "Observation",
+      "type": "object"
+    },
+    "Policy": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "max_depth": {
+          "default": 3,
+          "maximum": 5,
+          "minimum": 1,
+          "title": "Max Depth",
+          "type": "integer"
+        },
+        "width": {
+          "default": 3,
+          "maximum": 5,
+          "minimum": 1,
+          "title": "Width",
+          "type": "integer"
+        },
+        "max_nodes": {
+          "default": 40,
+          "maximum": 200,
+          "minimum": 1,
+          "title": "Max Nodes",
+          "type": "integer"
+        },
+        "max_calls": {
+          "default": 80,
+          "minimum": 1,
+          "title": "Max Calls",
+          "type": "integer"
+        },
+        "max_seconds": {
+          "default": 120,
+          "exclusiveMinimum": 0,
+          "title": "Max Seconds",
+          "type": "number"
+        },
+        "max_cost_usd": {
+          "default": 1,
+          "exclusiveMinimum": 0,
+          "title": "Max Cost Usd",
+          "type": "number"
+        },
+        "max_risk": {
+          "default": 0.05,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Max Risk",
+          "type": "number"
+        },
+        "min_success": {
+          "default": 0.6,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Min Success",
+          "type": "number"
+        },
+        "disagreement_threshold": {
+          "default": 0.2,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Disagreement Threshold",
+          "type": "number"
+        },
+        "uncertainty_threshold": {
+          "default": 0.25,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Uncertainty Threshold",
+          "type": "number"
+        },
+        "search": {
+          "default": true,
+          "title": "Search",
+          "type": "boolean"
+        },
+        "adaptive": {
+          "default": true,
+          "title": "Adaptive",
+          "type": "boolean"
+        },
+        "calibration": {
+          "default": true,
+          "title": "Calibration",
+          "type": "boolean"
+        }
+      },
+      "title": "Policy",
+      "type": "object",
+      "required": [
+        "schema_version",
+        "max_depth",
+        "width",
+        "max_nodes",
+        "max_calls",
+        "max_seconds",
+        "max_cost_usd",
+        "max_risk",
+        "min_success",
+        "disagreement_threshold",
+        "uncertainty_threshold",
+        "search",
+        "adaptive",
+        "calibration"
+      ]
+    },
+    "Prediction": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "engine_id": {
+          "title": "Engine Id",
+          "type": "string"
+        },
+        "engine_version": {
+          "title": "Engine Version",
+          "type": "string"
+        },
+        "family": {
+          "title": "Family",
+          "type": "string"
+        },
+        "state_id": {
+          "title": "State Id",
+          "type": "string"
+        },
+        "action_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Action Ids",
+          "type": "array"
+        },
+        "horizon": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Horizon",
+          "type": "integer"
+        },
+        "evidence": {
+          "$ref": "#/$defs/EvidenceKind"
+        },
+        "success_metric": {
+          "default": "action_postconditions/v1",
+          "title": "Success Metric",
+          "type": "string"
+        },
+        "risk_metric": {
+          "default": "constraint_violation/v1",
+          "title": "Risk Metric",
+          "type": "string"
+        },
+        "success": {
+          "$ref": "#/$defs/Estimate"
+        },
+        "risk": {
+          "$ref": "#/$defs/Estimate"
+        },
+        "violations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Violations",
+          "type": "array"
+        },
+        "successor": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/State"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "outcomes": {
+          "items": {
+            "$ref": "#/$defs/FutureOutcome"
+          },
+          "maxItems": 10,
+          "title": "Outcomes",
+          "type": "array"
+        },
+        "metrics": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Metrics",
+          "type": "object"
+        },
+        "metric_intervals": {
+          "additionalProperties": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Metric Intervals",
+          "type": "object"
+        },
+        "vectors": {
+          "additionalProperties": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array"
+          },
+          "title": "Vectors",
+          "type": "object"
+        },
+        "artifacts": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Artifacts",
+          "type": "object"
+        },
+        "assumptions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Assumptions",
+          "type": "array"
+        },
+        "mandatory_checks": {
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "title": "Mandatory Checks",
+          "type": "object"
+        },
+        "latency_ms": {
+          "default": 0,
+          "title": "Latency Ms",
+          "type": "number"
+        },
+        "cost_usd": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Cost Usd",
+          "type": "number"
+        },
+        "raw": {
+          "additionalProperties": true,
+          "title": "Raw",
+          "type": "object"
+        },
+        "refines_engine_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Refines Engine Ids",
+          "type": "array"
+        },
+        "sample_count": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Sample Count",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "schema_version",
+        "id",
+        "engine_id",
+        "engine_version",
+        "family",
+        "state_id",
+        "action_ids",
+        "horizon",
+        "evidence",
+        "success_metric",
+        "risk_metric",
+        "success",
+        "risk",
+        "violations",
+        "successor",
+        "outcomes",
+        "metrics",
+        "metric_intervals",
+        "vectors",
+        "artifacts",
+        "assumptions",
+        "mandatory_checks",
+        "latency_ms",
+        "cost_usd",
+        "raw",
+        "refines_engine_ids",
+        "sample_count"
+      ],
+      "title": "Prediction",
+      "type": "object"
+    },
+    "PredictionRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "state": {
+          "$ref": "#/$defs/State"
+        },
+        "actions": {
+          "items": {
+            "$ref": "#/$defs/Action"
+          },
+          "minItems": 1,
+          "title": "Actions",
+          "type": "array"
+        },
+        "seed": {
+          "default": 0,
+          "title": "Seed",
+          "type": "integer"
+        },
+        "horizon": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Horizon",
+          "type": "integer"
+        },
+        "deadline_seconds": {
+          "default": 30,
+          "exclusiveMinimum": 0,
+          "title": "Deadline Seconds",
+          "type": "number"
+        },
+        "sample_budget": {
+          "default": 1,
+          "maximum": 200,
+          "minimum": 1,
+          "title": "Sample Budget",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "schema_version",
+        "state",
+        "actions",
+        "seed",
+        "horizon",
+        "deadline_seconds",
+        "sample_budget"
+      ],
+      "title": "PredictionRequest",
+      "type": "object"
+    },
+    "RunEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "seq": {
+          "title": "Seq",
+          "type": "integer"
+        },
+        "kind": {
+          "title": "Kind",
+          "type": "string"
+        },
+        "timestamp": {
+          "title": "Timestamp",
+          "type": "string"
+        },
+        "data": {
+          "additionalProperties": true,
+          "title": "Data",
+          "type": "object"
+        }
+      },
+      "required": [
+        "schema_version",
+        "run_id",
+        "seq",
+        "kind",
+        "timestamp",
+        "data"
+      ],
+      "title": "RunEvent",
+      "type": "object"
+    },
+    "State": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "domain": {
+          "title": "Domain",
+          "type": "string"
+        },
+        "kind": {
+          "default": "observed",
+          "enum": [
+            "observed",
+            "hypothetical"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "payload": {
+          "additionalProperties": true,
+          "title": "Payload",
+          "type": "object"
+        },
+        "timestamp": {
+          "title": "Timestamp",
+          "type": "string"
+        },
+        "parent_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Parent Id"
+        },
+        "uncertainty": {
+          "default": 0,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Uncertainty",
+          "type": "number"
+        },
+        "provenance": {
+          "title": "Provenance",
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema_version",
+        "id",
+        "domain",
+        "kind",
+        "payload",
+        "timestamp",
+        "parent_id",
+        "uncertainty",
+        "provenance"
+      ],
+      "title": "State",
+      "type": "object"
+    },
+    "Task": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "domain": {
+          "title": "Domain",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "goal": {
+          "title": "Goal",
+          "type": "string"
+        },
+        "required_checks": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Required Checks",
+          "type": "array"
+        },
+        "seed": {
+          "default": 0,
+          "title": "Seed",
+          "type": "integer"
+        },
+        "max_steps": {
+          "default": 5,
+          "maximum": 20,
+          "minimum": 1,
+          "title": "Max Steps",
+          "type": "integer"
+        },
+        "success_metric": {
+          "default": "action_postconditions/v1",
+          "title": "Success Metric",
+          "type": "string"
+        },
+        "risk_metric": {
+          "default": "constraint_violation/v1",
+          "title": "Risk Metric",
+          "type": "string"
+        },
+        "metric_scales": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Metric Scales",
+          "type": "object"
+        },
+        "stakes": {
+          "default": 0,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Stakes",
+          "type": "number"
+        }
+      },
+      "required": [
+        "schema_version",
+        "id",
+        "domain",
+        "title",
+        "goal",
+        "required_checks",
+        "seed",
+        "max_steps",
+        "success_metric",
+        "risk_metric",
+        "metric_scales",
+        "stakes"
+      ],
+      "title": "Task",
+      "type": "object"
+    },
+    "TreeNode": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "parent_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Parent Id"
+        },
+        "kind": {
+          "default": "action",
+          "enum": [
+            "state",
+            "action",
+            "outcome"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "label": {
+          "default": "",
+          "title": "Label",
+          "type": "string"
+        },
+        "outcome_probability": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Estimate"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "state": {
+          "$ref": "#/$defs/State"
+        },
+        "action": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Action"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "depth": {
+          "default": 0,
+          "title": "Depth",
+          "type": "integer"
+        },
+        "predictions": {
+          "items": {
+            "$ref": "#/$defs/Prediction"
+          },
+          "title": "Predictions",
+          "type": "array"
+        },
+        "evaluation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Evaluation"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "status": {
+          "default": "proposed",
+          "title": "Status",
+          "type": "string"
+        },
+        "actual": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Actual"
+        },
+        "cumulative_risk": {
+          "default": 0,
+          "title": "Cumulative Risk",
+          "type": "number"
+        },
+        "value": {
+          "default": 0,
+          "title": "Value",
+          "type": "number"
+        },
+        "reused_from": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reused From"
+        }
+      },
+      "required": [
+        "schema_version",
+        "id",
+        "parent_id",
+        "kind",
+        "label",
+        "outcome_probability",
+        "state",
+        "action",
+        "depth",
+        "predictions",
+        "evaluation",
+        "status",
+        "actual",
+        "cumulative_risk",
+        "value",
+        "reused_from"
+      ],
+      "title": "TreeNode",
+      "type": "object"
+    }
+  },
+  "anyOf": [
+    {
+      "$ref": "#/$defs/State"
+    },
+    {
+      "$ref": "#/$defs/Action"
+    },
+    {
+      "$ref": "#/$defs/Capabilities"
+    },
+    {
+      "$ref": "#/$defs/FutureOutcome"
+    },
+    {
+      "$ref": "#/$defs/GateResult"
+    },
+    {
+      "$ref": "#/$defs/Observation"
+    },
+    {
+      "$ref": "#/$defs/Policy"
+    },
+    {
+      "$ref": "#/$defs/Prediction"
+    },
+    {
+      "$ref": "#/$defs/PredictionRequest"
+    },
+    {
+      "$ref": "#/$defs/RunEvent"
+    },
+    {
+      "$ref": "#/$defs/Task"
+    },
+    {
+      "$ref": "#/$defs/TreeNode"
+    }
+  ]
+}

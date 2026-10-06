@@ -1,0 +1,40 @@
+{
+  "status": "completed",
+  "source_revision": "1e55ebee8f9541732fcb2d0d09cadd65f6437b83",
+  "scope": "Actual trusted Python probes and Cartesian MuJoCo simulation. No live Nebius/NVIDIA/hardware evidence.",
+  "segments": [
+    {
+      "domain": "software",
+      "start_seconds": 5.233,
+      "end_seconds": 52.836
+    },
+    {
+      "domain": "physical",
+      "start_seconds": 52.867,
+      "end_seconds": 124.501
+    }
+  ],
+  "runs": [
+    {
+      "id": "4d1812d4c1314cc78c8e7c420dfa5710",
+      "domain": "software",
+      "events": 114,
+      "event_hash": "eb64156d88b686c966c7995292d1feb0019589467fb67b224c049f9ca37d6108"
+    },
+    {
+      "id": "c9eb6c1c3a7e4e29880d932500da1d11",
+      "domain": "physical",
+      "events": 229,
+      "event_hash": "426fb5a62cdf651027d83cf7137e9130e78084d7353eb9881e561f13160c6fec"
+    }
+  ],
+  "media_duration_seconds": 144.44,
+  "decoded_frames": 3611,
+  "decoder": "PyAV 19.0.1",
+  "physical_wall_seconds": 71.634,
+  "runtime_source_hash": "e635d7b0960cc7d124fbca61a5641e7657ec726215562f9e480870924106767c",
+  "public_upload": false,
+  "nvidia_validated": false,
+  "video_sha256": "e587801cd4dd390444419a9ebaed4000dc5f451b732d468ed51958b058db047b",
+  "private_review_path": ".cache/demo-footage-1e55ebe/local-review.webm"
+}

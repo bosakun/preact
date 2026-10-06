@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "scope": "Actual local PostgreSQL/ASGI worker; injected engine cleanup, no GPU/NVIDIA model",
+  "postgres_version": "PostgreSQL 17.11 (Debian 17.11-1.pgdg13+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+  "job_protocol_version": "2",
+  "sources": {
+    "src/preact/core/store.py": "9328ce5970118d3c0fce287f1930fa488f9b71aac27b276a199fdc9ceebb383d",
+    "src/preact/service/worker.py": "58ff6ad73af4437973c59eea39bb2d21394b6f90cbbf7b29b94f3c02f87b80ca",
+    "src/preact/engines/remote.py": "dcce8c0fdf012c0da5c4d0250ebf013ee0cde545625f3f52ca6214900cace162"
+  },
+  "job_ids": [
+    "8381a0532a0c43a587a034840d982332",
+    "478cd4e33b66469eb4baa50c0e3bde60",
+    "599d1beec5d94efcbd47f42e9dac31d3",
+    "8b6da63967754162a1f10d685fcbc5e3"
+  ],
+  "cases": [
+    {
+      "cleanup_confirmed": true,
+      "during": {
+        "id": "8381a0532a0c43a587a034840d982332",
+        "job_protocol_version": "2",
+        "status": "cancelling",
+        "error": "",
+        "prediction": null,
+        "operation_finished": false,
+        "terminal_state_confirmed": false,
+        "cleanup": null
+      },
+      "after": {
+        "id": "8381a0532a0c43a587a034840d982332",
+        "job_protocol_version": "2",
+        "status": "cancelled",
+        "error": "CancelledError",
+        "prediction": null,
+        "operation_finished": true,
+        "terminal_state_confirmed": true,
+        "cleanup": {
+          "schema_version": "1",
+          "operation_kind": "local_process",
+          "request_accepted": true,
+          "terminal_state_confirmed": true
+        }
+      }
+    },
+    {
+      "cleanup_confirmed": false,
+      "during": {
+        "id": "478cd4e33b66469eb4baa50c0e3bde60",
+        "job_protocol_version": "2",
+        "status": "cancelling",
+        "error": "",
+        "prediction": null,
+        "operation_finished": false,
+        "terminal_state_confirmed": false,
+        "cleanup": null
+      },
+      "after": {
+        "id": "478cd4e33b66469eb4baa50c0e3bde60",
+        "job_protocol_version": "2",
+        "status": "cancelled",
+        "error": "CancelledError",
+        "prediction": null,
+        "operation_finished": true,
+        "terminal_state_confirmed": false,
+        "cleanup": {
+          "schema_version": "1",
+          "operation_kind": "local_process",
+          "request_accepted": false,
+          "terminal_state_confirmed": false,
+          "error": "PermissionError"
+        }
+      }
+    }
+  ],
+  "late_prediction_publication_blocked": true,
+  "wrong_owner_completion_blocked": true,
+  "concurrent_cancellation_requests": 9,
+  "expired_cancellation_interrupted_without_redispatch": true,
+  "fresh_pool_preserved_cleanup_evidence": true
+}

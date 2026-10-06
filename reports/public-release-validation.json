@@ -1,0 +1,1221 @@
+{
+  "checked_on": "2026-10-06",
+  "status": "passed-staged-local-validation",
+  "scope": "Fresh staged source install and local execution on macOS ARM. Populated offline caches were used; no public clone, remote CI, hosted judge path, live Nebius, Cosmos or Isaac GPU validation is claimed.",
+  "runtime_source_hash": "44a3b88efeeef1e2daafb724a98d18c2503c2c5c6404864b1da396e416c7d9b1",
+  "original_private_source_revision": "5dfbf45ffd999a44f7f2d0673e3f1c6705bb81f3",
+  "publication_history": "New non-personal project history; private development history and temporary preparation history excluded.",
+  "versions": {
+    "python": "3.12.13",
+    "sdk_python": "3.11.15",
+    "node": "26.7.0",
+    "uv": "0.11.29"
+  },
+  "clean_install": {
+    "python_distributions": 54,
+    "npm_added_packages": 56,
+    "locked_frontend_packages": 106,
+    "dependency_inventory_exact_match": true,
+    "mode": "locked install into empty staged environments; offline prepopulated caches",
+    "parent_dotenv_loading": "disabled for every staged validation via PYTHON_DOTENV_DISABLED=1"
+  },
+  "pytest": {
+    "passed": 330,
+    "seconds": 40.57,
+    "scope": "Complete repository automated suite"
+  },
+  "lint_format": {
+    "ruff_check": "passed",
+    "ruff_format_files": 116
+  },
+  "frontend": {
+    "contracts": "Regenerated, byte-identical to retained source",
+    "typecheck": "tsc -b passed",
+    "build": "vite production build passed",
+    "vite_build_seconds": 1.09,
+    "browser_cases": 6,
+    "browser_seconds": 7.6,
+    "api": "isolated loopback fresh SQLite; stopped after checks",
+    "new_browser_captures": "Excluded; retained public screenshots preserve original provenance"
+  },
+  "installed_wheel": {
+    "installed_origin": "<isolated-environment>/site-packages/preact/__init__.py",
+    "source_hash": "44a3b88efeeef1e2daafb724a98d18c2503c2c5c6404864b1da396e416c7d9b1",
+    "python": "3.12.13",
+    "boundary_tests_passed": 30,
+    "seconds": 6.54,
+    "scope": "Owned defensive bindings, Sandbox checkpoint/release fixtures; not live Sandbox service"
+  },
+  "distributions": {
+    "status": "passed-distribution-integrity",
+    "scope": "Source/assets/license/private-path integrity; not installed execution, secret scanning or sponsor validation",
+    "artifacts": {
+      "preact_runtime-0.1.0-py3-none-any.whl": {
+        "sha256": "e009c45acd65e5bb0b2e6fbad9e3150eb4ab77b5de59839c695ee893ea0a9c73",
+        "bytes": 120981,
+        "files": 63,
+        "matched_python_sources": 56
+      },
+      "preact_runtime-0.1.0.tar.gz": {
+        "sha256": "3bcfb4500b6c91eb17e23b9e0b5913d589cd03abddc839bd19e1e30a436628cd",
+        "bytes": 1147323,
+        "files": 215,
+        "matched_python_sources": 56
+      }
+    }
+  },
+  "sdk_bridge": {
+    "modules": {
+      "preact/__init__.py": "30b87dcc3ce0705a84bd22e2c900e7ccba2844b5bf03f834cd43536c59d7eaa8",
+      "preact/core/__init__.py": "8750b3a84d40f5a620462d98f0c3e5f87d3feb697ce02fae051c886e1f48585c",
+      "preact/core/io.py": "708b427f60afc187e055e59a50c6ddf76e66f093de144c12cb74cbb006553a2a",
+      "preact/core/models.py": "f164c6c6d91c19dd791226bd734b43b92b8e3eb19b973e1961d1823f51446935",
+      "preact/core/store.py": "9328ce5970118d3c0fce287f1930fa488f9b71aac27b276a199fdc9ceebb383d",
+      "preact/domains/__init__.py": "00b1a5a1b9b8f6433ebd35876f273487093a5b2ef2160d7480958cee0aa916a4",
+      "preact/domains/physical.py": "a81015a252fdeeb1419c03a382a8dcb6a936a5d1cc858c45c536aa28d1143924",
+      "preact/engines/__init__.py": "a7e10a7131e1595ed715f605a768ff800ffca91e8d33d8d879c09257fc9d1433",
+      "preact/engines/sdk_bridge.py": "1b53851c8d8cfc076ea2abe2c50ea885213b94a0a61f9a2a97b9e7347f5f0ac3",
+      "preact/engines/storage.py": "67326b5c9d9d58da12d6e711f5144f239776a7035706476c8be1d2077bd340f3"
+    },
+    "schema_version": 1,
+    "scope": "CPU Python 3.11 imports/identity/geometry/local-artifacts only",
+    "bundle_sha256": "bca73c6c9eb1be6c47374b91e2af37b3170764c115d59919c1d8b84a69ec54cf",
+    "python": "3.11.15",
+    "dependencies": {
+      "pydantic": "2.13.5",
+      "sqlalchemy": "2.1.3",
+      "boto3": "1.43.108",
+      "mediapy": "1.2.7",
+      "numpy": "1.26.4"
+    },
+    "nvidia_validated": false,
+    "scipy_or_mujoco_imported": false,
+    "api_python": "3.12.13",
+    "case_count": 16,
+    "validation_script_sha256": "18eae6b7075b5937fef0ba8a965dc117af69d3269c5a67225ff6ca68004de5cf"
+  },
+  "reproducibility": {
+    "scope": "Fresh one-seed local heuristic/MuJoCo authored-fixture rerun, not a fresh blind population or model cohort",
+    "workflow_smoke_episodes": 24,
+    "calibration": {
+      "status": "complete-cohort-alignment-audited",
+      "scope": "Archived execution/outcome/error alignment only; no new inference or integration certification",
+      "protocol_hash": "fea246500af431e98a0932573fba82e4fdf5e26bb267996eb95e99eb9b02c447",
+      "source_hash": "44a3b88efeeef1e2daafb724a98d18c2503c2c5c6404864b1da396e416c7d9b1",
+      "split": "calibration",
+      "audited_episodes": 24,
+      "expected_episodes": 24,
+      "counts": {
+        "predictions": 57,
+        "executed_actions": 57,
+        "aligned_error_rows": 57,
+        "unexecuted_predictions_without_observed_labels": 0
+      }
+    },
+    "comparison": {
+      "status": "complete-cohort-alignment-audited",
+      "scope": "Archived execution/outcome/error alignment only; no new inference or integration certification",
+      "protocol_hash": "219f68838911138fe88dc0bd314e77ff27506c9a889ce9f48c6f338b00f66578",
+      "source_hash": "44a3b88efeeef1e2daafb724a98d18c2503c2c5c6404864b1da396e416c7d9b1",
+      "split": "held_out",
+      "audited_episodes": 384,
+      "expected_episodes": 384,
+      "counts": {
+        "predictions": 4909,
+        "executed_actions": 638,
+        "aligned_error_rows": 1179,
+        "unexecuted_predictions_without_observed_labels": 3730
+      }
+    },
+    "all_conditions_metrics": {
+      "software/direct": {
+        "n": 24,
+        "success_rate": 0.875,
+        "unsafe_episode_rate": 0.125,
+        "unsafe_episode_bounds": [
+          0.125,
+          0.125
+        ],
+        "unsafe_observation_coverage": 1.0,
+        "unsafe_action_rate": 0.1,
+        "unsafe_action_bounds": [
+          0.1,
+          0.1
+        ],
+        "success_wilson_95": [
+          0.6899571185214243,
+          0.9565574496068442
+        ],
+        "unsafe_wilson_95": [
+          0.04344255039315584,
+          0.3100428814785757
+        ],
+        "abstention_rate": 0.0,
+        "infrastructure_failure_rate": 0.0,
+        "brier": 0.0904,
+        "log_loss": 0.3276163124759715,
+        "ece_10_bins": 0.020000000000000018,
+        "risk_brier": 0.0949,
+        "risk_log_loss": 0.3780690764682359,
+        "risk_ece_10_bins": 0.07,
+        "labeled_risk_predictions": 30,
+        "continuous_errors": {},
+        "labeled_predictions": 30,
+        "latency_p50_ms": 28.57927099103108,
+        "latency_p95_ms": 55.662124999798834,
+        "mean_calls": 1.25,
+        "mean_agent_calls": 0,
+        "mean_execution_calls": 1.25,
+        "mean_aborted_before_dispatch": 0,
+        "cost_coverage": 1.0,
+        "mean_cost_usd": 0.0,
+        "allocated_infrastructure_cost_usd": null,
+        "mean_simulation_calls": 0,
+        "mean_disagreement": 0.0
+      },
+      "software/preact": {
+        "n": 24,
+        "success_rate": 1.0,
+        "unsafe_episode_rate": 0.0,
+        "unsafe_episode_bounds": [
+          0.0,
+          0.0
+        ],
+        "unsafe_observation_coverage": 1.0,
+        "unsafe_action_rate": 0.0,
+        "unsafe_action_bounds": [
+          0.0,
+          0.0
+        ],
+        "success_wilson_95": [
+          0.8620194241710247,
+          1
+        ],
+        "unsafe_wilson_95": [
+          0,
+          0.13798057582897535
+        ],
+        "abstention_rate": 0.0,
+        "infrastructure_failure_rate": 0.0,
+        "brier": 0.0031999999999999967,
+        "log_loss": 0.041690804470025496,
+        "ece_10_bins": 0.040000000000000036,
+        "risk_brier": 0.00045,
+        "risk_log_loss": 0.015229603742854276,
+        "risk_ece_10_bins": 0.015,
+        "labeled_risk_predictions": 48,
+        "continuous_errors": {
+          "goal_progress": {
+            "n": 24,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          },
+          "test_pass_fraction": {
+            "n": 24,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          }
+        },
+        "labeled_predictions": 48,
+        "latency_p50_ms": 105.04727100487798,
+        "latency_p95_ms": 106.78604198619723,
+        "mean_calls": 5.333333333333333,
+        "mean_agent_calls": 0,
+        "mean_execution_calls": 1,
+        "mean_aborted_before_dispatch": 0,
+        "cost_coverage": 1.0,
+        "mean_cost_usd": 0.0,
+        "allocated_infrastructure_cost_usd": null,
+        "mean_simulation_calls": 0,
+        "mean_disagreement": 0.15399999999999997
+      },
+      "software/flat": {
+        "n": 24,
+        "success_rate": 1.0,
+        "unsafe_episode_rate": 0.0,
+        "unsafe_episode_bounds": [
+          0.0,
+          0.0
+        ],
+        "unsafe_observation_coverage": 1.0,
+        "unsafe_action_rate": 0.0,
+        "unsafe_action_bounds": [
+          0.0,
+          0.0
+        ],
+        "success_wilson_95": [
+          0.8620194241710247,
+          1
+        ],
+        "unsafe_wilson_95": [
+          0,
+          0.13798057582897535
+        ],
+        "abstention_rate": 0.0,
+        "infrastructure_failure_rate": 0.0,
+        "brier": 0.0031999999999999967,
+        "log_loss": 0.041690804470025496,
+        "ece_10_bins": 0.040000000000000036,
+        "risk_brier": 0.00045,
+        "risk_log_loss": 0.015229603742854276,
+        "risk_ece_10_bins": 0.015,
+        "labeled_risk_predictions": 48,
+        "continuous_errors": {
+          "goal_progress": {
+            "n": 24,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          },
+          "test_pass_fraction": {
+            "n": 24,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          }
+        },
+        "labeled_predictions": 48,
+        "latency_p50_ms": 80.22408350370824,
+        "latency_p95_ms": 82.48862501932308,
+        "mean_calls": 4,
+        "mean_agent_calls": 0,
+        "mean_execution_calls": 1,
+        "mean_aborted_before_dispatch": 0,
+        "cost_coverage": 1.0,
+        "mean_cost_usd": 0.0,
+        "allocated_infrastructure_cost_usd": null,
+        "mean_simulation_calls": 0,
+        "mean_disagreement": 0.1522222222222222
+      },
+      "software/fixed": {
+        "n": 24,
+        "success_rate": 1.0,
+        "unsafe_episode_rate": 0.0,
+        "unsafe_episode_bounds": [
+          0.0,
+          0.0
+        ],
+        "unsafe_observation_coverage": 1.0,
+        "unsafe_action_rate": 0.0,
+        "unsafe_action_bounds": [
+          0.0,
+          0.0
+        ],
+        "success_wilson_95": [
+          0.8620194241710247,
+          1
+        ],
+        "unsafe_wilson_95": [
+          0,
+          0.13798057582897535
+        ],
+        "abstention_rate": 0.0,
+        "infrastructure_failure_rate": 0.0,
+        "brier": 0.0031999999999999967,
+        "log_loss": 0.041690804470025496,
+        "ece_10_bins": 0.040000000000000036,
+        "risk_brier": 0.00045,
+        "risk_log_loss": 0.015229603742854276,
+        "risk_ece_10_bins": 0.015,
+        "labeled_risk_predictions": 48,
+        "continuous_errors": {
+          "goal_progress": {
+            "n": 24,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          },
+          "test_pass_fraction": {
+            "n": 24,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          }
+        },
+        "labeled_predictions": 48,
+        "latency_p50_ms": 105.60870848712511,
+        "latency_p95_ms": 106.57670896034688,
+        "mean_calls": 5.333333333333333,
+        "mean_agent_calls": 0,
+        "mean_execution_calls": 1,
+        "mean_aborted_before_dispatch": 0,
+        "cost_coverage": 1.0,
+        "mean_cost_usd": 0.0,
+        "allocated_infrastructure_cost_usd": null,
+        "mean_simulation_calls": 0,
+        "mean_disagreement": 0.15399999999999997
+      },
+      "software/frozen": {
+        "n": 24,
+        "success_rate": 1.0,
+        "unsafe_episode_rate": 0.0,
+        "unsafe_episode_bounds": [
+          0.0,
+          0.0
+        ],
+        "unsafe_observation_coverage": 1.0,
+        "unsafe_action_rate": 0.0,
+        "unsafe_action_bounds": [
+          0.0,
+          0.0
+        ],
+        "success_wilson_95": [
+          0.8620194241710247,
+          1
+        ],
+        "unsafe_wilson_95": [
+          0,
+          0.13798057582897535
+        ],
+        "abstention_rate": 0.0,
+        "infrastructure_failure_rate": 0.0,
+        "brier": 0.0031999999999999967,
+        "log_loss": 0.041690804470025496,
+        "ece_10_bins": 0.040000000000000036,
+        "risk_brier": 0.00045,
+        "risk_log_loss": 0.015229603742854276,
+        "risk_ece_10_bins": 0.015,
+        "labeled_risk_predictions": 48,
+        "continuous_errors": {
+          "goal_progress": {
+            "n": 24,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          },
+          "test_pass_fraction": {
+            "n": 24,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          }
+        },
+        "labeled_predictions": 48,
+        "latency_p50_ms": 105.48033300437964,
+        "latency_p95_ms": 107.10783302783966,
+        "mean_calls": 5.333333333333333,
+        "mean_agent_calls": 0,
+        "mean_execution_calls": 1,
+        "mean_aborted_before_dispatch": 0,
+        "cost_coverage": 1.0,
+        "mean_cost_usd": 0.0,
+        "allocated_infrastructure_cost_usd": null,
+        "mean_simulation_calls": 0,
+        "mean_disagreement": 0.15399999999999997
+      },
+      "software/single": {
+        "n": 24,
+        "success_rate": 0.0,
+        "unsafe_episode_rate": 0.0,
+        "unsafe_episode_bounds": [
+          0.0,
+          0.0
+        ],
+        "unsafe_observation_coverage": 1.0,
+        "unsafe_action_rate": null,
+        "unsafe_action_bounds": null,
+        "success_wilson_95": [
+          0,
+          0.13798057582897535
+        ],
+        "unsafe_wilson_95": [
+          0,
+          0.13798057582897535
+        ],
+        "abstention_rate": 1.0,
+        "infrastructure_failure_rate": 0.0,
+        "brier": null,
+        "log_loss": null,
+        "ece_10_bins": null,
+        "risk_brier": null,
+        "risk_log_loss": null,
+        "risk_ece_10_bins": null,
+        "labeled_risk_predictions": 0,
+        "continuous_errors": {},
+        "labeled_predictions": 0,
+        "latency_p50_ms": 7.05558349727653,
+        "latency_p95_ms": 7.4562500230968,
+        "mean_calls": 2,
+        "mean_agent_calls": 0,
+        "mean_execution_calls": 0,
+        "mean_aborted_before_dispatch": 0,
+        "cost_coverage": 1.0,
+        "mean_cost_usd": 0.0,
+        "allocated_infrastructure_cost_usd": null,
+        "mean_simulation_calls": 0,
+        "mean_disagreement": 0.0
+      },
+      "software/no_disagreement": {
+        "n": 24,
+        "success_rate": 1.0,
+        "unsafe_episode_rate": 0.0,
+        "unsafe_episode_bounds": [
+          0.0,
+          0.0
+        ],
+        "unsafe_observation_coverage": 1.0,
+        "unsafe_action_rate": 0.0,
+        "unsafe_action_bounds": [
+          0.0,
+          0.0
+        ],
+        "success_wilson_95": [
+          0.8620194241710247,
+          1
+        ],
+        "unsafe_wilson_95": [
+          0,
+          0.13798057582897535
+        ],
+        "abstention_rate": 0.0,
+        "infrastructure_failure_rate": 0.0,
+        "brier": 0.0031999999999999967,
+        "log_loss": 0.041690804470025496,
+        "ece_10_bins": 0.040000000000000036,
+        "risk_brier": 0.00045,
+        "risk_log_loss": 0.015229603742854276,
+        "risk_ece_10_bins": 0.015,
+        "labeled_risk_predictions": 48,
+        "continuous_errors": {
+          "goal_progress": {
+            "n": 24,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          },
+          "test_pass_fraction": {
+            "n": 24,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          }
+        },
+        "labeled_predictions": 48,
+        "latency_p50_ms": 104.98441697563976,
+        "latency_p95_ms": 107.25945798913017,
+        "mean_calls": 5.333333333333333,
+        "mean_agent_calls": 0,
+        "mean_execution_calls": 1,
+        "mean_aborted_before_dispatch": 0,
+        "cost_coverage": 1.0,
+        "mean_cost_usd": 0.0,
+        "allocated_infrastructure_cost_usd": null,
+        "mean_simulation_calls": 0,
+        "mean_disagreement": 0.15399999999999997
+      },
+      "software/online": {
+        "n": 24,
+        "success_rate": 1.0,
+        "unsafe_episode_rate": 0.0,
+        "unsafe_episode_bounds": [
+          0.0,
+          0.0
+        ],
+        "unsafe_observation_coverage": 1.0,
+        "unsafe_action_rate": 0.0,
+        "unsafe_action_bounds": [
+          0.0,
+          0.0
+        ],
+        "success_wilson_95": [
+          0.8620194241710247,
+          1
+        ],
+        "unsafe_wilson_95": [
+          0,
+          0.13798057582897535
+        ],
+        "abstention_rate": 0.0,
+        "infrastructure_failure_rate": 0.0,
+        "brier": 0.0031999999999999967,
+        "log_loss": 0.041690804470025496,
+        "ece_10_bins": 0.040000000000000036,
+        "risk_brier": 0.00045,
+        "risk_log_loss": 0.015229603742854276,
+        "risk_ece_10_bins": 0.015,
+        "labeled_risk_predictions": 48,
+        "continuous_errors": {
+          "goal_progress": {
+            "n": 24,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          },
+          "test_pass_fraction": {
+            "n": 24,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          }
+        },
+        "labeled_predictions": 48,
+        "latency_p50_ms": 104.45824995986186,
+        "latency_p95_ms": 107.30079200584441,
+        "mean_calls": 5.333333333333333,
+        "mean_agent_calls": 0,
+        "mean_execution_calls": 1,
+        "mean_aborted_before_dispatch": 0,
+        "cost_coverage": 1.0,
+        "mean_cost_usd": 0.0,
+        "allocated_infrastructure_cost_usd": null,
+        "mean_simulation_calls": 0,
+        "mean_disagreement": 0.15399999999999997
+      },
+      "physical/direct": {
+        "n": 24,
+        "success_rate": 0.5,
+        "unsafe_episode_rate": 0.5,
+        "unsafe_episode_bounds": [
+          0.5,
+          0.5
+        ],
+        "unsafe_observation_coverage": 1.0,
+        "unsafe_action_rate": 0.1791044776119403,
+        "unsafe_action_bounds": [
+          0.1791044776119403,
+          0.1791044776119403
+        ],
+        "success_wilson_95": [
+          0.31427131627763083,
+          0.6857286837223692
+        ],
+        "unsafe_wilson_95": [
+          0.31427131627763083,
+          0.6857286837223692
+        ],
+        "abstention_rate": 0.0,
+        "infrastructure_failure_rate": 0.0,
+        "brier": 0.15684776119402985,
+        "log_loss": 0.5208168988559235,
+        "ece_10_bins": 0.0991044776119403,
+        "risk_brier": 0.16925820895522387,
+        "risk_log_loss": 0.6530440474552053,
+        "risk_ece_10_bins": 0.1491044776119403,
+        "labeled_risk_predictions": 67,
+        "continuous_errors": {},
+        "labeled_predictions": 67,
+        "latency_p50_ms": 20.543124992400408,
+        "latency_p95_ms": 32.68641699105501,
+        "mean_calls": 2.7916666666666665,
+        "mean_agent_calls": 0,
+        "mean_execution_calls": 2.7916666666666665,
+        "mean_aborted_before_dispatch": 0,
+        "cost_coverage": 1.0,
+        "mean_cost_usd": 0.0,
+        "allocated_infrastructure_cost_usd": null,
+        "mean_simulation_calls": 0,
+        "mean_disagreement": 0.0
+      },
+      "physical/preact": {
+        "n": 24,
+        "success_rate": 0.8333333333333334,
+        "unsafe_episode_rate": 0.0,
+        "unsafe_episode_bounds": [
+          0.0,
+          0.0
+        ],
+        "unsafe_observation_coverage": 1.0,
+        "unsafe_action_rate": 0.0,
+        "unsafe_action_bounds": [
+          0.0,
+          0.0
+        ],
+        "success_wilson_95": [
+          0.6414652961213058,
+          0.9332143199927109
+        ],
+        "unsafe_wilson_95": [
+          0,
+          0.13798057582897535
+        ],
+        "abstention_rate": 0.16666666666666666,
+        "infrastructure_failure_rate": 0.0,
+        "brier": 0.0031999999999999967,
+        "log_loss": 0.041690804470025496,
+        "ece_10_bins": 0.040000000000000036,
+        "risk_brier": 0.00045,
+        "risk_log_loss": 0.015229603742854276,
+        "risk_ece_10_bins": 0.015,
+        "labeled_risk_predictions": 134,
+        "continuous_errors": {
+          "contacts": {
+            "n": 67,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          },
+          "tracking_error": {
+            "n": 67,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          },
+          "target_distance": {
+            "n": 67,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          },
+          "goal_progress": {
+            "n": 67,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          },
+          "object_position": {
+            "n": 67,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          }
+        },
+        "labeled_predictions": 134,
+        "latency_p50_ms": 150.10981203522533,
+        "latency_p95_ms": 201.56841701827943,
+        "mean_calls": 30.583333333333332,
+        "mean_agent_calls": 0,
+        "mean_execution_calls": 2.7916666666666665,
+        "mean_aborted_before_dispatch": 0,
+        "cost_coverage": 1.0,
+        "mean_cost_usd": 0.0,
+        "allocated_infrastructure_cost_usd": null,
+        "mean_simulation_calls": 15.291666666666666,
+        "mean_disagreement": 0.2450261128573244
+      },
+      "physical/flat": {
+        "n": 24,
+        "success_rate": 0.625,
+        "unsafe_episode_rate": 0.0,
+        "unsafe_episode_bounds": [
+          0.0,
+          0.0
+        ],
+        "unsafe_observation_coverage": 1.0,
+        "unsafe_action_rate": 0.0,
+        "unsafe_action_bounds": [
+          0.0,
+          0.0
+        ],
+        "success_wilson_95": [
+          0.42709619037907065,
+          0.7884086656636855
+        ],
+        "unsafe_wilson_95": [
+          0,
+          0.13798057582897535
+        ],
+        "abstention_rate": 0.375,
+        "infrastructure_failure_rate": 0.0,
+        "brier": 0.0031999999999999967,
+        "log_loss": 0.041690804470025496,
+        "ece_10_bins": 0.040000000000000036,
+        "risk_brier": 0.00045,
+        "risk_log_loss": 0.015229603742854276,
+        "risk_ece_10_bins": 0.015,
+        "labeled_risk_predictions": 124,
+        "continuous_errors": {
+          "contacts": {
+            "n": 62,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          },
+          "tracking_error": {
+            "n": 62,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          },
+          "target_distance": {
+            "n": 62,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          },
+          "goal_progress": {
+            "n": 62,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          },
+          "object_position": {
+            "n": 62,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          }
+        },
+        "labeled_predictions": 124,
+        "latency_p50_ms": 71.54770850320347,
+        "latency_p95_ms": 93.19170797243714,
+        "mean_calls": 11.916666666666666,
+        "mean_agent_calls": 0,
+        "mean_execution_calls": 2.5833333333333335,
+        "mean_aborted_before_dispatch": 0,
+        "cost_coverage": 1.0,
+        "mean_cost_usd": 0.0,
+        "allocated_infrastructure_cost_usd": null,
+        "mean_simulation_calls": 5.958333333333333,
+        "mean_disagreement": 0.19966534391534388
+      },
+      "physical/fixed": {
+        "n": 24,
+        "success_rate": 0.8333333333333334,
+        "unsafe_episode_rate": 0.0,
+        "unsafe_episode_bounds": [
+          0.0,
+          0.0
+        ],
+        "unsafe_observation_coverage": 1.0,
+        "unsafe_action_rate": 0.0,
+        "unsafe_action_bounds": [
+          0.0,
+          0.0
+        ],
+        "success_wilson_95": [
+          0.6414652961213058,
+          0.9332143199927109
+        ],
+        "unsafe_wilson_95": [
+          0,
+          0.13798057582897535
+        ],
+        "abstention_rate": 0.16666666666666666,
+        "infrastructure_failure_rate": 0.0,
+        "brier": 0.0031999999999999967,
+        "log_loss": 0.041690804470025496,
+        "ece_10_bins": 0.040000000000000036,
+        "risk_brier": 0.00045,
+        "risk_log_loss": 0.015229603742854276,
+        "risk_ece_10_bins": 0.015,
+        "labeled_risk_predictions": 134,
+        "continuous_errors": {
+          "contacts": {
+            "n": 67,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          },
+          "tracking_error": {
+            "n": 67,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          },
+          "target_distance": {
+            "n": 67,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          },
+          "goal_progress": {
+            "n": 67,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          },
+          "object_position": {
+            "n": 67,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          }
+        },
+        "labeled_predictions": 134,
+        "latency_p50_ms": 150.58870852226391,
+        "latency_p95_ms": 183.56458301423118,
+        "mean_calls": 30.583333333333332,
+        "mean_agent_calls": 0,
+        "mean_execution_calls": 2.7916666666666665,
+        "mean_aborted_before_dispatch": 0,
+        "cost_coverage": 1.0,
+        "mean_cost_usd": 0.0,
+        "allocated_infrastructure_cost_usd": null,
+        "mean_simulation_calls": 15.291666666666666,
+        "mean_disagreement": 0.2450261128573244
+      },
+      "physical/frozen": {
+        "n": 24,
+        "success_rate": 0.8333333333333334,
+        "unsafe_episode_rate": 0.0,
+        "unsafe_episode_bounds": [
+          0.0,
+          0.0
+        ],
+        "unsafe_observation_coverage": 1.0,
+        "unsafe_action_rate": 0.0,
+        "unsafe_action_bounds": [
+          0.0,
+          0.0
+        ],
+        "success_wilson_95": [
+          0.6414652961213058,
+          0.9332143199927109
+        ],
+        "unsafe_wilson_95": [
+          0,
+          0.13798057582897535
+        ],
+        "abstention_rate": 0.16666666666666666,
+        "infrastructure_failure_rate": 0.0,
+        "brier": 0.0031999999999999967,
+        "log_loss": 0.041690804470025496,
+        "ece_10_bins": 0.040000000000000036,
+        "risk_brier": 0.00045,
+        "risk_log_loss": 0.015229603742854276,
+        "risk_ece_10_bins": 0.015,
+        "labeled_risk_predictions": 134,
+        "continuous_errors": {
+          "contacts": {
+            "n": 67,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          },
+          "tracking_error": {
+            "n": 67,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          },
+          "target_distance": {
+            "n": 67,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          },
+          "goal_progress": {
+            "n": 67,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          },
+          "object_position": {
+            "n": 67,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          }
+        },
+        "labeled_predictions": 134,
+        "latency_p50_ms": 150.28954151785,
+        "latency_p95_ms": 184.21874998603016,
+        "mean_calls": 30.583333333333332,
+        "mean_agent_calls": 0,
+        "mean_execution_calls": 2.7916666666666665,
+        "mean_aborted_before_dispatch": 0,
+        "cost_coverage": 1.0,
+        "mean_cost_usd": 0.0,
+        "allocated_infrastructure_cost_usd": null,
+        "mean_simulation_calls": 15.291666666666666,
+        "mean_disagreement": 0.2450261128573244
+      },
+      "physical/single": {
+        "n": 24,
+        "success_rate": 0.0,
+        "unsafe_episode_rate": 0.0,
+        "unsafe_episode_bounds": [
+          0.0,
+          0.0
+        ],
+        "unsafe_observation_coverage": 1.0,
+        "unsafe_action_rate": null,
+        "unsafe_action_bounds": null,
+        "success_wilson_95": [
+          0,
+          0.13798057582897535
+        ],
+        "unsafe_wilson_95": [
+          0,
+          0.13798057582897535
+        ],
+        "abstention_rate": 1.0,
+        "infrastructure_failure_rate": 0.0,
+        "brier": null,
+        "log_loss": null,
+        "ece_10_bins": null,
+        "risk_brier": null,
+        "risk_log_loss": null,
+        "risk_ece_10_bins": null,
+        "labeled_risk_predictions": 0,
+        "continuous_errors": {},
+        "labeled_predictions": 0,
+        "latency_p50_ms": 8.858292014338076,
+        "latency_p95_ms": 9.254665987100452,
+        "mean_calls": 3,
+        "mean_agent_calls": 0,
+        "mean_execution_calls": 0,
+        "mean_aborted_before_dispatch": 0,
+        "cost_coverage": 1.0,
+        "mean_cost_usd": 0.0,
+        "allocated_infrastructure_cost_usd": null,
+        "mean_simulation_calls": 0,
+        "mean_disagreement": 0.0
+      },
+      "physical/no_disagreement": {
+        "n": 24,
+        "success_rate": 0.8333333333333334,
+        "unsafe_episode_rate": 0.0,
+        "unsafe_episode_bounds": [
+          0.0,
+          0.0
+        ],
+        "unsafe_observation_coverage": 1.0,
+        "unsafe_action_rate": 0.0,
+        "unsafe_action_bounds": [
+          0.0,
+          0.0
+        ],
+        "success_wilson_95": [
+          0.6414652961213058,
+          0.9332143199927109
+        ],
+        "unsafe_wilson_95": [
+          0,
+          0.13798057582897535
+        ],
+        "abstention_rate": 0.16666666666666666,
+        "infrastructure_failure_rate": 0.0,
+        "brier": 0.0031999999999999967,
+        "log_loss": 0.041690804470025496,
+        "ece_10_bins": 0.040000000000000036,
+        "risk_brier": 0.00045,
+        "risk_log_loss": 0.015229603742854276,
+        "risk_ece_10_bins": 0.015,
+        "labeled_risk_predictions": 134,
+        "continuous_errors": {
+          "contacts": {
+            "n": 67,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          },
+          "tracking_error": {
+            "n": 67,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          },
+          "target_distance": {
+            "n": 67,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          },
+          "goal_progress": {
+            "n": 67,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          },
+          "object_position": {
+            "n": 67,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          }
+        },
+        "labeled_predictions": 134,
+        "latency_p50_ms": 151.4834995032288,
+        "latency_p95_ms": 187.9743339959532,
+        "mean_calls": 30.583333333333332,
+        "mean_agent_calls": 0,
+        "mean_execution_calls": 2.7916666666666665,
+        "mean_aborted_before_dispatch": 0,
+        "cost_coverage": 1.0,
+        "mean_cost_usd": 0.0,
+        "allocated_infrastructure_cost_usd": null,
+        "mean_simulation_calls": 15.291666666666666,
+        "mean_disagreement": 0.2450261128573244
+      },
+      "physical/online": {
+        "n": 24,
+        "success_rate": 0.8333333333333334,
+        "unsafe_episode_rate": 0.0,
+        "unsafe_episode_bounds": [
+          0.0,
+          0.0
+        ],
+        "unsafe_observation_coverage": 1.0,
+        "unsafe_action_rate": 0.0,
+        "unsafe_action_bounds": [
+          0.0,
+          0.0
+        ],
+        "success_wilson_95": [
+          0.6414652961213058,
+          0.9332143199927109
+        ],
+        "unsafe_wilson_95": [
+          0,
+          0.13798057582897535
+        ],
+        "abstention_rate": 0.16666666666666666,
+        "infrastructure_failure_rate": 0.0,
+        "brier": 0.0031999999999999967,
+        "log_loss": 0.041690804470025496,
+        "ece_10_bins": 0.040000000000000036,
+        "risk_brier": 0.00045,
+        "risk_log_loss": 0.015229603742854276,
+        "risk_ece_10_bins": 0.015,
+        "labeled_risk_predictions": 134,
+        "continuous_errors": {
+          "contacts": {
+            "n": 67,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          },
+          "tracking_error": {
+            "n": 67,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          },
+          "target_distance": {
+            "n": 67,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          },
+          "goal_progress": {
+            "n": 67,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          },
+          "object_position": {
+            "n": 67,
+            "mean_error": 0.0,
+            "interval_coverage": null,
+            "interval_sample_count": 0
+          }
+        },
+        "labeled_predictions": 134,
+        "latency_p50_ms": 150.78862503287382,
+        "latency_p95_ms": 185.13412500033155,
+        "mean_calls": 30.583333333333332,
+        "mean_agent_calls": 0,
+        "mean_execution_calls": 2.7916666666666665,
+        "mean_aborted_before_dispatch": 0,
+        "cost_coverage": 1.0,
+        "mean_cost_usd": 0.0,
+        "allocated_infrastructure_cost_usd": null,
+        "mean_simulation_calls": 15.291666666666666,
+        "mean_disagreement": 0.2450261128573244
+      }
+    },
+    "paired_analysis": {
+      "software": {
+        "paired_tasks": 24,
+        "paired_episodes": 24,
+        "success": {
+          "mean_task_delta": 0.125,
+          "task_cluster_bootstrap_95": [
+            0.0,
+            0.25
+          ]
+        },
+        "unsafe": {
+          "mean_task_delta": -0.125,
+          "task_cluster_bootstrap_95": [
+            -0.2916666666666667,
+            0.0
+          ]
+        },
+        "steps": {
+          "mean_task_delta": -0.25,
+          "task_cluster_bootstrap_95": [
+            -0.4166666666666667,
+            -0.08333333333333333
+          ]
+        },
+        "warning": null
+      },
+      "physical": {
+        "paired_tasks": 24,
+        "paired_episodes": 24,
+        "success": {
+          "mean_task_delta": 0.3333333333333333,
+          "task_cluster_bootstrap_95": [
+            0.16666666666666666,
+            0.5
+          ]
+        },
+        "unsafe": {
+          "mean_task_delta": -0.5,
+          "task_cluster_bootstrap_95": [
+            -0.7083333333333334,
+            -0.2916666666666667
+          ]
+        },
+        "steps": {
+          "mean_task_delta": 0,
+          "task_cluster_bootstrap_95": [
+            -0.4166666666666667,
+            0.4583333333333333
+          ]
+        },
+        "warning": null
+      }
+    },
+    "replay": {
+      "scope": "Recorded two-world evidence only; no execution or new calibration",
+      "runs": [
+        {
+          "domain": "software",
+          "archive": "software-safe_redirect-preact-0.json",
+          "archive_sha256": "bcae61d9d78a7ddc650a5b415b390ac21817ba2410837507676844b12cfe8827",
+          "status": "recorded",
+          "events": 44,
+          "new_prediction_errors": 0
+        },
+        {
+          "domain": "physical",
+          "archive": "physical-grasp-place-07-preact-0.json",
+          "archive_sha256": "d35ce6d7b48a3da31bd87c88a8b9012b5d6fbe307b3180f8e55cb835dfad847f",
+          "status": "recorded",
+          "events": 238,
+          "new_prediction_errors": 0
+        }
+      ]
+    },
+    "limitations": [
+      "Authored task families, not independently sourced repositories or robot hardware",
+      "Program oracle sampling is reproducible but not a security boundary for arbitrary code",
+      "MuJoCo scene dynamics are observed; no real visual perception or NVIDIA validation",
+      "Direct and PreAct use identical candidates and cheap ranking; no LLM in this local protocol",
+      "Zero local API cost excludes CPU and operational infrastructure cost"
+    ]
+  },
+  "retained_archived_model_evidence": "V2 120 calibration + 1,920 comparisons and all recorded failures unchanged. No new model inference was run for this staged audit; original weights, archives and footage remain private.",
+  "corrections": [
+    "SDK setup selected the available Python 3.11 interpreter instead of attempting a managed download.",
+    "Offline free wheel dependency resolution lacked metadata; exact frozen lock dependencies installed before the wheel.",
+    "Held-out run without measured calibration correctly rejected; measured calibration then frozen.",
+    "Workflow-smoke archives omit durable ledger rows; complete independent cohort archives were used for full alignment."
+  ],
+  "license_inventory": "Application dependency inventory matches retained reports/dependency-inventory.json exactly; tools, models and SDK assets are not bundled.",
+  "live_nebius_validation": false,
+  "cosmos_validation": false,
+  "isaac_gpu_validation": false,
+  "public_deployment": false,
+  "published": false,
+  "private_validation_log_sha256": {
+    ".cache/public-audit/pytest.log": "97755a7d811e0aec109bafb444e1fbc16cdd1732586b008693dab4ebc937f066",
+    ".cache/public-audit/ruff-check.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    ".cache/public-audit/ruff-format.log": "67e4bf8f396fefa7f8830b9533fb5eb02129af09cf3d399e36ec9c6d6b248625",
+    ".cache/public-audit/build.log": "38bb2067ff6c75af4d8134acde2332862985133f96ea80c3a7e26bcaffea1bfc",
+    ".cache/public-audit/browser.log": "e3aecb7e8a9d20d7c29e358f6bf770b6dd9b516c800c53f6ad35ecde37491191",
+    ".cache/public-audit/sdk-setup.log": "9b128721fd6cde45abcc1b5b5ebe18f2b3abfc2138a361f9f15c8ffd6013fb84",
+    ".cache/public-audit/wheel-setup.log": "50878b84a2752e0d587d78ec6315836ad138f5c984fa744e4222040b0314b83a",
+    ".cache/public-audit/wheel-tests.log": "c489a22d6d0243a4a4d5900c2e36ca1566fb9b15a8f584a12814b77d069a4172",
+    ".cache/public-audit/cohort.log": "16b860dcfd50fcc7e482a611acbf7a092db635b250c3cf5e2b86fe2e53cef867",
+    ".cache/public-audit/cohort-calibration.log": "787d3744b508ed792cfa9bb5d0de524c4bbf20900a04f3946c8fbbd483d842d2",
+    ".cache/public-audit/distribution-build.log": "1cb04b530063b4efe7b70d7273432c125d5f2cb7c78f69b8df32cf130f135f0c",
+    ".cache-public-setup.log": "f14f04a401b82673efafba23d984911a83f605ff41b5e04f61fce62c8bf94013",
+    ".cache-public-npm-setup.log": "b636fedfd675854f93497b608fbd8c52eb54837e1b920ce780aa5bf8ce24b446"
+  }
+}

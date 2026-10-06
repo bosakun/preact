@@ -1,0 +1,66 @@
+{
+  "checked_on": "2026-10-05",
+  "status": "passed-local-production-decision-trust-alignment",
+  "scope": "Actual rebuilt PostgreSQL app on loopback with non-root UID and frozen runtime source. No cloud deployment or fresh model inference.",
+  "source_hash": "5720e2416adbf466488ce3aec800ac22906288e5b5b473eaeff0c36b5227415e",
+  "uid": 10001,
+  "assets_sha256": {
+    "web/dist/assets/index-BhgstiJY.js": "3827351fa500a0c86cff3f27d5db80acbc12972a3ededa80be9faa1d84036b29",
+    "web/dist/assets/index-DaBukLq-.css": "930cd62c6ecb43a79abe2008acd93c24755f3f569e987b9d7685e34d4e1d636f",
+    "web/dist/index.html": "ef04a7332d437feaef877419ec82fd4e7809c9a638ef88bb09c8cb87039b7f24"
+  },
+  "image_id": "sha256:34a0860cfaec2b73b41936ee62186ae415d22ca579bd6172952f3cb9104934c8",
+  "frontend_source_sha256": {
+    "web/src/main.tsx": "22bfef76b58f5ae2cfae090bd52a1f7af1abc70bf805cf43e9673be8a81379a5",
+    "web/src/style.css": "6e650f4aa52e94f95c5fda2f4134e65f5ca4f61d73d0f51ea95357bd3d8bec6e"
+  },
+  "compose_project": "preact-verify",
+  "browser": {
+    "passed": 6,
+    "duration_seconds": 17.9,
+    "database": "existing PostgreSQL; no reset",
+    "properties": [
+      "first-round and second-round snapshots match actual events",
+      "unexecuted branches have no observed update or prediction error",
+      "earlier replay points reveal no later update"
+    ],
+    "service_tracebacks": 0
+  },
+  "preserved_prior_runs": {
+    "d90d29b350724f79957d3b2743a260d7": {
+      "status": "complete",
+      "success": true,
+      "unsafe": false
+    },
+    "bf7e8a70b48d41b1a750bd62aca94b37": {
+      "status": "complete",
+      "success": true,
+      "unsafe": false
+    }
+  },
+  "screenshots_sha256": {
+    "reports/software-tree.png": "b5624c7fec2a2473cd50aa15026b93c5babd4da0674a2f7073d6c141d55607d5",
+    "reports/physical-tree.png": "75483129077ecbd1161c4eea4c7dd756f0602c42a0715fd78a59e0632e4a418a",
+    "reports/repository-workflow.png": "1a866af9c9c37f2d173dc7775e696a53251267c8b217d36994806d58cad5562d"
+  },
+  "log_sha256": {
+    ".cache/trust-round-container-build.log": "ff014f1b5b133469e867927cb0d3a68720f2b4b5b6f29108c5ce8cb034802373",
+    ".cache/trust-round-container-up.log": "15aeef1fa3c7fff4a1cdeca727b3d7042192e9949fb1e5e08082e1ee31eedc9c",
+    ".cache/trust-round-production-browser.log": "7679ce80d1e5df12cb8ee6f9dc8e3df1a9cd2955bb1d4c95607888442d7871cf",
+    ".cache/trust-round-container-service.log": "989739fdcd269d56a3ba39a89288dfb240d5289a8a7200bdd7886cf383bda57a"
+  },
+  "configured_secret_values_absent_from_retained_logs": true,
+  "disclosure_review_scope": "Configured local credentials and runner key only; not comprehensive publication review.",
+  "access": "127.0.0.1:8000; existing local app remains running",
+  "related_recorded_model_proof": "reports/model-pilot-bundle-trust-browser-v1.json",
+  "external_acceptance": {
+    "nebius": false,
+    "cosmos": false,
+    "isaac_gpu": false,
+    "public_judge_url": false,
+    "public_repository": false,
+    "remote_ci": false,
+    "youtube": false
+  },
+  "limits": "Evaluator binding fix is still queued on the separate branch. Earlier footage and screenshot receipts retain their original frontend provenance. Host validation activity may contribute to concurrent benchmark latency."
+}

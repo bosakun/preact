@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "scope": "Actual local CPU/source/installed-wheel and injected SDK/CLI boundaries only",
+  "runtime_source_hash": "5c7e061264de9b60d55cb699d3a54660d2a2b0be402bc39ee926663762200e7d",
+  "worker_backend_sha256": "1e0aa8c3b028889652e1c8cd2e9573d23165dcdc07d40528a57a196aa7ee9642",
+  "cosmos_adapter_sha256": "4eeeb8577dade30d7223f85ca9d1d9d54d37abf7693f5f8f45c22f396b518202",
+  "python_tests": {
+    "source_full": 213,
+    "installed_wheel_boundaries_outside_checkout": 50
+  },
+  "lint_format": true,
+  "generated_contracts_unchanged": true,
+  "frontend_production_build": true,
+  "actual_python_311_helper_imports": true,
+  "cpu_sdk_bridge_cases": 16,
+  "wheel": {
+    "sha256": "4dadb94f3228a0ae814c257e88315f2f514377b06504342158ab34da1334d33f",
+    "sources_match": true,
+    "private_cache_excluded": true,
+    "spdx_license": "Apache-2.0"
+  },
+  "validated_contracts": [
+    "All declared obstacle and cube dimensions retained",
+    "Measured SDK build/inventory required; source changes invalidate version",
+    "Total waypoint duration; current bilateral contact required for held",
+    "Independent endpoint camera snapshot; stale/unheld/release/rotated conditioning rejected",
+    "Native chunk hold padding and chunk-index seed limitations retained",
+    "Pinned clean upstream revision and adapter/contract hashes",
+    "Raw native console output omitted from artifacts"
+  ],
+  "nvidia_validated": false,
+  "live_checkpoint_identity": null,
+  "gpu_conformance": false,
+  "remaining": [
+    "Actual SDK/render/camera/contact/Franka/GPU conformance",
+    "Cosmos actual compatible checkpoint and camera/robot transfer",
+    "Grasp/release action-conditioned workflow",
+    "Active renderer GPU identification/RTX conformance",
+    "Live sponsor inference/Sandbox/Jobs/storage and public judge paths"
+  ],
+  "held_out_protocol_hash": "09e8226120f0c7a7abe56123c2bdb73e6a5fe123d0778acf0c398071c02a4db3",
+  "calibration_episodes": 120,
+  "held_out_and_ablation_episodes": 1920,
+  "infrastructure_failures": 0,
+  "installed_wheel_cpu_bridge_cases": 16,
+  "production_browser_cases": 5,
+  "local_database": "PostgreSQL 17.11",
+  "production_uid": 10001,
+  "production_python": "3.12.15",
+  "production_source_matches": true,
+  "clean_checkout": {
+    "revision": "c274bfd",
+    "python_tests": 213,
+    "offline_locked_install": true,
+    "python_distributions": 54,
+    "frontend_packages_added": 56,
+    "lint_format": true,
+    "generated_contracts_unchanged": true,
+    "frontend_production_build": true,
+    "fresh_database": "SQLite clean-acceptance.db",
+    "browser_cases": 5,
+    "browser_seconds": 5.9,
+    "actual_python_311_bridge_cases": 16,
+    "source_hash_matches_frozen": true,
+    "temporary_api_stopped_normally": true
+  },
+  "sdk_bundle_sha256": "33b1f4db35b322558426fd1bfd84bfea4ffe86b0c4bf2fc3b1702da2782d0e2e",
+  "wheel_and_clean_checkout_bundle_match": true
+}

@@ -1,0 +1,60 @@
+{
+  "status": "completed",
+  "source_revision": "e0a4278180c71a57759a8aa69b062dcac14b9cd0",
+  "scope": "Actual trusted Python probes and Cartesian MuJoCo simulation. No live Nebius/NVIDIA/hardware evidence.",
+  "segments": [
+    {
+      "domain": "software",
+      "start_seconds": 5.346,
+      "end_seconds": 53.117
+    },
+    {
+      "domain": "physical",
+      "start_seconds": 53.144,
+      "end_seconds": 127.017
+    }
+  ],
+  "runs": [
+    {
+      "id": "d90d29b350724f79957d3b2743a260d7",
+      "domain": "software",
+      "events": 114,
+      "event_hash": "76fdd59d6b5a4210555534f3786560cda99561c36d5f723596aa2217209dce79",
+      "persisted_status": "complete",
+      "executed_actions": 2,
+      "unsafe_outcomes": 0,
+      "prediction_errors": 4
+    },
+    {
+      "id": "bf7e8a70b48d41b1a750bd62aca94b37",
+      "domain": "physical",
+      "events": 229,
+      "event_hash": "cd3070474ba4636abc60bc1eb204be11f815c5fed8f55fa7df6a8e0fc2a814bd",
+      "persisted_status": "complete",
+      "executed_actions": 3,
+      "unsafe_outcomes": 0,
+      "prediction_errors": 6
+    }
+  ],
+  "decoder": "PyAV 19.0.1",
+  "decoded_frames": 3675,
+  "media_duration_seconds": 147.00000000000003,
+  "video_sha256": "3f686d1c38092a31a9ca5bfcaa97f7c1eef62a38ed468404ce54359bc26b52b7",
+  "physical_wall_seconds": 73.87299999999999,
+  "checked_on": "2026-10-05",
+  "runtime_source_hash": "5720e2416adbf466488ce3aec800ac22906288e5b5b473eaeff0c36b5227415e",
+  "source_revision_scope": "Root commit at recording start; working-tree change was the final English caption plus submission documentation. Runtime unchanged.",
+  "recorder_sha256": "a9705431c962a0dc4f0e7ceaa53763ae4a1f4a39223f66587fedc727049e7855",
+  "public_upload": false,
+  "model_inference_in_clip": false,
+  "nebius_validated": false,
+  "nvidia_gpu_validated": false,
+  "cosmos_validated": false,
+  "isaac_validated": false,
+  "hardware_validated": false,
+  "final_track_qualification": false,
+  "private_review_path": ".cache/demo-footage-e0a4278-repaired/local-review.webm",
+  "physical_duration_scope": "Wall-clock interaction with local measured-state/tree/replay UI; not 74 seconds of continuous robot motion or live Isaac modules.",
+  "visual_frame_checked": true,
+  "video_rights_scope": "Repository-authored UI/scene, English captions; no third-party music or stock robotics media."
+}

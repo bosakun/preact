@@ -1,0 +1,168 @@
+{
+  "checked_on": "2026-10-05",
+  "status": "passed-local-repaired-release-validation",
+  "source_hash": "5720e2416adbf466488ce3aec800ac22906288e5b5b473eaeff0c36b5227415e",
+  "scope": "Private local clean checkout, installed wheel, rebuilt PostgreSQL container, CPU SDK bridge; no cloud deployment, public clone or GPU validation.",
+  "clean_checkout": {
+    "commit": "35cd7e5",
+    "locked_setup": "passed offline Python and npm",
+    "python": "3.12.13",
+    "python_distributions": 54,
+    "node_packages_added": 56,
+    "npm_audit_vulnerabilities": 0,
+    "pytest": {
+      "passed": 278,
+      "seconds": 49.96
+    },
+    "ruff_check": "passed",
+    "ruff_format": {
+      "files": 109,
+      "status": "passed"
+    },
+    "generated_contracts": "unchanged",
+    "frontend_build": {
+      "status": "passed",
+      "seconds": 3.2
+    },
+    "browser": {
+      "passed": 5,
+      "seconds": 9.2,
+      "database": "fresh SQLite",
+      "api_port": 8110,
+      "mode": "local"
+    },
+    "api_shutdown_completed": true,
+    "tracked_modifications": "Only three browser screenshots; temporary untracked browser config."
+  },
+  "package": {
+    "artifacts": {
+      "preact_runtime-0.1.0-py3-none-any.whl": {
+        "sha256": "99f635904ca53e67155bf1c4c73746297351043fd2dd04f57db5c608b98fe04f",
+        "bytes": 120749,
+        "files": 63,
+        "core_files_match_checkout": 12,
+        "private_key_absent": true,
+        "private_paths_absent": true,
+        "license_included": true
+      },
+      "preact_runtime-0.1.0.tar.gz": {
+        "sha256": "21e2ec8c5560a304cde4390a11f3e6d294f650c0108d90c7716955476f9c33c3",
+        "bytes": 1153398,
+        "files": 206,
+        "core_files_match_checkout": 12,
+        "private_key_absent": true,
+        "private_paths_absent": true,
+        "license_included": true
+      }
+    },
+    "installed_origins": "isolated Python 3.12 environment site-packages; PYTHONPATH removed; initial test cwd <validation-workspace>",
+    "installed_boundary_tests": {
+      "passed": 87,
+      "seconds": 1.82
+    },
+    "identical_rebuilt_wheel_retest": {
+      "passed": 87,
+      "seconds": 1.35
+    },
+    "isolated_dependency_installation": "Offline aiofiles cache miss; successful exact frozen online install; no lock/source change",
+    "source_archive_failure": {
+      "original_sha256": "26fc3a5e0b5766c6749d76996e75bb43d1252e5be7a76ff503a42d883a6352f5",
+      "unexpected_file": ".cache/llama.cpp/tools/ui/.env.example",
+      "runner_secret_absent": true,
+      "repair": "Anchor source archive inclusions at project root and exclude private caches/artifacts",
+      "runtime_source_changed": false
+    },
+    "rebuilt_from_extracted_sdist": {
+      "status": "passed offline",
+      "wheel_sha256": "99f635904ca53e67155bf1c4c73746297351043fd2dd04f57db5c608b98fe04f",
+      "identical_to_checkout_wheel": true
+    },
+    "installed_shared_core_episodes": {
+      "cwd": "<validation-workspace>",
+      "engine": "local heuristic with real protected Python probes / MuJoCo",
+      "sponsor_inference": false,
+      "rows": [
+        {
+          "workflow": "software",
+          "run_id": "3ea5cc4d09f04d16aa4bde0924e2e6b2",
+          "success": true,
+          "unsafe": false,
+          "steps": 2,
+          "engine_calls": 12,
+          "latency_ms": 988.1695000221953,
+          "log_sha256": "cba4f1dc04dedd6ffb7c6c15bfcc04910e2de9a2378cd4744ece2508395100b8"
+        },
+        {
+          "workflow": "physical",
+          "run_id": "b6bffb441d6b4854977403f2f19c844e",
+          "success": true,
+          "unsafe": false,
+          "steps": 3,
+          "engine_calls": 26,
+          "latency_ms": 4999.9075420200825,
+          "log_sha256": "c6ad31389de6e482f4e8d629f1f2073fbdd7793b8a6bf8257cda1f93fc06654f"
+        },
+        {
+          "workflow": "release",
+          "run_id": "e7b46fefd6264af29bb9df5cceff2384",
+          "success": true,
+          "unsafe": false,
+          "steps": 4,
+          "engine_calls": 34,
+          "latency_ms": 1341.5469999890774,
+          "log_sha256": "0705dfcc273477f7ea30ce4d4d9c94f64dd591de2d23aa2c00fe9ac7fe49d6e7"
+        }
+      ]
+    }
+  },
+  "container": {
+    "image_id": "sha256:fbf006eee0dbbc20757ae56f8cd48fe1a974b4091fd191100efd8e7ad9e689e2",
+    "uid": 10001,
+    "source_hash": "5720e2416adbf466488ce3aec800ac22906288e5b5b473eaeff0c36b5227415e",
+    "postgres": "17.11",
+    "health": {
+      "status": "ok",
+      "mode": "local",
+      "live_sponsor_validation": false
+    },
+    "browser": {
+      "passed": 5,
+      "seconds": 16.4
+    },
+    "storage": "Existing PostgreSQL data preserved; no database reset",
+    "access": "127.0.0.1:8000 only; no public deployment"
+  },
+  "sdk_bridge": {
+    "evidence": "reports/proposal-repair-sdk-bridge.json",
+    "python": "3.11.15",
+    "passed": 16,
+    "nvidia_validated": false
+  },
+  "log_sha256": {
+    "proposal-repair-installed-wheel-tests.log": "7c0472fd17dd001870c09d57f41d53178c2767d4d701b1f14986d6eac1dd6490",
+    "proposal-repair-installed-wheel-final-tests.log": "5735b3c76abea743d8eeff3f551fdb70818c50acb9fb621219176396abfde429",
+    "proposal-repair-clean-checkout.log": "1a7919195211e93e2124a92d0eee21fcdb462881b364d0040921ef8acfb305eb",
+    "proposal-repair-clean-python.log": "438bcbfae22e09c3da6a7ab92e3d2549989ec194370a68c5c048f8516953ddf6",
+    "proposal-repair-clean-web.log": "d1ecdaf968a837ebca289a9d7f96d16c6469e8e895ec78b3c7ba7256d4035af8",
+    "proposal-repair-clean-browser.log": "696c6f98de233683f35c0ea60b53954aa3bd04d43305d59a1b400e65d3300e6d",
+    "proposal-repair-container-browser.log": "e476d925a93ee4267ac0fefeb96516284c03c7b89de76647f473d6e01674b733",
+    "proposal-repair-clean-api.log": "a6c540c853348ed44b64b2abdd459faa594e5a6bf5f84d395c290fc2a24389e6",
+    "proposal-repair-package-rebuild.log": "eff218c65bb4afffcf3b27deb575f5edad2ef3b9fd6fa5de847a2b5a43c5f28c",
+    "proposal-repair-sdist-build.log": "375b59b6dae0b1af9aca6d2ea7d71cc09cb715192deecbf87f84bbe11b865620"
+  },
+  "screenshots": {
+    "software-tree.png": "06bf35d13f84cf75d25509e2faba133457d02cb67782f02dc7f48f1913234599",
+    "physical-tree.png": "1520321f270774cac799ed84ede7e72116d4f4a278c7cd4017d30e5f93d50354",
+    "repository-workflow.png": "45ad876545f4cd4615432fd956ce3f438703a26b1d5154e23004690e5d38d5a6"
+  },
+  "external_acceptance": {
+    "nebius": false,
+    "cosmos": false,
+    "isaac_gpu": false,
+    "public_repository": false,
+    "public_judge_url": false,
+    "youtube": false,
+    "remote_ci": false
+  },
+  "publication_path_note": "Machine-specific validation paths normalized for publication. Original receipts remain private; measurements, scope and artifact hashes are unchanged."
+}
