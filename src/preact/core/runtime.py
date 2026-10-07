@@ -24,6 +24,7 @@ from .models import (
 from .registry import Registry
 from .store import Artifacts, Store
 from .verification import admission_reasons, rank_verification
+from .world_model import compose_world_model
 
 
 class Runtime:
@@ -148,6 +149,21 @@ class Runtime:
                 },
             )
         node.evaluation = evaluate(node.predictions, self.task, trust)
+        if node.predictions:
+            world_model = compose_world_model(
+                node.state,
+                node.action,
+                node.predictions,
+                node.evaluation,
+                self.task,
+            )
+            await self.emit(
+                "world_model_snapshot",
+                {
+                    "node_id": node.id,
+                    "world_model": world_model.model_dump(),
+                },
+            )
         await self.emit("node_updated", {"node": node.model_dump()})
         return True
 
