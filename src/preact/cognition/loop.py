@@ -4,6 +4,7 @@ from preact.core.registry import Registry
 from preact.core.runtime import Runtime
 from preact.core.store import Artifacts, Store
 
+from .belief import BeliefEstimator
 from .memory import EpisodicMemory
 from .models import Belief, CognitivePlanner, CognitiveResult, Goal
 
@@ -18,16 +19,37 @@ class _CognitiveWorld:
 
     def check_task(self) -> None:
         if self.world.task != self.source_task:
+            self.agent.belief_estimator.clear()
+            self.agent.belief = None
             raise ValueError("Domain task constraints changed during the cognitive episode")
 
     async def observe(self) -> State:
+        self.agent.belief = None
+        try:
+            return await self._observe()
+        except BaseException:
+            self.agent.belief_estimator.clear()
+            raise
+
+    async def _observe(self) -> State:
         self.check_task()
         state = State.model_validate((await self.world.observe()).model_dump())
         self.check_task()
         if state.kind != "observed":
             raise ValueError("Belief requires authoritative perception")
-        records = await self.agent.memory.retrieve(state.domain) if self.agent.use_memory else []
-        belief = self.agent.planner.infer(state.model_copy(deep=True), records)
+        if self.agent.reuse_beliefs:
+            belief = await self.agent.belief_estimator.infer(
+                state,
+                self.agent.planner,
+                self.agent.memory,
+                task=self.source_task,
+                use_memory=self.agent.use_memory,
+            )
+        else:
+            records = (
+                await self.agent.memory.retrieve(state.domain) if self.agent.use_memory else []
+            )
+            belief = self.agent.planner.infer(state.model_copy(deep=True), records)
         if belief.observed != state:
             raise ValueError("Inference cannot alter observed facts")
         self.agent.belief = belief.model_copy(deep=True)
@@ -74,6 +96,7 @@ class CognitiveAgent:
         policy: Policy | None = None,
         *,
         use_memory: bool = True,
+        reuse_beliefs: bool = False,
     ):
         self.store, self.artifacts, self.registry = store, artifacts, registry
         self.planner, self.goals = planner, sorted(goals, key=lambda g: -g.priority)
@@ -81,6 +104,8 @@ class CognitiveAgent:
         if self.policy.search:
             raise ValueError("The minimal shell plans only at observed states")
         self.use_memory = use_memory
+        self.reuse_beliefs = reuse_beliefs
+        self.belief_estimator = BeliefEstimator(enabled=reuse_beliefs)
         self.memory = EpisodicMemory(store)
         self.belief: Belief | None = None
         self._started = False
@@ -92,6 +117,18 @@ class CognitiveAgent:
             raise ValueError("Create a fresh cognitive agent for each episode; reconcile failures")
         self._started = True
         adapter = _CognitiveWorld(self, world)
+        self.belief_estimator.begin(adapter.source_task)
+        try:
+            return await self._run_episode(world, max_rounds, adapter)
+        except BaseException:
+            self.belief = None
+            raise
+        finally:
+            self.belief_estimator.end()
+
+    async def _run_episode(
+        self, world: World, max_rounds: int, adapter: _CognitiveWorld
+    ) -> CognitiveResult:
         rounds, run_ids = [], []
         unsafe = False
         status = "round_limit"

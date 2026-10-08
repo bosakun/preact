@@ -315,3 +315,46 @@ append-only Store契約/時点一致（返却後のcommitは次回検出）、Po
 API/contract/Core実行意味は維持。Belief reuse等の次PRは未着手。
 GitHub mainはPR準備直前もbase471317d、重複open PRなし。
 次: 変更を独立PRへpushし、GitHub CIを確認してレビュー待ちにする。マージしない。
+
+## 2026-10-09 — Safe Belief Reuse 実装と実測中
+
+最新公開main 1f2604c（PR #3/#4 merged）から独立branch feat/safe-belief-reuse。
+原作業ツリーを保持し、.cache/belief-reuse-prで実装。今回の指示はPR作成まで・マージ禁止。
+Cognitionのepisode限定・opt-in inference cacheをQueueForecastと明示共有。
+State全field、検証済Experience全内容/順序/参照、Memory manifest/generation/Store、
+Planner宣言/設定/アルゴリズム、Taskを照合。timestamp除外は明示的pure/time-independent契約のみ。
+毎回の実観測、retrieve/receipt確認、提案、forecast、Gate、one-action executionを維持。
+Core/Store、安全性テスト、凍結protocol/結果を変更していない。
+
+変更前監査: 60tickでadapter観測241、実世界421、retrieve/infer421、propose60、engine540。
+初回時間監査はpytest同時実行だったため速度比較には採用しない。
+既存404 tests成功。新規34 cases成功。contracts再生成一致、frontend build成功。
+専用protocolと比較スクリプトで実episode・microbenchmarkのCPU/wallと意味的一致を測定中。
+修正した失敗: no_memoryの次round開始もhitになるため期待hit数16を20へ修正。
+比較scriptは最初random Claim key/source digestを正規化しておらず意味照合失敗。
+関係を保った正規化とoriginal Gate hash/receipt照合を追加し、3 ablation短episode一致。
+manifest照合追加前の試行は中断し、最終sourceで別outputへ再測定。旧試行結果は公開しない。
+次: 実測結果を記録し、全テスト/E2E/distribution/CIを確認してレビュー待ちPRを作成する。
+
+## 2026-10-09 — Safe Belief Reuse ローカル完了・PR候補
+
+最終CPU測定: 専用v1 protocolの36 episode/18ペア、3構成、6 seeds。
+実観測/Memory確認/提案/engine callsを維持し、Prediction/Evaluation/Gate/実観測/
+報酬/危険判定/確定receipt由来学習が全ペアで一致。raw .cache/belief-reuse-v1-final。
+通常infer421→181、hit240、CPU5.318→2.094ms。しかし全episode CPU+2.52%、wall+2.16%。
+MemoryなしCPU+1.49%、適応なし+2.05%。12件microbenchmark wall+22.78%。
+軽いEMAでは照合費用を償えず、opt-in既定無効を維持。速度・汎用能力の改善は主張しない。
+設計 docs/belief-reuse.md、実測 docs/belief-reuse-results.md、公開reports JSONに記録。
+source/protocol hashes、全36一致、集計の再計算を照合。
+
+最終実行: pytest443 passed in47.26s（既存404+新規39）、Ruff lint/format145 files、
+contract再生成byte一致、frontend build、E2E6 passed in8.5s、wheel/sdist integrity67 sources。
+追加否定fixtureのfrozen State直接変更はPydanticが先に拒否し1 failureだったため、
+別Stateを返すfixtureに修正。修正後全443成功。既存テストの弱体化/削除なし。
+GitHub再確認: mainは1f2604c、open PRなし。読み取り承認審査の時間切れは1回の再試行で成功。
+
+制約: 明示純粋性契約のレビュー、取得対象12件の時点整合、既存append-only Store契約、
+外部commitは次のretrieveで検出、CPU queue少数seed/一反復・OS変動。高コスト/時間依存
+Plannerの速度は未測定。外部GPU/LLM/PostgreSQL live検証は今回の完了条件に含めない。
+次: feature branchの独立PRを作成してGitHub CIを確認し、レビュー待ちに残す。
+mainマージ・auto-mergeは禁止。次の研究は安全な照合費用のprofilingと純粋な高コスト推定の損益分岐点。

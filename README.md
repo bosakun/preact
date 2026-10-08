@@ -179,6 +179,11 @@ Ledgerとexecution receiptをauthorityとしたまま、未更新runの繰り返
 [測定結果と制約](docs/episodic-memory-index-results.md)を記録し、CPU比較は
 `uv run python -m scripts.bench_cognitive_memory --output .cache/new-memory-bench`で再現できます。
 
+次の独立拡張は[Safe Belief Reuse](docs/belief-reuse.md)です。episode内で明示的に
+時間非依存を保証した推定を再利用し、実観測・receipt確認・Gateは毎回維持します。
+既定は無効で、[改善と悪化の実測](docs/belief-reuse-results.md)を記録しています。
+`uv run python -m scripts.bench_belief_reuse --output .cache/new-belief-bench`で比較できます。
+
 
 ```mermaid
 flowchart LR

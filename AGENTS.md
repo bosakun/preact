@@ -13,6 +13,8 @@ live in Core and `tests/fixtures/`. Architecture and acceptance criteria are in 
 indexes committed execution receipts. See `docs/cognitive-architecture.md`.
 Receipt-backed memory uses a rebuildable run cache and read-only Store change tokens;
 its consistency boundary is documented in `docs/episodic-memory-index.md`.
+Opt-in episode-local inference reuse retains fresh observation and receipt retrieval;
+see `docs/belief-reuse.md`.
 
 ## Build, Test, and Development Commands
 
@@ -30,6 +32,8 @@ its consistency boundary is documented in `docs/episodic-memory-index.md`.
   Reproduce and audit Japanese findings with `python -m scripts.summarize_cognition`.
 - `uv run python -m scripts.bench_cognitive_memory --output NEW_DIR` compares full-reread,
   cold, warm and invalidated memory retrieval with the frozen memory protocol.
+- `uv run python -m scripts.bench_belief_reuse --output NEW_DIR` measures paired queue
+  inference reuse and checks normalized Gate/observation/learning equality.
 
 ## Coding Style & Naming Conventions
 

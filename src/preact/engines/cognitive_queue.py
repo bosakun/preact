@@ -1,5 +1,6 @@
 """Queue model opinions and bounded verification use public inputs only."""
 
+from preact.cognition.belief import BeliefEstimator
 from preact.core.evidence import task_definitions
 from preact.core.models import (
     Capabilities,
@@ -89,9 +90,18 @@ class QueueForecast:
     """An unmeasured service hypothesis; cannot resolve mandatory evidence."""
 
     def __init__(
-        self, task: Task, planner, memory, *, use_memory: bool = True, engine_id="queue-forecast"
+        self,
+        task: Task,
+        planner,
+        memory,
+        *,
+        use_memory: bool = True,
+        engine_id="queue-forecast",
+        belief_estimator: BeliefEstimator | None = None,
     ):
         self.planner, self.memory, self.use_memory = planner, memory, use_memory
+        self.belief_estimator = belief_estimator
+        self.task = task.model_copy(deep=True)
         self.capabilities = Capabilities(
             engine_id=engine_id,
             version="1",
@@ -107,8 +117,17 @@ class QueueForecast:
         )
 
     async def predict(self, request: PredictionRequest) -> Prediction:
-        records = await self.memory.retrieve(request.state.domain) if self.use_memory else []
-        belief = self.planner.infer(request.state, records)
+        if self.belief_estimator is None:
+            records = await self.memory.retrieve(request.state.domain) if self.use_memory else []
+            belief = self.planner.infer(request.state, records)
+        else:
+            belief = await self.belief_estimator.infer(
+                request.state,
+                self.planner,
+                self.memory,
+                task=self.task,
+                use_memory=self.use_memory,
+            )
         service = belief.inferred["service"]
         _, available, processed = transition(
             request.state.payload, request.actions[0].payload["amount"], service.value

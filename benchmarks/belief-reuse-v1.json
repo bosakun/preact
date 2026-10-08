@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "base_main": "1f2604c02868f4403abb7e67ef2c18793f3d4e0f",
+  "scope": "CPU queue inference-only reuse; paired behavior and passive instrumentation; no general intelligence claim",
+  "conditions": [
+    "cognitive",
+    "no_memory",
+    "no_adaptation"
+  ],
+  "policy": {
+    "search": false,
+    "calibration": false,
+    "max_nodes": 3,
+    "max_calls": 24,
+    "width": 3,
+    "max_depth": 3
+  },
+  "splits": {
+    "development": {
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "ticks": 60,
+      "target": 85,
+      "shift_tick": 30,
+      "high_first": true,
+      "noise": 0.1,
+      "capacity": 8
+    },
+    "transfer": {
+      "seeds": [
+        100,
+        101,
+        102
+      ],
+      "ticks": 60,
+      "target": 85,
+      "shift_tick": 23,
+      "high_first": false,
+      "noise": 0.2,
+      "capacity": 6
+    }
+  },
+  "micro": {
+    "experience_counts": [
+      0,
+      12
+    ],
+    "iterations": 200
+  },
+  "notes": [
+    "New independent protocol. Existing frozen cognitive-queue-v1 is not changed. Configurations match its first three seeds per split.",
+    "Each seed/condition runs disabled/enabled on separate ledgers; order alternates by seed. No concurrent workloads during measurement.",
+    "Disabled takes existing inference path. Enabled shares the agent-owned estimator with QueueForecast. Only infer is reused.",
+    "Fresh observations, Memory retrieval and receipt validation are retained; inference, retrieval and episode CPU/wall times exclude reporting.",
+    "Normalize random run/node/action/prediction/receipt IDs, timestamps, authorization expiry and latency. Validate original Gate evidence hashes and receipts first; compare all normalized predictions, evaluations, Gate decisions, observations and learning rows.",
+    "Raw ledgers/artifacts/semantic traces remain private. Report contains hashes, counters, timings and equality checks only.",
+    "Microbenchmarks include actual observation and receipt-backed retrieval, not just an artificial expensive pure function.",
+    "Three paired seeds per split, one sample each; instrumentation, disk/fsync and OS variance limit speed conclusions. No statistical performance guarantee.",
+    "Run one untimed four-tick episode per mode before paired measurements to avoid charging import/first-connection initialization to the first disabled sample."
+  ],
+  "warmup": {
+    "seed": 99,
+    "ticks": 4,
+    "target": 5
+  }
+}
