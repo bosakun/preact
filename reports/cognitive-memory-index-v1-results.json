@@ -1,0 +1,555 @@
+{
+  "protocol": {
+    "version": 1,
+    "scope": "CPU retrieval microbenchmark with controlled actual queue execution receipts; not Gate or agent performance evidence",
+    "seed": 20261008,
+    "receipt_counts": [
+      60,
+      600,
+      6000
+    ],
+    "layouts": [
+      "one_per_run",
+      "single_run"
+    ],
+    "retrieve_limit": 12,
+    "iterations": 30,
+    "warm_iterations": 100,
+    "large_run_iterations": 5,
+    "large_run_threshold": 6000,
+    "notes": [
+      "Full reread uses the pre-index retrieve/remember algorithms and the unchanged receipt validator.",
+      "Cold measurements start with an empty derived cache and restored run IDs; fixture construction is excluded.",
+      "One-run invalidation appends a diagnostic event outside the measured retrieval.",
+      "Single-run layout tests worst-case changed-run revalidation; the cognitive shell normally has one receipt per run.",
+      "Latency and CPU are measured per call; count actual SQL statements as well as Store API calls.",
+      "Assert complete Experience equality on every measured retrieval and detect appended forged outcomes."
+    ]
+  },
+  "protocol_sha256": "35efc6e5a090f2eb2e1a804e89bc570353225e81f7d129a43ec8d0f963046c20",
+  "source_sha256": {
+    "src/preact/cognition/memory.py": "3b2823ebe1b5ae10a6c97a8045aba9ec33c2044d65bd0a07a881dc04422a2361",
+    "src/preact/cognition/models.py": "8c027188999278a07102d02a4e9f59aec80770dd40178c0fab007d638de854fb",
+    "src/preact/core/store.py": "2e2fe6c6cea1cbbd2f15733f8235f4bfbcf7e456c971930e4572ddad4705c878",
+    "src/preact/domains/cognitive_queue.py": "8cffaccb143e88d2d31de27fce34cead4fe6d872c8839911027d94d942f87b74",
+    "scripts/bench_cognitive_memory.py": "833583fe597343d3421a05f490457948959a10e264f73df17447b3d1222242cf",
+    "tests/fixtures/memory_ledger.py": "91006a3f81d1c29bbc008d6a6ce9dfb5d27ad9fe795d90ebdebff1a5758177d3"
+  },
+  "environment": {
+    "python": "3.12.13",
+    "platform": "macOS-27.0.1-arm64-arm-64bit"
+  },
+  "raw_report_sha256": "a4dff882c922e787165b4ef0a0b55db76ee1ae02ec50b7f9a2ca13154a54ff8e",
+  "results": [
+    {
+      "receipt_count": 60,
+      "layout": "one_per_run",
+      "run_count": 60,
+      "returned_references": [
+        "memory-bench-000048:14",
+        "memory-bench-000049:14",
+        "memory-bench-000050:14",
+        "memory-bench-000051:14",
+        "memory-bench-000052:14",
+        "memory-bench-000053:14",
+        "memory-bench-000054:14",
+        "memory-bench-000055:14",
+        "memory-bench-000056:14",
+        "memory-bench-000057:14",
+        "memory-bench-000058:14",
+        "memory-bench-000059:14"
+      ],
+      "experience_sha256": "287f61413296e1adfd0f0c7b1833949116cdfab016a1e6ad1e4f94e754d3d8fa",
+      "forged_outcome_rejected": {
+        "full_reread": true,
+        "indexed": true
+      },
+      "measurements": {
+        "full_reread": {
+          "iterations": 30,
+          "wall_p50_ms": 4.541291476925835,
+          "wall_p95_ms": 5.258459015749395,
+          "cpu_p50_ms": 3.510499999999972,
+          "cpu_total_ms": 111.11699999999963,
+          "sql_calls_per_retrieve": 24,
+          "store_calls_per_retrieve": {
+            "execution_record": 12,
+            "read_events": 12
+          },
+          "peak_cached_experiences": 0,
+          "experience_equality": true
+        },
+        "indexed_cold": {
+          "iterations": 30,
+          "wall_p50_ms": 10.390437499154359,
+          "wall_p95_ms": 11.137249995954335,
+          "cpu_p50_ms": 8.339000000000041,
+          "cpu_total_ms": 252.952,
+          "sql_calls_per_retrieve": 48,
+          "store_calls_per_retrieve": {
+            "execution_record": 12,
+            "read_events": 12,
+            "run_heads": 24
+          },
+          "peak_cached_experiences": 12,
+          "experience_equality": true
+        },
+        "indexed_warm": {
+          "iterations": 100,
+          "wall_p50_ms": 0.6763749988749623,
+          "wall_p95_ms": 0.7958749774843454,
+          "cpu_p50_ms": 0.6349999999999967,
+          "cpu_total_ms": 64.71600000000049,
+          "sql_calls_per_retrieve": 1,
+          "store_calls_per_retrieve": {
+            "run_heads": 1
+          },
+          "peak_cached_experiences": 12,
+          "experience_equality": true
+        },
+        "one_run_invalidated": {
+          "iterations": 30,
+          "wall_p50_ms": 1.524104009149596,
+          "wall_p95_ms": 1.613917003851384,
+          "cpu_p50_ms": 1.3484999999999747,
+          "cpu_total_ms": 40.35700000000059,
+          "sql_calls_per_retrieve": 4,
+          "store_calls_per_retrieve": {
+            "execution_record": 1,
+            "read_events": 1,
+            "run_heads": 2
+          },
+          "peak_cached_experiences": 12,
+          "experience_equality": true
+        }
+      },
+      "raw_result_sha256": "94d495b807a8c60186f84995f5630a5195e14128f336ef5bec98aadab24f06dd",
+      "raw_ledger_sha256": "96f99394fbe0a4c643e3c02f7f7ae45fdcba9bc24f8f66645c2b6de9e34f34fb"
+    },
+    {
+      "receipt_count": 60,
+      "layout": "single_run",
+      "run_count": 1,
+      "returned_references": [
+        "memory-bench-000000:686",
+        "memory-bench-000000:700",
+        "memory-bench-000000:714",
+        "memory-bench-000000:728",
+        "memory-bench-000000:742",
+        "memory-bench-000000:756",
+        "memory-bench-000000:770",
+        "memory-bench-000000:784",
+        "memory-bench-000000:798",
+        "memory-bench-000000:812",
+        "memory-bench-000000:826",
+        "memory-bench-000000:840"
+      ],
+      "experience_sha256": "a42db94f1282795d519f92c7b73acc0e10acc38fee8e4b327d73246b79d383e0",
+      "forged_outcome_rejected": {
+        "full_reread": true,
+        "indexed": true
+      },
+      "measurements": {
+        "full_reread": {
+          "iterations": 30,
+          "wall_p50_ms": 12.978249520529062,
+          "wall_p95_ms": 13.410416024271399,
+          "cpu_p50_ms": 10.368000000000045,
+          "cpu_total_ms": 316.3979999999995,
+          "sql_calls_per_retrieve": 61,
+          "store_calls_per_retrieve": {
+            "execution_record": 60,
+            "read_events": 1
+          },
+          "peak_cached_experiences": 0,
+          "experience_equality": true
+        },
+        "indexed_cold": {
+          "iterations": 30,
+          "wall_p50_ms": 14.799020980717614,
+          "wall_p95_ms": 19.67237499775365,
+          "cpu_p50_ms": 12.08700000000007,
+          "cpu_total_ms": 372.18499999999955,
+          "sql_calls_per_retrieve": 63,
+          "store_calls_per_retrieve": {
+            "execution_record": 60,
+            "read_events": 1,
+            "run_heads": 2
+          },
+          "peak_cached_experiences": 60,
+          "experience_equality": true
+        },
+        "indexed_warm": {
+          "iterations": 100,
+          "wall_p50_ms": 1.049708022037521,
+          "wall_p95_ms": 1.1892920010723174,
+          "cpu_p50_ms": 1.006999999999758,
+          "cpu_total_ms": 107.07099999999814,
+          "sql_calls_per_retrieve": 1,
+          "store_calls_per_retrieve": {
+            "run_heads": 1
+          },
+          "peak_cached_experiences": 60,
+          "experience_equality": true
+        },
+        "one_run_invalidated": {
+          "iterations": 30,
+          "wall_p50_ms": 14.87314552650787,
+          "wall_p95_ms": 20.09645797079429,
+          "cpu_p50_ms": 12.160999999999976,
+          "cpu_total_ms": 389.0999999999998,
+          "sql_calls_per_retrieve": 63,
+          "store_calls_per_retrieve": {
+            "execution_record": 60,
+            "read_events": 1,
+            "run_heads": 2
+          },
+          "peak_cached_experiences": 60,
+          "experience_equality": true
+        }
+      },
+      "raw_result_sha256": "91c05a43882f990ba43653170b5bf1a4e15a2c18943f18b6c6524da929224cd9",
+      "raw_ledger_sha256": "7219521485db299c90d746c8fc4bd611438acbbf397030aeac1d5cddefa74628"
+    },
+    {
+      "receipt_count": 600,
+      "layout": "one_per_run",
+      "run_count": 600,
+      "returned_references": [
+        "memory-bench-000588:14",
+        "memory-bench-000589:14",
+        "memory-bench-000590:14",
+        "memory-bench-000591:14",
+        "memory-bench-000592:14",
+        "memory-bench-000593:14",
+        "memory-bench-000594:14",
+        "memory-bench-000595:14",
+        "memory-bench-000596:14",
+        "memory-bench-000597:14",
+        "memory-bench-000598:14",
+        "memory-bench-000599:14"
+      ],
+      "experience_sha256": "8ce0ff3f692c729a068d6d6ecbc1e407944bced00391fbdc51688cfd07f0bc42",
+      "forged_outcome_rejected": {
+        "full_reread": true,
+        "indexed": true
+      },
+      "measurements": {
+        "full_reread": {
+          "iterations": 30,
+          "wall_p50_ms": 4.596771002979949,
+          "wall_p95_ms": 4.691416979767382,
+          "cpu_p50_ms": 3.570500000000365,
+          "cpu_total_ms": 107.22000000000077,
+          "sql_calls_per_retrieve": 24,
+          "store_calls_per_retrieve": {
+            "execution_record": 12,
+            "read_events": 12
+          },
+          "peak_cached_experiences": 0,
+          "experience_equality": true
+        },
+        "indexed_cold": {
+          "iterations": 30,
+          "wall_p50_ms": 10.924895497737452,
+          "wall_p95_ms": 11.349499982316047,
+          "cpu_p50_ms": 8.858500000000102,
+          "cpu_total_ms": 271.4689999999997,
+          "sql_calls_per_retrieve": 48,
+          "store_calls_per_retrieve": {
+            "execution_record": 12,
+            "read_events": 12,
+            "run_heads": 24
+          },
+          "peak_cached_experiences": 12,
+          "experience_equality": true
+        },
+        "indexed_warm": {
+          "iterations": 100,
+          "wall_p50_ms": 0.6934580160304904,
+          "wall_p95_ms": 0.7825830252841115,
+          "cpu_p50_ms": 0.6519999999996529,
+          "cpu_total_ms": 66.41200000000057,
+          "sql_calls_per_retrieve": 1,
+          "store_calls_per_retrieve": {
+            "run_heads": 1
+          },
+          "peak_cached_experiences": 12,
+          "experience_equality": true
+        },
+        "one_run_invalidated": {
+          "iterations": 30,
+          "wall_p50_ms": 1.5586870140396059,
+          "wall_p95_ms": 1.6403329791501164,
+          "cpu_p50_ms": 1.3914999999995459,
+          "cpu_total_ms": 41.98399999999847,
+          "sql_calls_per_retrieve": 4,
+          "store_calls_per_retrieve": {
+            "execution_record": 1,
+            "read_events": 1,
+            "run_heads": 2
+          },
+          "peak_cached_experiences": 12,
+          "experience_equality": true
+        }
+      },
+      "raw_result_sha256": "9ffd61f3c3a1e873287e9a892a1b27c21a3c62b2cac9f4d744f8ba59eba8a07a",
+      "raw_ledger_sha256": "ced13b185f64b63eaa968e939c61643a66d9fad5a557946afd8b0d736bc57576"
+    },
+    {
+      "receipt_count": 600,
+      "layout": "single_run",
+      "run_count": 1,
+      "returned_references": [
+        "memory-bench-000000:8246",
+        "memory-bench-000000:8260",
+        "memory-bench-000000:8274",
+        "memory-bench-000000:8288",
+        "memory-bench-000000:8302",
+        "memory-bench-000000:8316",
+        "memory-bench-000000:8330",
+        "memory-bench-000000:8344",
+        "memory-bench-000000:8358",
+        "memory-bench-000000:8372",
+        "memory-bench-000000:8386",
+        "memory-bench-000000:8400"
+      ],
+      "experience_sha256": "4883873b89ea8423d15eb63c2019126eb336c55c9ac74c5d8b8b1c26b6a40803",
+      "forged_outcome_rejected": {
+        "full_reread": true,
+        "indexed": true
+      },
+      "measurements": {
+        "full_reread": {
+          "iterations": 30,
+          "wall_p50_ms": 146.32147949305363,
+          "wall_p95_ms": 150.812792009674,
+          "cpu_p50_ms": 120.5375000000002,
+          "cpu_total_ms": 3604.502,
+          "sql_calls_per_retrieve": 601,
+          "store_calls_per_retrieve": {
+            "execution_record": 600,
+            "read_events": 1
+          },
+          "peak_cached_experiences": 0,
+          "experience_equality": true
+        },
+        "indexed_cold": {
+          "iterations": 30,
+          "wall_p50_ms": 157.88052103016526,
+          "wall_p95_ms": 161.2252919585444,
+          "cpu_p50_ms": 132.01700000000116,
+          "cpu_total_ms": 3959.2220000000057,
+          "sql_calls_per_retrieve": 603,
+          "store_calls_per_retrieve": {
+            "execution_record": 600,
+            "read_events": 1,
+            "run_heads": 2
+          },
+          "peak_cached_experiences": 600,
+          "experience_equality": true
+        },
+        "indexed_warm": {
+          "iterations": 100,
+          "wall_p50_ms": 6.12050000927411,
+          "wall_p95_ms": 7.081874995492399,
+          "cpu_p50_ms": 6.0795000000002375,
+          "cpu_total_ms": 657.7120000000054,
+          "sql_calls_per_retrieve": 1,
+          "store_calls_per_retrieve": {
+            "run_heads": 1
+          },
+          "peak_cached_experiences": 600,
+          "experience_equality": true
+        },
+        "one_run_invalidated": {
+          "iterations": 30,
+          "wall_p50_ms": 158.8876665045973,
+          "wall_p95_ms": 163.74133300269023,
+          "cpu_p50_ms": 133.03650000000022,
+          "cpu_total_ms": 4039.440000000006,
+          "sql_calls_per_retrieve": 603,
+          "store_calls_per_retrieve": {
+            "execution_record": 600,
+            "read_events": 1,
+            "run_heads": 2
+          },
+          "peak_cached_experiences": 600,
+          "experience_equality": true
+        }
+      },
+      "raw_result_sha256": "0be8c96bdd28b557ababf30bced9e612ebc21c0ae512e245dd24b88a2c1caa60",
+      "raw_ledger_sha256": "920e6d62199ab65d8b62e6bd219669e3ba5ea9d2e079a7482c657a634c1f394e"
+    },
+    {
+      "receipt_count": 6000,
+      "layout": "one_per_run",
+      "run_count": 6000,
+      "returned_references": [
+        "memory-bench-005988:14",
+        "memory-bench-005989:14",
+        "memory-bench-005990:14",
+        "memory-bench-005991:14",
+        "memory-bench-005992:14",
+        "memory-bench-005993:14",
+        "memory-bench-005994:14",
+        "memory-bench-005995:14",
+        "memory-bench-005996:14",
+        "memory-bench-005997:14",
+        "memory-bench-005998:14",
+        "memory-bench-005999:14"
+      ],
+      "experience_sha256": "5f713369cb03ca1704efe7bef563b987ce426c270db20e1d614432463b6fc88d",
+      "forged_outcome_rejected": {
+        "full_reread": true,
+        "indexed": true
+      },
+      "measurements": {
+        "full_reread": {
+          "iterations": 30,
+          "wall_p50_ms": 4.928666981868446,
+          "wall_p95_ms": 5.143291957210749,
+          "cpu_p50_ms": 3.8954999999987194,
+          "cpu_total_ms": 117.10499999999513,
+          "sql_calls_per_retrieve": 24,
+          "store_calls_per_retrieve": {
+            "execution_record": 12,
+            "read_events": 12
+          },
+          "peak_cached_experiences": 0,
+          "experience_equality": true
+        },
+        "indexed_cold": {
+          "iterations": 30,
+          "wall_p50_ms": 36.870604497380555,
+          "wall_p95_ms": 38.30679098609835,
+          "cpu_p50_ms": 34.797499999999815,
+          "cpu_total_ms": 1053.4829999999856,
+          "sql_calls_per_retrieve": 48,
+          "store_calls_per_retrieve": {
+            "execution_record": 12,
+            "read_events": 12,
+            "run_heads": 24
+          },
+          "peak_cached_experiences": 12,
+          "experience_equality": true
+        },
+        "indexed_warm": {
+          "iterations": 100,
+          "wall_p50_ms": 2.0732499833684415,
+          "wall_p95_ms": 2.299542014952749,
+          "cpu_p50_ms": 2.0314999999975214,
+          "cpu_total_ms": 205.27999999995927,
+          "sql_calls_per_retrieve": 1,
+          "store_calls_per_retrieve": {
+            "run_heads": 1
+          },
+          "peak_cached_experiences": 12,
+          "experience_equality": true
+        },
+        "one_run_invalidated": {
+          "iterations": 30,
+          "wall_p50_ms": 4.340896004578099,
+          "wall_p95_ms": 4.7054580063559115,
+          "cpu_p50_ms": 4.171500000001771,
+          "cpu_total_ms": 126.87599999998866,
+          "sql_calls_per_retrieve": 4,
+          "store_calls_per_retrieve": {
+            "execution_record": 1,
+            "read_events": 1,
+            "run_heads": 2
+          },
+          "peak_cached_experiences": 12,
+          "experience_equality": true
+        }
+      },
+      "raw_result_sha256": "432db6ee13bd95ec1c3927f265803d4076de8d50fc689352f84dcf0f93254a53",
+      "raw_ledger_sha256": "3200d7bbce5240b8a6b92f0c4cf1a12e6ba3b753a03f09902b60a83c961f2588"
+    },
+    {
+      "receipt_count": 6000,
+      "layout": "single_run",
+      "run_count": 1,
+      "returned_references": [
+        "memory-bench-000000:83846",
+        "memory-bench-000000:83860",
+        "memory-bench-000000:83874",
+        "memory-bench-000000:83888",
+        "memory-bench-000000:83902",
+        "memory-bench-000000:83916",
+        "memory-bench-000000:83930",
+        "memory-bench-000000:83944",
+        "memory-bench-000000:83958",
+        "memory-bench-000000:83972",
+        "memory-bench-000000:83986",
+        "memory-bench-000000:84000"
+      ],
+      "experience_sha256": "73f1601e7b81c79a6bf48ccbb5ec58a3fd9aed40d0559cb26871f177e4bb9d96",
+      "forged_outcome_rejected": {
+        "full_reread": true,
+        "indexed": true
+      },
+      "measurements": {
+        "full_reread": {
+          "iterations": 5,
+          "wall_p50_ms": 1823.9432499976829,
+          "wall_p95_ms": 1925.5117920110933,
+          "cpu_p50_ms": 1562.6309999999962,
+          "cpu_total_ms": 7945.705999999987,
+          "sql_calls_per_retrieve": 6001,
+          "store_calls_per_retrieve": {
+            "execution_record": 6000,
+            "read_events": 1
+          },
+          "peak_cached_experiences": 0,
+          "experience_equality": true
+        },
+        "indexed_cold": {
+          "iterations": 5,
+          "wall_p50_ms": 1990.2022919850424,
+          "wall_p95_ms": 2029.0761250071228,
+          "cpu_p50_ms": 1728.1890000000003,
+          "cpu_total_ms": 8595.097000000009,
+          "sql_calls_per_retrieve": 6003,
+          "store_calls_per_retrieve": {
+            "execution_record": 6000,
+            "read_events": 1,
+            "run_heads": 2
+          },
+          "peak_cached_experiences": 6000,
+          "experience_equality": true
+        },
+        "indexed_warm": {
+          "iterations": 100,
+          "wall_p50_ms": 117.00206249952316,
+          "wall_p95_ms": 126.08112499583513,
+          "cpu_p50_ms": 116.8389999999988,
+          "cpu_total_ms": 10055.268999999938,
+          "sql_calls_per_retrieve": 1,
+          "store_calls_per_retrieve": {
+            "run_heads": 1
+          },
+          "peak_cached_experiences": 6000,
+          "experience_equality": true
+        },
+        "one_run_invalidated": {
+          "iterations": 5,
+          "wall_p50_ms": 2088.414207973983,
+          "wall_p95_ms": 2137.846833036747,
+          "cpu_p50_ms": 1826.1019999999917,
+          "cpu_total_ms": 9117.506999999989,
+          "sql_calls_per_retrieve": 6003,
+          "store_calls_per_retrieve": {
+            "execution_record": 6000,
+            "read_events": 1,
+            "run_heads": 2
+          },
+          "peak_cached_experiences": 6000,
+          "experience_equality": true
+        }
+      },
+      "raw_result_sha256": "74afd1fef9be7cb6c8736f5fc9961fd0a347d96c21ee310682faf9e0c51301f7",
+      "raw_ledger_sha256": "68262892557396f3ffdbea60ec6f7f61fc49fd9e403070cbebf022c402d74897"
+    }
+  ]
+}

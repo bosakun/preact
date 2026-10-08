@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "scope": "CPU retrieval microbenchmark with controlled actual queue execution receipts; not Gate or agent performance evidence",
+  "seed": 20261008,
+  "receipt_counts": [60, 600, 6000],
+  "layouts": ["one_per_run", "single_run"],
+  "retrieve_limit": 12,
+  "iterations": 30,
+  "warm_iterations": 100,
+  "large_run_iterations": 5,
+  "large_run_threshold": 6000,
+  "notes": [
+    "Full reread uses the pre-index retrieve/remember algorithms and the unchanged receipt validator.",
+    "Cold measurements start with an empty derived cache and restored run IDs; fixture construction is excluded.",
+    "One-run invalidation appends a diagnostic event outside the measured retrieval.",
+    "Single-run layout tests worst-case changed-run revalidation; the cognitive shell normally has one receipt per run.",
+    "Latency and CPU are measured per call; count actual SQL statements as well as Store API calls.",
+    "Assert complete Experience equality on every measured retrieval and detect appended forged outcomes."
+  ]
+}

@@ -76,7 +76,9 @@ flowchart TD
 新しいprediction/observationの型や別Ledgerは作らない。Beliefのobservedには
 observed Stateだけを許可し、service推定は別のInferenceにsource referenceと
 public boundを保持する。source_refsは証拠資格を与えない。
-MemoryはStoreの完了receipt、入力state/action指紋、outcomeを毎回整合確認する。
+Phase 1のMemoryはStoreの完了receipt、入力state/action指紋、outcomeを毎回整合確認した。
+Phase 2の[receipt-backed index](episodic-memory-index.md)は毎回run更新を照合し、
+変更されたrunだけ同じreceipt検証器で再検証する。上記のPhase 1結果は保存したままとする。
 同じreceiptを重複して数えず、未実行枝/未確定実行は取り込まない。
 
 認知Agentは一episode専用。reset後は新しいAgentを使うことで暗黙の状態汚染を防ぐ。

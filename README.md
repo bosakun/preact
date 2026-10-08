@@ -174,6 +174,11 @@ uv run pytest -q tests/test_cognition.py
 を参照してください。記憶や推定は安全証拠を代替せず、既存Runtimeが実行を許可します。
 この狭い環境での改善を、汎用認知能力や単一LLMに対する優位性とは扱いません。
 
+Phase 2の最初の拡張は[receipt-backed memory index](docs/episodic-memory-index.md)です。
+Ledgerとexecution receiptをauthorityとしたまま、未更新runの繰り返し再走査を減らします。
+[測定結果と制約](docs/episodic-memory-index-results.md)を記録し、CPU比較は
+`uv run python -m scripts.bench_cognitive_memory --output .cache/new-memory-bench`で再現できます。
+
 
 ```mermaid
 flowchart LR
