@@ -411,3 +411,11 @@ uv build --offlineとdistribution auditor成功、wheel/sdist各70 Python source
 測定後実際の通常行動差は0、因果的なsensor寄与を単独分離できていない。
 次研究は費用/時間を一致させた非測定drain対照とモデル誤指定の事前固定評価。
 次の作業は独立PR作成・GitHub CI確認。最新指示どおりレビュー待ち、merge/auto-merge禁止。
+
+## 2026-10-09 — Information-seeking Action v1 PR作成
+
+PR #6: https://github.com/bosakun/preact/pull/6 。18ファイルの独立変更、OPEN、auto-merge未設定。
+最新公開main b155576を再確認し、private履歴や元workspace変更をpublishしていない。
+GitHub Validate PreActのpush/PR CIを起動。最終状況はPRのChecksを参照。
+実装/全ローカル検証/実測は上記で完了。残る作業はCI確認と人によるレビュー。
+main mergeは行わず、VOIの報酬改善未実証・計算費用増をPRにも明記した。
