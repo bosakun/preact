@@ -3,5 +3,13 @@
 from .loop import CognitiveAgent
 from .memory import EpisodicMemory
 from .models import Belief, Goal
+from .world import CandidateGenerator, WorldPlanner
 
-__all__ = ["Belief", "CognitiveAgent", "EpisodicMemory", "Goal"]
+__all__ = [
+    "Belief",
+    "CandidateGenerator",
+    "CognitiveAgent",
+    "EpisodicMemory",
+    "Goal",
+    "WorldPlanner",
+]

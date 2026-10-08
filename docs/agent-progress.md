@@ -419,3 +419,47 @@ PR #6: https://github.com/bosakun/preact/pull/6 。18ファイルの独立変更
 GitHub Validate PreActのpush/PR CIを起動。最終状況はPRのChecksを参照。
 実装/全ローカル検証/実測は上記で完了。残る作業はCI確認と人によるレビュー。
 main mergeは行わず、VOIの報酬改善未実証・計算費用増をPRにも明記した。
+
+## 2026-10-09 — Software Cognitive sprint 監査・実装
+
+公開main c7f67d86とPR #6 MERGEDを確認。専用clone/feature branchで元のdirty workspaceを保護。
+Core/World/FutureEngine/Software/Program/Gate/Store/API/CLIを監査し、native探索の接続と
+Software observeのnested aliasを優先。研究原文・private履歴・raw DBは公開しない。
+WorldPlanner/CandidateGeneratorの公開API、async提案、明示的hypothetical提案、
+episode予算、defensive Policy、Software/Program receipt deep copy、Software子processの
+cancel cleanupを実装。Core Runtime/Gate/Evidence/Memory/Re-useとHTTP契約は変更しない。
+既存470 testsの基準実行成功。変更後関連66 tests、Software新規27 tests成功。
+全体492 tests成功後、追加否定テスト4件を追加。Ruff全155 files成功、contracts生成差分なし、
+frontend build成功、既存Chromium E2E6 passed in8.2s。
+失敗と修正: Coreは不正候補を例外でなくaction_rejected/ABSTAINにするため正しい否定結果を検証。
+pending intentの再試行拒否は同じstate/action bindingを対象とする。Task.max_steps=1のqueueを
+全episodeへ一律適用した実装で6回帰が発生し、episode_budget opt-inへ限定して既存queueを修復。
+関連66 testsを再実行して全成功。凍結仕様や旧テストを弱めていない。
+54 episodeの予備比較では全成功/unsafe0・意味結果一致・Memory順位変化0、計算費用は増加。
+source/receipt/Gate監査とsummary改ざん否定テストを追加。並行E2E中の測定はprivate参考値へ残し、
+最終測定は他の検証コマンド完了後に独立出力で再実行する。
+残る作業: 最終全Python検証、CLI実行、distribution integrity、独立再実測・日本語結果、PR/CI。
+
+Software接続の回復branch: feat/software-cognitive-runtime（公開main c7f67d86起点）。
+独立作業コピーを使用し、元workspaceには変更を移していない。
+最新Software27 testsでpending/aborted receipt-only外部更新、新episode、子process cleanupを追加検証。
+54 episodeの独立auditorは元receipt/Gateとsummary整合を再確認し成功。
+
+## 2026-10-09 — Software Cognitive sprint ローカル完了
+
+最終Python497 passed in54.59s（既存470+Software27）、Ruff lint/format155 files成功。
+frontend contracts byte一致/build成功、Chromium E2E6 passed in8.2s。local cognitive-demoは
+準備→適用の2roundで成功/unsafe=false、engine calls12。Core/Gate/Memory/Re-use/v1/v2と
+既存web/API契約の差分ゼロを確認。branchは最新公開main c7f67d86から独立。
+最終単独測定54 episodes: 3tasks×3seeds×2repeats×3conditions、全成功/unsafe0/ABSTAIN0。
+9task/seedの全構成・反復で実行Action/実観測/最終状態/学習ラベル一致。
+元Gate policy/evidence hashとauthorizations/intents/outcomes/complete receiptsを全件監査、
+独立auditorも再読出しして成功。Memory retry signal0、成功率/安全性改善は未実証。
+元Runtime/cognitive/no-memoryの親CPU平均68.59/75.84/89.35ms、wall165.69/172.93/187.29ms。
+認知層はCPU+10.6%/wall+4.4%。Memoryが常に高速化するとは主張せず、反例と費用を文書化。
+benchmark/script/auditor/protocol/public結果/日本語設計・結果を追加。rawと予備測定はprivate。
+uv build --offline、distribution auditorはwheel/sdist各71Python sourcesを検証して成功。
+cache sentinel/private DB/研究レポートがarchiveへ入っていない。source/protocol SHAを公開summaryへ保持。
+残る制約: 列挙済みfixture、3task、外部Goal解釈はnative側、retry heuristicの実用改善は未実証。
+次は自然な反復修正taskとpending実行照合・安全な再開API。LLM/VectorDB/Core再設計は未着手。
+次の作業: 独立PR作成・GitHub CI確認。自動merge/既存PRmerge/force pushは禁止のまま。

@@ -1,3 +1,4 @@
+from collections.abc import Awaitable
 from dataclasses import dataclass
 from typing import Any, Literal, Protocol
 
@@ -64,7 +65,9 @@ class BeliefReusePolicy:
 
 class CognitivePlanner(Protocol):
     def infer(self, state: State, experience: list[Experience]) -> Belief: ...
-    def propose(self, belief: Belief, goals: list[Goal], width: int) -> list[Action]: ...
+    def propose(
+        self, belief: Belief, goals: list[Goal], width: int
+    ) -> list[Action] | Awaitable[list[Action]]: ...
 
 
 class CognitiveResult(Contract):

@@ -1,3 +1,6 @@
+import inspect
+import time
+
 from preact.core.interfaces import World
 from preact.core.models import Action, Observation, Policy, State, uid
 from preact.core.registry import Registry
@@ -57,13 +60,42 @@ class _CognitiveWorld:
 
     async def propose(self, state: State, width: int) -> list[Action]:
         self.check_task()
-        belief = self.agent.belief
-        if belief is None or belief.observed != state:
-            raise ValueError("Planner must use the current observed belief")
-        candidates = self.agent.planner.propose(
-            belief.model_copy(deep=True), self.agent.goals, width
-        )
+        if state.kind == "hypothetical":
+            # Hypotheses remain Core search inputs, never authoritative Beliefs.
+            propose = getattr(self.agent.planner, "propose_hypothetical", None)
+            if not callable(propose):
+                raise ValueError("Planner does not support hypothetical proposals")
+            isolated = state.model_copy(deep=True)
+            candidates = propose(isolated, width)
+        else:
+            belief = self.agent.belief
+            if belief is None or belief.observed != state:
+                raise ValueError("Planner must use the current observed belief")
+            isolated = belief.model_copy(deep=True)
+            candidates = self.agent.planner.propose(
+                isolated,
+                [g.model_copy(deep=True) for g in self.agent.goals],
+                width,
+            )
+        if inspect.isawaitable(candidates):
+            candidates = await candidates
+        if isolated != (state if state.kind == "hypothetical" else belief):
+            raise ValueError("Planner mutated its proposal input")
+        self.check_task()
         return candidates
+
+    @property
+    def proposal_calls(self):
+        return getattr(self.agent.planner, "proposal_calls", 0)
+
+    @property
+    def proposal_usage_complete(self):
+        return getattr(self.agent.planner, "proposal_usage_complete", False)
+
+    @property
+    def usage(self):
+        # Preserve the generator's accounting channel; Runtime consumes receipts.
+        return getattr(self.agent.planner, "usage", None)
 
     def validate(self, state: State, action: Action) -> None:
         self.check_task()
@@ -97,18 +129,25 @@ class CognitiveAgent:
         *,
         use_memory: bool = True,
         reuse_beliefs: bool = False,
+        episode_budget: bool = False,
     ):
         self.store, self.artifacts, self.registry = store, artifacts, registry
         self.planner, self.goals = planner, sorted(goals, key=lambda g: -g.priority)
-        self.policy = (policy or Policy(search=False)).model_copy(deep=True)
-        if self.policy.search:
-            raise ValueError("The minimal shell plans only at observed states")
+        self._policy = Policy.model_validate((policy or Policy(search=False)).model_dump())
+        if self._policy.search and not callable(getattr(planner, "propose_hypothetical", None)):
+            raise ValueError("Search requires explicit hypothetical proposal support")
         self.use_memory = use_memory
+        self._episode_budget = episode_budget
         self.reuse_beliefs = reuse_beliefs
         self.belief_estimator = BeliefEstimator(enabled=reuse_beliefs)
         self.memory = EpisodicMemory(store)
         self.belief: Belief | None = None
         self._started = False
+
+    @property
+    def policy(self) -> Policy:
+        """Caller-owned snapshot; planners cannot relax the episode policy."""
+        return self._policy.model_copy(deep=True)
 
     async def run(self, world: World, max_rounds: int) -> CognitiveResult:
         if max_rounds < 1:
@@ -132,20 +171,47 @@ class CognitiveAgent:
         rounds, run_ids = [], []
         unsafe = False
         status = "round_limit"
-        for _ in range(max_rounds):
-            runtime = Runtime(self.store, self.artifacts, self.registry, self.policy)
+        started = time.monotonic()
+        calls, cost = 0, 0.0
+        # Legacy queue Tasks describe one round. Software callers may explicitly
+        # bind the source Task's action/time/call/cost limits to the whole episode.
+        round_limit = (
+            min(max_rounds, adapter.source_task.max_steps) if self._episode_budget else max_rounds
+        )
+        for _ in range(round_limit):
+            policy = self.policy
+            if self._episode_budget:
+                remaining = {
+                    "max_calls": policy.max_calls - calls,
+                    "max_cost_usd": policy.max_cost_usd - cost,
+                    "max_seconds": policy.max_seconds - (time.monotonic() - started),
+                }
+                if any(value <= 0 for value in remaining.values()):
+                    status = "abstained"
+                    if run_ids:
+                        await self.store.call(
+                            "append",
+                            run_ids[-1],
+                            "cognitive_budget_exhausted",
+                            {"remaining": remaining},
+                        )
+                    break
+                policy = Policy.model_validate({**policy.model_dump(), **remaining})
+            runtime = Runtime(self.store, self.artifacts, self.registry, policy)
             run_id = uid()
             await self.store.call(
                 "create_run",
                 {
                     "task": adapter.task.model_dump(),
-                    "policy": self.policy.model_dump(),
+                    "policy": policy.model_dump(),
                     "cognitive_goals": [g.model_dump() for g in self.goals],
                 },
                 run_id=run_id,
             )
             run_ids.append(run_id)
             result = await runtime.run(adapter, run_id=run_id)
+            calls += result["calls"] + result["agent_calls"]
+            cost += result["cost_usd"]
             await self.memory.remember(run_id)
             await adapter.observe()
             if self.belief is not None:
@@ -166,6 +232,12 @@ class CognitiveAgent:
             unsafe |= result["unsafe"]
             if result["steps"] == 0 or unsafe or result["success"]:
                 status = result["status"]
+                break
+            if self._episode_budget and not result["cost_known"]:
+                status = "abstained"
+                await self.store.call(
+                    "append", run_id, "cognitive_budget_exhausted", {"reason": "Unknown cost"}
+                )
                 break
         final = await adapter.observe()
         return CognitiveResult(

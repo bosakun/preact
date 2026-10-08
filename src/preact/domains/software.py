@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import ast
 import asyncio
+import copy
 import json
 import os
 import sys
@@ -57,7 +58,7 @@ async def probe(source: str, seed: int = 0) -> dict[str, bool]:
         )
         try:
             out, err = await asyncio.wait_for(process.communicate(), 5)
-        except TimeoutError:
+        except (TimeoutError, asyncio.CancelledError):
             process.kill()
             await process.wait()
             raise
@@ -85,7 +86,7 @@ class SoftwareWorld:
         self.receipts = {}
 
     async def observe(self):
-        return State.create("software", self.payload.copy(), "trusted-local-repository")
+        return State.create("software", copy.deepcopy(self.payload), "trusted-local-repository")
 
     async def propose(self, state, width):
         source = state.payload["files"]["checkout.py"]
@@ -122,7 +123,7 @@ class SoftwareWorld:
     def materialize(self, state, action):
         self.validate(state, action)
         payload = {
-            "files": action.payload["files"],
+            "files": copy.deepcopy(action.payload["files"]),
             "stage": action.payload["stage"],
             "goal_progress": 1.0
             if action.payload["files"]["checkout.py"] in {SAFE, REPAIR}
@@ -142,11 +143,11 @@ class SoftwareWorld:
 
     async def execute(self, action, receipt):
         if receipt in self.receipts:
-            return self.receipts[receipt]
+            return self.receipts[receipt].model_copy(deep=True)
         state = await self.observe()
         successor = self.materialize(state, action)
         checks = await probe(successor.payload["files"]["checkout.py"], self.task.seed)
-        self.payload = successor.payload
+        self.payload = copy.deepcopy(successor.payload)
         self.payload["goal_complete"] = all(checks.values())
         observed = await self.observe()
         regressions = all(
@@ -165,5 +166,5 @@ class SoftwareWorld:
                 "goal_progress": float(checks["over_discount"]),
             },
         )
-        self.receipts[receipt] = result
-        return result
+        self.receipts[receipt] = result.model_copy(deep=True)
+        return result.model_copy(deep=True)

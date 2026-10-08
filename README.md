@@ -158,6 +158,15 @@ from loosening safety thresholds or extending budgets; see [deployment](deploy/R
 
 ## Architecture and status
 
+### Software Cognitive Runtime
+
+既存Software Worldの保護テスト・探索・Gate・receiptを使い、認知Agentが修正を
+複数roundで進められます。`uv run preact cognitive-demo`でlocal fixtureを実行できます。
+PythonからWorld、候補生成器、Engine、Policyを指定する例と安全境界は
+[利用ガイド](docs/software-cognition.md)、比較実測は
+[結果と限界](docs/software-cognition-results.md)を参照してください。
+標準タスクでMemoryによる能力改善は実証されていません。簡単なタスクには既存Runtimeを選べます。
+
 ### 最小認知ループ（CPU研究実験）
 
 `src/preact/cognition` は既存Coreの上で、実観測、内部推定、実行receiptへの記憶索引、

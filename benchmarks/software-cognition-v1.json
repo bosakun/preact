@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "scope": "Paired bounded first-party Software tasks; no arbitrary repository repair or LLM claim",
+  "tasks": ["checkout-repair", "ceil_batches", "clamp_fraction"],
+  "seeds": [11, 12, 13],
+  "repeats": 2,
+  "conditions": ["runtime", "cognitive", "cognitive_no_memory"],
+  "max_rounds": 4,
+  "evaluation_seed_offset": 1000,
+  "policy": {
+    "search": true,
+    "calibration": false,
+    "width": 3,
+    "max_depth": 3,
+    "max_nodes": 40,
+    "max_calls": 24,
+    "max_seconds": 30,
+    "max_cost_usd": 1
+  },
+  "budget": "Calls, wall time, cost and source Task max_steps bound the whole episode. Nodes/depth/width remain per search, matching Runtime.",
+  "order": "Rotate conditions by seed and reverse on second repeat; fresh World/Store/Registry/Agent each episode",
+  "comparison": "Actions, authoritative execution observations, reward-independent success/unsafe and aligned learning labels; audit original Gate hashes and complete receipts before semantic normalization",
+  "limitations": "Two-step checkout plus two one-step programs; no target throughput, reward or long-term intelligence metric; native task proposals already repair these tasks"
+}
