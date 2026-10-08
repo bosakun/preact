@@ -178,3 +178,22 @@ the prior data used; it is not a fresh calibration run. This archive is private
 review material until its exact payload receives publication approval. Inspect
 rights/disclosures before uploading; member integrity is not complete secret scanning
 or live sponsor certification.
+
+## Information-seeking Action v1
+
+The separate [pilot](information-seeking-pilot-v1.json) precedes the
+[paired main protocol](information-seeking-v1.json). Four policies use the same public
+Bayesian model, reward/time costs and robust Gate. Every seed/case also checks a No Probe
+budget control; two repeats compare complete normalized semantics and original receipts.
+See the Japanese [design](../docs/information-seeking-action.md) and
+[results](../docs/information-seeking-results.md). Run with a fresh private output path:
+
+```sh
+uv run python -m scripts.bench_information_seeking \
+  --protocol benchmarks/information-seeking-v1.json \
+  --output .cache/information-NEW --report .cache/information-report.json
+```
+
+The raw ledger/events stay private. Public summaries retain every condition and seed,
+including ineffective/costly probes. This is a small CPU experiment, not a general-agent
+benchmark. Old cognitive queue, memory and belief-reuse protocols/results are unchanged.

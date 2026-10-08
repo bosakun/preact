@@ -1,0 +1,92 @@
+{
+  "version": 1,
+  "scope": "Preregistered paired CPU v2 queue study after exploratory pilot; no policy tuning during main evaluation",
+  "strategies": [
+    "no_probe",
+    "periodic",
+    "uncertainty",
+    "voi"
+  ],
+  "seeds": [
+    10,
+    11,
+    12
+  ],
+  "repeats": 2,
+  "budget_control": true,
+  "model": {
+    "prior_high": 0.5,
+    "persistence": 0.9,
+    "horizon": 6,
+    "period": 4,
+    "uncertainty_threshold": 0.75
+  },
+  "policy": {
+    "search": false,
+    "calibration": false,
+    "width": 4,
+    "max_nodes": 4,
+    "max_calls": 32,
+    "max_depth": 3
+  },
+  "no_probe_budget_control": {
+    "search": false,
+    "calibration": false,
+    "width": 3,
+    "max_nodes": 3,
+    "max_calls": 24,
+    "max_depth": 3
+  },
+  "world": {
+    "ticks": 24,
+    "target": 35,
+    "shift_tick": 12,
+    "high_first": true,
+    "noise": 0,
+    "capacity": 8,
+    "probe_cost": 0.05,
+    "holding_cost": 0.25
+  },
+  "cases": {
+    "stable_high": {
+      "shift_tick": 24
+    },
+    "stable_low": {
+      "shift_tick": 24,
+      "high_first": false
+    },
+    "high_to_low": {},
+    "low_to_high": {
+      "high_first": false
+    },
+    "noisy": {
+      "noise": 0.25
+    },
+    "high_measurement_cost": {
+      "probe_cost": 2
+    },
+    "no_decision_change": {
+      "target": 0,
+      "shift_tick": 24
+    },
+    "holding_sensitive_low_cost": {
+      "holding_cost": 1,
+      "shift_tick": 24
+    },
+    "holding_sensitive_high_cost": {
+      "holding_cost": 1,
+      "probe_cost": 2,
+      "shift_tick": 24
+    }
+  },
+  "analysis": {
+    "change_detection": "first 3 consecutive pre-action expected-service forecasts within .5 of post-shift generative mean; null=censored or inapplicable, never oracle input",
+    "prediction_error": "MAE against executed-tick capacity, read only by evaluator after episode",
+    "decision_change": "normal-choice difference at next public State with vs without the last probe Experience; includes that Experience ordinary processing information, not a causal marginal measurement estimate",
+    "repeat": "full normalized semantic trace equality, original Gate digest and completed receipt checked before normalization",
+    "uncertainty": "4*p*(1-p)",
+    "pilot": "holding costs .25/1/2/4 explored analytically; actual pilot .25 and1, seed909, ticks8; main contains positive and negative cases declared before main run",
+    "statistics": "all paired seeds published; n=3 is small, no general superiority or significance claim; CPU/wall single host and order effects",
+    "budget": "all strategies width4/nodes4/calls32; No Probe offers3, sensors4. Extra No Probe width3/nodes3/calls24 control for every seed/case. No Probe is the new common Bayesian controller, not frozen v1 EMA results"
+  }
+}

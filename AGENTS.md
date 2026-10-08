@@ -15,6 +15,9 @@ Receipt-backed memory uses a rebuildable run cache and read-only Store change to
 its consistency boundary is documented in `docs/episodic-memory-index.md`.
 Opt-in episode-local inference reuse retains fresh observation and receipt retrieval;
 see `docs/belief-reuse.md`.
+Opt-in queue v2 adds costly, one-tick service sensing through the same Gate and receipts;
+see `docs/information-seeking-action.md`. Its tick-dependent Bayesian planner does not
+opt in to inference reuse. Samples describe executed ticks and never certify safety.
 
 ## Build, Test, and Development Commands
 
@@ -34,6 +37,8 @@ see `docs/belief-reuse.md`.
   cold, warm and invalidated memory retrieval with the frozen memory protocol.
 - `uv run python -m scripts.bench_belief_reuse --output NEW_DIR` measures paired queue
   inference reuse and checks normalized Gate/observation/learning equality.
+- `uv run python -m scripts.bench_information_seeking --protocol benchmarks/information-seeking-v1.json --output NEW_DIR --report NEW_REPORT`
+  audits paired v2 sensing, receipt/Gate integrity, semantic replication and budget controls.
 
 ## Coding Style & Naming Conventions
 

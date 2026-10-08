@@ -1,0 +1,10 @@
+{
+  "episodes": 243,
+  "paired_main_episodes": 216,
+  "budget_controls": 27,
+  "status": "passed-provenance-coverage-reproduction-accounting-aggregate",
+  "scope": "Summary plus original receipt/Gate and budget trace audit",
+  "raw_receipt_gate_and_budget_semantics_audited": true,
+  "report_sha256": "27b2f2306d25e8008625f7fafd2741f390d01471ee605ab9975e7653c46cf3ae",
+  "auditor_sha256": "ade4cc1a7ec25b9a3401395f000c36e8b72f9c6f70648d66ffcc0d96c2902b9d"
+}

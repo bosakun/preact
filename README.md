@@ -184,6 +184,12 @@ Ledgerとexecution receiptをauthorityとしたまま、未更新runの繰り返
 既定は無効で、[改善と悪化の実測](docs/belief-reuse-results.md)を記録しています。
 `uv run python -m scripts.bench_belief_reuse --output .cache/new-belief-bench`で比較できます。
 
+[Information-seeking Action v1](docs/information-seeking-action.md)はopt-in queue v2で、
+1tickと測定費用を払うprobeを通常のGate/receipt経路で扱います。通常処理から得る情報、
+投入機会費用、測定後の適応価値を有限Bayesianモデルで比較します。
+[paired実測と反例](docs/information-seeking-results.md)は専用protocolで再現できます。
+`uv run python -m scripts.bench_information_seeking --protocol benchmarks/information-seeking-v1.json --output .cache/new-information-bench --report .cache/new-information-report.json`
+
 
 ```mermaid
 flowchart LR

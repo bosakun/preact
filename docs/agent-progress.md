@@ -358,3 +358,56 @@ GitHub再確認: mainは1f2604c、open PRなし。読み取り承認審査の時
 Plannerの速度は未測定。外部GPU/LLM/PostgreSQL live検証は今回の完了条件に含めない。
 次: feature branchの独立PRを作成してGitHub CIを確認し、レビュー待ちに残す。
 mainマージ・auto-mergeは禁止。次の研究は安全な照合費用のprofilingと純粋な高コスト推定の損益分岐点。
+
+## 2026-10-09 — Information-seeking Action v1 着手
+
+公開main b155576（PR #5 merge済み）を別cloneのfeature branchへ取得。
+元workspaceの未コミット/privateファイルは保持。Core/Memory/v1は変更しない。
+監査: 通常処理も能力情報を得るため、probeのVOIから無料の処理観測と投入機会費用を引く。
+v2 domain/Claimを分離し、probeは1tick・投入0・既存仕事を処理・追加reward cost。
+測定はexecutor後のObservation metricsだけ。fresh Stateには入れない。
+Bayesian binary Markov model（事前/持続率は仮定）と有限horizon normal-control継続を実装中。
+新PlannerはBelief Reuse opt-out。初回15 tests中14成功、残りはテストのstats属性名誤りを修正。
+次: 全新規テスト、実Runtime pilot、独立protocol固定、本評価/再現監査、全検証、PR作成。
+今回PRはレビュー待ちに残し、merge/auto-mergeしない。
+
+追加22 tests/Ruff成功。テスト用import欠落1件も修正済み。
+pilot: 10 episodes（2条件×4方式+2予算対照）、全Gate/receipt監査成功。
+通常費用ではVOI probe0、保持費用1ではprobe1とNo Probe比reward+3.35（8tick）。
+pilotは探索的。主評価は9条件×3seed×4方式×2反復+27 No Probe予算対照=243 episodes。
+protocol benchmarks/information-seeking-v1.json を主評価開始前に固定。
+CPUとwallは同一host、順序固定。汎用優位性/統計的有意性の主張なし。
+次: 主評価の全意味トレース再現・監査、全回帰検証、設計/結果文書、PR。
+
+追加監査でv2 observeのservice_bounds/service_values入れ子共有を発見。
+adapterのdeep copyに加えdomain単体でもcopyする修正と否定テストを追加。
+途中main測定はSIGINTで停止（exit130）、公開結果へ採用せずprivate cacheに保持。
+protocol/model/conditionsは変更せず、最終sourceで新outputに243 episodesを再実行。
+26新規tests、Ruff lint/format成功。例外・キャンセル・外部receipt変更・reuse opt-outも検証。
+
+## 2026-10-09 — Information-seeking Action v1 ローカル完了
+
+最終main243 episodes（216比較+27予算対照）完了。全108反復ペアが意味トレース一致。
+原Gate policy/evidence hash・complete receipt・入力State/Action・費用・source/protocol・全集計を再監査。
+予算対照27件もpolicy hash差とLedger seqを対象eventへ正規化し、意味トレース一致。
+本評価VOIはNo Probe比7条件同等、2条件悪化、改善0。holding=1/低費用−0.05、
+noisy平均−0.0167。全27 paired seedでは23同等/4悪化。safe実行と学習は動作したが報酬改善未実証。
+全243 unsafe0/ABSTAIN0。周期probeはnoisy seed12で目標未達、高費用ではreward−15。
+No Probe/VOI CPU1.418/1.745s、wall1.641/2.032s。候補3→4でengine216→288、確認169→193。
+毎回実観測169回を維持。新Plannerはreuse opt-out。過去Core/Memory/v1/凍結資料は変更なし。
+pilotの正の差+3.35は探索一条件でありmainの優位性に昇格しない。最終sourceのpilot再実行10件も報酬一致。
+実装 src/preact/{cognition/information,domains/information_queue,engines/information_queue}.py。
+専用protocol/benchmark/auditor/public aggregate/design/resultsを追加、rawはprivate cacheのみ。
+
+実行した検証: .venv/bin/pytest -q 470 passed in51.02s（既存443+新規27）。
+Ruff lint/format151 files成功。npm offline ci（0 vulnerabilities）、contracts生成byte一致、
+frontend build成功（既存use-client無視の警告あり）、Chromium E2E6 passed in8.6s。
+uv build --offlineとdistribution auditor成功、wheel/sdist各70 Python sources。
+.cache sentinelやraw bundleがarchiveに入らないことを確認。
+修正した失敗: test counter属性/import、監査policyのstakes/数値型とLedger seqの正規化。
+観測deep copy修正前の途中mainはSIGINT停止し、主結果に混ぜず最終sourceで全再実行。
+
+制約: binary noiseless sensor、固定Markov仮定、horizon6、最新12経験、3seed・単一CPU世界。
+測定後実際の通常行動差は0、因果的なsensor寄与を単独分離できていない。
+次研究は費用/時間を一致させた非測定drain対照とモデル誤指定の事前固定評価。
+次の作業は独立PR作成・GitHub CI確認。最新指示どおりレビュー待ち、merge/auto-merge禁止。
