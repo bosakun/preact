@@ -222,6 +222,16 @@ class Store:
             if changed is None:
                 raise RuntimeError("Only pending execution can receive an outcome")
 
+    def execution_record(self, receipt: str) -> dict:
+        """Read the durable binding; pending/aborted entries are not observations."""
+        with self.db.connect() as conn:
+            row = (
+                conn.execute(select(self.executions).where(self.executions.c.id == receipt))
+                .mappings()
+                .one()
+            )
+            return dict(row)
+
     def pending_execution(self, run_id: str) -> bool:
         with self.db.connect() as conn:
             return (

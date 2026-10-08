@@ -1,6 +1,7 @@
 """Explicit heuristic allocation of evidence, never an estimated success probability."""
 
-from .models import EvidenceKind
+from .evidence import supports
+from .models import EvidenceKind, identity
 
 
 def admission_reasons(cap, budget):
@@ -18,18 +19,20 @@ def admission_reasons(cap, budget):
     return reasons
 
 
-def rank_verification(engines, declarations, evaluation, task, trust, budget):
+def rank_verification(
+    engines, declarations, evaluation, task, trust, budget, *, used=(), predictions=()
+):
     plans = []
     unresolved = {key for key, value in evaluation.checks.items() if value is not True}
     for engine in engines:
         cap = declarations[id(engine)]
         reasons = admission_reasons(cap, budget)
-        measured = cap.evidence in {EvidenceKind.EXECUTABLE, EvidenceKind.SIMULATION}
-        supported = (
-            unresolved
-            if cap.verification_checks is None
-            else unresolved.intersection(cap.verification_checks)
+        measured = cap.evidence in {EvidenceKind.EXECUTABLE, EvidenceKind.SIMULATION} and bool(
+            set(cap.roles).intersection({"simulator", "verifier"})
         )
+        if evaluation.claim_assessments and not measured:
+            reasons.append("Unmeasured predictors cannot resolve mandatory measurement claims")
+        supported = unresolved.intersection(cap.verification_checks or [])
         # Mandatory coverage and uncertainty/risk resolution are useful only for
         # qualified measurements. Model opinions cannot satisfy required checks.
         impact = 1 + (len(supported) if measured else 0)
@@ -52,25 +55,70 @@ def rank_verification(engines, declarations, evaluation, task, trust, budget):
             if cap.estimated_latency_seconds is None
             else (cap.estimated_latency_seconds / max(min(30, budget["seconds"]), 1e-9))
         )
-        score = impact * reliability / (1 + cost + latency)
-        plans.append(
-            (
-                engine,
+        correlated = {p.engine_id for p in predictions if p.family == cap.family}
+        score = impact * reliability / (1 + cost + latency) / (1 + len(correlated))
+        claims = [
+            a.claim for a in evaluation.claim_assessments if a.required and supports(cap, a.claim)
+        ]
+        groups = {}
+        for claim in claims:
+            key = (claim.horizon, identity(claim.conditions), claim.continuation)
+            groups.setdefault(key, []).append(claim)
+        if evaluation.claim_assessments and not groups:
+            reasons.append("No applicable required claim")
+        if not groups:
+            groups = {(1, "", "environment_only"): []}
+        for (horizon, _, continuation), requested in groups.items():
+            request_key = identity(
                 {
-                    "engine_id": cap.engine_id,
-                    "score": score,
-                    "decision_impact": impact,
-                    "contextual_weight": reliability,
-                    "unresolved_checks_covered": sorted(supported) if measured else [],
-                    "coverage_declared": cap.verification_checks is not None,
-                    "estimated_cost_usd": cap.estimated_cost_usd,
-                    "estimated_latency_seconds": cap.estimated_latency_seconds,
-                    "admissible": not reasons,
-                    "reasons": reasons,
-                    "scope": "Heuristic evidence allocation; estimates do not relax the Decision Gate",
-                },
+                    "engine": cap.engine_id,
+                    "claims": [c.model_dump() for c in requested],
+                    "horizon": horizon,
+                }
             )
-        )
+            if request_key in used:
+                continue
+            group_reasons = list(reasons)
+            group_reliability = (
+                reliability if horizon == 1 and all(not c.conditions for c in requested) else 0.5
+            )
+            if horizon > budget.get("max_horizon", cap.max_horizon):
+                group_reasons.append("Required horizon exceeds exploration budget")
+            if requested:
+                covered = [a for a in evaluation.claim_assessments if a.claim in requested]
+                impact_extra = sum(not a.resolved for a in covered)
+                group_score = (
+                    (impact + impact_extra)
+                    * group_reliability
+                    / (1 + cost + latency)
+                    / (1 + len(correlated))
+                )
+            else:
+                group_score = score
+            plans.append(
+                (
+                    engine,
+                    {
+                        "engine_id": cap.engine_id,
+                        "score": group_score,
+                        "claims": [c.model_dump() for c in requested],
+                        "horizon": horizon,
+                        "continuation": continuation,
+                        "request_key": request_key,
+                        "correlation_family": cap.family,
+                        "correlated_engines": sorted(correlated),
+                        "decision_impact": impact,
+                        "contextual_weight": group_reliability,
+                        "unresolved_checks_covered": sorted(supported) if measured else [],
+                        "coverage_declared": cap.verification_checks is not None,
+                        "estimated_cost_usd": cap.estimated_cost_usd,
+                        "estimated_latency_seconds": cap.estimated_latency_seconds,
+                        "admissible": not group_reasons,
+                        "reasons": group_reasons,
+                        "scope": "Heuristic evidence allocation; estimates do not relax the Decision Gate",
+                    },
+                )
+            )
     return sorted(
         plans,
         key=lambda plan: (

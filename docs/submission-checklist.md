@@ -130,3 +130,12 @@ publication audit records the staged validation scope and remaining manual gates
 Fresh staged installation, regression, browser, package, CPU bridge and local-cohort
 checks are recorded in [public candidate validation](../reports/public-release-validation.json). These checks
 do not close live sponsor, GPU, hosting, publication or submission gates.
+
+## October 8 — Composable Runtime local architecture evolution
+
+[Runtime semantics](composable-world-model-runtime.md) and
+[local validation](composable-world-model-runtime-validation.md) supersede the
+narrow product framing. Claim-specific heterogeneous routing, separate Prediction/
+Observation evidence and bounded no-intervention consequences pass actual local
+shared-Core tests/demos. This does not close hosted provider, GPU, public release
+or administrative submission gates. Existing historical evidence remains unchanged.

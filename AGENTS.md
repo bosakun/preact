@@ -7,7 +7,8 @@ ledger and calibration. Domain adapters live in `src/preact/domains/`; vendor an
 simulation engines live in `src/preact/engines/`. FastAPI is in `src/preact/service/`,
 the React Future Tree in `web/src/`, and GPU worker boundaries in `workers/`.
 Tests are in `tests/` and `web/e2e/`; owned fixtures are in `assets/` and
-`src/preact/datasets/`. Architecture and acceptance criteria are documented in `docs/`.
+`src/preact/datasets/`. Claim-scoped evidence/consequences and their new fixtures
+live in Core and `tests/fixtures/`. Architecture and acceptance criteria are in `docs/`.
 
 ## Build, Test, and Development Commands
 
@@ -19,6 +20,8 @@ Tests are in `tests/` and `web/e2e/`; owned fixtures are in `assets/` and
 - `uv run ruff check src tests workers scripts` and `uv run ruff format --check src tests workers scripts`
   check Python style. `npm --prefix web run build` checks TypeScript and builds assets.
 - `npm --prefix web run contracts` regenerates typed API contracts; commit intentional schema changes.
+- `uv run python -m scripts.verify_composable_runtime --output NEW_DIR` retains new local consequence evidence.
+- Set `PREACT_E2E_ARTIFACT_DIR` to keep browser captures outside historical reports.
 
 ## Coding Style & Naming Conventions
 
@@ -32,6 +35,8 @@ Use pytest, pytest-asyncio and Hypothesis; name tests `test_*.py` with behaviora
 No numeric coverage threshold is configured. Verify meaningful state, authority, failure
 and ledger properties. Security checks use bounded owned structural negatives; rejected
 fixtures must not execute. Fixtures and CPU imports are not live sponsor validation.
+Preserve hard constraints, aligned observation/calibration and one-action execution.
+Never modify frozen tasks/protocols/evidence to fit new behavior; add new fixtures.
 
 ## Commit & Pull Request Guidelines
 
@@ -41,7 +46,7 @@ screenshots for visible changes. Preserve measured benchmark failures and unknow
 
 ## Agent & Publication Instructions
 
-Follow `docs/implementation-plan.md`; maintain concise progress in `docs/agent-progress.md`.
+Follow `docs/composable-world-model-runtime-plan.md` for the current architecture; maintain concise progress in `docs/agent-progress.md`.
 Do not redesign working architecture without measured evidence. Keep credentials, private
 caches, raw benchmark bundles, footage and model weights outside tracked files. Distinguish
 local execution, archived evaluation and unvalidated Nebius/Cosmos/Isaac integrations.

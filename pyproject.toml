@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "preact-runtime"
 version = "0.1.0"
-description = "A counterfactual runtime that verifies futures before agents act"
+description = "A composable world model runtime that verifies task-relevant futures before agents act"
 license = "Apache-2.0"
 requires-python = ">=3.12"
 dependencies = [

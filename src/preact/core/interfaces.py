@@ -15,6 +15,8 @@ from .models import (
 
 
 class FutureEngine(Protocol):
+    """Predict/simulate/verify declared claims; authoritative observation belongs to World."""
+
     capabilities: Capabilities
 
     async def predict(self, request: PredictionRequest) -> Prediction: ...

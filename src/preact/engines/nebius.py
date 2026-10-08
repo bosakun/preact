@@ -8,6 +8,7 @@ import os
 
 import httpx
 
+from preact.core.evidence import metric_definition
 from preact.core.interfaces import EngineFailure
 from preact.core.models import Capabilities, EvidenceKind
 from preact.engines.reasoning import ModelProposer as ModelProposer
@@ -104,6 +105,12 @@ class Nemotron:
             family="nemotron",
             domains=["software", "physical"],
             evidence=EvidenceKind.INFERENCE,
+            roles=["predictor"],
+            supported_claims=[
+                metric_definition("action_postconditions/v1", "success"),
+                metric_definition("constraint_violation/v1", "risk"),
+            ],
+            claim_contract_version="1",
             tier=tier,
             applicability="Structured action-conditioned reasoning; not measured safety",
         )

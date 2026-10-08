@@ -158,6 +158,48 @@
           ],
           "default": null,
           "title": "Estimated Latency Seconds"
+        },
+        "roles": {
+          "items": {
+            "$ref": "#/$defs/EngineRole"
+          },
+          "title": "Roles",
+          "type": "array"
+        },
+        "supported_claims": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/ClaimDefinition"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Supported Claims"
+        },
+        "continuations": {
+          "items": {
+            "$ref": "#/$defs/Continuation"
+          },
+          "title": "Continuations",
+          "type": "array"
+        },
+        "claim_contract_version": {
+          "anyOf": [
+            {
+              "const": "1",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Claim Contract Version"
         }
       },
       "required": [
@@ -175,10 +217,343 @@
         "max_samples",
         "verification_checks",
         "estimated_cost_usd",
-        "estimated_latency_seconds"
+        "estimated_latency_seconds",
+        "roles",
+        "supported_claims",
+        "continuations",
+        "claim_contract_version"
       ],
       "title": "Capabilities",
       "type": "object"
+    },
+    "ClaimAssessment": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "claim": {
+          "$ref": "#/$defs/ClaimInstance"
+        },
+        "findings": {
+          "items": {
+            "$ref": "#/$defs/EvidenceFinding"
+          },
+          "title": "Findings",
+          "type": "array"
+        },
+        "required": {
+          "default": false,
+          "title": "Required",
+          "type": "boolean"
+        },
+        "resolved": {
+          "default": false,
+          "title": "Resolved",
+          "type": "boolean"
+        },
+        "check": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Check"
+        },
+        "lower": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Lower"
+        },
+        "upper": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Upper"
+        },
+        "uncertainty": {
+          "default": 1,
+          "title": "Uncertainty",
+          "type": "number"
+        },
+        "disagreement": {
+          "default": 0,
+          "title": "Disagreement",
+          "type": "number"
+        }
+      },
+      "required": [
+        "schema_version",
+        "claim",
+        "findings",
+        "required",
+        "resolved",
+        "check",
+        "lower",
+        "upper",
+        "uncertainty",
+        "disagreement"
+      ],
+      "title": "ClaimAssessment",
+      "type": "object"
+    },
+    "ClaimDefinition": {
+      "additionalProperties": false,
+      "description": "Episode-independent meaning; capability matching never uses concrete IDs.",
+      "properties": {
+        "schema_version": {
+          "default": "1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "namespace": {
+          "default": "metric",
+          "title": "Namespace",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "version": {
+          "minLength": 1,
+          "title": "Version",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "check",
+            "success",
+            "risk"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "scope": {
+          "default": "root_action",
+          "enum": [
+            "root_action",
+            "action_sequence"
+          ],
+          "title": "Scope",
+          "type": "string"
+        },
+        "temporal": {
+          "default": "at_horizon",
+          "enum": [
+            "at_horizon",
+            "through_horizon"
+          ],
+          "title": "Temporal",
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema_version",
+        "namespace",
+        "name",
+        "version",
+        "kind",
+        "scope",
+        "temporal"
+      ],
+      "title": "ClaimDefinition",
+      "type": "object"
+    },
+    "ClaimInstance": {
+      "additionalProperties": false,
+      "description": "Concrete forecast conditioning, separate from semantic definition.",
+      "properties": {
+        "schema_version": {
+          "default": "1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "definition": {
+          "$ref": "#/$defs/ClaimDefinition"
+        },
+        "state_id": {
+          "title": "State Id",
+          "type": "string"
+        },
+        "task_context": {
+          "title": "Task Context",
+          "type": "string"
+        },
+        "horizon": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Horizon",
+          "type": "integer"
+        },
+        "action_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Action Ids",
+          "type": "array"
+        },
+        "action_fingerprints": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Action Fingerprints",
+          "type": "array"
+        },
+        "continuation": {
+          "$ref": "#/$defs/Continuation",
+          "default": "environment_only"
+        },
+        "conditions": {
+          "additionalProperties": true,
+          "title": "Conditions",
+          "type": "object"
+        }
+      },
+      "required": [
+        "schema_version",
+        "definition",
+        "state_id",
+        "task_context",
+        "horizon",
+        "action_ids",
+        "action_fingerprints",
+        "continuation",
+        "conditions"
+      ],
+      "title": "ClaimInstance",
+      "type": "object"
+    },
+    "ClaimRequirement": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "definition": {
+          "$ref": "#/$defs/ClaimDefinition"
+        },
+        "horizon": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Horizon",
+          "type": "integer"
+        },
+        "continuation": {
+          "$ref": "#/$defs/Continuation",
+          "default": "environment_only"
+        },
+        "conditions": {
+          "additionalProperties": true,
+          "title": "Conditions",
+          "type": "object"
+        }
+      },
+      "required": [
+        "schema_version",
+        "definition",
+        "horizon",
+        "continuation",
+        "conditions"
+      ],
+      "title": "ClaimRequirement",
+      "type": "object"
+    },
+    "ClaimResult": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "claim": {
+          "$ref": "#/$defs/ClaimInstance"
+        },
+        "check": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Check"
+        },
+        "estimate": {
+          "$ref": "#/$defs/Estimate"
+        },
+        "severity": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Severity"
+        },
+        "reversible": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reversible"
+        }
+      },
+      "required": [
+        "schema_version",
+        "claim",
+        "check",
+        "estimate",
+        "severity",
+        "reversible"
+      ],
+      "title": "ClaimResult",
+      "type": "object"
+    },
+    "Continuation": {
+      "enum": [
+        "environment_only",
+        "explicit_action_sequence"
+      ],
+      "title": "Continuation",
+      "type": "string"
     },
     "Decision": {
       "enum": [
@@ -188,6 +563,15 @@
         "task_complete"
       ],
       "title": "Decision",
+      "type": "string"
+    },
+    "EngineRole": {
+      "enum": [
+        "predictor",
+        "simulator",
+        "verifier"
+      ],
+      "title": "EngineRole",
       "type": "string"
     },
     "Estimate": {
@@ -349,6 +733,20 @@
           },
           "title": "Evidence Ids",
           "type": "array"
+        },
+        "claim_assessments": {
+          "items": {
+            "$ref": "#/$defs/ClaimAssessment"
+          },
+          "title": "Claim Assessments",
+          "type": "array"
+        },
+        "immediate_claim_keys": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Immediate Claim Keys",
+          "type": "array"
         }
       },
       "required": [
@@ -364,9 +762,122 @@
         "utility",
         "checks",
         "violations",
-        "evidence_ids"
+        "evidence_ids",
+        "claim_assessments",
+        "immediate_claim_keys"
       ],
       "title": "Evaluation",
+      "type": "object"
+    },
+    "EvidenceFinding": {
+      "additionalProperties": false,
+      "description": "A qualified projection, not a replacement for Prediction or Observation.",
+      "properties": {
+        "schema_version": {
+          "default": "1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "result": {
+          "$ref": "#/$defs/ClaimResult"
+        },
+        "source_kind": {
+          "enum": [
+            "prediction",
+            "observation"
+          ],
+          "title": "Source Kind",
+          "type": "string"
+        },
+        "source_reference": {
+          "title": "Source Reference",
+          "type": "string"
+        },
+        "evidence": {
+          "$ref": "#/$defs/EvidenceKind"
+        },
+        "engine_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Engine Id"
+        },
+        "engine_version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Engine Version"
+        },
+        "correlation_boundary": {
+          "title": "Correlation Boundary",
+          "type": "string"
+        },
+        "qualified": {
+          "title": "Qualified",
+          "type": "boolean"
+        },
+        "qualification_reason": {
+          "title": "Qualification Reason",
+          "type": "string"
+        },
+        "cost_usd": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cost Usd"
+        },
+        "latency_ms": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Latency Ms"
+        },
+        "provenance": {
+          "additionalProperties": true,
+          "title": "Provenance",
+          "type": "object"
+        }
+      },
+      "required": [
+        "schema_version",
+        "result",
+        "source_kind",
+        "source_reference",
+        "evidence",
+        "engine_id",
+        "engine_version",
+        "correlation_boundary",
+        "qualified",
+        "qualification_reason",
+        "cost_usd",
+        "latency_ms",
+        "provenance"
+      ],
+      "title": "EvidenceFinding",
       "type": "object"
     },
     "EvidenceKind": {
@@ -462,6 +973,11 @@
           "title": "Policy Hash",
           "type": "string"
         },
+        "evidence_hash": {
+          "default": "",
+          "title": "Evidence Hash",
+          "type": "string"
+        },
         "expires_at": {
           "title": "Expires At",
           "type": "number"
@@ -475,6 +991,7 @@
         "action_hash",
         "evidence_ids",
         "policy_hash",
+        "evidence_hash",
         "expires_at"
       ],
       "title": "GateResult",
@@ -868,6 +1385,46 @@
           "minimum": 1,
           "title": "Sample Count",
           "type": "integer"
+        },
+        "claim_results": {
+          "items": {
+            "$ref": "#/$defs/ClaimResult"
+          },
+          "title": "Claim Results",
+          "type": "array"
+        },
+        "requested_claims": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/ClaimInstance"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Requested Claims"
+        },
+        "conditioning": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SequenceConditioning"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "future_states": {
+          "items": {
+            "$ref": "#/$defs/State"
+          },
+          "title": "Future States",
+          "type": "array"
         }
       },
       "required": [
@@ -897,7 +1454,11 @@
         "cost_usd",
         "raw",
         "refines_engine_ids",
-        "sample_count"
+        "sample_count",
+        "claim_results",
+        "requested_claims",
+        "conditioning",
+        "future_states"
       ],
       "title": "Prediction",
       "type": "object"
@@ -944,6 +1505,24 @@
           "minimum": 1,
           "title": "Sample Budget",
           "type": "integer"
+        },
+        "claims": {
+          "items": {
+            "$ref": "#/$defs/ClaimInstance"
+          },
+          "title": "Claims",
+          "type": "array"
+        },
+        "conditioning": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SequenceConditioning"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
         }
       },
       "required": [
@@ -953,7 +1532,9 @@
         "seed",
         "horizon",
         "deadline_seconds",
-        "sample_budget"
+        "sample_budget",
+        "claims",
+        "conditioning"
       ],
       "title": "PredictionRequest",
       "type": "object"
@@ -997,6 +1578,65 @@
         "data"
       ],
       "title": "RunEvent",
+      "type": "object"
+    },
+    "SequenceConditioning": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "transitions": {
+          "items": {
+            "$ref": "#/$defs/SequenceTransition"
+          },
+          "minItems": 1,
+          "title": "Transitions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "schema_version",
+        "transitions"
+      ],
+      "title": "SequenceConditioning",
+      "type": "object"
+    },
+    "SequenceTransition": {
+      "additionalProperties": false,
+      "description": "A prior accepted single-action forecast supplies each intermediate state.",
+      "properties": {
+        "schema_version": {
+          "default": "1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "action_id": {
+          "title": "Action Id",
+          "type": "string"
+        },
+        "input_state_id": {
+          "title": "Input State Id",
+          "type": "string"
+        },
+        "successor": {
+          "$ref": "#/$defs/State"
+        },
+        "prediction_id": {
+          "title": "Prediction Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema_version",
+        "action_id",
+        "input_state_id",
+        "successor",
+        "prediction_id"
+      ],
+      "title": "SequenceTransition",
       "type": "object"
     },
     "State": {
@@ -1137,6 +1777,13 @@
           "minimum": 0,
           "title": "Stakes",
           "type": "number"
+        },
+        "future_requirements": {
+          "items": {
+            "$ref": "#/$defs/ClaimRequirement"
+          },
+          "title": "Future Requirements",
+          "type": "array"
         }
       },
       "required": [
@@ -1151,7 +1798,8 @@
         "success_metric",
         "risk_metric",
         "metric_scales",
-        "stakes"
+        "stakes",
+        "future_requirements"
       ],
       "title": "Task",
       "type": "object"

@@ -7,6 +7,7 @@ import secrets
 import time
 from importlib.resources import files
 
+from preact.core.evidence import task_definitions
 from preact.core.interfaces import EngineFailure
 from preact.core.models import Capabilities, EvidenceKind, Prediction, State, identity
 from preact.domains.evaluation import checkout_evaluator
@@ -35,6 +36,10 @@ class Sandbox:
             family="sandbox-execution",
             domains=["software"],
             evidence=EvidenceKind.EXECUTABLE,
+            roles=["verifier"],
+            supported_claims=task_definitions(world.task),
+            verification_checks=world.task.required_checks,
+            claim_contract_version="1",
             tier=2,
             max_samples=2,
             produces_successor=True,

@@ -2,11 +2,12 @@
 
 import math
 
+from .evidence import immediate_metric_scope
 from .models import Observation, Prediction
 
 
 def compare(prediction: Prediction, observation: Observation):
-    if prediction.horizon != 1:
+    if not immediate_metric_scope(prediction):
         return None
     label = observation.checks.get("action_success", observation.success)
     result = {

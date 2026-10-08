@@ -33,12 +33,14 @@ def compare(predictions: list[Prediction], task: Task) -> dict[str, float]:
             left.horizon,
             left.success_metric,
             left.risk_metric,
+            left.conditioning,
         ) != (
             right.state_id,
             right.action_ids,
             right.horizon,
             right.success_metric,
             right.risk_metric,
+            right.conditioning,
         ) or (left.success_metric, left.risk_metric) != (task.success_metric, task.risk_metric):
             continue
         for claim in ("success", "risk"):

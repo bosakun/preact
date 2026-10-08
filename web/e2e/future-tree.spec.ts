@@ -1,5 +1,7 @@
 import { test, expect } from '@playwright/test';
 
+const captureDirectory = process.env.PREACT_E2E_ARTIFACT_DIR || '../reports';
+
 test('both worlds render actual shared-core trees and outcome evidence', async ({ page }) => {
   await page.goto('/');
   await expect(page.getByRole('heading', { name: /See what could happen/ })).toBeVisible();
@@ -16,12 +18,12 @@ test('both worlds render actual shared-core trees and outcome evidence', async (
   await expect.poll(() => page.locator('.future-card').count()).toBeGreaterThan(total);
   await page.getByRole('button', { name: 'Collapse future branch' }).click();
   await expect(page.locator('.future-card')).toHaveCount(total);
-  await page.screenshot({ path: '../reports/software-tree.png', fullPage: true });
+  await page.screenshot({ path: `${captureDirectory}/software-tree.png`, fullPage: true });
   await page.getByRole('button', { name: 'Physical World' }).click();
   await page.getByRole('button', { name: 'Run experiment' }).click();
   await expect(page.locator('.run-status')).toHaveText('complete', { timeout: 20000 });
   await expect(page.getByRole('img', { name: 'Measured cube position, obstacle and trajectory' })).toBeVisible();
-  await page.screenshot({ path: '../reports/physical-tree.png', fullPage: true });
+  await page.screenshot({ path: `${captureDirectory}/physical-tree.png`, fullPage: true });
   await page.getByRole('slider', { name: 'Event replay' }).fill('1');
   await expect(page.locator('.future-card')).toHaveCount(0);
   await page.getByRole('button', { name: 'Latest' }).click();
@@ -50,7 +52,7 @@ test('release workflow uses the same tree for real migration, configuration and 
   await expect(page.locator('.future-card.rejected').filter({hasText: 'Add a nullable discount'})).toBeVisible();
   await expect(page.locator('.checks')).toContainText('data_preservation');
   await expect(page.locator('.checks')).toContainText('schema_integrity');
-  await page.screenshot({ path: '../reports/repository-workflow.png', fullPage: true });
+  await page.screenshot({ path: `${captureDirectory}/repository-workflow.png`, fullPage: true });
   await page.getByRole('combobox', { name: 'Decision round' }).selectOption('3');
   await expect(page.locator('.future-card.executed')).toContainText('Compile and verify the release');
 });

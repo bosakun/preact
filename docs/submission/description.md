@@ -1,9 +1,9 @@
 # PreAct — Submission Description Draft
 
-PreAct is a counterfactual runtime for AI agents. Before an agent acts, it builds a branching
+PreAct is a Composable World Model Runtime for AI agents. Before an agent acts, it builds a branching
 Future Tree, asks appropriate engines what could happen, evaluates disagreement and uncertainty,
 and verifies consequential choices. It executes one qualified action, observes reality and uses
-prediction errors to calibrate future engine trust. It is a runtime, not a new world model.
+prediction errors to calibrate future engine trust. It composes heterogeneous engines at runtime; it is not a monolithic learned world model.
 
 Engineers can inspect why an attractive repair is rejected or why a trajectory needs stronger
 verification. Software and Physical World share Core search, gate and ledger. Domain adapters

@@ -111,6 +111,123 @@ class FutureOutcome(Contract):
     assumptions: list[str] = Field(default_factory=list)
 
 
+class EngineRole(StrEnum):
+    PREDICTOR = "predictor"
+    SIMULATOR = "simulator"
+    VERIFIER = "verifier"
+
+
+class Continuation(StrEnum):
+    ENVIRONMENT_ONLY = "environment_only"
+    ACTION_SEQUENCE = "explicit_action_sequence"
+
+
+class ClaimDefinition(Contract):
+    """Episode-independent meaning; capability matching never uses concrete IDs."""
+
+    model_config = ConfigDict(extra="forbid", allow_inf_nan=False, frozen=True)
+    namespace: str = "metric"
+    name: str = Field(min_length=1)
+    version: str = Field(min_length=1)
+    kind: Literal["check", "success", "risk"]
+    scope: Literal["root_action", "action_sequence"] = "root_action"
+    temporal: Literal["at_horizon", "through_horizon"] = "at_horizon"
+
+
+class ClaimInstance(Contract):
+    """Concrete forecast conditioning, separate from semantic definition."""
+
+    model_config = ConfigDict(extra="forbid", allow_inf_nan=False, frozen=True)
+    definition: ClaimDefinition
+    state_id: str
+    task_context: str
+    horizon: int = Field(default=1, ge=1)
+    action_ids: tuple[str, ...] = Field(min_length=1)
+    action_fingerprints: tuple[str, ...] = Field(min_length=1)
+    continuation: Continuation = Continuation.ENVIRONMENT_ONLY
+    conditions: dict[str, Any] = Field(default_factory=dict)
+
+    @model_validator(mode="after")
+    def coherent_scope(self):
+        if len(self.action_ids) != len(self.action_fingerprints):
+            raise ValueError("Every conditioned action needs a fingerprint")
+        if self.definition.scope == "root_action":
+            if len(self.action_ids) != 1 or self.continuation != Continuation.ENVIRONMENT_ONLY:
+                raise ValueError("Root-only claims cannot contain additional agent interventions")
+        elif self.continuation != Continuation.ACTION_SEQUENCE or len(self.action_ids) < 2:
+            raise ValueError("Sequence claims require multiple explicit interventions")
+        return self
+
+    @property
+    def key(self) -> str:
+        return identity(self.model_dump())
+
+
+class ClaimRequirement(Contract):
+    definition: ClaimDefinition
+    horizon: int = Field(default=1, ge=1)
+    continuation: Continuation = Continuation.ENVIRONMENT_ONLY
+    conditions: dict[str, Any] = Field(default_factory=dict)
+
+
+class SequenceTransition(Contract):
+    """A prior accepted single-action forecast supplies each intermediate state."""
+
+    action_id: str
+    input_state_id: str
+    successor: State
+    prediction_id: str
+
+
+class SequenceConditioning(Contract):
+    transitions: list[SequenceTransition] = Field(min_length=1)
+
+
+class ClaimResult(Contract):
+    claim: ClaimInstance
+    check: bool | None = None
+    estimate: Estimate = Field(default_factory=Estimate)
+    severity: float | None = Field(default=None, ge=0, le=1)
+    reversible: bool | None = None
+
+    @model_validator(mode="after")
+    def value_kind(self):
+        if self.claim.definition.kind != "check" and self.check is not None:
+            raise ValueError("Boolean checks cannot masquerade as probability estimates")
+        if self.claim.definition.kind == "check" and self.estimate.value is not None:
+            raise ValueError("Check evidence cannot manufacture probability estimates")
+        return self
+
+
+class EvidenceFinding(Contract):
+    """A qualified projection, not a replacement for Prediction or Observation."""
+
+    result: ClaimResult
+    source_kind: Literal["prediction", "observation"]
+    source_reference: str
+    evidence: EvidenceKind
+    engine_id: str | None = None
+    engine_version: str | None = None
+    correlation_boundary: str
+    qualified: bool
+    qualification_reason: str
+    cost_usd: float | None = None
+    latency_ms: float | None = None
+    provenance: dict[str, Any] = Field(default_factory=dict)
+
+
+class ClaimAssessment(Contract):
+    claim: ClaimInstance
+    findings: list[EvidenceFinding] = Field(default_factory=list)
+    required: bool = False
+    resolved: bool = False
+    check: bool | None = None
+    lower: float | None = None
+    upper: float | None = None
+    uncertainty: float = 1
+    disagreement: float = 0
+
+
 class Prediction(Contract):
     id: str = Field(default_factory=uid)
     engine_id: str
@@ -122,8 +239,8 @@ class Prediction(Contract):
     evidence: EvidenceKind
     success_metric: str = "action_postconditions/v1"
     risk_metric: str = "constraint_violation/v1"
-    success: Estimate
-    risk: Estimate
+    success: Estimate = Field(default_factory=Estimate)
+    risk: Estimate = Field(default_factory=Estimate)
     violations: list[str] = Field(default_factory=list)
     successor: State | None = None
     outcomes: list[FutureOutcome] = Field(default_factory=list, max_length=10)
@@ -138,6 +255,10 @@ class Prediction(Contract):
     raw: dict[str, Any] = Field(default_factory=dict)
     refines_engine_ids: list[str] = Field(default_factory=list)
     sample_count: int = Field(default=1, ge=1)
+    claim_results: list[ClaimResult] = Field(default_factory=list)
+    requested_claims: list[ClaimInstance] | None = None
+    conditioning: SequenceConditioning | None = None
+    future_states: list[State] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def valid_metric_intervals(self):
@@ -162,6 +283,24 @@ class Capabilities(Contract):
     verification_checks: list[str] | None = None
     estimated_cost_usd: float | None = Field(default=None, ge=0)
     estimated_latency_seconds: float | None = Field(default=None, gt=0)
+    roles: list[EngineRole] = Field(default_factory=list)
+    supported_claims: list[ClaimDefinition] | None = None
+    continuations: list[Continuation] = Field(
+        default_factory=lambda: [Continuation.ENVIRONMENT_ONLY]
+    )
+    claim_contract_version: Literal["1"] | None = None
+
+    @model_validator(mode="after")
+    def legacy_roles(self):
+        if not self.roles:
+            self.roles = [
+                EngineRole.SIMULATOR
+                if self.evidence == EvidenceKind.SIMULATION
+                else EngineRole.VERIFIER
+                if self.evidence == EvidenceKind.EXECUTABLE
+                else EngineRole.PREDICTOR
+            ]
+        return self
 
 
 class PredictionRequest(Contract):
@@ -171,6 +310,8 @@ class PredictionRequest(Contract):
     horizon: int = Field(default=1, ge=1)
     deadline_seconds: float = Field(default=30, gt=0)
     sample_budget: int = Field(default=1, ge=1, le=200)
+    claims: list[ClaimInstance] = Field(default_factory=list)
+    conditioning: SequenceConditioning | None = None
 
 
 class Task(Contract):
@@ -185,9 +326,15 @@ class Task(Contract):
     risk_metric: str = "constraint_violation/v1"
     metric_scales: dict[str, float] = Field(default_factory=dict)
     stakes: float = Field(default=0, ge=0, le=1)
+    future_requirements: list[ClaimRequirement] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def positive_scales(self):
+        if any(
+            r.definition.scope != "root_action" or r.continuation != Continuation.ENVIRONMENT_ONLY
+            for r in self.future_requirements
+        ):
+            raise ValueError("Task action authorization requirements must be root-only")
         if any(value <= 0 for value in self.metric_scales.values()):
             raise ValueError("Task measurement scales must be positive")
         return self
@@ -229,6 +376,8 @@ class Evaluation(Contract):
     checks: dict[str, bool | None]
     violations: list[str]
     evidence_ids: list[str]
+    claim_assessments: list[ClaimAssessment] = Field(default_factory=list)
+    immediate_claim_keys: list[str] = Field(default_factory=list)
 
 
 class GateResult(Contract):
@@ -238,6 +387,7 @@ class GateResult(Contract):
     action_hash: str | None = None
     evidence_ids: list[str] = Field(default_factory=list)
     policy_hash: str = ""
+    evidence_hash: str = ""
     expires_at: float = Field(default_factory=lambda: time.time() + 30)
 
 

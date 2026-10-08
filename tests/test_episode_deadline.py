@@ -138,3 +138,25 @@ async def test_setup_deadline_before_dispatch_has_no_uncertain_execution(tmp_pat
     assert not any(
         e["kind"] in ("execution_intent", "outcome") for e in store.read_events(runtime.run_id)
     )
+
+
+async def test_cancelled_pending_execution_immediately_records_unknown_cost(tmp_path):
+    entered = asyncio.Event()
+
+    class StalledExecution(SoftwareWorld):
+        async def execute(self, action, receipt):
+            entered.set()
+            await asyncio.Event().wait()
+
+    store = Store("sqlite:///:memory:")
+    runtime = Runtime(store, Artifacts(str(tmp_path)), Registry([]))
+    operation = asyncio.create_task(runtime.run(StalledExecution(), direct=True))
+    await asyncio.wait_for(entered.wait(), 1)
+    operation.cancel()
+    with pytest.raises(asyncio.CancelledError):
+        await operation
+    record = store.get_run(runtime.run_id)
+    assert record["status"] == "interrupted" and record["result"]["cost_known"] is False
+    assert store.pending_execution(runtime.run_id)
+    assert not store.error_rows()
+    assert not any(e["kind"] == "outcome" for e in store.read_events(runtime.run_id))

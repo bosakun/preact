@@ -1,7 +1,13 @@
 # PreAct
 
-**A counterfactual runtime for agents: explore futures, verify consequential decisions,
-act once, and calibrate trust from what actually happened.**
+**A Composable World Model Runtime: compose heterogeneous engines to explore and
+verify task-relevant futures, act once, and calibrate trust from observed outcomes.**
+
+PreAct is not a monolithic learned world model. Predictors, simulators and narrow
+verifiers cooperate through explicit claim definitions, concrete state/action/horizon
+bindings and a hard Decision Gate. [Architecture and limits](docs/composable-world-model-runtime.md) and
+[local validation](docs/composable-world-model-runtime-validation.md) describe environment-only consequences, conditional action sequences and distinct
+Prediction/Observation evidence. Software and Physical Worlds are reference domains.
 
 Software and Physical World share one domain-independent search, evaluation, gate,
 event ledger and calibration implementation. The main interface is an interactive
@@ -53,6 +59,7 @@ uv run preact benchmark --seeds 5 --ablations --workflows
 uv run ruff check src tests workers scripts
 uv run ruff format --check src tests workers scripts
 uv run pytest -q
+uv run python -m scripts.verify_composable_runtime --output .cache/new-consequence-evidence
 npm --prefix web run build
 npm --prefix web run contracts
 npm --prefix web exec playwright install chromium

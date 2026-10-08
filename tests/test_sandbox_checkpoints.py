@@ -6,6 +6,7 @@ from uuid import uuid4
 
 import pytest
 
+from preact.core.evidence import task_definitions
 from preact.core.interfaces import EngineFailure
 from preact.core.models import Capabilities, PredictionRequest
 from preact.core.registry import Registry
@@ -46,6 +47,10 @@ def sandbox_fixture(world):
         family="sandbox-execution",
         domains=["software"],
         evidence="executable",
+        roles=["verifier"],
+        supported_claims=task_definitions(world.task),
+        verification_checks=world.task.required_checks,
+        claim_contract_version="1",
         tier=2,
         max_samples=2,
         produces_successor=True,
