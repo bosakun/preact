@@ -272,3 +272,46 @@ GitHub CIで確認後にmergeする。raw cache、私有開発履歴、研究レ
 Ruff lint/format成功、npm ci/contract再生成一致/build成功、E2E 6 passed in 7.9s。
 wheel/sdist integrity成功。runtime sourceは実行済みbenchmark manifestと全てbyte一致。
 既存Core/API/frozen evidenceへの変更なし。次はこの候補をpushしてGitHub CIを確認する。
+## 2026-10-08 — Receipt-backed Episodic Memory Index 実装・検証完了
+
+対象はPhase 2の最初のPRだけ。GitHub mainのbaseは
+471317db730b9a84d07d1883700294a2ec0cb84f、既存PR #3はマージ済み、open PRなし。
+ローカル deep-research-report-2.md（1099行）を全文読み、対象7f9396fと現mainの
+cognition/Store/testsが一致することを確認。独立checkoutで元の作業ツリーを保持。
+ブランチ feat/receipt-backed-memory-index。Information Action/Lazy Verification/
+Belief reuse/LLM/Vector DBは変更しない。今回のPRはレビュー待ちにし、マージ禁止。
+
+設計: next_seq/statusに加えexecution全bindingのdigestをbatch SELECT/UNION ALLで照合。
+receipt-onlyの変化も検出し、changed runだけ既存readで全receipt再検証。
+before/after tokenが不一致、Store障害、欠落run等ではcacheを破棄して失敗。
+返却はdeep copy。SQLite専用SQL、DB schema変更、実行承認/安全性意味の変更なし。
+変更前: 380 tests passed (54.37s)。実装後既存17+新規17 memory tests成功 (3.34s)。
+次: 60/600/6000 receipt、2 layoutの比較microbenchmarkを実測し、制約を文書化。
+
+
+最終実装: changed run単位の増分cache。Store.run_headsは同一statementの
+UNION ALLでmetadata/executionを照合する。full readのreceipt条件は維持。
+JOIN初期案は6000件で退行（warm36.53 ms > old5.13 ms）し、再設計して修正。
+最終6ケース全測定でExperience全field一致、偽outcomeをbaseline/index双方で拒否。
+1件/run・60件 warm p50 4.54→0.68 ms、6000件 4.93→2.07 ms。
+SQL24→1、更新一runは4。coldは48calls/6000件36.87 msで旧より遅い。
+単一run/6000件はwarm1823.94→117.00 ms、更新時2088.41 msで悪化。
+公開結果 docs/episodic-memory-index-results.md / reports/cognitive-memory-index-v1-results.json。
+raw .cache/memory-index-bench-final、初期失敗raw .cache/memory-index-bench-run1。
+集計をsamplesから再計算、source hash一致を確認した。
+
+最終検証（実行済み）:
+- uv run --offline pytest -q: 404 passed in 44.18s（新規24、既存380を維持）。
+- Ruff check成功、format --check 142 files成功、git diff --check成功。
+- npm ci offline成功、contracts再生成byte一致、web build成功。
+- E2E 6 passed in 7.9s（許可されたローカルAPI/Chromium実行）。
+- uv build offline / distribution audit: wheel/sdist integrity成功、Python source66一致。
+- 既存forged outcomeテスト、Runtime/Gate/Evidence/models、v1 protocol/結果のdiffなし。
+
+修正した失敗: UNION ALL変更後のSQL shape testがJOINを期待して1 failure、
+期待shapeを修正後38 tests成功。追加negative testのformat違反も修正。
+制約: warmでもexecution content照合、更新run全検証、cold startup増大、
+append-only Store契約/時点一致（返却後のcommitは次回検出）、PostgreSQL live未検証。
+API/contract/Core実行意味は維持。Belief reuse等の次PRは未着手。
+GitHub mainはPR準備直前もbase471317d、重複open PRなし。
+次: 変更を独立PRへpushし、GitHub CIを確認してレビュー待ちにする。マージしない。

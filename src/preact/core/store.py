@@ -5,6 +5,8 @@ import json
 import os
 import threading
 import time
+from collections.abc import Sequence
+from dataclasses import dataclass
 from pathlib import Path
 
 from sqlalchemy import (
@@ -19,12 +21,27 @@ from sqlalchemy import (
     case,
     create_engine,
     insert,
+    literal,
     select,
     update,
 )
 
 from .io import durable_io
 from .models import RunEvent, now, uid
+
+
+@dataclass(frozen=True)
+class RunHead:
+    """Read-only change token for append-only events and current execution bindings.
+
+    Execution transitions do not advance next_seq. Include every execution column,
+    including the committed observation, so a receipt-only update invalidates readers.
+    This is a change detector, never execution authorization or safety evidence.
+    """
+
+    next_seq: int
+    status: str
+    execution_digest: str
 
 
 class Store:
@@ -176,6 +193,69 @@ class Store:
                     .order_by(self.events.c.seq)
                 ).mappings()
             ]
+
+    def run_heads(self, run_ids: Sequence[str]) -> dict[str, RunHead]:
+        """Read current change tokens without reading events or changing the schema.
+
+        Each bounded batch is one SELECT/UNION ALL, including execution content rather
+        than a process-local counter or a SQLite-specific data version. Missing runs
+        are omitted. Across batches this is not a global transactional snapshot.
+        Events must be appended through Store.append; in-place event rewrites and
+        database rollback/replacement are outside the append-only Store contract.
+        """
+        identifiers = list(dict.fromkeys(run_ids))
+        heads = {}
+        with self.db.connect() as conn:
+            for offset in range(0, len(identifiers), 256):
+                batch = identifiers[offset : offset + 256]
+                # A join without a run_id index can rescan executions once per run.
+                # UNION ALL reads both tables in one statement/snapshot while
+                # filtering the executions table once, without a schema migration.
+                query = (
+                    select(
+                        self.runs.c.id,
+                        self.runs.c.next_seq,
+                        self.runs.c.status,
+                        *[
+                            literal(None, type_=c.type).label(f"execution_{c.name}")
+                            for c in self.executions.c
+                        ],
+                    )
+                    .where(self.runs.c.id.in_(batch))
+                    .union_all(
+                        select(
+                            self.executions.c.run_id,
+                            literal(None),
+                            literal(None),
+                            *self.executions.c,
+                        ).where(self.executions.c.run_id.in_(batch))
+                    )
+                )
+                bindings: dict[str, list[dict]] = {}
+                metadata = {}
+                for row in conn.execute(query).mappings():
+                    run_id = row["id"]
+                    if row["next_seq"] is not None:
+                        metadata[run_id] = (row["next_seq"], row["status"])
+                    bindings.setdefault(run_id, [])
+                    if row["execution_id"] is not None:
+                        bindings[run_id].append(
+                            {c.name: row[f"execution_{c.name}"] for c in self.executions.c}
+                        )
+                for run_id, records in bindings.items():
+                    if run_id not in metadata:
+                        continue
+                    serialized = json.dumps(
+                        sorted(records, key=lambda record: record["id"]),
+                        sort_keys=True,
+                        separators=(",", ":"),
+                        allow_nan=False,
+                    )
+                    next_seq, status = metadata[run_id]
+                    heads[run_id] = RunHead(
+                        next_seq, status, hashlib.sha256(serialized.encode()).hexdigest()
+                    )
+        return heads
 
     def intent(self, run_id: str, state_id: str, action_hash: str) -> str:
         receipt = hashlib.sha256(f"{run_id}:{state_id}:{action_hash}".encode()).hexdigest()

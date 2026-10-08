@@ -11,6 +11,8 @@ Tests are in `tests/` and `web/e2e/`; owned fixtures are in `assets/` and
 live in Core and `tests/fixtures/`. Architecture and acceptance criteria are in `docs/`.
 `src/preact/cognition/` adds an observation-grounded executive above Core; its memory
 indexes committed execution receipts. See `docs/cognitive-architecture.md`.
+Receipt-backed memory uses a rebuildable run cache and read-only Store change tokens;
+its consistency boundary is documented in `docs/episodic-memory-index.md`.
 
 ## Build, Test, and Development Commands
 
@@ -26,6 +28,8 @@ indexes committed execution receipts. See `docs/cognitive-architecture.md`.
 - Set `PREACT_E2E_ARTIFACT_DIR` to keep browser captures outside historical reports.
 - `uv run python -m preact.cognition.benchmark --output NEW_DIR` runs CPU cognitive comparisons.
   Reproduce and audit Japanese findings with `python -m scripts.summarize_cognition`.
+- `uv run python -m scripts.bench_cognitive_memory --output NEW_DIR` compares full-reread,
+  cold, warm and invalidated memory retrieval with the frozen memory protocol.
 
 ## Coding Style & Naming Conventions
 
