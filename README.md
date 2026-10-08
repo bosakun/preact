@@ -158,6 +158,23 @@ from loosening safety thresholds or extending budgets; see [deployment](deploy/R
 
 ## Architecture and status
 
+### 最小認知ループ（CPU研究実験）
+
+`src/preact/cognition` は既存Coreの上で、実観測、内部推定、実行receiptへの記憶索引、
+外部目標、候補順位、Gateを通した一手実行、再観測、経験による推定更新を接続します。
+遅延到着・隠れた処理能力・途中の分布変化を持つ仮想queueで、6構成を比較できます。
+LLM/API/GPUは不要です。既存のWeb UIへの認知画面追加は含みません。
+
+```bash
+uv run python -m preact.cognition.benchmark --output .cache/new-cognitive-evidence
+uv run pytest -q tests/test_cognition.py
+```
+
+[設計・研究判断](docs/cognitive-architecture.md)と[実測結果・限界](docs/cognitive-results.md)
+を参照してください。記憶や推定は安全証拠を代替せず、既存Runtimeが実行を許可します。
+この狭い環境での改善を、汎用認知能力や単一LLMに対する優位性とは扱いません。
+
+
 ```mermaid
 flowchart LR
   UI[Interactive Future Tree] <--> API[FastAPI + durable events]

@@ -221,3 +221,54 @@ Composable Runtime delta is transferred; previously normalized public documentat
 and frozen reports/tasks remain intact. Runtime/test/contract bytes match the locally
 validated source. Private caches, raw execution databases and generated artifacts
 are excluded. Await actual GitHub CI and merge receipts before claiming remote success.
+
+
+## 2026-10-08 — 最小認知ループ Phase 1–3 完了（限定CPU実験）
+
+追加: cognition の Belief/Goal/episode索引/一手Runtime制御/EMA候補順位、
+遅延・部分観測・乱数・途中変化を持つ cognitive_queue domain、予測/区間検証engine、
+6構成の再現protocol/benchmark、raw集計監査、19新規テスト。
+既存Core/APIはこの作業では編集せず、前からある作業ツリー変更を保持した。
+詳細と変更一覧: docs/cognitive-architecture.md。結果: docs/cognitive-results.md、
+reports/cognitive-queue-v1-results.json。原論文/公式実装の参照と採否を日本語で記録。
+
+最終sourceの6構成×5seed×2条件=60episodeを `.cache/cognitive-queue-v1-final` で完了。
+初回 `.cache/cognitive-queue-v1-run1` の60episodeも保持し、時間以外の全指標が一致。
+raw事件の再集計、未実行/未来label禁止とauthorization監査に成功。
+再生成doc/JSONは既存結果とbyte一致。浮動小数点sumの~1e-13差は1e-10 absolute/
+1e-12 relative許容で照合し、+100の偽報酬を拒否するnegative testも実行。
+
+認知版の成功100%/危険0%（両条件）。適応なしとの差は平均報酬 +8.34 / +13.61、
+処理数MAE 0.437→0.263 / 0.740→0.508。対応seed bootstrap区間も保存。
+反例: 別条件で既存PreAct報酬61.58 > 認知52.44、反応型61.81（危険20%）。
+認知版の全処理完了Brierは別条件で0.0167→0.0387へ悪化。
+検証callsは540/episodeで削減なし。記憶読出しコストにより約10.5–10.7秒、
+記憶なし約3.5秒。一般的な優位性、LLM-only比較、外部benchmarkの実証は主張しない。
+
+最終検証（実行済み）:
+- UV_CACHE_DIR=.cache/uv uv run --offline pytest -q: 380 passed in 43.28s。
+- Ruff check成功 / format --check 138 files成功 / git diff --check成功。
+- npm --prefix web run contracts / build成功。
+- E2E初回はsandboxのloopback bind拒否で失敗。許可された再実行で6 passed in 8.2s。
+- uv build --offline --out-dir .cache/cognitive-distributions-verified成功。
+- audit_distributions: wheel/sdist integrity成功、66 Python sources一致。
+  .cache/cognitive-distribution-audit-verified.jsonにhashと件数を保存。
+- 既存凍結protocol/dataset 54ファイルのSHA-256変化なし。
+
+残る制約: 一episode内のEMA、公開service下限に依存した安全、能力の観測が需要で
+打ち切られると遅い回復、ベースライン間の目標終了方針差、少数seed、反復readのコスト。
+自発目標/skill獲得/online NN/汎用モデル合成/episode間transfer/自動benchmark resume未実装。
+既存の外部LLM/GPU/cloud実検証は引き続き未完了で、今回の必要依存ではない。
+次の最優先: receipt整合を維持して記憶索引と候補検証コストを改善し、打切り観測を
+扱う確率belief/情報取得行動を、目的を揃えた追加protocolと外部環境で評価する。
+
+## 2026-10-08 — 認知PR準備
+
+ユーザーがPRからmergeまでを明示的に依頼。公開main 972f930 を基点とし、
+認知層の差分のみ追加。既存source bytesは実験manifestと一致。独立checkoutと
+GitHub CIで確認後にmergeする。raw cache、私有開発履歴、研究レポート原文は含めない。
+
+独立した公開main checkoutでのPR候補検証: pytest 380 passed in 52.13s、
+Ruff lint/format成功、npm ci/contract再生成一致/build成功、E2E 6 passed in 7.9s。
+wheel/sdist integrity成功。runtime sourceは実行済みbenchmark manifestと全てbyte一致。
+既存Core/API/frozen evidenceへの変更なし。次はこの候補をpushしてGitHub CIを確認する。

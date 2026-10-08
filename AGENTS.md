@@ -9,6 +9,8 @@ the React Future Tree in `web/src/`, and GPU worker boundaries in `workers/`.
 Tests are in `tests/` and `web/e2e/`; owned fixtures are in `assets/` and
 `src/preact/datasets/`. Claim-scoped evidence/consequences and their new fixtures
 live in Core and `tests/fixtures/`. Architecture and acceptance criteria are in `docs/`.
+`src/preact/cognition/` adds an observation-grounded executive above Core; its memory
+indexes committed execution receipts. See `docs/cognitive-architecture.md`.
 
 ## Build, Test, and Development Commands
 
@@ -22,6 +24,8 @@ live in Core and `tests/fixtures/`. Architecture and acceptance criteria are in 
 - `npm --prefix web run contracts` regenerates typed API contracts; commit intentional schema changes.
 - `uv run python -m scripts.verify_composable_runtime --output NEW_DIR` retains new local consequence evidence.
 - Set `PREACT_E2E_ARTIFACT_DIR` to keep browser captures outside historical reports.
+- `uv run python -m preact.cognition.benchmark --output NEW_DIR` runs CPU cognitive comparisons.
+  Reproduce and audit Japanese findings with `python -m scripts.summarize_cognition`.
 
 ## Coding Style & Naming Conventions
 

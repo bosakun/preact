@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "scope": "first-party CPU queue; within-episode online adaptation; not a blind general agent benchmark",
+  "conditions": ["reactive", "no_memory", "fixed_prediction", "no_adaptation", "current_preact", "cognitive"],
+  "policy": {"search": false, "calibration": false, "max_nodes": 3, "max_calls": 24, "width": 3, "max_depth": 3},
+  "development": {"seeds": [0, 1, 2, 3, 4], "ticks": 60, "target": 85, "shift_tick": 30, "high_first": true, "noise": 0.1, "capacity": 8},
+  "transfer": {"seeds": [100, 101, 102, 103, 104], "ticks": 60, "target": 85, "shift_tick": 23, "high_first": false, "noise": 0.2, "capacity": 6},
+  "analysis": {"recovery_tolerance": 0.5, "recovery_consecutive_ticks": 3, "ece_bins": 5, "paired_bootstrap_seed": 20261008, "paired_bootstrap_samples": 2000},
+  "notes": ["The hidden schedule is generated before execution with paired seeds and is never supplied to planners or engines.", "Success/risk safety scores and all-processed model calibration are reported separately.", "Safety is a robust public-bound check, not a certificate derived from experience.", "Current PreAct keeps static world proposals. Reactive is the explicitly ungated experimental control.", "No-adaptation retains experience but freezes the service prior. No-memory stores authoritative ledger history but disables retrieval.", "Transfer is a separately declared changed configuration, evaluated after development without parameter tuning."]
+}
