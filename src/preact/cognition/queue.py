@@ -1,9 +1,9 @@
 """Small observed-data estimator and planner; no access to private dynamics."""
 
-from preact.core.models import Action, State
+from preact.core.models import Action, State, identity
 from preact.domains.cognitive_queue import CognitiveQueueWorld, transition
 
-from .models import Belief, Experience, Goal, Inference
+from .models import Belief, BeliefReusePolicy, Experience, Goal, Inference
 
 
 class QueuePlanner:
@@ -11,6 +11,21 @@ class QueuePlanner:
         if not 1 <= prior <= 3:
             raise ValueError("Prior must fit public service bounds")
         self.adaptation, self.prior = adaptation, prior
+
+    def belief_reuse_policy(self) -> BeliefReusePolicy | None:
+        """EMA reads no clock or hidden state; extra instance state disables reuse."""
+        if set(vars(self)) != {"adaptation", "prior"}:
+            return None
+        return BeliefReusePolicy(
+            token=identity(
+                {
+                    "algorithm": "uncensored-ema/v1",
+                    "adaptation": self.adaptation,
+                    "prior": self.prior,
+                }
+            ),
+            timestamp_independent=True,
+        )
 
     def infer(self, state: State, experience: list[Experience]) -> Belief:
         estimate, sources = self.prior, []

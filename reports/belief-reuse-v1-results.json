@@ -1,0 +1,3419 @@
+{
+  "protocol": {
+    "version": 1,
+    "base_main": "1f2604c02868f4403abb7e67ef2c18793f3d4e0f",
+    "scope": "CPU queue inference-only reuse; paired behavior and passive instrumentation; no general intelligence claim",
+    "conditions": [
+      "cognitive",
+      "no_memory",
+      "no_adaptation"
+    ],
+    "policy": {
+      "search": false,
+      "calibration": false,
+      "max_nodes": 3,
+      "max_calls": 24,
+      "width": 3,
+      "max_depth": 3
+    },
+    "splits": {
+      "development": {
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 30,
+        "high_first": true,
+        "noise": 0.1,
+        "capacity": 8
+      },
+      "transfer": {
+        "seeds": [
+          100,
+          101,
+          102
+        ],
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 23,
+        "high_first": false,
+        "noise": 0.2,
+        "capacity": 6
+      }
+    },
+    "micro": {
+      "experience_counts": [
+        0,
+        12
+      ],
+      "iterations": 200
+    },
+    "notes": [
+      "New independent protocol. Existing frozen cognitive-queue-v1 is not changed. Configurations match its first three seeds per split.",
+      "Each seed/condition runs disabled/enabled on separate ledgers; order alternates by seed. No concurrent workloads during measurement.",
+      "Disabled takes existing inference path. Enabled shares the agent-owned estimator with QueueForecast. Only infer is reused.",
+      "Fresh observations, Memory retrieval and receipt validation are retained; inference, retrieval and episode CPU/wall times exclude reporting.",
+      "Normalize random run/node/action/prediction/receipt IDs, timestamps, authorization expiry and latency. Validate original Gate evidence hashes and receipts first; compare all normalized predictions, evaluations, Gate decisions, observations and learning rows.",
+      "Raw ledgers/artifacts/semantic traces remain private. Report contains hashes, counters, timings and equality checks only.",
+      "Microbenchmarks include actual observation and receipt-backed retrieval, not just an artificial expensive pure function.",
+      "Three paired seeds per split, one sample each; instrumentation, disk/fsync and OS variance limit speed conclusions. No statistical performance guarantee.",
+      "Run one untimed four-tick episode per mode before paired measurements to avoid charging import/first-connection initialization to the first disabled sample."
+    ],
+    "warmup": {
+      "seed": 99,
+      "ticks": 4,
+      "target": 5
+    }
+  },
+  "protocol_sha256": "6fc3fb6329da31010b343e51a5eb6c69fd9c0d92186461d067bf5e3902a92751",
+  "source_sha256": {
+    "scripts/bench_belief_reuse.py": "5e0e9315b6ccfa6a46d30b1919bc39e0b4ff8ae30890246d08298fac3f39a413",
+    "src/preact/__init__.py": "30b87dcc3ce0705a84bd22e2c900e7ccba2844b5bf03f834cd43536c59d7eaa8",
+    "src/preact/benchmarks.py": "50c5cfe2a9e399bb9016f3079f4535b63a53a9f2bfd125b54a4247129e606bb8",
+    "src/preact/cli.py": "90d94561a63e9aa2708e3464aaa043de5138b2b8f865be8387a00e63729a7ca3",
+    "src/preact/cognition/__init__.py": "d2ca3e9286a9ef60a49c52bcc8d0003888aa5c0e661dfc30de6b9c9c2cda06c9",
+    "src/preact/cognition/belief.py": "65dba521f848f352a4c6edec2b65843d85d25658c221f85d69e35ad75fff7341",
+    "src/preact/cognition/benchmark.py": "a6ecae9b617984c6dc0858fa215ab959567cd7e46473862b34d6e58d818a37ea",
+    "src/preact/cognition/loop.py": "315a783726c1fcfc4a67a2c3565db1885def1e963c4b6fdaf4ff802d0d8ca305",
+    "src/preact/cognition/memory.py": "f713d4100f180f1e02b60b7adc28a00f2e6ed25f8733221cde7cf169134b879c",
+    "src/preact/cognition/models.py": "59f298c1d69bb9b4c7472288c10f44aee62c52442a2bd2b5e4425ad433b8c860",
+    "src/preact/cognition/queue.py": "5d8a07c011dae4c92e7639d5433e4f35bb5ff1b12e2dc0be04f03c65af49f38f",
+    "src/preact/cohorts.py": "1db58f44de753e1866dfda22c521b9838ac74caf0e0710edaaf1b10ddb0181b2",
+    "src/preact/core/__init__.py": "8750b3a84d40f5a620462d98f0c3e5f87d3feb697ce02fae051c886e1f48585c",
+    "src/preact/core/calibration.py": "442beafe9125929fe2d044dfdb973723e6f8d2cf2dff9ded4892069da9168b9f",
+    "src/preact/core/comparison.py": "753d4a3bef4a7f48ddde93b73946a7d3d7bc657e2fda18bc708d120cb52596c8",
+    "src/preact/core/consequences.py": "bfec4acc88b924effbafd50a6163a802475e6e5d5a98d8c63dde51409a9ae079",
+    "src/preact/core/decision.py": "afd5ac429bb1e316ea0d665e423a0a88c9a9f9a3bf128bb1f8bf0a3b2d6fd107",
+    "src/preact/core/disagreement.py": "9b3bc04911a74c34aa01ace488f5b3ac157326fa7722df46dd107c9b5e6aaa1d",
+    "src/preact/core/evidence.py": "0ba79fe034aacb21364ed55e0e6e740235ac01a26ed54193858b46b19717df29",
+    "src/preact/core/interfaces.py": "f5533ebe6d6ac70b56553c389d78f30fd24541a9fdb649571e57404d4024d0b7",
+    "src/preact/core/io.py": "708b427f60afc187e055e59a50c6ddf76e66f093de144c12cb74cbb006553a2a",
+    "src/preact/core/models.py": "22ecd73a3c2425f72cfa2cd28eb3ba1d1b6091fa1a7772b328a6f3719d1b157d",
+    "src/preact/core/registry.py": "55d373ea8441c95fb4e1e446e39b5bfd030f2f89b7104704405ab753aca2195e",
+    "src/preact/core/runtime.py": "9c7d26f053374b68c082e2c6155e019a1f63cc92645317d0719a8e7a5f829b4f",
+    "src/preact/core/store.py": "2e2fe6c6cea1cbbd2f15733f8235f4bfbcf7e456c971930e4572ddad4705c878",
+    "src/preact/core/verification.py": "32b922de93eae95073b932cb07f2c91192be020656396fe13b65735218ef7e7c",
+    "src/preact/datasets/__init__.py": "6afefa06b9928d40916bd79edd70ddbdc1da6f0de8e5cae8e8226d14f5945725",
+    "src/preact/datasets/programs.py": "3d83248cd3ba05e8092f4996dc76583a125de1c1b472c7c1a5dcd7f68d9ff895",
+    "src/preact/datasets/scenes.py": "078f26ad4a060cacd5f3024afb8bb8497160051d797ee9eba0b515bc1d2ffef5",
+    "src/preact/domains/__init__.py": "00b1a5a1b9b8f6433ebd35876f273487093a5b2ef2160d7480958cee0aa916a4",
+    "src/preact/domains/cloud.py": "d5e47fbb6d87fcedf3ce75119b18d286a7181a080df2cc2d58751f95d275f670",
+    "src/preact/domains/cognitive_queue.py": "8cffaccb143e88d2d31de27fce34cead4fe6d872c8839911027d94d942f87b74",
+    "src/preact/domains/evaluation.py": "d72797855861a3410c2e7de8dc01f301e42f9881913033b69e3089f047d30c97",
+    "src/preact/domains/physical.py": "a81015a252fdeeb1419c03a382a8dcb6a936a5d1cc858c45c536aa28d1143924",
+    "src/preact/domains/program.py": "a0b2197386d21ce9e0faeb62342670af2657f24b03ea5832eb5700641ed42158",
+    "src/preact/domains/program_probe.py": "a69df40bf424ee24a191317112942ad3cf343e43ca860f68cb730b9cc1cfc5d7",
+    "src/preact/domains/release_probe.py": "03e6754653836f83649c4c912ed332e40300c7187f40bcb53c7a0762121e45f5",
+    "src/preact/domains/repository.py": "75bd7f06a7c2ee066b9229c1a106927550ec9f5ed113ffd06a8aaaa878416077",
+    "src/preact/domains/scene.py": "f446b35323b18db0f80242ecce5e9904b506ecce4eb2052a4b5f71fea35d7005",
+    "src/preact/domains/software.py": "3cb9063f3759d1d9ee045c2a5d9fdbd7a339a94de894090015bfb45c2609e258",
+    "src/preact/engines/__init__.py": "a7e10a7131e1595ed715f605a768ff800ffca91e8d33d8d879c09257fc9d1433",
+    "src/preact/engines/cognitive_queue.py": "12a24a3f233abb4c7c2cec9dc373bca7a104b51193060848bfb2772d01d3a958",
+    "src/preact/engines/cosmos.py": "fd96f923292c7f3055763752fe2cb279d4c39451cd65781da3dd2fa62120ae47",
+    "src/preact/engines/isaac.py": "fcac451d3dcb16d5c83f5fc586e3e2c47fc3c817b793a6ad56875dacbc239aeb",
+    "src/preact/engines/jobs.py": "b5518f5719a7fb3e61cbfda93550eea557cce2c7f9324684b579842b96d9a1cc",
+    "src/preact/engines/llamacpp.py": "23d4df56e94b6242fc0894471b01d272a151b425a45b32e6a81d12ab836191a7",
+    "src/preact/engines/local.py": "b308928acfcd733fc24a322e9ee35305474c3dd70be03514f0c0cfc7344a66fc",
+    "src/preact/engines/nebius.py": "77355dd0eda97bc2855c6f73b66c96428ccfdf8ba81eb6de6d801ffc1a1c54e0",
+    "src/preact/engines/process.py": "7886efbd0175e5e57058570edd899f018d043c2e620710ed9d4d928d6fc40fe0",
+    "src/preact/engines/reasoning.py": "7c833b1ef73a62756e6b0c8a380ccebb9678b0f427243df23408fa48c8748bd9",
+    "src/preact/engines/remote.py": "d980619876ae278c21797eba3eb8cfa4b311c995f11acd4724578bcc65cd7bf3",
+    "src/preact/engines/sandbox.py": "4bc8a40ddd9cd3ab5417e6e03ff89afedfecb2e3719e29e62c6a0a9ecee17f2e",
+    "src/preact/engines/sdk_bridge.py": "1b53851c8d8cfc076ea2abe2c50ea885213b94a0a61f9a2a97b9e7347f5f0ac3",
+    "src/preact/engines/statistics.py": "084da979f6106f9870b5e289f071a44fc5fe072762852a4a6568ee88def67674",
+    "src/preact/engines/storage.py": "67326b5c9d9d58da12d6e711f5144f239776a7035706476c8be1d2077bd340f3",
+    "src/preact/integration_validation.py": "29bac46097320d6d66fe25856f0c34c46f6013aaf54902784037be8d8d3a0408",
+    "src/preact/replay.py": "4535f08523580bf49537cc48dc28bc699cee4860351d9e36d072a4487f9bdeaf",
+    "src/preact/service/__init__.py": "a41a28faf004589f3170fc09d22bb489066a34d82072a0543d298297acde2b4b",
+    "src/preact/service/app.py": "e06d17cdf645371c2f60bbc6dfb7ca54da888e9d9a3d34129d45ca4186d3d4b5",
+    "src/preact/service/worker.py": "58ff6ad73af4437973c59eea39bb2d21394b6f90cbbf7b29b94f3c02f87b80ca",
+    "tests/fixtures/memory_ledger.py": "91006a3f81d1c29bbc008d6a6ce9dfb5d27ad9fe795d90ebdebff1a5758177d3"
+  },
+  "environment": {
+    "python": "3.12.13",
+    "platform": "macOS-27.0.1-arm64-arm-64bit"
+  },
+  "episodes": [
+    {
+      "condition": "cognitive",
+      "enabled": false,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 30,
+        "high_first": true,
+        "noise": 0.1,
+        "capacity": 8,
+        "seed": 0
+      },
+      "counts": {
+        "sql": 10677,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "memory_retrieval": 421,
+        "inference": 421,
+        "proposal": 60
+      },
+      "seconds": {
+        "retrieval_wall": 0.4217706604395062,
+        "retrieval_cpu": 0.3995130000000009,
+        "inference_wall": 0.005252424627542496,
+        "inference_cpu": 0.005338000000000176,
+        "episode_wall": 3.884166915959213,
+        "episode_cpu": 3.298676
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 236
+        },
+        "forecast": {
+          "memory_retrieval": 180,
+          "inference": 180,
+          "sql": 177
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1,
+          "memory_retrieval": 1,
+          "sql": 4,
+          "inference": 1
+        }
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 80.25000000000004,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "7532ca27bd47ede21a400f908846838e8edcccd1c9953e8fbf966bf5e2d59b06",
+      "split": "development",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "cognitive",
+      "enabled": true,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 30,
+        "high_first": true,
+        "noise": 0.1,
+        "capacity": 8,
+        "seed": 0
+      },
+      "counts": {
+        "sql": 10677,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "memory_retrieval": 421,
+        "inference": 181,
+        "proposal": 60
+      },
+      "seconds": {
+        "retrieval_wall": 0.4272273702081293,
+        "retrieval_cpu": 0.4047079999999994,
+        "inference_wall": 0.0020596248796209693,
+        "inference_cpu": 0.0020829999999882887,
+        "episode_wall": 4.002959083009046,
+        "episode_cpu": 3.384982000000001
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 236
+        },
+        "forecast": {
+          "memory_retrieval": 180,
+          "sql": 177
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 59
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1,
+          "memory_retrieval": 1,
+          "sql": 4,
+          "inference": 1
+        }
+      },
+      "cache": {
+        "hits": 240,
+        "misses": 181,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 80.25000000000004,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "7532ca27bd47ede21a400f908846838e8edcccd1c9953e8fbf966bf5e2d59b06",
+      "split": "development",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "no_memory",
+      "enabled": false,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 30,
+        "high_first": true,
+        "noise": 0.1,
+        "capacity": 8,
+        "seed": 0
+      },
+      "counts": {
+        "sql": 10082,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "inference": 421,
+        "proposal": 60
+      },
+      "seconds": {
+        "inference_wall": 0.003987334785051644,
+        "inference_cpu": 0.00400299999996534,
+        "episode_wall": 3.4915424160426483,
+        "episode_cpu": 2.903046
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "forecast": {
+          "inference": 180
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1,
+          "inference": 1
+        }
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 80.25000000000004,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "3237333d797b73b66006a66f9c46d4d83b027f56fbed1dc3f7c142b6394c931a",
+      "split": "development",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "no_memory",
+      "enabled": true,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 30,
+        "high_first": true,
+        "noise": 0.1,
+        "capacity": 8,
+        "seed": 0
+      },
+      "counts": {
+        "sql": 10082,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "inference": 121,
+        "proposal": 60
+      },
+      "seconds": {
+        "inference_wall": 0.001289000327233225,
+        "inference_cpu": 0.001267999999960523,
+        "episode_wall": 3.4286992920096964,
+        "episode_cpu": 2.8749679999999955
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 1
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1
+        }
+      },
+      "cache": {
+        "hits": 300,
+        "misses": 121,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 80.25000000000004,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "3237333d797b73b66006a66f9c46d4d83b027f56fbed1dc3f7c142b6394c931a",
+      "split": "development",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "no_adaptation",
+      "enabled": false,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 30,
+        "high_first": true,
+        "noise": 0.1,
+        "capacity": 8,
+        "seed": 0
+      },
+      "counts": {
+        "sql": 10677,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "memory_retrieval": 421,
+        "inference": 421,
+        "proposal": 60
+      },
+      "seconds": {
+        "retrieval_wall": 0.4246508326032199,
+        "retrieval_cpu": 0.40250599999994563,
+        "inference_wall": 0.004296749772038311,
+        "inference_cpu": 0.004378999999985922,
+        "episode_wall": 3.876119624997955,
+        "episode_cpu": 3.3098850000000013
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 236
+        },
+        "forecast": {
+          "memory_retrieval": 180,
+          "inference": 180,
+          "sql": 177
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1,
+          "memory_retrieval": 1,
+          "sql": 4,
+          "inference": 1
+        }
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 80.25000000000004,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "3237333d797b73b66006a66f9c46d4d83b027f56fbed1dc3f7c142b6394c931a",
+      "split": "development",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "no_adaptation",
+      "enabled": true,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 30,
+        "high_first": true,
+        "noise": 0.1,
+        "capacity": 8,
+        "seed": 0
+      },
+      "counts": {
+        "sql": 10677,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "memory_retrieval": 421,
+        "inference": 181,
+        "proposal": 60
+      },
+      "seconds": {
+        "retrieval_wall": 0.4086340096546337,
+        "retrieval_cpu": 0.38644699999996845,
+        "inference_wall": 0.0016825454658828676,
+        "inference_cpu": 0.00171199999999061,
+        "episode_wall": 3.9423735000309534,
+        "episode_cpu": 3.373804
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 236
+        },
+        "forecast": {
+          "memory_retrieval": 180,
+          "sql": 177
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 59
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1,
+          "memory_retrieval": 1,
+          "sql": 4,
+          "inference": 1
+        }
+      },
+      "cache": {
+        "hits": 240,
+        "misses": 181,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 80.25000000000004,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "3237333d797b73b66006a66f9c46d4d83b027f56fbed1dc3f7c142b6394c931a",
+      "split": "development",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "cognitive",
+      "enabled": true,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 30,
+        "high_first": true,
+        "noise": 0.1,
+        "capacity": 8,
+        "seed": 1
+      },
+      "counts": {
+        "sql": 10677,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "memory_retrieval": 421,
+        "inference": 181,
+        "proposal": 60
+      },
+      "seconds": {
+        "retrieval_wall": 0.4131380236358382,
+        "retrieval_cpu": 0.39070000000022986,
+        "inference_wall": 0.00207575416425243,
+        "inference_cpu": 0.0020969999999707056,
+        "episode_wall": 3.981161959003657,
+        "episode_cpu": 3.3745740000000026
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 236
+        },
+        "forecast": {
+          "memory_retrieval": 180,
+          "sql": 177
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 59
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1,
+          "memory_retrieval": 1,
+          "sql": 4,
+          "inference": 1
+        }
+      },
+      "cache": {
+        "hits": 240,
+        "misses": 181,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 47.65000000000002,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "5779887bad9d432cc9d470925ee7463a43b4c08459d681a9228472b6595dfa9f",
+      "split": "development",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "cognitive",
+      "enabled": false,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 30,
+        "high_first": true,
+        "noise": 0.1,
+        "capacity": 8,
+        "seed": 1
+      },
+      "counts": {
+        "sql": 10677,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "memory_retrieval": 421,
+        "inference": 421,
+        "proposal": 60
+      },
+      "seconds": {
+        "retrieval_wall": 0.41067367407958955,
+        "retrieval_cpu": 0.3886509999999248,
+        "inference_wall": 0.005176283128093928,
+        "inference_cpu": 0.005287999999922022,
+        "episode_wall": 3.8497395840240642,
+        "episode_cpu": 3.281357
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 236
+        },
+        "forecast": {
+          "memory_retrieval": 180,
+          "inference": 180,
+          "sql": 177
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1,
+          "memory_retrieval": 1,
+          "sql": 4,
+          "inference": 1
+        }
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 47.65000000000002,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "5779887bad9d432cc9d470925ee7463a43b4c08459d681a9228472b6595dfa9f",
+      "split": "development",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "no_memory",
+      "enabled": true,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 30,
+        "high_first": true,
+        "noise": 0.1,
+        "capacity": 8,
+        "seed": 1
+      },
+      "counts": {
+        "sql": 10082,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "inference": 121,
+        "proposal": 60
+      },
+      "seconds": {
+        "inference_wall": 0.001300661766435951,
+        "inference_cpu": 0.0012929999999329311,
+        "episode_wall": 3.4485083750332706,
+        "episode_cpu": 2.891114999999999
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 1
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1
+        }
+      },
+      "cache": {
+        "hits": 300,
+        "misses": 121,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 35.6,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "9ffd783f76e933c772d4156bc3277da7380edaab0f00604bbeb5e973d4560c52",
+      "split": "development",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "no_memory",
+      "enabled": false,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 30,
+        "high_first": true,
+        "noise": 0.1,
+        "capacity": 8,
+        "seed": 1
+      },
+      "counts": {
+        "sql": 10082,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "inference": 421,
+        "proposal": 60
+      },
+      "seconds": {
+        "inference_wall": 0.004039692226797342,
+        "inference_cpu": 0.004033999999876414,
+        "episode_wall": 3.384451791003812,
+        "episode_cpu": 2.8468660000000057
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "forecast": {
+          "inference": 180
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1,
+          "inference": 1
+        }
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 35.6,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "9ffd783f76e933c772d4156bc3277da7380edaab0f00604bbeb5e973d4560c52",
+      "split": "development",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "no_adaptation",
+      "enabled": true,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 30,
+        "high_first": true,
+        "noise": 0.1,
+        "capacity": 8,
+        "seed": 1
+      },
+      "counts": {
+        "sql": 10677,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "memory_retrieval": 421,
+        "inference": 181,
+        "proposal": 60
+      },
+      "seconds": {
+        "retrieval_wall": 0.44530645856866613,
+        "retrieval_cpu": 0.4232999999996565,
+        "inference_wall": 0.0017010357696563005,
+        "inference_cpu": 0.0017289999999832162,
+        "episode_wall": 3.9893506660009734,
+        "episode_cpu": 3.422896999999992
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 236
+        },
+        "forecast": {
+          "memory_retrieval": 180,
+          "sql": 177
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 59
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1,
+          "memory_retrieval": 1,
+          "sql": 4,
+          "inference": 1
+        }
+      },
+      "cache": {
+        "hits": 240,
+        "misses": 181,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 35.6,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "9ffd783f76e933c772d4156bc3277da7380edaab0f00604bbeb5e973d4560c52",
+      "split": "development",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "no_adaptation",
+      "enabled": false,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 30,
+        "high_first": true,
+        "noise": 0.1,
+        "capacity": 8,
+        "seed": 1
+      },
+      "counts": {
+        "sql": 10677,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "memory_retrieval": 421,
+        "inference": 421,
+        "proposal": 60
+      },
+      "seconds": {
+        "retrieval_wall": 0.4477442044299096,
+        "retrieval_cpu": 0.4257249999998862,
+        "inference_wall": 0.004493115993682295,
+        "inference_cpu": 0.004580999999944879,
+        "episode_wall": 3.9404710000380874,
+        "episode_cpu": 3.3165419999999983
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 236
+        },
+        "forecast": {
+          "memory_retrieval": 180,
+          "inference": 180,
+          "sql": 177
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1,
+          "memory_retrieval": 1,
+          "sql": 4,
+          "inference": 1
+        }
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 35.6,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "9ffd783f76e933c772d4156bc3277da7380edaab0f00604bbeb5e973d4560c52",
+      "split": "development",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "cognitive",
+      "enabled": false,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 30,
+        "high_first": true,
+        "noise": 0.1,
+        "capacity": 8,
+        "seed": 2
+      },
+      "counts": {
+        "sql": 10677,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "memory_retrieval": 421,
+        "inference": 421,
+        "proposal": 60
+      },
+      "seconds": {
+        "retrieval_wall": 0.43234082794515416,
+        "retrieval_cpu": 0.40968099999982144,
+        "inference_wall": 0.005095001659356058,
+        "inference_cpu": 0.005190999999896917,
+        "episode_wall": 3.8759030000073835,
+        "episode_cpu": 3.3037920000000014
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 236
+        },
+        "forecast": {
+          "memory_retrieval": 180,
+          "inference": 180,
+          "sql": 177
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1,
+          "memory_retrieval": 1,
+          "sql": 4,
+          "inference": 1
+        }
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 49.35000000000002,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "ade44d6b4ba62d778da5016d35d99d515eef8def1b60b64b9a330fe5ffbfc0ae",
+      "split": "development",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "cognitive",
+      "enabled": true,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 30,
+        "high_first": true,
+        "noise": 0.1,
+        "capacity": 8,
+        "seed": 2
+      },
+      "counts": {
+        "sql": 10677,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "memory_retrieval": 421,
+        "inference": 181,
+        "proposal": 60
+      },
+      "seconds": {
+        "retrieval_wall": 0.44144965417217463,
+        "retrieval_cpu": 0.4190769999999304,
+        "inference_wall": 0.002032714488450438,
+        "inference_cpu": 0.0020589999999174324,
+        "episode_wall": 3.943212166952435,
+        "episode_cpu": 3.386967999999996
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 236
+        },
+        "forecast": {
+          "memory_retrieval": 180,
+          "sql": 177
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 59
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1,
+          "memory_retrieval": 1,
+          "sql": 4,
+          "inference": 1
+        }
+      },
+      "cache": {
+        "hits": 240,
+        "misses": 181,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 49.35000000000002,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "ade44d6b4ba62d778da5016d35d99d515eef8def1b60b64b9a330fe5ffbfc0ae",
+      "split": "development",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "no_memory",
+      "enabled": false,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 30,
+        "high_first": true,
+        "noise": 0.1,
+        "capacity": 8,
+        "seed": 2
+      },
+      "counts": {
+        "sql": 10082,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "inference": 421,
+        "proposal": 60
+      },
+      "seconds": {
+        "inference_wall": 0.004060501465573907,
+        "inference_cpu": 0.004052999999970552,
+        "episode_wall": 3.4677162499865517,
+        "episode_cpu": 2.9190340000000106
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "forecast": {
+          "inference": 180
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1,
+          "inference": 1
+        }
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 29.599999999999994,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "e49c4dc5775c2757e2c6d1f8b559788c0eac257159252a85c5e95c069fbeefc0",
+      "split": "development",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "no_memory",
+      "enabled": true,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 30,
+        "high_first": true,
+        "noise": 0.1,
+        "capacity": 8,
+        "seed": 2
+      },
+      "counts": {
+        "sql": 10082,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "inference": 121,
+        "proposal": 60
+      },
+      "seconds": {
+        "inference_wall": 0.0012846344616264105,
+        "inference_cpu": 0.0012510000000531818,
+        "episode_wall": 3.4523905839887448,
+        "episode_cpu": 2.898206999999985
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 1
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1
+        }
+      },
+      "cache": {
+        "hits": 300,
+        "misses": 121,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 29.599999999999994,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "e49c4dc5775c2757e2c6d1f8b559788c0eac257159252a85c5e95c069fbeefc0",
+      "split": "development",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "no_adaptation",
+      "enabled": false,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 30,
+        "high_first": true,
+        "noise": 0.1,
+        "capacity": 8,
+        "seed": 2
+      },
+      "counts": {
+        "sql": 10677,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "memory_retrieval": 421,
+        "inference": 421,
+        "proposal": 60
+      },
+      "seconds": {
+        "retrieval_wall": 0.44806604081531987,
+        "retrieval_cpu": 0.42573599999997214,
+        "inference_wall": 0.004661591956391931,
+        "inference_cpu": 0.004760999999490423,
+        "episode_wall": 3.919665542023722,
+        "episode_cpu": 3.347190999999981
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 236
+        },
+        "forecast": {
+          "memory_retrieval": 180,
+          "inference": 180,
+          "sql": 177
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1,
+          "memory_retrieval": 1,
+          "sql": 4,
+          "inference": 1
+        }
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 29.599999999999994,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "e49c4dc5775c2757e2c6d1f8b559788c0eac257159252a85c5e95c069fbeefc0",
+      "split": "development",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "no_adaptation",
+      "enabled": true,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 30,
+        "high_first": true,
+        "noise": 0.1,
+        "capacity": 8,
+        "seed": 2
+      },
+      "counts": {
+        "sql": 10677,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "memory_retrieval": 421,
+        "inference": 181,
+        "proposal": 60
+      },
+      "seconds": {
+        "retrieval_wall": 0.4523275009705685,
+        "retrieval_cpu": 0.43022500000006403,
+        "inference_wall": 0.0017134954687207937,
+        "inference_cpu": 0.001741000000066606,
+        "episode_wall": 4.003885457990691,
+        "episode_cpu": 3.4300059999999917
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 236
+        },
+        "forecast": {
+          "memory_retrieval": 180,
+          "sql": 177
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 59
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1,
+          "memory_retrieval": 1,
+          "sql": 4,
+          "inference": 1
+        }
+      },
+      "cache": {
+        "hits": 240,
+        "misses": 181,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 29.599999999999994,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "e49c4dc5775c2757e2c6d1f8b559788c0eac257159252a85c5e95c069fbeefc0",
+      "split": "development",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "cognitive",
+      "enabled": false,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 23,
+        "high_first": false,
+        "noise": 0.2,
+        "capacity": 6,
+        "seed": 100
+      },
+      "counts": {
+        "sql": 10677,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "memory_retrieval": 421,
+        "inference": 421,
+        "proposal": 60
+      },
+      "seconds": {
+        "retrieval_wall": 0.45537474972661585,
+        "retrieval_cpu": 0.43302800000020625,
+        "inference_wall": 0.005330788611900061,
+        "inference_cpu": 0.005420000000128766,
+        "episode_wall": 3.956218416977208,
+        "episode_cpu": 3.3745639999999923
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 236
+        },
+        "forecast": {
+          "memory_retrieval": 180,
+          "inference": 180,
+          "sql": 177
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1,
+          "memory_retrieval": 1,
+          "sql": 4,
+          "inference": 1
+        }
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 52.150000000000006,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "7b90c033482b44e516d19efa14e0d86ea9d975940146b5b982de9fd4c87e4d21",
+      "split": "transfer",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "cognitive",
+      "enabled": true,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 23,
+        "high_first": false,
+        "noise": 0.2,
+        "capacity": 6,
+        "seed": 100
+      },
+      "counts": {
+        "sql": 10677,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "memory_retrieval": 421,
+        "inference": 181,
+        "proposal": 60
+      },
+      "seconds": {
+        "retrieval_wall": 0.45241020299727097,
+        "retrieval_cpu": 0.4304330000001926,
+        "inference_wall": 0.0020865057595074177,
+        "inference_cpu": 0.0021229999999832216,
+        "episode_wall": 4.015396207978483,
+        "episode_cpu": 3.450794000000002
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 236
+        },
+        "forecast": {
+          "memory_retrieval": 180,
+          "sql": 177
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 59
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1,
+          "memory_retrieval": 1,
+          "sql": 4,
+          "inference": 1
+        }
+      },
+      "cache": {
+        "hits": 240,
+        "misses": 181,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 52.150000000000006,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "7b90c033482b44e516d19efa14e0d86ea9d975940146b5b982de9fd4c87e4d21",
+      "split": "transfer",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "no_memory",
+      "enabled": false,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 23,
+        "high_first": false,
+        "noise": 0.2,
+        "capacity": 6,
+        "seed": 100
+      },
+      "counts": {
+        "sql": 10082,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "inference": 421,
+        "proposal": 60
+      },
+      "seconds": {
+        "inference_wall": 0.0040785413584671915,
+        "inference_cpu": 0.004079999999873962,
+        "episode_wall": 3.4543554169940762,
+        "episode_cpu": 2.9099139999999863
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "forecast": {
+          "inference": 180
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1,
+          "inference": 1
+        }
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 37.4,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "aba1a443d959c3b87d759ef1baf6dd68d4fda45112bc03a3d03de447c1838f89",
+      "split": "transfer",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "no_memory",
+      "enabled": true,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 23,
+        "high_first": false,
+        "noise": 0.2,
+        "capacity": 6,
+        "seed": 100
+      },
+      "counts": {
+        "sql": 10082,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "inference": 121,
+        "proposal": 60
+      },
+      "seconds": {
+        "inference_wall": 0.0013238360406830907,
+        "inference_cpu": 0.0012799999998946987,
+        "episode_wall": 3.4725585419801064,
+        "episode_cpu": 2.921972000000011
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 1
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1
+        }
+      },
+      "cache": {
+        "hits": 300,
+        "misses": 121,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 37.4,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "aba1a443d959c3b87d759ef1baf6dd68d4fda45112bc03a3d03de447c1838f89",
+      "split": "transfer",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "no_adaptation",
+      "enabled": false,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 23,
+        "high_first": false,
+        "noise": 0.2,
+        "capacity": 6,
+        "seed": 100
+      },
+      "counts": {
+        "sql": 10677,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "memory_retrieval": 421,
+        "inference": 421,
+        "proposal": 60
+      },
+      "seconds": {
+        "retrieval_wall": 0.43561216234229505,
+        "retrieval_cpu": 0.4129289999999912,
+        "inference_wall": 0.004505874589085579,
+        "inference_cpu": 0.004579000000035194,
+        "episode_wall": 3.9153014999465086,
+        "episode_cpu": 3.347009000000014
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 236
+        },
+        "forecast": {
+          "memory_retrieval": 180,
+          "inference": 180,
+          "sql": 177
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1,
+          "memory_retrieval": 1,
+          "sql": 4,
+          "inference": 1
+        }
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 37.4,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "aba1a443d959c3b87d759ef1baf6dd68d4fda45112bc03a3d03de447c1838f89",
+      "split": "transfer",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "no_adaptation",
+      "enabled": true,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 23,
+        "high_first": false,
+        "noise": 0.2,
+        "capacity": 6,
+        "seed": 100
+      },
+      "counts": {
+        "sql": 10677,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "memory_retrieval": 421,
+        "inference": 181,
+        "proposal": 60
+      },
+      "seconds": {
+        "retrieval_wall": 0.43099132989300415,
+        "retrieval_cpu": 0.4078140000001156,
+        "inference_wall": 0.0017215337720699608,
+        "inference_cpu": 0.001745000000056507,
+        "episode_wall": 3.974500958051067,
+        "episode_cpu": 3.40699699999999
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 236
+        },
+        "forecast": {
+          "memory_retrieval": 180,
+          "sql": 177
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 59
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1,
+          "memory_retrieval": 1,
+          "sql": 4,
+          "inference": 1
+        }
+      },
+      "cache": {
+        "hits": 240,
+        "misses": 181,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 37.4,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "aba1a443d959c3b87d759ef1baf6dd68d4fda45112bc03a3d03de447c1838f89",
+      "split": "transfer",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "cognitive",
+      "enabled": true,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 23,
+        "high_first": false,
+        "noise": 0.2,
+        "capacity": 6,
+        "seed": 101
+      },
+      "counts": {
+        "sql": 10677,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "memory_retrieval": 421,
+        "inference": 181,
+        "proposal": 60
+      },
+      "seconds": {
+        "retrieval_wall": 0.4139089923701249,
+        "retrieval_cpu": 0.39169100000063395,
+        "inference_wall": 0.0020706678624264896,
+        "inference_cpu": 0.0021119999998404637,
+        "episode_wall": 4.0120213750051335,
+        "episode_cpu": 3.4348670000000254
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 236
+        },
+        "forecast": {
+          "memory_retrieval": 180,
+          "sql": 177
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 59
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1,
+          "memory_retrieval": 1,
+          "sql": 4,
+          "inference": 1
+        }
+      },
+      "cache": {
+        "hits": 240,
+        "misses": 181,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 47.7,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "3118b49395eaecb1b8f39e14028cd59108a783ac21106d5625ea802650e7f566",
+      "split": "transfer",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "cognitive",
+      "enabled": false,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 23,
+        "high_first": false,
+        "noise": 0.2,
+        "capacity": 6,
+        "seed": 101
+      },
+      "counts": {
+        "sql": 10677,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "memory_retrieval": 421,
+        "inference": 421,
+        "proposal": 60
+      },
+      "seconds": {
+        "retrieval_wall": 0.4527479342650622,
+        "retrieval_cpu": 0.4305599999994456,
+        "inference_wall": 0.005366997269447893,
+        "inference_cpu": 0.005456000000663153,
+        "episode_wall": 3.953016582992859,
+        "episode_cpu": 3.3484660000000304
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 236
+        },
+        "forecast": {
+          "memory_retrieval": 180,
+          "inference": 180,
+          "sql": 177
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1,
+          "memory_retrieval": 1,
+          "sql": 4,
+          "inference": 1
+        }
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 47.7,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "3118b49395eaecb1b8f39e14028cd59108a783ac21106d5625ea802650e7f566",
+      "split": "transfer",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "no_memory",
+      "enabled": true,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 23,
+        "high_first": false,
+        "noise": 0.2,
+        "capacity": 6,
+        "seed": 101
+      },
+      "counts": {
+        "sql": 10082,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "inference": 121,
+        "proposal": 60
+      },
+      "seconds": {
+        "inference_wall": 0.0013296690303832293,
+        "inference_cpu": 0.0012869999997064951,
+        "episode_wall": 3.5061437920085154,
+        "episode_cpu": 2.953700999999967
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 1
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1
+        }
+      },
+      "cache": {
+        "hits": 300,
+        "misses": 121,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 33.29999999999998,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "baec823696e6fe2d1d49c2342bfe0ddf90752c5deb8d6d6f5c1e4f4d14a40d8d",
+      "split": "transfer",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "no_memory",
+      "enabled": false,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 23,
+        "high_first": false,
+        "noise": 0.2,
+        "capacity": 6,
+        "seed": 101
+      },
+      "counts": {
+        "sql": 10082,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "inference": 421,
+        "proposal": 60
+      },
+      "seconds": {
+        "inference_wall": 0.004031428601592779,
+        "inference_cpu": 0.004044000000760661,
+        "episode_wall": 3.4589537080028094,
+        "episode_cpu": 2.906236999999976
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "forecast": {
+          "inference": 180
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1,
+          "inference": 1
+        }
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 33.29999999999998,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "baec823696e6fe2d1d49c2342bfe0ddf90752c5deb8d6d6f5c1e4f4d14a40d8d",
+      "split": "transfer",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "no_adaptation",
+      "enabled": true,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 23,
+        "high_first": false,
+        "noise": 0.2,
+        "capacity": 6,
+        "seed": 101
+      },
+      "counts": {
+        "sql": 10677,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "memory_retrieval": 421,
+        "inference": 181,
+        "proposal": 60
+      },
+      "seconds": {
+        "retrieval_wall": 0.41531645914074033,
+        "retrieval_cpu": 0.3928830000009498,
+        "inference_wall": 0.0017120068077929318,
+        "inference_cpu": 0.0017770000001178232,
+        "episode_wall": 3.9690267500118352,
+        "episode_cpu": 3.3928809999999885
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 236
+        },
+        "forecast": {
+          "memory_retrieval": 180,
+          "sql": 177
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 59
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1,
+          "memory_retrieval": 1,
+          "sql": 4,
+          "inference": 1
+        }
+      },
+      "cache": {
+        "hits": 240,
+        "misses": 181,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 33.29999999999998,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "baec823696e6fe2d1d49c2342bfe0ddf90752c5deb8d6d6f5c1e4f4d14a40d8d",
+      "split": "transfer",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "no_adaptation",
+      "enabled": false,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 23,
+        "high_first": false,
+        "noise": 0.2,
+        "capacity": 6,
+        "seed": 101
+      },
+      "counts": {
+        "sql": 10677,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "memory_retrieval": 421,
+        "inference": 421,
+        "proposal": 60
+      },
+      "seconds": {
+        "retrieval_wall": 0.4380345070967451,
+        "retrieval_cpu": 0.41564800000026025,
+        "inference_wall": 0.004650753398891538,
+        "inference_cpu": 0.0047509999993167185,
+        "episode_wall": 3.919690958049614,
+        "episode_cpu": 3.348411999999996
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 236
+        },
+        "forecast": {
+          "memory_retrieval": 180,
+          "inference": 180,
+          "sql": 177
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1,
+          "memory_retrieval": 1,
+          "sql": 4,
+          "inference": 1
+        }
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 33.29999999999998,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "baec823696e6fe2d1d49c2342bfe0ddf90752c5deb8d6d6f5c1e4f4d14a40d8d",
+      "split": "transfer",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "cognitive",
+      "enabled": false,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 23,
+        "high_first": false,
+        "noise": 0.2,
+        "capacity": 6,
+        "seed": 102
+      },
+      "counts": {
+        "sql": 10677,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "memory_retrieval": 421,
+        "inference": 421,
+        "proposal": 60
+      },
+      "seconds": {
+        "retrieval_wall": 0.4313126513152383,
+        "retrieval_cpu": 0.4089389999994637,
+        "inference_wall": 0.005120096844621003,
+        "inference_cpu": 0.005211999999971795,
+        "episode_wall": 3.9306383750517853,
+        "episode_cpu": 3.3549730000000295
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 236
+        },
+        "forecast": {
+          "memory_retrieval": 180,
+          "inference": 180,
+          "sql": 177
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1,
+          "memory_retrieval": 1,
+          "sql": 4,
+          "inference": 1
+        }
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 53.850000000000016,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "51828391c31fcfc3ffc95d9ee6b964da25d876ff7b93ce67d3b531db32c752e5",
+      "split": "transfer",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "cognitive",
+      "enabled": true,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 23,
+        "high_first": false,
+        "noise": 0.2,
+        "capacity": 6,
+        "seed": 102
+      },
+      "counts": {
+        "sql": 10677,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "memory_retrieval": 421,
+        "inference": 181,
+        "proposal": 60
+      },
+      "seconds": {
+        "retrieval_wall": 0.41413395723793656,
+        "retrieval_cpu": 0.3922440000009715,
+        "inference_wall": 0.002040246967226267,
+        "inference_cpu": 0.0020910000006892915,
+        "episode_wall": 4.000435333000496,
+        "episode_cpu": 3.4336490000000026
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 236
+        },
+        "forecast": {
+          "memory_retrieval": 180,
+          "sql": 177
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 59
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1,
+          "memory_retrieval": 1,
+          "sql": 4,
+          "inference": 1
+        }
+      },
+      "cache": {
+        "hits": 240,
+        "misses": 181,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 53.850000000000016,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "51828391c31fcfc3ffc95d9ee6b964da25d876ff7b93ce67d3b531db32c752e5",
+      "split": "transfer",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "no_memory",
+      "enabled": false,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 23,
+        "high_first": false,
+        "noise": 0.2,
+        "capacity": 6,
+        "seed": 102
+      },
+      "counts": {
+        "sql": 10082,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "inference": 421,
+        "proposal": 60
+      },
+      "seconds": {
+        "inference_wall": 0.004025166272185743,
+        "inference_cpu": 0.004019999999968604,
+        "episode_wall": 3.4292816249653697,
+        "episode_cpu": 2.8889560000000074
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "forecast": {
+          "inference": 180
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1,
+          "inference": 1
+        }
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 37.99999999999999,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "663d5d992780467ca22ae5acfef74a6ca3623a0caf9dc012e3479ba6fdf3f001",
+      "split": "transfer",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "no_memory",
+      "enabled": true,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 23,
+        "high_first": false,
+        "noise": 0.2,
+        "capacity": 6,
+        "seed": 102
+      },
+      "counts": {
+        "sql": 10082,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "inference": 121,
+        "proposal": 60
+      },
+      "seconds": {
+        "inference_wall": 0.0013541292282752693,
+        "inference_cpu": 0.001342000000590815,
+        "episode_wall": 3.8215313749969937,
+        "episode_cpu": 3.092331999999999
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 1
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1
+        }
+      },
+      "cache": {
+        "hits": 300,
+        "misses": 121,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 37.99999999999999,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "663d5d992780467ca22ae5acfef74a6ca3623a0caf9dc012e3479ba6fdf3f001",
+      "split": "transfer",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "no_adaptation",
+      "enabled": false,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 23,
+        "high_first": false,
+        "noise": 0.2,
+        "capacity": 6,
+        "seed": 102
+      },
+      "counts": {
+        "sql": 10677,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "memory_retrieval": 421,
+        "inference": 421,
+        "proposal": 60
+      },
+      "seconds": {
+        "retrieval_wall": 0.43195491121150553,
+        "retrieval_cpu": 0.40949399999959724,
+        "inference_wall": 0.004445244499947876,
+        "inference_cpu": 0.00454599999960692,
+        "episode_wall": 3.9239416670170613,
+        "episode_cpu": 3.354694000000052
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 236
+        },
+        "forecast": {
+          "memory_retrieval": 180,
+          "inference": 180,
+          "sql": 177
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1,
+          "memory_retrieval": 1,
+          "sql": 4,
+          "inference": 1
+        }
+      },
+      "cache": {
+        "hits": 0,
+        "misses": 0,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 37.99999999999999,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "663d5d992780467ca22ae5acfef74a6ca3623a0caf9dc012e3479ba6fdf3f001",
+      "split": "transfer",
+      "paired_semantic_equality": true
+    },
+    {
+      "condition": "no_adaptation",
+      "enabled": true,
+      "config": {
+        "ticks": 60,
+        "target": 85,
+        "shift_tick": 23,
+        "high_first": false,
+        "noise": 0.2,
+        "capacity": 6,
+        "seed": 102
+      },
+      "counts": {
+        "sql": 10677,
+        "adapter_observation": 241,
+        "world_observation": 421,
+        "memory_retrieval": 421,
+        "inference": 181,
+        "proposal": 60
+      },
+      "seconds": {
+        "retrieval_wall": 0.4519321657717228,
+        "retrieval_cpu": 0.42973500000078957,
+        "inference_wall": 0.001689088880084455,
+        "inference_cpu": 0.0017199999995796134,
+        "episode_wall": 3.977944332989864,
+        "episode_cpu": 3.4081390000000056
+      },
+      "phases": {
+        "other": {
+          "sql": 10082,
+          "proposal": 60
+        },
+        "runtime_start": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 236
+        },
+        "forecast": {
+          "memory_retrieval": 180,
+          "sql": 177
+        },
+        "pre_dispatch": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 59
+        },
+        "executor_internal": {
+          "world_observation": 180
+        },
+        "runtime_final": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "inference": 60,
+          "sql": 59
+        },
+        "round_between": {
+          "adapter_observation": 60,
+          "world_observation": 60,
+          "memory_retrieval": 60,
+          "sql": 60,
+          "inference": 60
+        },
+        "agent_final": {
+          "adapter_observation": 1,
+          "world_observation": 1,
+          "memory_retrieval": 1,
+          "sql": 4,
+          "inference": 1
+        }
+      },
+      "cache": {
+        "hits": 240,
+        "misses": 181,
+        "bypasses": 0
+      },
+      "engine_calls": 540,
+      "execution_calls": 60,
+      "reward": 37.99999999999999,
+      "success": true,
+      "unsafe": false,
+      "semantic_sha256": "663d5d992780467ca22ae5acfef74a6ca3623a0caf9dc012e3479ba6fdf3f001",
+      "split": "transfer",
+      "paired_semantic_equality": true
+    }
+  ],
+  "micro": [
+    {
+      "experiences": 0,
+      "iterations": 200,
+      "modes": {
+        "false": {
+          "counts": {
+            "memory_retrieval": 200,
+            "inference": 200
+          },
+          "seconds": {
+            "retrieval_wall": 0.00021692109294235706,
+            "retrieval_cpu": 0.00022800000004963294,
+            "inference_wall": 0.0008276674780063331,
+            "inference_cpu": 0.0008429999996337756,
+            "episode_wall": 0.0026764579815790057,
+            "episode_cpu": 0.0026770000000055916
+          },
+          "phases": {
+            "other": {
+              "memory_retrieval": 200,
+              "inference": 200
+            }
+          },
+          "cache": {
+            "hits": 0,
+            "misses": 0,
+            "bypasses": 0
+          }
+        },
+        "true": {
+          "counts": {
+            "memory_retrieval": 200,
+            "inference": 1
+          },
+          "seconds": {
+            "retrieval_wall": 0.00024004402803257108,
+            "retrieval_cpu": 0.0002619999999637912,
+            "inference_wall": 5.29095996171236e-06,
+            "inference_cpu": 4.9999999873762135e-06,
+            "episode_wall": 0.007547875051386654,
+            "episode_cpu": 0.007541000000003351
+          },
+          "phases": {
+            "other": {
+              "memory_retrieval": 200,
+              "inference": 1
+            }
+          },
+          "cache": {
+            "hits": 199,
+            "misses": 1,
+            "bypasses": 0
+          }
+        }
+      }
+    },
+    {
+      "experiences": 12,
+      "iterations": 200,
+      "modes": {
+        "false": {
+          "counts": {
+            "memory_retrieval": 200,
+            "inference": 200
+          },
+          "seconds": {
+            "retrieval_wall": 0.13224645872833207,
+            "retrieval_cpu": 0.12390799999985802,
+            "inference_wall": 0.0017419697833247483,
+            "inference_cpu": 0.001765000000773398,
+            "episode_wall": 0.13788220804417506,
+            "episode_cpu": 0.1294950000000199
+          },
+          "phases": {
+            "other": {
+              "memory_retrieval": 200,
+              "inference": 200
+            }
+          },
+          "cache": {
+            "hits": 0,
+            "misses": 0,
+            "bypasses": 0
+          }
+        },
+        "true": {
+          "counts": {
+            "memory_retrieval": 200,
+            "inference": 1
+          },
+          "seconds": {
+            "retrieval_wall": 0.1279762421036139,
+            "retrieval_cpu": 0.11952900000017053,
+            "inference_wall": 8.917006198316813e-06,
+            "inference_cpu": 9.000000034120603e-06,
+            "episode_wall": 0.16928599996026605,
+            "episode_cpu": 0.16079899999999725
+          },
+          "phases": {
+            "other": {
+              "memory_retrieval": 200,
+              "inference": 1
+            }
+          },
+          "cache": {
+            "hits": 199,
+            "misses": 1,
+            "bypasses": 0
+          }
+        }
+      }
+    }
+  ],
+  "summary": {
+    "cognitive": {
+      "false": {
+        "n": 6,
+        "mean_seconds": {
+          "episode_cpu": 3.326971333333342,
+          "episode_wall": 3.908280479168752,
+          "inference_cpu": 0.005317500000097138,
+          "inference_wall": 0.00522359869016024,
+          "retrieval_cpu": 0.4117286666664771,
+          "retrieval_wall": 0.43403674962852773
+        },
+        "counts_per_episode": {
+          "sql": 10677,
+          "adapter_observation": 241,
+          "world_observation": 421,
+          "memory_retrieval": 421,
+          "inference": 421,
+          "proposal": 60
+        },
+        "all_equal": true
+      },
+      "true": {
+        "n": 6,
+        "mean_seconds": {
+          "episode_cpu": 3.4109723333333384,
+          "episode_wall": 3.992531020824875,
+          "inference_cpu": 0.0020941666667315673,
+          "inference_wall": 0.002060919020247335,
+          "retrieval_cpu": 0.40480883333365963,
+          "retrieval_wall": 0.4270447001035791
+        },
+        "counts_per_episode": {
+          "sql": 10677,
+          "adapter_observation": 241,
+          "world_observation": 421,
+          "memory_retrieval": 421,
+          "inference": 181,
+          "proposal": 60
+        },
+        "all_equal": true
+      }
+    },
+    "no_memory": {
+      "false": {
+        "n": 6,
+        "mean_seconds": {
+          "episode_cpu": 2.8956754999999976,
+          "episode_wall": 3.4477168678325447,
+          "inference_cpu": 0.004039000000069255,
+          "inference_wall": 0.004037110784944768
+        },
+        "counts_per_episode": {
+          "sql": 10082,
+          "adapter_observation": 241,
+          "world_observation": 421,
+          "inference": 421,
+          "proposal": 60
+        },
+        "all_equal": true
+      },
+      "true": {
+        "n": 6,
+        "mean_seconds": {
+          "episode_cpu": 2.938715833333326,
+          "episode_wall": 3.5216386600028877,
+          "inference_cpu": 0.0012868333333564408,
+          "inference_wall": 0.0013136551424395293
+        },
+        "counts_per_episode": {
+          "sql": 10082,
+          "adapter_observation": 241,
+          "world_observation": 421,
+          "inference": 121,
+          "proposal": 60
+        },
+        "all_equal": true
+      }
+    },
+    "no_adaptation": {
+      "false": {
+        "n": 6,
+        "mean_seconds": {
+          "episode_cpu": 3.3372888333333406,
+          "episode_wall": 3.9158650486788247,
+          "inference_cpu": 0.00459949999973001,
+          "inference_wall": 0.004508888368339588,
+          "retrieval_cpu": 0.41533966666660876,
+          "retrieval_wall": 0.4376771097498325
+        },
+        "counts_per_episode": {
+          "sql": 10677,
+          "adapter_observation": 241,
+          "world_observation": 421,
+          "memory_retrieval": 421,
+          "inference": 421,
+          "proposal": 60
+        },
+        "all_equal": true
+      },
+      "true": {
+        "n": 6,
+        "mean_seconds": {
+          "episode_cpu": 3.4057873333333277,
+          "episode_wall": 3.976180277512564,
+          "inference_cpu": 0.0017373333332990626,
+          "inference_wall": 0.0017032843607012182,
+          "retrieval_cpu": 0.41173400000025734,
+          "retrieval_wall": 0.43408465399988927
+        },
+        "counts_per_episode": {
+          "sql": 10677,
+          "adapter_observation": 241,
+          "world_observation": 421,
+          "memory_retrieval": 421,
+          "inference": 181,
+          "proposal": 60
+        },
+        "all_equal": true
+      }
+    }
+  }
+}

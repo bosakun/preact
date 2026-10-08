@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from typing import Any, Literal, Protocol
 
 from pydantic import ConfigDict, Field, model_validator
@@ -45,6 +46,20 @@ class Experience(Contract):
     action: Action
     prediction_ids: list[str]
     observation: Observation
+
+
+@dataclass(frozen=True)
+class BeliefReusePolicy:
+    """Planner opt-in promise: infer is pure for the keyed inputs and this token.
+
+    The token must bind every relevant setting, algorithm and internal state. Any
+    external time/randomness/side effect not represented by the inputs forbids reuse.
+    Ignoring State.timestamp requires the additional timestamp_independent promise.
+    Concrete subclasses must redeclare this capability; inheritance is not consent.
+    """
+
+    token: str
+    timestamp_independent: bool = False
 
 
 class CognitivePlanner(Protocol):

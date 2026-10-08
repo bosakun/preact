@@ -34,6 +34,12 @@ class EpisodicMemory:
         self.run_ids: list[str] = []
         self._runs: dict[str, _RunIndex] = {}
         self._lock = asyncio.Lock()
+        self._generation = 0
+
+    @property
+    def generation(self) -> int:
+        """Local invalidation hint, not an authority token; still retrieve every time."""
+        return self._generation
 
     @property
     def cached_experiences(self) -> int:
@@ -43,6 +49,7 @@ class EpisodicMemory:
         """Discard derived state, retaining manifest run IDs for reconstruction."""
         async with self._lock:
             self._runs.clear()
+            self._generation += 1
 
     async def read(self, run_id: str) -> list[Experience]:
         """Uncached authoritative read, also usable as the full-reread baseline."""
@@ -115,6 +122,8 @@ class EpisodicMemory:
                 for run_id in run_ids
                 if run_id not in self._runs or self._runs[run_id].head != heads[run_id]
             ]
+            if changed:
+                self._generation += 1
             for run_id in changed:
                 self._runs.pop(run_id, None)
             staged = {
@@ -130,6 +139,7 @@ class EpisodicMemory:
             # Never serve stale entries after failed validation, I/O or cancellation.
             for run_id in run_ids:
                 self._runs.pop(run_id, None)
+            self._generation += 1
             raise
 
     async def remember(self, run_id: str) -> None:
@@ -137,6 +147,7 @@ class EpisodicMemory:
             await self._refresh([run_id])
             if self._runs[run_id].experiences and run_id not in self.run_ids:
                 self.run_ids.append(run_id)
+                self._generation += 1
 
     async def retrieve(self, domain: str, limit: int = 12) -> list[Experience]:
         if limit <= 0:
