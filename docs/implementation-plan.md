@@ -1,15 +1,17 @@
 # PreAct Implementation Plan
 
-Accepted implementation source of truth, recorded October 4, 2026. This document
-preserves the architecture and submission strategy accepted in planning. Implement
-it without redesign unless measured implementation evidence demonstrates a material
-flaw. Record such evidence and the resulting decision in agent-progress.md.
+Original implementation and submission plan, recorded October 4, 2026. The explicit
+October 8 product direction supersedes the original narrow framing; new architecture
+work follows [the Composable World Model Runtime plan](composable-world-model-runtime-plan.md).
+Retain the safety, integration and evidence requirements below. Record implementation
+and validation in agent-progress.md.
 
 ## Product contract and scope
 
-PreAct is a domain-independent counterfactual runtime, not a world model. It
-coordinates interchangeable predictors and verifiers, authorizes actions using
-explicit evidence, and learns contextual engine reliability from observed error.
+PreAct is a domain-independent Composable World Model Runtime, not a monolithic
+learned world model. It composes predictors, simulators and verifiers, authorizes
+one action using explicit claim-qualified evidence, and learns contextual engine
+reliability from aligned observed error. See [current contracts and limits](composable-world-model-runtime.md).
 
 Observe → Propose → Search branching futures → Evaluate → Verify adaptively →
 Gate → Execute one action → Observe → Compare → Calibrate → Replan.
@@ -572,3 +574,10 @@ locations, not new executions. Historical source/model/protocol/artifact hashes 
 benchmark failures are retained with their original scopes. Publication stays gated
 on a separate exact-tree audit and explicit approval; live sponsor/GPU/human and
 submission administration requirements are unchanged.
+
+## October 8 architecture evolution
+
+The explicit Composable World Model Runtime direction supersedes the narrow
+original "not a world model" framing. The shared Core is evolved, not replaced.
+See [the accepted responsibility-first migration plan](composable-world-model-runtime-plan.md).
+Implementation and validation status is recorded in agent-progress.md.

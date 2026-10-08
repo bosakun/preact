@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 
+from preact.core.evidence import task_definitions
 from preact.core.models import Capabilities, Estimate, EvidenceKind, Prediction, State
 from preact.domains.physical import rollout
 from preact.domains.software import probe
@@ -25,6 +26,9 @@ class LocalHeuristic:
             domains=[world.task.domain],
             evidence=EvidenceKind.INFERENCE,
             tier=0,
+            roles=["predictor"],
+            supported_claims=task_definitions(world.task)[:2],
+            claim_contract_version="1",
             produces_successor=True,
             applicability="Bundled tasks only; heuristic probability is uncalibrated",
         )
@@ -58,6 +62,10 @@ class LocalVerifier:
             if world.task.domain == "software"
             else EvidenceKind.SIMULATION,
             tier=2,
+            roles=["verifier"] if world.task.domain == "software" else ["simulator", "verifier"],
+            supported_claims=task_definitions(world.task),
+            verification_checks=world.task.required_checks,
+            claim_contract_version="1",
             produces_successor=True,
             applicability="Trusted bundled source / deterministic Cartesian MuJoCo lab, not Isaac or hardware",
         )

@@ -1,10 +1,20 @@
 from .calibration import Calibration
 from .disagreement import compare
 from .disagreement import measured as is_measured
-from .models import Decision, Evaluation, GateResult, Policy, Prediction, Task, identity
+from .evidence import assess_claims, bind_claims, immediate_metric_scope, task_definitions
+from .models import (
+    Continuation,
+    Decision,
+    Evaluation,
+    GateResult,
+    Policy,
+    Prediction,
+    Task,
+    identity,
+)
 
 
-def evaluate(predictions: list[Prediction], task: Task, trust: dict) -> Evaluation:
+def _evaluate_legacy(predictions: list[Prediction], task: Task, trust: dict) -> Evaluation:
     # Refinements apply only to measured, matching claims in the same correlation
     # family and exact state/action/horizon. All contradictory checks remain vetoes.
     superseded = {
@@ -117,14 +127,96 @@ def evaluate(predictions: list[Prediction], task: Task, trust: dict) -> Evaluati
     )
 
 
+def evaluate(
+    predictions: list[Prediction], task: Task, trust: dict, *, state=None, action=None
+) -> Evaluation:
+    unique = {}
+    for prediction in predictions:
+        if prediction.id in unique and unique[prediction.id] != prediction:
+            raise ValueError("Conflicting results share an evidence source identity")
+        unique[prediction.id] = prediction
+    predictions = list(unique.values())
+    # The old summary is exclusively immediate; sequence/future findings stay typed.
+    immediate = [p for p in predictions if immediate_metric_scope(p)]
+    if state is not None and action is not None:
+        immediate = [p for p in immediate if p.state_id == state.id and p.action_ids == [action.id]]
+        instances = bind_claims(task, state.id, [action])
+    else:
+        instances = []
+    result = _evaluate_legacy(immediate, task, trust)
+    result.evidence_ids = sorted({p.id for p in predictions})
+    result.claim_assessments = assess_claims(predictions, instances, trust)
+    result.immediate_claim_keys = [c.key for c in instances[: len(task_definitions(task))]]
+    for assessment in result.claim_assessments:
+        claim = assessment.claim
+        if claim.key not in result.immediate_claim_keys:
+            continue
+        if claim.definition.kind == "check":
+            if claim.definition.namespace.startswith("legacy-check:"):
+                result.checks[claim.definition.name] = assessment.check
+        elif assessment.resolved:
+            if claim.definition.kind == "success":
+                result.success_lower = assessment.lower if assessment.lower is not None else 0
+            elif claim.definition.kind == "risk":
+                result.risk_upper = assessment.upper if assessment.upper is not None else 1
+    required = [a for a in result.claim_assessments if a.claim.key in result.immediate_claim_keys]
+    if required and all(a.resolved for a in required):
+        result.uncertainty = max(a.uncertainty for a in required)
+        result.unresolved_disagreement = max(a.disagreement for a in required)
+        result.utility = (
+            result.success_lower
+            - (2 + 2 * task.stakes) * result.risk_upper
+            + 0.75
+            * max(
+                (p.metrics.get("goal_progress", 0) for p in immediate if is_measured(p)), default=0
+            )
+            - 0.1 * result.uncertainty
+        )
+    return result
+
+
 def gate(
     evaluation: Evaluation, state_id: str, action_hash: str, policy: Policy, can_verify: bool
 ) -> GateResult:
     reasons = []
     binding = {
-        "policy_hash": identity({"policy": policy.model_dump(), "stakes": evaluation.stakes})
+        "policy_hash": identity({"policy": policy.model_dump(), "stakes": evaluation.stakes}),
+        "evidence_hash": identity(evaluation.model_dump()),
     }
     failed = [key for key, value in evaluation.checks.items() if value is False]
+    for assessment in evaluation.claim_assessments:
+        c = assessment.claim
+        if (
+            not assessment.required
+            or c.definition.scope != "root_action"
+            or c.continuation != Continuation.ENVIRONMENT_ONLY
+        ):
+            continue
+        if c.state_id != state_id or c.action_fingerprints != (action_hash,):
+            failed.append("Claim instance does not match authorized state/action")
+        if c.key in evaluation.immediate_claim_keys:
+            continue
+        label = f"{c.definition.namespace}:{c.definition.name}/{c.definition.version}@{c.horizon}"
+        if c.definition.kind == "check" and assessment.check is False:
+            failed.append(label)
+        elif not assessment.resolved:
+            reasons.append("Required future claim unresolved: " + label)
+        else:
+            if c.definition.kind == "risk" and (
+                assessment.upper is None
+                or assessment.upper > policy.max_risk * (1 - 0.5 * evaluation.stakes)
+            ):
+                reasons.append("Future risk exceeds policy: " + label)
+            if c.definition.kind == "success" and (
+                assessment.lower is None
+                or assessment.lower
+                < policy.min_success + (1 - policy.min_success) * 0.5 * evaluation.stakes
+            ):
+                reasons.append("Future success evidence insufficient: " + label)
+            if assessment.uncertainty > policy.uncertainty_threshold / (1 + evaluation.stakes):
+                reasons.append("Future uncertainty too high: " + label)
+            if assessment.disagreement > policy.disagreement_threshold:
+                reasons.append("Future measurements disagree: " + label)
     if evaluation.violations or failed:
         return GateResult(
             **binding,

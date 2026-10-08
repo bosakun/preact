@@ -5,6 +5,7 @@ import re
 
 import httpx
 
+from preact.core.evidence import metric_definition
 from preact.core.interfaces import CleanupEvidence, EngineFailure
 from preact.core.models import Capabilities, Prediction
 
@@ -41,6 +42,31 @@ class RemoteEngine:
             await self.client.aclose()
 
     async def predict(self, request):
+        wire = request.model_dump()
+        if self.capabilities.claim_contract_version is None:
+            legacy_metrics = [
+                metric_definition("action_postconditions/v1", "success"),
+                metric_definition("constraint_violation/v1", "risk"),
+            ]
+            if (
+                request.conditioning is not None
+                or request.horizon != 1
+                or any(
+                    c.horizon != 1
+                    or c.conditions
+                    or c.definition.scope != "root_action"
+                    or not (
+                        c.definition in legacy_metrics
+                        or (
+                            c.definition.namespace.startswith("legacy-check:")
+                            and c.definition.version == "legacy"
+                        )
+                    )
+                    for c in request.claims
+                )
+            ):
+                raise EngineFailure("Worker does not advertise claim/conditioning contract support")
+            wire = request.model_dump(exclude={"claims", "conditioning"})
         headers = {"Authorization": f"Bearer {self.token}"}
         job_id = None
         terminal = None
@@ -53,13 +79,13 @@ class RemoteEngine:
                 response = await self.client.post(
                     self.endpoint + "/predictions",
                     headers=headers,
-                    json=request.model_dump(),
+                    json=wire,
                     timeout=request.deadline_seconds,
                 )
                 response.raise_for_status()
                 job = response.json()
                 if "prediction" in job:
-                    return Prediction.model_validate(job["prediction"])
+                    return self._prediction(job["prediction"])
                 identifier = job["id"]
                 if not isinstance(identifier, str) or not re.fullmatch(
                     r"[A-Za-z0-9_-]{1,128}", identifier
@@ -77,7 +103,7 @@ class RemoteEngine:
                     if body["status"] == "complete":
                         terminal = "complete"
                         termination_confirmed = body.get("terminal_state_confirmed") is True
-                        prediction = Prediction.model_validate(body["prediction"])
+                        prediction = self._prediction(body["prediction"])
                         prediction.raw = {
                             **prediction.raw,
                             "worker_job_id": job_id,
@@ -122,6 +148,13 @@ class RemoteEngine:
                     error = asyncio.CancelledError()
             error.preact_cleanup = evidence
             raise error from None
+
+    def _prediction(self, payload):
+        result = Prediction.model_validate(payload)
+        if self.capabilities.claim_contract_version is None:
+            # Host Registry supplies the negotiated legacy request scope.
+            result.requested_claims = None
+        return result
 
     async def _cancel_job(self, job_id, headers):
         # Acknowledgment is not terminal-state confirmation. Drain through

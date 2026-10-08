@@ -1,6 +1,7 @@
 # Integration Setup and Evidence Gates
 
-The [accepted plan](implementation-plan.md) remains authoritative. Configuration is
+The [architecture evolution plan](composable-world-model-runtime-plan.md) governs new contracts;
+[the original plan](implementation-plan.md) retains external acceptance requirements. Configuration is
 not validation. No Nebius, Cosmos or Isaac GPU live result is claimed in the current environment.
 The separate [local NVIDIA model workflow](local-model.md) has actual Apple Metal
 inference and shared-Core/UI evidence; it does not replace these hosted or simulator gates.
@@ -246,3 +247,17 @@ Prediction workers retry failed SQL leases/commits; uncertain result writes reta
 lease until expiry. Authenticated `/health` checks storage and consumer liveness. This
 does not validate remote GPUs. The actual local PostgreSQL lock/rollback/deadline proof
 is [recorded here](../reports/postgres-storage-deadlines.json).
+
+## Composable claim contracts
+
+Engines declare predictor/simulator/verifier roles and episode-independent Claim
+Definitions. Core binds State/Action/horizon/continuation instances. Narrow checks
+do not certify untested metrics; inference/video remain unmeasured. Cosmos currently
+declares no extracted claim predicates. Simulator results are model-conditional,
+not authoritative observations. Only Domain Adapters observe actual execution.
+
+Remote capabilities advertise claim_contract_version=1 for expanded requests.
+Legacy immediate requests omit new wire fields; unsupported conditioning fails
+before submission. CPU boundary/bridge tests are not real provider/GPU acceptance.
+See [runtime semantics](composable-world-model-runtime.md) for full qualification,
+lineage and calibration limits.

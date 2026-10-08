@@ -172,6 +172,9 @@ class Cosmos:
             family="cosmos-predict",
             domains=["physical"],
             evidence=EvidenceKind.VISUAL,
+            roles=["predictor"],
+            supported_claims=[],
+            claim_contract_version="1",
             tier=1,
             applicability="Already-held fixed downward transport from aligned endpoint camera; GPU transfer unverified",
         )

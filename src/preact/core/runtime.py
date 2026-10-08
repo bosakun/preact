@@ -7,11 +7,14 @@ import time
 
 from .calibration import Calibration, context_key
 from .comparison import compare
+from .consequences import reuse_key
 from .decision import evaluate, gate
+from .evidence import bind_claims, immediate_metric_scope, observation_findings, supports
 from .interfaces import World, cleanup_evidence
 from .io import durable_io
 from .models import (
     Action,
+    ClaimInstance,
     Decision,
     Observation,
     Policy,
@@ -66,7 +69,7 @@ class Runtime:
             and time.monotonic() - self.started < self.policy.max_seconds
         )
 
-    async def predict(self, node, engine, world, trust):
+    async def predict(self, node, engine, world, trust, claims=None):
         if not self.available():
             return False
         cap = self.registry.declarations[id(engine)]
@@ -94,7 +97,18 @@ class Runtime:
             self.policy.max_calls - self.calls - self.agent_calls,
         )
         self.calls += reservation
+        claims = (
+            claims
+            if claims is not None
+            else [
+                c
+                for c in bind_claims(self.task, node.state.id, [node.action])
+                if c.horizon == 1 and supports(cap, c)
+            ]
+        )
         request = PredictionRequest(
+            horizon=claims[0].horizon if claims else 1,
+            claims=claims,
             state=node.state,
             actions=[node.action],
             seed=self.task.seed,
@@ -111,6 +125,20 @@ class Runtime:
             prediction, cached = await self.registry.predict(engine, request)
             self.calls -= reservation - (0 if cached else prediction.sample_count)
             node.predictions.append(prediction)
+            if prediction.future_states or prediction.horizon > 1:
+                await self.emit(
+                    "consequence_explored",
+                    {
+                        "node_id": node.id,
+                        "prediction_id": prediction.id,
+                        "horizon": prediction.horizon,
+                        "continuation": "environment_only"
+                        if len(prediction.action_ids) == 1
+                        else "explicit_action_sequence",
+                        "states": [s.model_dump() for s in prediction.future_states],
+                        "claims": [r.model_dump() for r in prediction.claim_results],
+                    },
+                )
             if not cached:
                 self.cost += prediction.cost_usd
                 self.cost_known &= prediction.raw.get("cost_known", True)
@@ -147,7 +175,9 @@ class Runtime:
                     "cleanup": cleanup_evidence(error),
                 },
             )
-        node.evaluation = evaluate(node.predictions, self.task, trust)
+        node.evaluation = evaluate(
+            node.predictions, self.task, trust, state=node.state, action=node.action
+        )
         await self.emit("node_updated", {"node": node.model_dump()})
         return True
 
@@ -280,9 +310,22 @@ class Runtime:
                     roots.append(node)
                 await self.emit("node", {"node": node.model_dump()})
                 count += 1
-                if engines:
-                    await self.predict(node, engines[0], world, trust)
-                node.evaluation = evaluate(node.predictions, self.task, trust)
+                initial = next(
+                    (
+                        e
+                        for e in engines
+                        if any(
+                            c.horizon == 1 and supports(self.registry.declarations[id(e)], c)
+                            for c in bind_claims(self.task, node.state.id, [node.action])
+                        )
+                    ),
+                    None,
+                )
+                if initial is not None:
+                    await self.predict(node, initial, world, trust)
+                node.evaluation = evaluate(
+                    node.predictions, self.task, trust, state=node.state, action=node.action
+                )
                 probability = node.evaluation.success
                 priority = (
                     0.5 if probability is None else probability
@@ -300,9 +343,29 @@ class Runtime:
                 if not frontier:
                     break
             _, _, node = heapq.heappop(frontier)
-            used = {p.engine_id for p in node.predictions}
+            used = set()
+            for prediction in node.predictions:
+                cap = next(
+                    self.registry.declarations[id(e)]
+                    for e in engines
+                    if e.capabilities.engine_id == prediction.engine_id
+                )
+                initial_claims = [
+                    c
+                    for c in bind_claims(self.task, node.state.id, [node.action])
+                    if c.horizon == 1 and supports(cap, c)
+                ]
+                used.add(
+                    identity(
+                        {
+                            "engine": cap.engine_id,
+                            "claims": [c.model_dump() for c in initial_claims],
+                            "horizon": 1,
+                        }
+                    )
+                )
             while self.available():
-                candidates = [e for e in engines if e.capabilities.engine_id not in used]
+                candidates = engines
                 if not candidates:
                     break
                 assessment = gate(
@@ -327,7 +390,10 @@ class Runtime:
                         "calls": self.policy.max_calls - self.calls - self.agent_calls,
                         "seconds": self.policy.max_seconds - (time.monotonic() - self.started),
                         "cost_usd": self.policy.max_cost_usd - self.cost,
+                        "max_horizon": self.policy.max_depth,
                     },
+                    used=used,
+                    predictions=node.predictions,
                 )
                 await self.emit(
                     "verification_allocation",
@@ -337,12 +403,23 @@ class Runtime:
                         "adaptive": self.policy.adaptive,
                     },
                 )
-                admitted = {id(engine) for engine, plan in plans if plan["admissible"]}
-                ordered = [engine for engine, _ in plans] if self.policy.adaptive else candidates
-                engine = next((e for e in ordered if id(e) in admitted), None)
-                if engine is None:
+                ordered = (
+                    plans
+                    if self.policy.adaptive
+                    else sorted(
+                        plans,
+                        key=lambda pair: (
+                            self.registry.declarations[id(pair[0])].tier,
+                            pair[0].capabilities.engine_id,
+                            pair[1]["horizon"],
+                        ),
+                    )
+                )
+                selected = next(((e, plan) for e, plan in ordered if plan["admissible"]), None)
+                if selected is None:
                     break
-                used.add(engine.capabilities.engine_id)
+                engine, plan = selected
+                used.add(plan["request_key"])
                 await self.emit(
                     "escalation",
                     {
@@ -351,7 +428,13 @@ class Runtime:
                         "engine_id": engine.capabilities.engine_id,
                     },
                 )
-                await self.predict(node, engine, world, trust)
+                await self.predict(
+                    node,
+                    engine,
+                    world,
+                    trust,
+                    [ClaimInstance.model_validate(c) for c in plan["claims"]],
+                )
                 if node.evaluation.violations or any(
                     v is False for v in node.evaluation.checks.values()
                 ):
@@ -393,8 +476,16 @@ class Runtime:
                             await expand(chance, outcome.state)
                 else:
                     successor = successors[0]
-                    if successor.id in seen:
-                        node.reused_from = seen[successor.id]
+                    key = reuse_key(
+                        successor,
+                        node,
+                        self.task,
+                        self.policy,
+                        list(self.registry.declarations.values()),
+                        self.policy.max_depth - node.depth,
+                    )
+                    if key is not None and key in seen:
+                        node.reused_from = seen[key]
                         await self.emit(
                             "search_reused",
                             {
@@ -404,7 +495,8 @@ class Runtime:
                             },
                         )
                     else:
-                        seen[successor.id] = node.id
+                        if key is not None:
+                            seen[key] = node.id
                         await expand(node, successor)
             else:
                 reason = (
@@ -679,6 +771,23 @@ class Runtime:
                         and (
                             time.time() >= decision.expires_at
                             or decision.action_hash != node.action.fingerprint
+                            or decision.state_id != state.id
+                            or identity(
+                                {"domain": node.state.domain, "payload": node.state.payload}
+                            )
+                            != decision.state_id
+                            or decision.evidence_ids != node.evaluation.evidence_ids
+                            or decision.evidence_hash != identity(node.evaluation.model_dump())
+                            or decision.evidence_hash
+                            != identity(
+                                evaluate(
+                                    node.predictions,
+                                    self.task,
+                                    trust,
+                                    state=node.state,
+                                    action=node.action,
+                                ).model_dump()
+                            )
                             or decision.policy_hash
                             != identity(
                                 {
@@ -712,6 +821,7 @@ class Runtime:
                     )
                     await self.emit("decision", {"decision": "abstain", "reasons": [reason]})
                     break
+                self.check_task(world)
                 observation = Observation.model_validate(
                     (await world.execute(node.action, receipt)).model_dump(warnings=False)
                 )
@@ -729,15 +839,40 @@ class Runtime:
                 unsafe |= observation.unsafe
                 node.actual = observation.model_dump()
                 node.status = "executed"
-                await self.emit(
+                outcome_event = await self.emit(
                     "outcome", {"node_id": node.id, "observation": observation.model_dump()}
                 )
+                execution = await self.store.call("execution_record", receipt)
+                findings = observation_findings(
+                    observation,
+                    execution=execution,
+                    action=node.action,
+                    task=self.task,
+                    source_reference=f"{self.run_id}:{outcome_event.seq}",
+                )
+                await self.emit(
+                    "observation_evidence",
+                    {
+                        "node_id": node.id,
+                        "receipt": receipt,
+                        "findings": [f.model_dump() for f in findings],
+                    },
+                )
                 for prediction in node.predictions:
-                    comparison = compare(prediction, observation)
+                    comparison = (
+                        compare(prediction, observation)
+                        if (
+                            prediction.state_id == state.id
+                            and prediction.action_ids == [node.action.id]
+                        )
+                        else None
+                    )
                     if comparison is not None:
                         await self.emit("comparison", {"node_id": node.id, **comparison})
                     if (
-                        prediction.horizon != 1
+                        not immediate_metric_scope(prediction)
+                        or prediction.state_id != state.id
+                        or prediction.action_ids != [node.action.id]
                         or prediction.success.value is None
                         or prediction.success_metric != observation.success_metric
                         or prediction.risk_metric != observation.risk_metric
@@ -823,7 +958,7 @@ class Runtime:
                 "set_status",
                 self.run_id,
                 status,
-                {"reason": "Task cancelled; reconcile any pending intent"},
+                {"reason": "Task cancelled; reconcile any pending intent", "cost_known": False},
             )
             raise
         except Exception as error:
@@ -833,7 +968,10 @@ class Runtime:
                 else "failed"
             )
             await self.store.call(
-                "set_status", self.run_id, status, {"error": type(error).__name__}
+                "set_status",
+                self.run_id,
+                status,
+                {"error": type(error).__name__, "cost_known": False},
             )
             await self.emit("failed", {"error": type(error).__name__, "status": status})
             raise

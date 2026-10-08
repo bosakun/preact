@@ -14,6 +14,7 @@ from urllib.parse import urlsplit
 import httpx
 from pydantic import Field, field_validator
 
+from preact.core.evidence import metric_definition
 from preact.core.interfaces import EngineFailure
 from preact.core.models import Capabilities, Contract, EvidenceKind, identity
 from preact.engines.nebius import completion_data
@@ -123,6 +124,12 @@ class LocalNemotron:
             family="nemotron",
             domains=["software", "physical"],
             evidence=EvidenceKind.INFERENCE,
+            roles=["predictor"],
+            supported_claims=[
+                metric_definition("action_postconditions/v1", "success"),
+                metric_definition("constraint_violation/v1", "risk"),
+            ],
+            claim_contract_version="1",
             tier=0,
             applicability="Real local model reasoning; never measured safety or live Nebius/NVIDIA simulation",
         )

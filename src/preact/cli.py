@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 
 def main():
     load_dotenv()
-    parser = argparse.ArgumentParser(description="PreAct counterfactual runtime")
+    parser = argparse.ArgumentParser(description="PreAct Composable World Model Runtime")
     sub = parser.add_subparsers(dest="command", required=True)
     serve = sub.add_parser("serve")
     serve.add_argument("--host", default="127.0.0.1")
