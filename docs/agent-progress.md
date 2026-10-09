@@ -472,3 +472,47 @@ publishしていない。GitHub Validate PreActのpush/PR CIが開始。最終�
 497ローカルtests、全要求品質検証、54episodeの元authority監査と日本語文書は完了。
 残る作業はGitHub CI確認と人によるレビュー。mainへmergeせず、検証可能な統合と
 標準taskでは性能改善未実証・費用増という結果をそのまま残す。
+
+## 2026-10-09 — Receipt-backed Dynamics Learning 調査・実装
+
+最新公開main 0b3e88bf（PR #6/#7 merge済み）からfeat/receipt-backed-dynamicsを作成。
+元workspaceの未コミット変更を保持するため独立cloneで作業。指定Deep Research原文349行を
+全文確認し、公開PRには含めない。既存497 Python testsは監査時に全成功。
+汎用遷移学習の欠落に絞り、Memory.read/Store.run_heads/Artifacts/Registry/Gateを再利用。
+TransitionDatasetは実観測・確定receipt・Action・承認/intent/outcome順序を検証し、
+未実行・pending/aborted・偽outcome・時刻逆転を排除。外生変化は前Actionに帰属させない。
+CPUのbatch条件付き平均回帰、adapter分離、immutable JSON model、opt-in learned engineを追加。
+Core/Gate/Memoryの意味・既定Registry・CLIは変更しない。Software実遷移でも汎用契約をテスト。
+新規20 tests成功。最初のテスト失敗はasync generatorのany使用、fixtureの無効capacity/
+shift_tick、実行例外が伝播する既存契約を誤ってresultとして扱ったことが原因。修正済み。
+予備測定: 学習192/held-out216遷移、低能力で予測誤差低下、shiftでは既存online方式に劣る。
+Runtime行動・実観測・報酬は一致、engine追加で計算時間増。最終数値は独立本測定へ保存する。
+残る作業: 全Python/Ruff/frontend/E2E/distribution、本測定・独立authority監査、結果文書、PR/CI。
+
+## 2026-10-09 — Dynamics Learning ローカル検証・評価完了
+
+新規20＋既存497＝517 passed in61.96s。Ruff lint/format165 files成功。
+frontend contracts byte一致/build成功、Chromium E2E6 passed in8.2s。
+初回wheel/sdist integrityは各76 Python sources照合成功。最終文書を含めて再build予定。
+凍結済みの新protocol（SHA f04096dd…）で本測定と新DBの再実行を実施。
+各192学習/216 held-out遷移、4モデルを元Ledger/receiptから独立監査し成功。
+全予測スコア/coverage・RuntimeのAction/実観測/報酬の再現一致を確認。
+安定lowの全件MAE（unknownは明示的な評価用midpoint補完）は0件0.722222→192件0.129101。
+既存onlineは0.263060。shiftではlearned0.469863 vs既存online0.246562で劣る。
+範囲包含率もshift76.47%に低下し、確率校正済み区間とは主張しない。
+Runtimeは全構成24tick/unsafe0/ABSTAIN0/報酬10.6・意味的一致。
+engine calls192→288、CPU1.1513→1.5199秒、wall1.3732→1.8024秒。
+予測改善と意思決定改善を区別し、後者は未実証、全episodeのコスト増をそのまま記録。
+研究の事実/提案/仮説、current mainとの差分、Mermaid、opt-in API、再現手順、制約を日本語文書化。
+raw DB/manifest/model artifact/研究原文はprivate cacheに保持し、publicは集計hashと結果のみ。
+次: 最終差分・distribution監査、commit/独立PR、最新headのCI確認。mainへmergeしない。
+
+## 2026-10-09 — Dynamics Learning PR作成
+
+PR #8: https://github.com/bosakun/preact/pull/8 。main 0b3e88bfからの独立17ファイル変更。
+実装commit bdfc3cc、branch feat/receipt-backed-dynamics。レビュー待ちでauto-merge未設定。
+最終wheel/sdist buildとintegrity監査も成功（各76 Python sources、private cache/sentinel除外）。
+元workspaceの変更を保持し、研究原文/raw DB/manifest/model artifactを公開していない。
+517ローカルtests＋auditor更新後の2再現tests、frontend/E2E、2本測定のauthority監査を完了。
+GitHub CIを確認中。最新headの結果をPR Checksで確認できる。mainへのmergeは行わない。
+残る研究課題はshift対応、未見入力/部分観測の表現、不確実性校正、Software予測と再開契約。

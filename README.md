@@ -158,6 +158,18 @@ from loosening safety thresholds or extending budgets; see [deployment](deploy/R
 
 ## Architecture and status
 
+### Receipt-backed Dynamics Learning (opt-in)
+
+確定receiptに裏付けられた実観測から状態の変化を学習し、既存FutureEngineとして
+予測に利用できます。domain非依存のDataset/Trainerとqueue v2 adapterを分離しています。
+未学習・未知入力はunknown、学習予測は安全性Evidenceにはならず、既存Verifier/Gateを維持します。
+[設計・Python利用例](docs/learned-dynamics.md)と[実測・限界](docs/learned-dynamics-results.md)を参照してください。
+
+```bash
+uv run python scripts/benchmark_learned_dynamics.py --output .cache/new-dynamics-benchmark
+uv run python scripts/audit_learned_dynamics.py .cache/new-dynamics-benchmark
+```
+
 ### Software Cognitive Runtime
 
 既存Software Worldの保護テスト・探索・Gate・receiptを使い、認知Agentが修正を
