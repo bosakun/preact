@@ -506,3 +506,13 @@ engine calls192→288、CPU1.1513→1.5199秒、wall1.3732→1.8024秒。
 研究の事実/提案/仮説、current mainとの差分、Mermaid、opt-in API、再現手順、制約を日本語文書化。
 raw DB/manifest/model artifact/研究原文はprivate cacheに保持し、publicは集計hashと結果のみ。
 次: 最終差分・distribution監査、commit/独立PR、最新headのCI確認。mainへmergeしない。
+
+## 2026-10-09 — Dynamics Learning PR作成
+
+PR #8: https://github.com/bosakun/preact/pull/8 。main 0b3e88bfからの独立17ファイル変更。
+実装commit bdfc3cc、branch feat/receipt-backed-dynamics。レビュー待ちでauto-merge未設定。
+最終wheel/sdist buildとintegrity監査も成功（各76 Python sources、private cache/sentinel除外）。
+元workspaceの変更を保持し、研究原文/raw DB/manifest/model artifactを公開していない。
+517ローカルtests＋auditor更新後の2再現tests、frontend/E2E、2本測定のauthority監査を完了。
+GitHub CIを確認中。最新headの結果をPR Checksで確認できる。mainへのmergeは行わない。
+残る研究課題はshift対応、未見入力/部分観測の表現、不確実性校正、Software予測と再開契約。
