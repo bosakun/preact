@@ -1,0 +1,26 @@
+{
+  "schema_version": "1",
+  "name": "receipt-backed-dynamics-v1",
+  "ticks": 24,
+  "capacity": 12,
+  "target": 999,
+  "training_seeds": [11, 12, 13, 14, 15, 16, 17, 18],
+  "evaluation_seeds": [101, 102, 103],
+  "training_environment": {"high_first": false, "noise": 0.05, "shift_tick": 24},
+  "evaluation_environments": {
+    "stable_low": {"high_first": false, "noise": 0.05, "shift_tick": 24},
+    "noisy_low": {"high_first": false, "noise": 0.25, "shift_tick": 24},
+    "low_to_high": {"high_first": false, "noise": 0.05, "shift_tick": 12}
+  },
+  "training_sizes": [0, 24, 96, 192],
+  "min_samples": 2,
+  "training_seed": 0,
+  "runtime_seed": 501,
+  "policy": {"search": false, "calibration": false, "width": 4, "max_nodes": 4, "max_calls": 32},
+  "primary_metric": "MAE of next queue/delivered on all held-out transitions; unknown uses an explicitly reported public-midpoint evaluation fallback",
+  "secondary_metrics": ["supported-only MAE and coverage", "empirical range coverage", "fit/inference CPU and wall", "runtime semantic equivalence and unsafe"],
+  "split": "Distinct seeds, episode IDs, run IDs and receipts; frozen learned models never fit evaluation observations",
+  "existing_baseline": "InformationForecast with default no_probe planner, receipt-validated past of the held-out episode only (online, latest 12)",
+  "untrained_baseline": "Engine returns unknown; public midpoint service=2 is a separate scoring fallback, not a learned prediction",
+  "scope": "Prediction learning, not improved decisions; low-service training intentionally tests stationarity failure after shift; no neural/stochastic fitting"
+}

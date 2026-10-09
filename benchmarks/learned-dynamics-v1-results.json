@@ -1,0 +1,360 @@
+{
+  "schema_version": "1",
+  "protocol_sha256": "f04096dd322b61acd8ecf2e415dd0fa3f527c18c9885aefc208dc76a75b8affd",
+  "source_sha256": "663194531c018bda5de387cae59e53641515caf593cd5108d3ab7245562976b1",
+  "environment": {
+    "python": "3.12.13",
+    "platform": "macOS-27.0.1-arm64-arm-64bit"
+  },
+  "training_transitions": 192,
+  "evaluation_transitions": 216,
+  "split_disjoint": true,
+  "training_snapshot_hash": "d623aa00396f87962f99f4dad77a8879b39d8807682f130ad0b1ab787a094054",
+  "evaluation_snapshot_hash": "aac3b8183b7de80458864a0a5d4ea1daccfe3c0a96ce2db72fd4718b17d7382a",
+  "models": {
+    "0": {
+      "version": "a7533462b9b5f14838521b367ce06a2b05ee6bf7acaf0bcb9d59522ed0eb0ee5",
+      "dataset_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "artifact_hash": "c791305d9326eeeff582dfbffa4226a5e9e1c674d26a2ac270ca49251f662737",
+      "cells": 0
+    },
+    "24": {
+      "version": "8d10d1384f5677e5d9dd64ae2eb7345a14ed5cce03ad7b3c1e2a56e3e233dd48",
+      "dataset_hash": "8203b3e00bb3d7df56e8d5b99905b580fdded51517f23de897ca4bab57eb77de",
+      "artifact_hash": "6ced5f30a2ff86154bb2ed94c0ede16b308e8b237cbc02c48759ca1612c3d73d",
+      "cells": 17
+    },
+    "96": {
+      "version": "2c5ab7034dd45422ed5ff28b584dcaaa47836b39dfbdc40edc0afdbf0aca4ea7",
+      "dataset_hash": "5a4ec027116e7a2b29a9820999acd6e76c45281f4c5982329b707faa3366cda4",
+      "artifact_hash": "92d480e7ebba893b24e08a4df4de285da81978f4a7ad6887a7a4dbaaa3e0c314",
+      "cells": 27
+    },
+    "192": {
+      "version": "4f4d42dad469615e797e393b4cf7bda410b71f1623757de82753d5ec56d84a33",
+      "dataset_hash": "c4aab2affd136f2cb95b2505b7c60afad66f161dc572535af4f891f4312d7555",
+      "artifact_hash": "155a25e795b475d8d493c525b198b598c7d4ace0ba06c914cf53149f0abed8bf",
+      "cells": 30
+    }
+  },
+  "fit": {
+    "0": {
+      "cpu_seconds": 0.5205370000000009,
+      "wall_seconds": 0.5453222920186818
+    },
+    "24": {
+      "cpu_seconds": 0.504726999999999,
+      "wall_seconds": 0.5296430410235189
+    },
+    "96": {
+      "cpu_seconds": 0.5152050000000017,
+      "wall_seconds": 0.5400492500048131
+    },
+    "192": {
+      "cpu_seconds": 0.5224980000000023,
+      "wall_seconds": 0.5473874160088599
+    }
+  },
+  "predictions": {
+    "stable_low": {
+      "public_midpoint": {
+        "transitions": 72,
+        "supported": 0,
+        "coverage": 0.0,
+        "mae_with_explicit_midpoint_fallback": 0.7222222222222222,
+        "supported_only_mae": null,
+        "range_coverage_supported": null,
+        "mean_range_width_supported": null,
+        "inference_cpu_seconds": 9.599999998499698e-05,
+        "inference_wall_seconds": 9.388115722686052e-05
+      },
+      "existing_online": {
+        "transitions": 72,
+        "supported": 72,
+        "coverage": 1.0,
+        "mae_with_explicit_midpoint_fallback": 0.26306,
+        "supported_only_mae": 0.26306,
+        "range_coverage_supported": 1.0,
+        "mean_range_width_supported": 1.3472222222222223,
+        "inference_cpu_seconds": 0.14937500000000625,
+        "inference_wall_seconds": 0.1640414598514326
+      },
+      "0": {
+        "transitions": 72,
+        "supported": 0,
+        "coverage": 0.0,
+        "mae_with_explicit_midpoint_fallback": 0.7222222222222222,
+        "supported_only_mae": null,
+        "range_coverage_supported": null,
+        "mean_range_width_supported": null,
+        "inference_cpu_seconds": 0.0025179999999878078,
+        "inference_wall_seconds": 0.002521041897125542
+      },
+      "24": {
+        "transitions": 72,
+        "supported": 11,
+        "coverage": 0.1527777777777778,
+        "mae_with_explicit_midpoint_fallback": 0.6944444444444444,
+        "supported_only_mae": 0.09090909090909091,
+        "range_coverage_supported": 1.0,
+        "mean_range_width_supported": 0.18181818181818182,
+        "inference_cpu_seconds": 0.005413000000004331,
+        "inference_wall_seconds": 0.005418039800133556
+      },
+      "96": {
+        "transitions": 72,
+        "supported": 63,
+        "coverage": 0.875,
+        "mae_with_explicit_midpoint_fallback": 0.16203703703703703,
+        "supported_only_mae": 0.10582010582010581,
+        "range_coverage_supported": 0.9682539682539683,
+        "mean_range_width_supported": 0.19047619047619047,
+        "inference_cpu_seconds": 0.012435000000003527,
+        "inference_wall_seconds": 0.01246358099160716
+      },
+      "192": {
+        "transitions": 72,
+        "supported": 68,
+        "coverage": 0.9444444444444444,
+        "mae_with_explicit_midpoint_fallback": 0.1291005291005291,
+        "supported_only_mae": 0.1219887955182073,
+        "range_coverage_supported": 0.9705882352941176,
+        "mean_range_width_supported": 0.4117647058823529,
+        "inference_cpu_seconds": 0.016730000000030998,
+        "inference_wall_seconds": 0.016759869060479105
+      }
+    },
+    "noisy_low": {
+      "public_midpoint": {
+        "transitions": 72,
+        "supported": 0,
+        "coverage": 0.0,
+        "mae_with_explicit_midpoint_fallback": 0.5972222222222222,
+        "supported_only_mae": null,
+        "range_coverage_supported": null,
+        "mean_range_width_supported": null,
+        "inference_cpu_seconds": 8.99999999965928e-05,
+        "inference_wall_seconds": 8.732621790841222e-05
+      },
+      "existing_online": {
+        "transitions": 72,
+        "supported": 72,
+        "coverage": 1.0,
+        "mae_with_explicit_midpoint_fallback": 0.4026711111111111,
+        "supported_only_mae": 0.4026711111111111,
+        "range_coverage_supported": 1.0,
+        "mean_range_width_supported": 1.1388888888888888,
+        "inference_cpu_seconds": 0.16043500000001032,
+        "inference_wall_seconds": 0.17517628893256187
+      },
+      "0": {
+        "transitions": 72,
+        "supported": 0,
+        "coverage": 0.0,
+        "mae_with_explicit_midpoint_fallback": 0.5972222222222222,
+        "supported_only_mae": null,
+        "range_coverage_supported": null,
+        "mean_range_width_supported": null,
+        "inference_cpu_seconds": 0.0026109999999768263,
+        "inference_wall_seconds": 0.002615879289805889
+      },
+      "24": {
+        "transitions": 72,
+        "supported": 17,
+        "coverage": 0.2361111111111111,
+        "mae_with_explicit_midpoint_fallback": 0.5625,
+        "supported_only_mae": 0.08823529411764706,
+        "range_coverage_supported": 1.0,
+        "mean_range_width_supported": 0.17647058823529413,
+        "inference_cpu_seconds": 0.0057560000000158595,
+        "inference_wall_seconds": 0.005754626297857612
+      },
+      "96": {
+        "transitions": 72,
+        "supported": 65,
+        "coverage": 0.9027777777777778,
+        "mae_with_explicit_midpoint_fallback": 0.4027777777777778,
+        "supported_only_mae": 0.38461538461538464,
+        "range_coverage_supported": 0.8153846153846154,
+        "mean_range_width_supported": 0.2,
+        "inference_cpu_seconds": 0.012517999999978713,
+        "inference_wall_seconds": 0.01253646140685305
+      },
+      "192": {
+        "transitions": 72,
+        "supported": 69,
+        "coverage": 0.9583333333333334,
+        "mae_with_explicit_midpoint_fallback": 0.3555886243386243,
+        "supported_only_mae": 0.35655624568668043,
+        "range_coverage_supported": 0.8695652173913043,
+        "mean_range_width_supported": 0.36231884057971014,
+        "inference_cpu_seconds": 0.01676299999998676,
+        "inference_wall_seconds": 0.016787880973424762
+      }
+    },
+    "low_to_high": {
+      "public_midpoint": {
+        "transitions": 72,
+        "supported": 0,
+        "coverage": 0.0,
+        "mae_with_explicit_midpoint_fallback": 0.4722222222222222,
+        "supported_only_mae": null,
+        "range_coverage_supported": null,
+        "mean_range_width_supported": null,
+        "inference_cpu_seconds": 8.699999999706165e-05,
+        "inference_wall_seconds": 8.308328688144684e-05
+      },
+      "existing_online": {
+        "transitions": 72,
+        "supported": 72,
+        "coverage": 1.0,
+        "mae_with_explicit_midpoint_fallback": 0.24656222222222224,
+        "supported_only_mae": 0.24656222222222224,
+        "range_coverage_supported": 1.0,
+        "mean_range_width_supported": 0.9027777777777778,
+        "inference_cpu_seconds": 0.15960899999999967,
+        "inference_wall_seconds": 0.17434120510006323
+      },
+      "0": {
+        "transitions": 72,
+        "supported": 0,
+        "coverage": 0.0,
+        "mae_with_explicit_midpoint_fallback": 0.4722222222222222,
+        "supported_only_mae": null,
+        "range_coverage_supported": null,
+        "mean_range_width_supported": null,
+        "inference_cpu_seconds": 0.0026270000000074845,
+        "inference_wall_seconds": 0.0026309117674827576
+      },
+      "24": {
+        "transitions": 72,
+        "supported": 18,
+        "coverage": 0.25,
+        "mae_with_explicit_midpoint_fallback": 0.4791666666666667,
+        "supported_only_mae": 0.1388888888888889,
+        "range_coverage_supported": 0.9444444444444444,
+        "mean_range_width_supported": 0.05555555555555555,
+        "inference_cpu_seconds": 0.005745000000018763,
+        "inference_wall_seconds": 0.005753704928793013
+      },
+      "96": {
+        "transitions": 72,
+        "supported": 64,
+        "coverage": 0.8888888888888888,
+        "mae_with_explicit_midpoint_fallback": 0.49351851851851847,
+        "supported_only_mae": 0.5239583333333333,
+        "range_coverage_supported": 0.75,
+        "mean_range_width_supported": 0.109375,
+        "inference_cpu_seconds": 0.012456999999994167,
+        "inference_wall_seconds": 0.01248783036135137
+      },
+      "192": {
+        "transitions": 72,
+        "supported": 68,
+        "coverage": 0.9444444444444444,
+        "mae_with_explicit_midpoint_fallback": 0.469863315696649,
+        "supported_only_mae": 0.49750233426704016,
+        "range_coverage_supported": 0.7647058823529411,
+        "mean_range_width_supported": 0.17647058823529413,
+        "inference_cpu_seconds": 0.016656000000029536,
+        "inference_wall_seconds": 0.016676578030455858
+      }
+    }
+  },
+  "runtime": {
+    "existing_runtime": {
+      "cpu_seconds": 1.1512669999999972,
+      "wall_seconds": 1.3732418330037035,
+      "steps": 24,
+      "unsafe": false,
+      "reward": 10.6,
+      "engine_calls": 192,
+      "abstain": 0,
+      "semantic_hash": "794bf534f2c9de0ab9d331948ded83e75dbd339d95ad525a02ae33a561a13d13"
+    },
+    "untrained_runtime": {
+      "cpu_seconds": 1.5047430000000013,
+      "wall_seconds": 1.7935842499719001,
+      "steps": 24,
+      "unsafe": false,
+      "reward": 10.6,
+      "engine_calls": 288,
+      "abstain": 0,
+      "semantic_hash": "794bf534f2c9de0ab9d331948ded83e75dbd339d95ad525a02ae33a561a13d13"
+    },
+    "learned_runtime": {
+      "cpu_seconds": 1.5199379999999998,
+      "wall_seconds": 1.802358250017278,
+      "steps": 24,
+      "unsafe": false,
+      "reward": 10.6,
+      "engine_calls": 288,
+      "abstain": 0,
+      "semantic_hash": "794bf534f2c9de0ab9d331948ded83e75dbd339d95ad525a02ae33a561a13d13"
+    }
+  },
+  "runtime_semantics_equal": true,
+  "collection_cpu_seconds": 19.382159999999995,
+  "collection_wall_seconds": 23.825096376996953,
+  "limits": [
+    "Frozen low-service supervised training",
+    "Existing Bayesian baseline uses online past observations",
+    "Empirical ranges are not calibrated intervals",
+    "No decision improvement claimed; runtime baseline uses only existing verifiers"
+  ],
+  "authority_audit": {
+    "status": "passed-receipt-backed-dynamics-audit",
+    "audit_code_sha256": "620a511d7fca7db9de89f27575e4818f3927b0634e70025352dae42d254e151a",
+    "verified_training_transitions": 192,
+    "verified_evaluation_transitions": 216,
+    "models": 4,
+    "runtime_semantics_equal": true,
+    "scope": "Receipt/source alignment, fitted statistics, prediction scores and Runtime observations; timing is measured, not independently reproducible exactly"
+  },
+  "reproducibility": {
+    "prediction_scores_equal": true,
+    "runtime_semantics_equal": true,
+    "runtime_replication": {
+      "existing_runtime": {
+        "cpu_seconds": 1.164048000000001,
+        "wall_seconds": 1.38840066595003,
+        "steps": 24,
+        "unsafe": false,
+        "reward": 10.6,
+        "engine_calls": 192,
+        "abstain": 0,
+        "semantic_hash": "794bf534f2c9de0ab9d331948ded83e75dbd339d95ad525a02ae33a561a13d13"
+      },
+      "untrained_runtime": {
+        "cpu_seconds": 1.5227950000000021,
+        "wall_seconds": 1.8098295420059003,
+        "steps": 24,
+        "unsafe": false,
+        "reward": 10.6,
+        "engine_calls": 288,
+        "abstain": 0,
+        "semantic_hash": "794bf534f2c9de0ab9d331948ded83e75dbd339d95ad525a02ae33a561a13d13"
+      },
+      "learned_runtime": {
+        "cpu_seconds": 1.5441249999999975,
+        "wall_seconds": 1.8258549579768442,
+        "steps": 24,
+        "unsafe": false,
+        "reward": 10.6,
+        "engine_calls": 288,
+        "abstain": 0,
+        "semantic_hash": "794bf534f2c9de0ab9d331948ded83e75dbd339d95ad525a02ae33a561a13d13"
+      }
+    },
+    "authority_audit": {
+      "status": "passed-receipt-backed-dynamics-audit",
+      "audit_code_sha256": "620a511d7fca7db9de89f27575e4818f3927b0634e70025352dae42d254e151a",
+      "verified_training_transitions": 192,
+      "verified_evaluation_transitions": 216,
+      "models": 4,
+      "runtime_semantics_equal": true,
+      "scope": "Receipt/source alignment, fitted statistics, prediction scores and Runtime observations; timing is measured, not independently reproducible exactly"
+    },
+    "scope": "Same protocol, fresh Ledger and artifacts; timings and receipt-bound artifact identities vary"
+  }
+}

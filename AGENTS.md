@@ -13,6 +13,9 @@ live in Core and `tests/fixtures/`. Architecture and acceptance criteria are in 
 indexes committed execution receipts. See `docs/cognitive-architecture.md`.
 Receipt-backed memory uses a rebuildable run cache and read-only Store change tokens;
 its consistency boundary is documented in `docs/episodic-memory-index.md`.
+`src/preact/learning/` derives receipt-validated transitions and trains opt-in dynamics
+models; domain features stay in adapters and learned forecasts never certify safety.
+See `docs/learned-dynamics.md` and its dedicated frozen benchmark/results.
 Native World proposals also support Software cognitive rounds and explicit hypothetical
 search, with optional episode-wide budgets. See `docs/software-cognition.md`; Core
 verification and execution authority remain unchanged. The Software CLI uses trusted local fixtures.
