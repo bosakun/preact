@@ -170,11 +170,11 @@ class ProgramWorld:
 
     async def execute(self, action, receipt):
         if receipt in self.receipts:
-            return self.receipts[receipt]
+            return self.receipts[receipt].model_copy(deep=True)
         payload, checks, metrics, _ = await self.measure(
             await self.observe(), action, self.next_evaluation_seed()
         )
-        self.payload = payload
+        self.payload = copy.deepcopy(payload)
         safe = all(checks.values())
         observation = Observation(
             state=await self.observe(),
@@ -185,5 +185,5 @@ class ProgramWorld:
             receipt=receipt,
             cost_usd=0,
         )
-        self.receipts[receipt] = observation
-        return observation
+        self.receipts[receipt] = observation.model_copy(deep=True)
+        return observation.model_copy(deep=True)

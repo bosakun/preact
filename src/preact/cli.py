@@ -20,6 +20,11 @@ def main():
     demo.add_argument("--direct", action="store_true")
     demo.add_argument("--seed", type=int, default=0)
     demo.add_argument("--task", choices=["default", "release"], default="default")
+    cognitive = sub.add_parser("cognitive-demo", help="Run gated cognitive Software rounds")
+    cognitive.add_argument("--seed", type=int, default=0)
+    cognitive.add_argument("--max-rounds", type=int, default=4)
+    cognitive.add_argument("--no-memory", action="store_true")
+    cognitive.add_argument("--flat", action="store_true", help="Disable hypothetical search")
     bench = sub.add_parser("benchmark")
     bench.add_argument("--output", default="reports/local-benchmark")
     bench.add_argument("--seeds", type=int, default=5)
@@ -169,6 +174,35 @@ def main():
             )
         )
         print(json.dumps(report["metrics"], indent=2))
+    elif args.command == "cognitive-demo":
+        if not 1 <= args.max_rounds <= 100:
+            parser.error("max-rounds must be between 1 and 100")
+
+        async def cognitive_run():
+            from preact.cognition import CognitiveAgent, Goal, WorldPlanner
+            from preact.core.models import Policy
+            from preact.core.store import Store
+            from preact.engines.storage import artifact_store
+            from preact.service.app import component_scope
+
+            async with component_scope("software", args.seed, "local", "default") as (
+                world,
+                registry,
+            ):
+                agent = CognitiveAgent(
+                    Store(os.getenv("PREACT_DATABASE_URL", "sqlite:///.preact/preact.db")),
+                    artifact_store(),
+                    registry,
+                    WorldPlanner(world),
+                    [Goal(name="Repair checkout", metric="goal_progress", target=1)],
+                    Policy(search=not args.flat),
+                    use_memory=not args.no_memory,
+                    episode_budget=True,
+                )
+                result = await agent.run(world, args.max_rounds)
+                print(result.model_dump_json(indent=2))
+
+        asyncio.run(cognitive_run())
     else:
 
         async def run():

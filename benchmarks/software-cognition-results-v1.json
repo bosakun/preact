@@ -1,0 +1,1683 @@
+{
+  "protocol": {
+    "version": 1,
+    "scope": "Paired bounded first-party Software tasks; no arbitrary repository repair or LLM claim",
+    "tasks": [
+      "checkout-repair",
+      "ceil_batches",
+      "clamp_fraction"
+    ],
+    "seeds": [
+      11,
+      12,
+      13
+    ],
+    "repeats": 2,
+    "conditions": [
+      "runtime",
+      "cognitive",
+      "cognitive_no_memory"
+    ],
+    "max_rounds": 4,
+    "evaluation_seed_offset": 1000,
+    "policy": {
+      "search": true,
+      "calibration": false,
+      "width": 3,
+      "max_depth": 3,
+      "max_nodes": 40,
+      "max_calls": 24,
+      "max_seconds": 30,
+      "max_cost_usd": 1
+    },
+    "budget": "Calls, wall time, cost and source Task max_steps bound the whole episode. Nodes/depth/width remain per search, matching Runtime.",
+    "order": "Rotate conditions by seed and reverse on second repeat; fresh World/Store/Registry/Agent each episode",
+    "comparison": "Actions, authoritative execution observations, reward-independent success/unsafe and aligned learning labels; audit original Gate hashes and complete receipts before semantic normalization",
+    "limitations": "Two-step checkout plus two one-step programs; no target throughput, reward or long-term intelligence metric; native task proposals already repair these tasks"
+  },
+  "protocol_sha256": "50575fbb501ed1520cafa66cdcdd7e66e2a45eebd6cd35701ee67eafa19e5a99",
+  "source_sha256": {
+    "src/preact/__init__.py": "30b87dcc3ce0705a84bd22e2c900e7ccba2844b5bf03f834cd43536c59d7eaa8",
+    "src/preact/benchmarks.py": "50c5cfe2a9e399bb9016f3079f4535b63a53a9f2bfd125b54a4247129e606bb8",
+    "src/preact/cli.py": "db294c9a93f6626895e69960668597eb69b4649ac310d571ba3b292feec797b6",
+    "src/preact/cognition/__init__.py": "abdb12d2e00bb34f816f433ac1f1def10ce201f3d02449536d045b9863b35a27",
+    "src/preact/cognition/belief.py": "65dba521f848f352a4c6edec2b65843d85d25658c221f85d69e35ad75fff7341",
+    "src/preact/cognition/benchmark.py": "a6ecae9b617984c6dc0858fa215ab959567cd7e46473862b34d6e58d818a37ea",
+    "src/preact/cognition/information.py": "399948a20a4e5e1868b729099f294f077637a61d1984c48991b725b491843026",
+    "src/preact/cognition/loop.py": "5029a177a8d92768f5dbeea723620ba5c36abe8e13e60a74f4aa512adbc6c7cc",
+    "src/preact/cognition/memory.py": "f713d4100f180f1e02b60b7adc28a00f2e6ed25f8733221cde7cf169134b879c",
+    "src/preact/cognition/models.py": "8013b67439953d06b015803bd723ed0e40b2f5fdcaf4627dcce7b5d8182b576e",
+    "src/preact/cognition/queue.py": "5d8a07c011dae4c92e7639d5433e4f35bb5ff1b12e2dc0be04f03c65af49f38f",
+    "src/preact/cognition/world.py": "c9b8e68458b50fe47c0af5889e5ed082d5f8db364d31e158b27ef6f161bb82da",
+    "src/preact/cohorts.py": "1db58f44de753e1866dfda22c521b9838ac74caf0e0710edaaf1b10ddb0181b2",
+    "src/preact/core/__init__.py": "8750b3a84d40f5a620462d98f0c3e5f87d3feb697ce02fae051c886e1f48585c",
+    "src/preact/core/calibration.py": "442beafe9125929fe2d044dfdb973723e6f8d2cf2dff9ded4892069da9168b9f",
+    "src/preact/core/comparison.py": "753d4a3bef4a7f48ddde93b73946a7d3d7bc657e2fda18bc708d120cb52596c8",
+    "src/preact/core/consequences.py": "bfec4acc88b924effbafd50a6163a802475e6e5d5a98d8c63dde51409a9ae079",
+    "src/preact/core/decision.py": "afd5ac429bb1e316ea0d665e423a0a88c9a9f9a3bf128bb1f8bf0a3b2d6fd107",
+    "src/preact/core/disagreement.py": "9b3bc04911a74c34aa01ace488f5b3ac157326fa7722df46dd107c9b5e6aaa1d",
+    "src/preact/core/evidence.py": "0ba79fe034aacb21364ed55e0e6e740235ac01a26ed54193858b46b19717df29",
+    "src/preact/core/interfaces.py": "f5533ebe6d6ac70b56553c389d78f30fd24541a9fdb649571e57404d4024d0b7",
+    "src/preact/core/io.py": "708b427f60afc187e055e59a50c6ddf76e66f093de144c12cb74cbb006553a2a",
+    "src/preact/core/models.py": "22ecd73a3c2425f72cfa2cd28eb3ba1d1b6091fa1a7772b328a6f3719d1b157d",
+    "src/preact/core/registry.py": "55d373ea8441c95fb4e1e446e39b5bfd030f2f89b7104704405ab753aca2195e",
+    "src/preact/core/runtime.py": "9c7d26f053374b68c082e2c6155e019a1f63cc92645317d0719a8e7a5f829b4f",
+    "src/preact/core/store.py": "2e2fe6c6cea1cbbd2f15733f8235f4bfbcf7e456c971930e4572ddad4705c878",
+    "src/preact/core/verification.py": "32b922de93eae95073b932cb07f2c91192be020656396fe13b65735218ef7e7c",
+    "src/preact/datasets/__init__.py": "6afefa06b9928d40916bd79edd70ddbdc1da6f0de8e5cae8e8226d14f5945725",
+    "src/preact/datasets/programs.py": "3d83248cd3ba05e8092f4996dc76583a125de1c1b472c7c1a5dcd7f68d9ff895",
+    "src/preact/datasets/scenes.py": "078f26ad4a060cacd5f3024afb8bb8497160051d797ee9eba0b515bc1d2ffef5",
+    "src/preact/domains/__init__.py": "00b1a5a1b9b8f6433ebd35876f273487093a5b2ef2160d7480958cee0aa916a4",
+    "src/preact/domains/cloud.py": "d5e47fbb6d87fcedf3ce75119b18d286a7181a080df2cc2d58751f95d275f670",
+    "src/preact/domains/cognitive_queue.py": "8cffaccb143e88d2d31de27fce34cead4fe6d872c8839911027d94d942f87b74",
+    "src/preact/domains/evaluation.py": "d72797855861a3410c2e7de8dc01f301e42f9881913033b69e3089f047d30c97",
+    "src/preact/domains/information_queue.py": "fb5a5af492516e51bafb92680de3d08f4b7e3c9569dd9e6f18eb10b96aabf5c1",
+    "src/preact/domains/physical.py": "a81015a252fdeeb1419c03a382a8dcb6a936a5d1cc858c45c536aa28d1143924",
+    "src/preact/domains/program.py": "42ea3972a92b3d13067a6050da49ffd22121c5795006fb4673a826f7bdfed804",
+    "src/preact/domains/program_probe.py": "a69df40bf424ee24a191317112942ad3cf343e43ca860f68cb730b9cc1cfc5d7",
+    "src/preact/domains/release_probe.py": "03e6754653836f83649c4c912ed332e40300c7187f40bcb53c7a0762121e45f5",
+    "src/preact/domains/repository.py": "75bd7f06a7c2ee066b9229c1a106927550ec9f5ed113ffd06a8aaaa878416077",
+    "src/preact/domains/scene.py": "f446b35323b18db0f80242ecce5e9904b506ecce4eb2052a4b5f71fea35d7005",
+    "src/preact/domains/software.py": "dbcfd6f9e94a5c075a244ab7313616314aa3c80eba39cec3c740a02201e58937",
+    "src/preact/engines/__init__.py": "a7e10a7131e1595ed715f605a768ff800ffca91e8d33d8d879c09257fc9d1433",
+    "src/preact/engines/cognitive_queue.py": "12a24a3f233abb4c7c2cec9dc373bca7a104b51193060848bfb2772d01d3a958",
+    "src/preact/engines/cosmos.py": "fd96f923292c7f3055763752fe2cb279d4c39451cd65781da3dd2fa62120ae47",
+    "src/preact/engines/information_queue.py": "96fb058060c16d28723b598762589a4a7cb49de4b8cd22f8269940a8c7ab5c29",
+    "src/preact/engines/isaac.py": "fcac451d3dcb16d5c83f5fc586e3e2c47fc3c817b793a6ad56875dacbc239aeb",
+    "src/preact/engines/jobs.py": "b5518f5719a7fb3e61cbfda93550eea557cce2c7f9324684b579842b96d9a1cc",
+    "src/preact/engines/llamacpp.py": "23d4df56e94b6242fc0894471b01d272a151b425a45b32e6a81d12ab836191a7",
+    "src/preact/engines/local.py": "b308928acfcd733fc24a322e9ee35305474c3dd70be03514f0c0cfc7344a66fc",
+    "src/preact/engines/nebius.py": "77355dd0eda97bc2855c6f73b66c96428ccfdf8ba81eb6de6d801ffc1a1c54e0",
+    "src/preact/engines/process.py": "7886efbd0175e5e57058570edd899f018d043c2e620710ed9d4d928d6fc40fe0",
+    "src/preact/engines/reasoning.py": "7c833b1ef73a62756e6b0c8a380ccebb9678b0f427243df23408fa48c8748bd9",
+    "src/preact/engines/remote.py": "d980619876ae278c21797eba3eb8cfa4b311c995f11acd4724578bcc65cd7bf3",
+    "src/preact/engines/sandbox.py": "4bc8a40ddd9cd3ab5417e6e03ff89afedfecb2e3719e29e62c6a0a9ecee17f2e",
+    "src/preact/engines/sdk_bridge.py": "1b53851c8d8cfc076ea2abe2c50ea885213b94a0a61f9a2a97b9e7347f5f0ac3",
+    "src/preact/engines/statistics.py": "084da979f6106f9870b5e289f071a44fc5fe072762852a4a6568ee88def67674",
+    "src/preact/engines/storage.py": "67326b5c9d9d58da12d6e711f5144f239776a7035706476c8be1d2077bd340f3",
+    "src/preact/integration_validation.py": "29bac46097320d6d66fe25856f0c34c46f6013aaf54902784037be8d8d3a0408",
+    "src/preact/replay.py": "4535f08523580bf49537cc48dc28bc699cee4860351d9e36d072a4487f9bdeaf",
+    "src/preact/service/__init__.py": "a41a28faf004589f3170fc09d22bb489066a34d82072a0543d298297acde2b4b",
+    "src/preact/service/app.py": "e06d17cdf645371c2f60bbc6dfb7ca54da888e9d9a3d34129d45ca4186d3d4b5",
+    "src/preact/service/worker.py": "58ff6ad73af4437973c59eea39bb2d21394b6f90cbbf7b29b94f3c02f87b80ca",
+    "scripts/bench_software_cognition.py": "d0c90b9af5f13cbf18578e8d6037f6837bb26b5f55447cdea3d91831d687cd5b",
+    "scripts/audit_software_cognition.py": "bc08d603cee957008f1d838286399d830c595d2c93a58a7d43eddfb644438e2f"
+  },
+  "platform": {
+    "python": "3.12.13",
+    "system": "Darwin",
+    "machine": "arm64"
+  },
+  "episodes": [
+    {
+      "task": "checkout-repair",
+      "seed": 11,
+      "condition": "cognitive_no_memory",
+      "repeat": 0,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 2,
+        "action_fingerprints": [
+          "99a7d0712534144fa9ea0dc9fa278a8b1171a2a48b8178d399b29714c91aef6d",
+          "b2242d831594a9b2e6cd6b562cf4acb83c2ddc177b89662b985c8ffa4d1271ed"
+        ],
+        "abstains": 0,
+        "engine_calls": 12,
+        "verifications": 6,
+        "escalations": 6,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.40253399999999995,
+        "wall_seconds": 0.5499779579695314,
+        "counts": {
+          "observations": 13,
+          "inferences": 9,
+          "proposals": 3
+        }
+      },
+      "semantic_sha256": "6bf869ae09abbb2309d9a3b5a2f793f2ea6cf86737450753aaeb01b4462bd8e0"
+    },
+    {
+      "task": "checkout-repair",
+      "seed": 11,
+      "condition": "runtime",
+      "repeat": 0,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 2,
+        "action_fingerprints": [
+          "99a7d0712534144fa9ea0dc9fa278a8b1171a2a48b8178d399b29714c91aef6d",
+          "b2242d831594a9b2e6cd6b562cf4acb83c2ddc177b89662b985c8ffa4d1271ed"
+        ],
+        "abstains": 0,
+        "engine_calls": 12,
+        "verifications": 6,
+        "escalations": 6,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.09631900000000004,
+        "wall_seconds": 0.23358875000849366,
+        "counts": {
+          "observations": 9,
+          "proposals": 3
+        }
+      },
+      "semantic_sha256": "6bf869ae09abbb2309d9a3b5a2f793f2ea6cf86737450753aaeb01b4462bd8e0"
+    },
+    {
+      "task": "checkout-repair",
+      "seed": 11,
+      "condition": "cognitive",
+      "repeat": 0,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 2,
+        "action_fingerprints": [
+          "99a7d0712534144fa9ea0dc9fa278a8b1171a2a48b8178d399b29714c91aef6d",
+          "b2242d831594a9b2e6cd6b562cf4acb83c2ddc177b89662b985c8ffa4d1271ed"
+        ],
+        "abstains": 0,
+        "engine_calls": 12,
+        "verifications": 6,
+        "escalations": 6,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.10954200000000003,
+        "wall_seconds": 0.24801854096585885,
+        "counts": {
+          "observations": 13,
+          "retrievals": 9,
+          "inferences": 9,
+          "proposals": 3
+        }
+      },
+      "semantic_sha256": "6bf869ae09abbb2309d9a3b5a2f793f2ea6cf86737450753aaeb01b4462bd8e0"
+    },
+    {
+      "task": "checkout-repair",
+      "seed": 11,
+      "condition": "cognitive",
+      "repeat": 1,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 2,
+        "action_fingerprints": [
+          "99a7d0712534144fa9ea0dc9fa278a8b1171a2a48b8178d399b29714c91aef6d",
+          "b2242d831594a9b2e6cd6b562cf4acb83c2ddc177b89662b985c8ffa4d1271ed"
+        ],
+        "abstains": 0,
+        "engine_calls": 12,
+        "verifications": 6,
+        "escalations": 6,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.10766500000000001,
+        "wall_seconds": 0.24303683295147493,
+        "counts": {
+          "observations": 13,
+          "retrievals": 9,
+          "inferences": 9,
+          "proposals": 3
+        }
+      },
+      "semantic_sha256": "6bf869ae09abbb2309d9a3b5a2f793f2ea6cf86737450753aaeb01b4462bd8e0"
+    },
+    {
+      "task": "checkout-repair",
+      "seed": 11,
+      "condition": "runtime",
+      "repeat": 1,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 2,
+        "action_fingerprints": [
+          "99a7d0712534144fa9ea0dc9fa278a8b1171a2a48b8178d399b29714c91aef6d",
+          "b2242d831594a9b2e6cd6b562cf4acb83c2ddc177b89662b985c8ffa4d1271ed"
+        ],
+        "abstains": 0,
+        "engine_calls": 12,
+        "verifications": 6,
+        "escalations": 6,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.09601099999999996,
+        "wall_seconds": 0.23255329101812094,
+        "counts": {
+          "observations": 9,
+          "proposals": 3
+        }
+      },
+      "semantic_sha256": "6bf869ae09abbb2309d9a3b5a2f793f2ea6cf86737450753aaeb01b4462bd8e0"
+    },
+    {
+      "task": "checkout-repair",
+      "seed": 11,
+      "condition": "cognitive_no_memory",
+      "repeat": 1,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 2,
+        "action_fingerprints": [
+          "99a7d0712534144fa9ea0dc9fa278a8b1171a2a48b8178d399b29714c91aef6d",
+          "b2242d831594a9b2e6cd6b562cf4acb83c2ddc177b89662b985c8ffa4d1271ed"
+        ],
+        "abstains": 0,
+        "engine_calls": 12,
+        "verifications": 6,
+        "escalations": 6,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.10402500000000003,
+        "wall_seconds": 0.2404359159991145,
+        "counts": {
+          "observations": 13,
+          "inferences": 9,
+          "proposals": 3
+        }
+      },
+      "semantic_sha256": "6bf869ae09abbb2309d9a3b5a2f793f2ea6cf86737450753aaeb01b4462bd8e0"
+    },
+    {
+      "task": "checkout-repair",
+      "seed": 12,
+      "condition": "runtime",
+      "repeat": 0,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 2,
+        "action_fingerprints": [
+          "99a7d0712534144fa9ea0dc9fa278a8b1171a2a48b8178d399b29714c91aef6d",
+          "b2242d831594a9b2e6cd6b562cf4acb83c2ddc177b89662b985c8ffa4d1271ed"
+        ],
+        "abstains": 0,
+        "engine_calls": 12,
+        "verifications": 6,
+        "escalations": 6,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.09878999999999993,
+        "wall_seconds": 0.23556575004477054,
+        "counts": {
+          "observations": 9,
+          "proposals": 3
+        }
+      },
+      "semantic_sha256": "6bf869ae09abbb2309d9a3b5a2f793f2ea6cf86737450753aaeb01b4462bd8e0"
+    },
+    {
+      "task": "checkout-repair",
+      "seed": 12,
+      "condition": "cognitive",
+      "repeat": 0,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 2,
+        "action_fingerprints": [
+          "99a7d0712534144fa9ea0dc9fa278a8b1171a2a48b8178d399b29714c91aef6d",
+          "b2242d831594a9b2e6cd6b562cf4acb83c2ddc177b89662b985c8ffa4d1271ed"
+        ],
+        "abstains": 0,
+        "engine_calls": 12,
+        "verifications": 6,
+        "escalations": 6,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.10777699999999979,
+        "wall_seconds": 0.246742874966003,
+        "counts": {
+          "observations": 13,
+          "retrievals": 9,
+          "inferences": 9,
+          "proposals": 3
+        }
+      },
+      "semantic_sha256": "6bf869ae09abbb2309d9a3b5a2f793f2ea6cf86737450753aaeb01b4462bd8e0"
+    },
+    {
+      "task": "checkout-repair",
+      "seed": 12,
+      "condition": "cognitive_no_memory",
+      "repeat": 0,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 2,
+        "action_fingerprints": [
+          "99a7d0712534144fa9ea0dc9fa278a8b1171a2a48b8178d399b29714c91aef6d",
+          "b2242d831594a9b2e6cd6b562cf4acb83c2ddc177b89662b985c8ffa4d1271ed"
+        ],
+        "abstains": 0,
+        "engine_calls": 12,
+        "verifications": 6,
+        "escalations": 6,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.10715600000000003,
+        "wall_seconds": 0.2445663750404492,
+        "counts": {
+          "observations": 13,
+          "inferences": 9,
+          "proposals": 3
+        }
+      },
+      "semantic_sha256": "6bf869ae09abbb2309d9a3b5a2f793f2ea6cf86737450753aaeb01b4462bd8e0"
+    },
+    {
+      "task": "checkout-repair",
+      "seed": 12,
+      "condition": "cognitive_no_memory",
+      "repeat": 1,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 2,
+        "action_fingerprints": [
+          "99a7d0712534144fa9ea0dc9fa278a8b1171a2a48b8178d399b29714c91aef6d",
+          "b2242d831594a9b2e6cd6b562cf4acb83c2ddc177b89662b985c8ffa4d1271ed"
+        ],
+        "abstains": 0,
+        "engine_calls": 12,
+        "verifications": 6,
+        "escalations": 6,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.10391299999999992,
+        "wall_seconds": 0.23830825003096834,
+        "counts": {
+          "observations": 13,
+          "inferences": 9,
+          "proposals": 3
+        }
+      },
+      "semantic_sha256": "6bf869ae09abbb2309d9a3b5a2f793f2ea6cf86737450753aaeb01b4462bd8e0"
+    },
+    {
+      "task": "checkout-repair",
+      "seed": 12,
+      "condition": "cognitive",
+      "repeat": 1,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 2,
+        "action_fingerprints": [
+          "99a7d0712534144fa9ea0dc9fa278a8b1171a2a48b8178d399b29714c91aef6d",
+          "b2242d831594a9b2e6cd6b562cf4acb83c2ddc177b89662b985c8ffa4d1271ed"
+        ],
+        "abstains": 0,
+        "engine_calls": 12,
+        "verifications": 6,
+        "escalations": 6,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.12274999999999991,
+        "wall_seconds": 0.2591700420016423,
+        "counts": {
+          "observations": 13,
+          "retrievals": 9,
+          "inferences": 9,
+          "proposals": 3
+        }
+      },
+      "semantic_sha256": "6bf869ae09abbb2309d9a3b5a2f793f2ea6cf86737450753aaeb01b4462bd8e0"
+    },
+    {
+      "task": "checkout-repair",
+      "seed": 12,
+      "condition": "runtime",
+      "repeat": 1,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 2,
+        "action_fingerprints": [
+          "99a7d0712534144fa9ea0dc9fa278a8b1171a2a48b8178d399b29714c91aef6d",
+          "b2242d831594a9b2e6cd6b562cf4acb83c2ddc177b89662b985c8ffa4d1271ed"
+        ],
+        "abstains": 0,
+        "engine_calls": 12,
+        "verifications": 6,
+        "escalations": 6,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.09603500000000009,
+        "wall_seconds": 0.23071216704556718,
+        "counts": {
+          "observations": 9,
+          "proposals": 3
+        }
+      },
+      "semantic_sha256": "6bf869ae09abbb2309d9a3b5a2f793f2ea6cf86737450753aaeb01b4462bd8e0"
+    },
+    {
+      "task": "checkout-repair",
+      "seed": 13,
+      "condition": "cognitive",
+      "repeat": 0,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 2,
+        "action_fingerprints": [
+          "99a7d0712534144fa9ea0dc9fa278a8b1171a2a48b8178d399b29714c91aef6d",
+          "b2242d831594a9b2e6cd6b562cf4acb83c2ddc177b89662b985c8ffa4d1271ed"
+        ],
+        "abstains": 0,
+        "engine_calls": 12,
+        "verifications": 6,
+        "escalations": 6,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.10947299999999993,
+        "wall_seconds": 0.24536604201421142,
+        "counts": {
+          "observations": 13,
+          "retrievals": 9,
+          "inferences": 9,
+          "proposals": 3
+        }
+      },
+      "semantic_sha256": "6bf869ae09abbb2309d9a3b5a2f793f2ea6cf86737450753aaeb01b4462bd8e0"
+    },
+    {
+      "task": "checkout-repair",
+      "seed": 13,
+      "condition": "cognitive_no_memory",
+      "repeat": 0,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 2,
+        "action_fingerprints": [
+          "99a7d0712534144fa9ea0dc9fa278a8b1171a2a48b8178d399b29714c91aef6d",
+          "b2242d831594a9b2e6cd6b562cf4acb83c2ddc177b89662b985c8ffa4d1271ed"
+        ],
+        "abstains": 0,
+        "engine_calls": 12,
+        "verifications": 6,
+        "escalations": 6,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.10390199999999994,
+        "wall_seconds": 0.24108691699802876,
+        "counts": {
+          "observations": 13,
+          "inferences": 9,
+          "proposals": 3
+        }
+      },
+      "semantic_sha256": "6bf869ae09abbb2309d9a3b5a2f793f2ea6cf86737450753aaeb01b4462bd8e0"
+    },
+    {
+      "task": "checkout-repair",
+      "seed": 13,
+      "condition": "runtime",
+      "repeat": 0,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 2,
+        "action_fingerprints": [
+          "99a7d0712534144fa9ea0dc9fa278a8b1171a2a48b8178d399b29714c91aef6d",
+          "b2242d831594a9b2e6cd6b562cf4acb83c2ddc177b89662b985c8ffa4d1271ed"
+        ],
+        "abstains": 0,
+        "engine_calls": 12,
+        "verifications": 6,
+        "escalations": 6,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.09728000000000003,
+        "wall_seconds": 0.23229995800647885,
+        "counts": {
+          "observations": 9,
+          "proposals": 3
+        }
+      },
+      "semantic_sha256": "6bf869ae09abbb2309d9a3b5a2f793f2ea6cf86737450753aaeb01b4462bd8e0"
+    },
+    {
+      "task": "checkout-repair",
+      "seed": 13,
+      "condition": "runtime",
+      "repeat": 1,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 2,
+        "action_fingerprints": [
+          "99a7d0712534144fa9ea0dc9fa278a8b1171a2a48b8178d399b29714c91aef6d",
+          "b2242d831594a9b2e6cd6b562cf4acb83c2ddc177b89662b985c8ffa4d1271ed"
+        ],
+        "abstains": 0,
+        "engine_calls": 12,
+        "verifications": 6,
+        "escalations": 6,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.10946800000000012,
+        "wall_seconds": 0.24603583296993747,
+        "counts": {
+          "observations": 9,
+          "proposals": 3
+        }
+      },
+      "semantic_sha256": "6bf869ae09abbb2309d9a3b5a2f793f2ea6cf86737450753aaeb01b4462bd8e0"
+    },
+    {
+      "task": "checkout-repair",
+      "seed": 13,
+      "condition": "cognitive_no_memory",
+      "repeat": 1,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 2,
+        "action_fingerprints": [
+          "99a7d0712534144fa9ea0dc9fa278a8b1171a2a48b8178d399b29714c91aef6d",
+          "b2242d831594a9b2e6cd6b562cf4acb83c2ddc177b89662b985c8ffa4d1271ed"
+        ],
+        "abstains": 0,
+        "engine_calls": 12,
+        "verifications": 6,
+        "escalations": 6,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.10318800000000028,
+        "wall_seconds": 0.24017254199134186,
+        "counts": {
+          "observations": 13,
+          "inferences": 9,
+          "proposals": 3
+        }
+      },
+      "semantic_sha256": "6bf869ae09abbb2309d9a3b5a2f793f2ea6cf86737450753aaeb01b4462bd8e0"
+    },
+    {
+      "task": "checkout-repair",
+      "seed": 13,
+      "condition": "cognitive",
+      "repeat": 1,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 2,
+        "action_fingerprints": [
+          "99a7d0712534144fa9ea0dc9fa278a8b1171a2a48b8178d399b29714c91aef6d",
+          "b2242d831594a9b2e6cd6b562cf4acb83c2ddc177b89662b985c8ffa4d1271ed"
+        ],
+        "abstains": 0,
+        "engine_calls": 12,
+        "verifications": 6,
+        "escalations": 6,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.10749900000000023,
+        "wall_seconds": 0.24352070805616677,
+        "counts": {
+          "observations": 13,
+          "retrievals": 9,
+          "inferences": 9,
+          "proposals": 3
+        }
+      },
+      "semantic_sha256": "6bf869ae09abbb2309d9a3b5a2f793f2ea6cf86737450753aaeb01b4462bd8e0"
+    },
+    {
+      "task": "ceil_batches",
+      "seed": 11,
+      "condition": "cognitive_no_memory",
+      "repeat": 0,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "e78b48702c514e165daf7712afe08514fd56927f132988203b062cfd16cfc6ba"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.055712000000000206,
+        "wall_seconds": 0.13350679096765816,
+        "counts": {
+          "observations": 8,
+          "inferences": 5,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "c298c238401a4db9d77e0bbc2b8172d65c55aa44eb810dc822f1a0f6cb9de3fc"
+    },
+    {
+      "task": "ceil_batches",
+      "seed": 11,
+      "condition": "runtime",
+      "repeat": 0,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "e78b48702c514e165daf7712afe08514fd56927f132988203b062cfd16cfc6ba"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.05151199999999978,
+        "wall_seconds": 0.12886104203062132,
+        "counts": {
+          "observations": 6,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "c298c238401a4db9d77e0bbc2b8172d65c55aa44eb810dc822f1a0f6cb9de3fc"
+    },
+    {
+      "task": "ceil_batches",
+      "seed": 11,
+      "condition": "cognitive",
+      "repeat": 0,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "e78b48702c514e165daf7712afe08514fd56927f132988203b062cfd16cfc6ba"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.05760399999999999,
+        "wall_seconds": 0.13682841596892104,
+        "counts": {
+          "observations": 8,
+          "retrievals": 5,
+          "inferences": 5,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "c298c238401a4db9d77e0bbc2b8172d65c55aa44eb810dc822f1a0f6cb9de3fc"
+    },
+    {
+      "task": "ceil_batches",
+      "seed": 11,
+      "condition": "cognitive",
+      "repeat": 1,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "e78b48702c514e165daf7712afe08514fd56927f132988203b062cfd16cfc6ba"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.06965300000000019,
+        "wall_seconds": 0.14715737500227988,
+        "counts": {
+          "observations": 8,
+          "retrievals": 5,
+          "inferences": 5,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "c298c238401a4db9d77e0bbc2b8172d65c55aa44eb810dc822f1a0f6cb9de3fc"
+    },
+    {
+      "task": "ceil_batches",
+      "seed": 11,
+      "condition": "runtime",
+      "repeat": 1,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "e78b48702c514e165daf7712afe08514fd56927f132988203b062cfd16cfc6ba"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.05285900000000021,
+        "wall_seconds": 0.1309032499557361,
+        "counts": {
+          "observations": 6,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "c298c238401a4db9d77e0bbc2b8172d65c55aa44eb810dc822f1a0f6cb9de3fc"
+    },
+    {
+      "task": "ceil_batches",
+      "seed": 11,
+      "condition": "cognitive_no_memory",
+      "repeat": 1,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "e78b48702c514e165daf7712afe08514fd56927f132988203b062cfd16cfc6ba"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.05733899999999981,
+        "wall_seconds": 0.13370579102775082,
+        "counts": {
+          "observations": 8,
+          "inferences": 5,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "c298c238401a4db9d77e0bbc2b8172d65c55aa44eb810dc822f1a0f6cb9de3fc"
+    },
+    {
+      "task": "ceil_batches",
+      "seed": 12,
+      "condition": "runtime",
+      "repeat": 0,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "e78b48702c514e165daf7712afe08514fd56927f132988203b062cfd16cfc6ba"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.05153400000000019,
+        "wall_seconds": 0.13014341599773616,
+        "counts": {
+          "observations": 6,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "c298c238401a4db9d77e0bbc2b8172d65c55aa44eb810dc822f1a0f6cb9de3fc"
+    },
+    {
+      "task": "ceil_batches",
+      "seed": 12,
+      "condition": "cognitive",
+      "repeat": 0,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "e78b48702c514e165daf7712afe08514fd56927f132988203b062cfd16cfc6ba"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.05676300000000012,
+        "wall_seconds": 0.13446562498575076,
+        "counts": {
+          "observations": 8,
+          "retrievals": 5,
+          "inferences": 5,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "c298c238401a4db9d77e0bbc2b8172d65c55aa44eb810dc822f1a0f6cb9de3fc"
+    },
+    {
+      "task": "ceil_batches",
+      "seed": 12,
+      "condition": "cognitive_no_memory",
+      "repeat": 0,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "e78b48702c514e165daf7712afe08514fd56927f132988203b062cfd16cfc6ba"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.05466799999999994,
+        "wall_seconds": 0.1340855830349028,
+        "counts": {
+          "observations": 8,
+          "inferences": 5,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "c298c238401a4db9d77e0bbc2b8172d65c55aa44eb810dc822f1a0f6cb9de3fc"
+    },
+    {
+      "task": "ceil_batches",
+      "seed": 12,
+      "condition": "cognitive_no_memory",
+      "repeat": 1,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "e78b48702c514e165daf7712afe08514fd56927f132988203b062cfd16cfc6ba"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.054533000000000165,
+        "wall_seconds": 0.13404216599883512,
+        "counts": {
+          "observations": 8,
+          "inferences": 5,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "c298c238401a4db9d77e0bbc2b8172d65c55aa44eb810dc822f1a0f6cb9de3fc"
+    },
+    {
+      "task": "ceil_batches",
+      "seed": 12,
+      "condition": "cognitive",
+      "repeat": 1,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "e78b48702c514e165daf7712afe08514fd56927f132988203b062cfd16cfc6ba"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.0569989999999998,
+        "wall_seconds": 0.1346590830362402,
+        "counts": {
+          "observations": 8,
+          "retrievals": 5,
+          "inferences": 5,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "c298c238401a4db9d77e0bbc2b8172d65c55aa44eb810dc822f1a0f6cb9de3fc"
+    },
+    {
+      "task": "ceil_batches",
+      "seed": 12,
+      "condition": "runtime",
+      "repeat": 1,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "e78b48702c514e165daf7712afe08514fd56927f132988203b062cfd16cfc6ba"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.05260399999999965,
+        "wall_seconds": 0.13071570900501683,
+        "counts": {
+          "observations": 6,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "c298c238401a4db9d77e0bbc2b8172d65c55aa44eb810dc822f1a0f6cb9de3fc"
+    },
+    {
+      "task": "ceil_batches",
+      "seed": 13,
+      "condition": "cognitive",
+      "repeat": 0,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "e78b48702c514e165daf7712afe08514fd56927f132988203b062cfd16cfc6ba"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.05743000000000009,
+        "wall_seconds": 0.13254916603909805,
+        "counts": {
+          "observations": 8,
+          "retrievals": 5,
+          "inferences": 5,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "c298c238401a4db9d77e0bbc2b8172d65c55aa44eb810dc822f1a0f6cb9de3fc"
+    },
+    {
+      "task": "ceil_batches",
+      "seed": 13,
+      "condition": "cognitive_no_memory",
+      "repeat": 0,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "e78b48702c514e165daf7712afe08514fd56927f132988203b062cfd16cfc6ba"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.05542400000000036,
+        "wall_seconds": 0.13138874998549,
+        "counts": {
+          "observations": 8,
+          "inferences": 5,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "c298c238401a4db9d77e0bbc2b8172d65c55aa44eb810dc822f1a0f6cb9de3fc"
+    },
+    {
+      "task": "ceil_batches",
+      "seed": 13,
+      "condition": "runtime",
+      "repeat": 0,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "e78b48702c514e165daf7712afe08514fd56927f132988203b062cfd16cfc6ba"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.0513410000000003,
+        "wall_seconds": 0.12747045897413045,
+        "counts": {
+          "observations": 6,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "c298c238401a4db9d77e0bbc2b8172d65c55aa44eb810dc822f1a0f6cb9de3fc"
+    },
+    {
+      "task": "ceil_batches",
+      "seed": 13,
+      "condition": "runtime",
+      "repeat": 1,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "e78b48702c514e165daf7712afe08514fd56927f132988203b062cfd16cfc6ba"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.0516289999999997,
+        "wall_seconds": 0.1271862909779884,
+        "counts": {
+          "observations": 6,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "c298c238401a4db9d77e0bbc2b8172d65c55aa44eb810dc822f1a0f6cb9de3fc"
+    },
+    {
+      "task": "ceil_batches",
+      "seed": 13,
+      "condition": "cognitive_no_memory",
+      "repeat": 1,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "e78b48702c514e165daf7712afe08514fd56927f132988203b062cfd16cfc6ba"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.055127999999999844,
+        "wall_seconds": 0.1306142919929698,
+        "counts": {
+          "observations": 8,
+          "inferences": 5,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "c298c238401a4db9d77e0bbc2b8172d65c55aa44eb810dc822f1a0f6cb9de3fc"
+    },
+    {
+      "task": "ceil_batches",
+      "seed": 13,
+      "condition": "cognitive",
+      "repeat": 1,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "e78b48702c514e165daf7712afe08514fd56927f132988203b062cfd16cfc6ba"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.05693199999999976,
+        "wall_seconds": 0.13386204099515453,
+        "counts": {
+          "observations": 8,
+          "retrievals": 5,
+          "inferences": 5,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "c298c238401a4db9d77e0bbc2b8172d65c55aa44eb810dc822f1a0f6cb9de3fc"
+    },
+    {
+      "task": "clamp_fraction",
+      "seed": 11,
+      "condition": "cognitive_no_memory",
+      "repeat": 0,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "81bd29c562f4d343a87424f2eae68617d8a6c8230fdb424f57caf14d69adfeeb"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.06813700000000011,
+        "wall_seconds": 0.14531912497477606,
+        "counts": {
+          "observations": 8,
+          "inferences": 5,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "cbff56cdcb27b8c54bb6d5be90399a1cbbd9fd4aaa7673bc2c21ad073a2ac586"
+    },
+    {
+      "task": "clamp_fraction",
+      "seed": 11,
+      "condition": "runtime",
+      "repeat": 0,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "81bd29c562f4d343a87424f2eae68617d8a6c8230fdb424f57caf14d69adfeeb"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.05199599999999993,
+        "wall_seconds": 0.12731937505304813,
+        "counts": {
+          "observations": 6,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "cbff56cdcb27b8c54bb6d5be90399a1cbbd9fd4aaa7673bc2c21ad073a2ac586"
+    },
+    {
+      "task": "clamp_fraction",
+      "seed": 11,
+      "condition": "cognitive",
+      "repeat": 0,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "81bd29c562f4d343a87424f2eae68617d8a6c8230fdb424f57caf14d69adfeeb"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.056779000000000135,
+        "wall_seconds": 0.13395641703391448,
+        "counts": {
+          "observations": 8,
+          "retrievals": 5,
+          "inferences": 5,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "cbff56cdcb27b8c54bb6d5be90399a1cbbd9fd4aaa7673bc2c21ad073a2ac586"
+    },
+    {
+      "task": "clamp_fraction",
+      "seed": 11,
+      "condition": "cognitive",
+      "repeat": 1,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "81bd29c562f4d343a87424f2eae68617d8a6c8230fdb424f57caf14d69adfeeb"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.05724399999999985,
+        "wall_seconds": 0.13448383304057643,
+        "counts": {
+          "observations": 8,
+          "retrievals": 5,
+          "inferences": 5,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "cbff56cdcb27b8c54bb6d5be90399a1cbbd9fd4aaa7673bc2c21ad073a2ac586"
+    },
+    {
+      "task": "clamp_fraction",
+      "seed": 11,
+      "condition": "runtime",
+      "repeat": 1,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "81bd29c562f4d343a87424f2eae68617d8a6c8230fdb424f57caf14d69adfeeb"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.05528000000000022,
+        "wall_seconds": 0.1346280419966206,
+        "counts": {
+          "observations": 6,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "cbff56cdcb27b8c54bb6d5be90399a1cbbd9fd4aaa7673bc2c21ad073a2ac586"
+    },
+    {
+      "task": "clamp_fraction",
+      "seed": 11,
+      "condition": "cognitive_no_memory",
+      "repeat": 1,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "81bd29c562f4d343a87424f2eae68617d8a6c8230fdb424f57caf14d69adfeeb"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.057176000000000116,
+        "wall_seconds": 0.13500058400677517,
+        "counts": {
+          "observations": 8,
+          "inferences": 5,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "cbff56cdcb27b8c54bb6d5be90399a1cbbd9fd4aaa7673bc2c21ad073a2ac586"
+    },
+    {
+      "task": "clamp_fraction",
+      "seed": 12,
+      "condition": "runtime",
+      "repeat": 0,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "81bd29c562f4d343a87424f2eae68617d8a6c8230fdb424f57caf14d69adfeeb"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.051601000000000674,
+        "wall_seconds": 0.13107287499587983,
+        "counts": {
+          "observations": 6,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "cbff56cdcb27b8c54bb6d5be90399a1cbbd9fd4aaa7673bc2c21ad073a2ac586"
+    },
+    {
+      "task": "clamp_fraction",
+      "seed": 12,
+      "condition": "cognitive",
+      "repeat": 0,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "81bd29c562f4d343a87424f2eae68617d8a6c8230fdb424f57caf14d69adfeeb"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.056712000000000096,
+        "wall_seconds": 0.13490583299426362,
+        "counts": {
+          "observations": 8,
+          "retrievals": 5,
+          "inferences": 5,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "cbff56cdcb27b8c54bb6d5be90399a1cbbd9fd4aaa7673bc2c21ad073a2ac586"
+    },
+    {
+      "task": "clamp_fraction",
+      "seed": 12,
+      "condition": "cognitive_no_memory",
+      "repeat": 0,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "81bd29c562f4d343a87424f2eae68617d8a6c8230fdb424f57caf14d69adfeeb"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.055760999999999505,
+        "wall_seconds": 0.13361733400961384,
+        "counts": {
+          "observations": 8,
+          "inferences": 5,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "cbff56cdcb27b8c54bb6d5be90399a1cbbd9fd4aaa7673bc2c21ad073a2ac586"
+    },
+    {
+      "task": "clamp_fraction",
+      "seed": 12,
+      "condition": "cognitive_no_memory",
+      "repeat": 1,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "81bd29c562f4d343a87424f2eae68617d8a6c8230fdb424f57caf14d69adfeeb"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.05525000000000002,
+        "wall_seconds": 0.1325283749611117,
+        "counts": {
+          "observations": 8,
+          "inferences": 5,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "cbff56cdcb27b8c54bb6d5be90399a1cbbd9fd4aaa7673bc2c21ad073a2ac586"
+    },
+    {
+      "task": "clamp_fraction",
+      "seed": 12,
+      "condition": "cognitive",
+      "repeat": 1,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "81bd29c562f4d343a87424f2eae68617d8a6c8230fdb424f57caf14d69adfeeb"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.05798700000000068,
+        "wall_seconds": 0.1329492919612676,
+        "counts": {
+          "observations": 8,
+          "retrievals": 5,
+          "inferences": 5,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "cbff56cdcb27b8c54bb6d5be90399a1cbbd9fd4aaa7673bc2c21ad073a2ac586"
+    },
+    {
+      "task": "clamp_fraction",
+      "seed": 12,
+      "condition": "runtime",
+      "repeat": 1,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "81bd29c562f4d343a87424f2eae68617d8a6c8230fdb424f57caf14d69adfeeb"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.05121099999999945,
+        "wall_seconds": 0.12770154199097306,
+        "counts": {
+          "observations": 6,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "cbff56cdcb27b8c54bb6d5be90399a1cbbd9fd4aaa7673bc2c21ad073a2ac586"
+    },
+    {
+      "task": "clamp_fraction",
+      "seed": 13,
+      "condition": "cognitive",
+      "repeat": 0,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "81bd29c562f4d343a87424f2eae68617d8a6c8230fdb424f57caf14d69adfeeb"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.05956200000000056,
+        "wall_seconds": 0.13775591703597456,
+        "counts": {
+          "observations": 8,
+          "retrievals": 5,
+          "inferences": 5,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "cbff56cdcb27b8c54bb6d5be90399a1cbbd9fd4aaa7673bc2c21ad073a2ac586"
+    },
+    {
+      "task": "clamp_fraction",
+      "seed": 13,
+      "condition": "cognitive_no_memory",
+      "repeat": 0,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "81bd29c562f4d343a87424f2eae68617d8a6c8230fdb424f57caf14d69adfeeb"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.05877599999999994,
+        "wall_seconds": 0.14159224997274578,
+        "counts": {
+          "observations": 8,
+          "inferences": 5,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "cbff56cdcb27b8c54bb6d5be90399a1cbbd9fd4aaa7673bc2c21ad073a2ac586"
+    },
+    {
+      "task": "clamp_fraction",
+      "seed": 13,
+      "condition": "runtime",
+      "repeat": 0,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "81bd29c562f4d343a87424f2eae68617d8a6c8230fdb424f57caf14d69adfeeb"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.051892999999999745,
+        "wall_seconds": 0.13063770899316296,
+        "counts": {
+          "observations": 6,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "cbff56cdcb27b8c54bb6d5be90399a1cbbd9fd4aaa7673bc2c21ad073a2ac586"
+    },
+    {
+      "task": "clamp_fraction",
+      "seed": 13,
+      "condition": "runtime",
+      "repeat": 1,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "81bd29c562f4d343a87424f2eae68617d8a6c8230fdb424f57caf14d69adfeeb"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.06732899999999997,
+        "wall_seconds": 0.14499254198744893,
+        "counts": {
+          "observations": 6,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "cbff56cdcb27b8c54bb6d5be90399a1cbbd9fd4aaa7673bc2c21ad073a2ac586"
+    },
+    {
+      "task": "clamp_fraction",
+      "seed": 13,
+      "condition": "cognitive_no_memory",
+      "repeat": 1,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "81bd29c562f4d343a87424f2eae68617d8a6c8230fdb424f57caf14d69adfeeb"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.055741999999999514,
+        "wall_seconds": 0.13123954203911126,
+        "counts": {
+          "observations": 8,
+          "inferences": 5,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "cbff56cdcb27b8c54bb6d5be90399a1cbbd9fd4aaa7673bc2c21ad073a2ac586"
+    },
+    {
+      "task": "clamp_fraction",
+      "seed": 13,
+      "condition": "cognitive",
+      "repeat": 1,
+      "metrics": {
+        "success": true,
+        "unsafe": false,
+        "executed_actions": 1,
+        "action_fingerprints": [
+          "81bd29c562f4d343a87424f2eae68617d8a6c8230fdb424f57caf14d69adfeeb"
+        ],
+        "abstains": 0,
+        "engine_calls": 6,
+        "verifications": 3,
+        "escalations": 3,
+        "cost_usd": 0.0,
+        "memory_retry_signals": 0,
+        "cpu_seconds": 0.05675199999999947,
+        "wall_seconds": 0.13331112498417497,
+        "counts": {
+          "observations": 8,
+          "retrievals": 5,
+          "inferences": 5,
+          "proposals": 2
+        }
+      },
+      "semantic_sha256": "cbff56cdcb27b8c54bb6d5be90399a1cbbd9fd4aaa7673bc2c21ad073a2ac586"
+    }
+  ],
+  "aggregate": {
+    "cognitive_no_memory": {
+      "success": 1,
+      "unsafe": 0,
+      "executed_actions": 1.3333333333333333,
+      "abstains": 0,
+      "engine_calls": 8,
+      "verifications": 4,
+      "cost_usd": 0.0,
+      "memory_retry_signals": 0,
+      "cpu_seconds": 0.08935355555555553,
+      "wall_seconds": 0.18728825227784304
+    },
+    "runtime": {
+      "success": 1,
+      "unsafe": 0,
+      "executed_actions": 1.3333333333333333,
+      "abstains": 0,
+      "engine_calls": 8,
+      "verifications": 4,
+      "cost_usd": 0.0,
+      "memory_retry_signals": 0,
+      "cpu_seconds": 0.068594,
+      "wall_seconds": 0.16568822228065175
+    },
+    "cognitive": {
+      "success": 1,
+      "unsafe": 0,
+      "executed_actions": 1.3333333333333333,
+      "abstains": 0,
+      "engine_calls": 8,
+      "verifications": 4,
+      "cost_usd": 0.0,
+      "memory_retry_signals": 0,
+      "cpu_seconds": 0.07584016666666671,
+      "wall_seconds": 0.1729299535573874
+    }
+  },
+  "semantic_pairs_equal": true,
+  "authority_audit": "Original Gate policy/evidence hashes, ordered authorization/intent/outcome, complete receipt, input State/Action and horizon-1 learning checked in every episode"
+}
