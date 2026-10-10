@@ -1,0 +1,29 @@
+{
+  "schema_version": "1",
+  "training_seeds": [11, 12, 13, 14],
+  "evaluation_seeds": [101, 102, 103, 104],
+  "training_ticks": 24,
+  "evaluation_ticks": 12,
+  "training_sizes": [0, 6, 24, 96],
+  "min_samples": 4,
+  "training_seed": 17,
+  "capacity": 12,
+  "target": 999,
+  "horizon": 3,
+  "prefix_ticks": [0, 8],
+  "actions": [3, 1, 0],
+  "fixed_prior": 0.5,
+  "training_environment": {"high_first": false, "shift_tick": 24, "noise": 0.05},
+  "evaluation_environments": {
+    "stable_low": {"high_first": false, "shift_tick": 12, "noise": 0.05},
+    "noisy_low": {"high_first": false, "shift_tick": 12, "noise": 0.25},
+    "low_to_high": {"high_first": false, "shift_tick": 8, "noise": 0.05}
+  },
+  "policy": {"search": false, "calibration": false, "width": 1, "max_nodes": 1, "max_calls": 32},
+  "training_actions": ["probe", 3, 0],
+  "evaluation_prefix": "probe each tick; used by existing online baseline only, never fitted learned model",
+  "continuation": "root action then actual gated drain actions; no further admissions",
+  "primary_metrics": ["tick_2_3_state_mae", "tick_2_3_action_difference_mae", "coverage"],
+  "uncertainty": "binary path support ranges and iid Wilson service interval; no calibration guarantee",
+  "limits": ["iid stationary marginal assumed", "known action/arrival rules are not learned", "no action ranking or decision improvement claim"]
+}

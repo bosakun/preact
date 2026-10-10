@@ -1,5 +1,10 @@
 # Composable World Model Runtime architecture evolution
 
+長期の上位目的と設計承認境界は[Runtime設計](composable-world-model-runtime.md)と
+AGENTS.mdに記録する。以下の移行監査は当時の履歴として保持し、実装済みの契約を
+未実装と読み替えない。PR #8の学習基盤と、承認された3 tick Action比較の現状は
+[Dynamics設計](learned-dynamics.md)と[実測結果](learned-dynamics-results.md)を参照する。
+
 Status: accepted user direction, October 8, 2026. This supersedes the narrow
 "not a world model" product framing in implementation-plan.md. PreAct is not a
 monolithic learned world model. Implementation must precede README claims.

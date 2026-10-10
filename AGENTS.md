@@ -16,6 +16,9 @@ its consistency boundary is documented in `docs/episodic-memory-index.md`.
 `src/preact/learning/` derives receipt-validated transitions and trains opt-in dynamics
 models; domain features stay in adapters and learned forecasts never certify safety.
 See `docs/learned-dynamics.md` and its dedicated frozen benchmark/results.
+Opt-in Queue temporal analysis learns identifiable service observations separately
+from total transitions and compares three-tick effects with known arrival rules.
+It uses Registry continuation claims, remains inference, and never ranks or executes actions.
 Native World proposals also support Software cognitive rounds and explicit hypothetical
 search, with optional episode-wide budgets. See `docs/software-cognition.md`; Core
 verification and execution authority remain unchanged. The Software CLI uses trusted local fixtures.
@@ -63,7 +66,7 @@ Never modify frozen tasks/protocols/evidence to fit new behavior; add new fixtur
 
 ## Commit & Pull Request Guidelines
 
-This publication candidate has fresh history. Use short imperative commit subjects.
+Use focused feature branches and short imperative commit subjects.
 Describe behavior, validation and limitations in pull requests; link issues and include
 screenshots for visible changes. Preserve measured benchmark failures and unknown costs.
 
@@ -78,6 +81,23 @@ Publication requires explicit approval of the exact candidate; never publish pri
 ## Autonomous Development Rules
 
 ### Autonomous Decision Making
+
+#### Long-term purpose and design approval
+
+PreAct modularly reproduces world-model functions and integrates cognition,
+prediction, simulation, decision and execution. The intended capability is for an
+agent to build an internal environmental model, compare uncertain action futures,
+execute appropriately and improve its model and behavior from actual outcomes.
+This purpose does not fix a model architecture, learning algorithm or representation.
+
+Obtain developer approval before changing the intended capability, important module
+responsibilities, major data/state semantics, safety or execution authority boundaries,
+or substantially expanding agreed scope. Stop and present alternatives when an
+implementation would materially differ from the approved behavior.
+Within an approved design, choose implementation details, algorithms and structures,
+fix bugs, improve tests, perform local cleanup and performance work autonomously.
+Continue through validation and completion; do not request routine design approval again.
+These boundaries supplement, rather than remove, the autonomous rules below.
 
 This repository is intended to be developed autonomously by Codex for long-running sessions.
 

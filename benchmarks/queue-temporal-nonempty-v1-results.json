@@ -1,0 +1,3249 @@
+{
+  "schema_version": "1",
+  "protocol_sha256": "b643e8f75b0d8e4e0ade76643f90d0de67dbef04aa8de6705cc32249650239b0",
+  "source_sha256": "e3d44ab7e0737b2ab6a28751d9793bdceac02ea6d4ed132afcfb3eaf941e8b9d",
+  "environment": {
+    "python": "3.12.13",
+    "platform": "macOS-27.0.1-arm64-arm-64bit"
+  },
+  "training_snapshot_hash": "e45e4275e3a62eb080cdc5450823a83b5a3d47cc2ec78a9021f0dc2809f7a2f2",
+  "evaluation_snapshot_hash": "7336cffaa4c279205c09ae67cde4198b66a4021fbeaced2e89b6ec51ce0b4a6b",
+  "training_transitions": 96,
+  "evaluation_transitions": 1224,
+  "split_disjoint": true,
+  "models": {
+    "0": {
+      "version": "18b69c549b1ef9d3f98b5857d4ccb5d0b8b8eefa42a5b37c0f237acf084f73bf",
+      "artifact_hash": "3b20a0b3ba9a7ff78928ad74879e8495e689855dac9a6d28aebdc37fad783143",
+      "dataset_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "6": {
+      "version": "26f7f7a22bb3519008c709d56493f7551081a4555cbd46b606b9b28161e73a67",
+      "artifact_hash": "6fa17c7c3d5486861ecde4457eae587f92f5648769ac9e44a22f58d9736ba64c",
+      "dataset_hash": "096601c9ccc44afa5bc0d75d98193f1182145c5c9164183a420af18272e518ac"
+    },
+    "24": {
+      "version": "5405d3a4e91da290f0903410256d0c23b6e98de238f516878116cba9ffffb53c",
+      "artifact_hash": "855b9fdfeab5a4f397e817d55751546ae80845786ad03b7b1087b7cfc5247c81",
+      "dataset_hash": "dc563d48d8988afe84865d7a1adc35b5d87f2d8e6c8f32709c547436722ff301"
+    },
+    "96": {
+      "version": "605771fe8d3029e27eb660f2bbba1b58120edd9d2d18b7aa7715a57426f938d5",
+      "artifact_hash": "46dca9c59e48a55c242b1c308cdfabfe5272ee1e6db4b40238a3afff9c021647",
+      "dataset_hash": "4855daa35617e43eb496168a4acab20610f1719057f5bbc78406c30f6035bc11"
+    }
+  },
+  "fit": {
+    "0": {
+      "cpu_seconds": 0.12096099999999987,
+      "wall_seconds": 0.13351012498605996,
+      "training_count": 0,
+      "informative_count": 0,
+      "probe_count": 0,
+      "ordinary_count": 0
+    },
+    "6": {
+      "cpu_seconds": 0.11400200000000016,
+      "wall_seconds": 0.12651354202535003,
+      "training_count": 6,
+      "informative_count": 4,
+      "probe_count": 2,
+      "ordinary_count": 2
+    },
+    "24": {
+      "cpu_seconds": 0.12683500000000025,
+      "wall_seconds": 0.13887070800410584,
+      "training_count": 24,
+      "informative_count": 16,
+      "probe_count": 8,
+      "ordinary_count": 8
+    },
+    "96": {
+      "cpu_seconds": 0.11512800000000034,
+      "wall_seconds": 0.12743412499548867,
+      "training_count": 96,
+      "informative_count": 64,
+      "probe_count": 32,
+      "ordinary_count": 32
+    }
+  },
+  "inference": {
+    "fixed_prior": {
+      "cpu_seconds": 0.0642860000000125,
+      "wall_seconds": 0.06428962340578437,
+      "engine_calls": 144,
+      "service_paths": 1152
+    },
+    "0": {
+      "cpu_seconds": 0.04383300000001844,
+      "wall_seconds": 0.04383308405522257,
+      "engine_calls": 144,
+      "service_paths": 0
+    },
+    "6": {
+      "cpu_seconds": 0.06850700000002341,
+      "wall_seconds": 0.06854041217593476,
+      "engine_calls": 144,
+      "service_paths": 1152
+    },
+    "24": {
+      "cpu_seconds": 0.06824700000000483,
+      "wall_seconds": 0.06830008293036371,
+      "engine_calls": 144,
+      "service_paths": 1152
+    },
+    "96": {
+      "cpu_seconds": 0.07041099999999645,
+      "wall_seconds": 0.07047187705757096,
+      "engine_calls": 144,
+      "service_paths": 1152
+    }
+  },
+  "scores": {
+    "stable_low": {
+      "fixed_prior": {
+        "comparisons": 16,
+        "supported": 16,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 1.6666666666666667,
+        "tick_2_3_action_difference_mae": 0.8125,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 2.28125,
+            "tick_2_3_queue_mae": 2.28125,
+            "delivered_mae_by_tick": [
+              1.0,
+              2.0,
+              2.5625
+            ],
+            "service_sensitive_comparisons": 16
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 1.65625,
+            "tick_2_3_queue_mae": 1.65625,
+            "delivered_mae_by_tick": [
+              1.0,
+              1.75,
+              1.5625
+            ],
+            "service_sensitive_comparisons": 16
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 1.0625,
+            "tick_2_3_queue_mae": 1.0625,
+            "delivered_mae_by_tick": [
+              1.0,
+              1.25,
+              0.875
+            ],
+            "service_sensitive_comparisons": 16
+          }
+        }
+      },
+      "0": {
+        "comparisons": 16,
+        "supported": 0,
+        "coverage": 0.0,
+        "tick_2_3_state_mae": null,
+        "tick_2_3_action_difference_mae": null,
+        "support_range_contains_actual": null,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          },
+          "1": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          },
+          "0": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          }
+        }
+      },
+      "6": {
+        "comparisons": 16,
+        "supported": 16,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.0,
+        "tick_2_3_action_difference_mae": 0.0,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 0.0,
+            "tick_2_3_queue_mae": 0.0,
+            "delivered_mae_by_tick": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "service_sensitive_comparisons": 16
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.0,
+            "tick_2_3_queue_mae": 0.0,
+            "delivered_mae_by_tick": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "service_sensitive_comparisons": 16
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.0,
+            "tick_2_3_queue_mae": 0.0,
+            "delivered_mae_by_tick": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "service_sensitive_comparisons": 16
+          }
+        }
+      },
+      "24": {
+        "comparisons": 16,
+        "supported": 16,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.4860026041666667,
+        "tick_2_3_action_difference_mae": 0.1787109375,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 0.61279296875,
+            "tick_2_3_queue_mae": 0.61279296875,
+            "delivered_mae_by_tick": [
+              0.25,
+              0.5,
+              0.7255859375
+            ],
+            "service_sensitive_comparisons": 16
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.50048828125,
+            "tick_2_3_queue_mae": 0.50048828125,
+            "delivered_mae_by_tick": [
+              0.25,
+              0.484375,
+              0.5166015625
+            ],
+            "service_sensitive_comparisons": 16
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.3447265625,
+            "tick_2_3_queue_mae": 0.3447265625,
+            "delivered_mae_by_tick": [
+              0.25,
+              0.359375,
+              0.330078125
+            ],
+            "service_sensitive_comparisons": 16
+          }
+        }
+      },
+      "96": {
+        "comparisons": 16,
+        "supported": 16,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.1879444122314453,
+        "tick_2_3_action_difference_mae": 0.06427955627441406,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 0.23270130157470703,
+            "tick_2_3_queue_mae": 0.23270130157470703,
+            "delivered_mae_by_tick": [
+              0.09375,
+              0.1875,
+              0.27790260314941406
+            ],
+            "service_sensitive_comparisons": 16
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.19484996795654297,
+            "tick_2_3_queue_mae": 0.19484996795654297,
+            "delivered_mae_by_tick": [
+              0.09375,
+              0.185302734375,
+              0.20439720153808594
+            ],
+            "service_sensitive_comparisons": 16
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.13628196716308594,
+            "tick_2_3_queue_mae": 0.13628196716308594,
+            "delivered_mae_by_tick": [
+              0.09375,
+              0.138427734375,
+              0.13413619995117188
+            ],
+            "service_sensitive_comparisons": 16
+          }
+        }
+      }
+    },
+    "noisy_low": {
+      "fixed_prior": {
+        "comparisons": 16,
+        "supported": 16,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.6796875,
+        "tick_2_3_action_difference_mae": 0.5494791666666666,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 0.96484375,
+            "tick_2_3_queue_mae": 0.96484375,
+            "delivered_mae_by_tick": [
+              1.0,
+              0.875,
+              1.0546875
+            ],
+            "service_sensitive_comparisons": 16
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.67578125,
+            "tick_2_3_queue_mae": 0.67578125,
+            "delivered_mae_by_tick": [
+              1.0,
+              0.84375,
+              0.5078125
+            ],
+            "service_sensitive_comparisons": 16
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.3984375,
+            "tick_2_3_queue_mae": 0.3984375,
+            "delivered_mae_by_tick": [
+              1.0,
+              0.59375,
+              0.203125
+            ],
+            "service_sensitive_comparisons": 16
+          }
+        }
+      },
+      "0": {
+        "comparisons": 16,
+        "supported": 0,
+        "coverage": 0.0,
+        "tick_2_3_state_mae": null,
+        "tick_2_3_action_difference_mae": null,
+        "support_range_contains_actual": null,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          },
+          "1": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          },
+          "0": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          }
+        }
+      },
+      "6": {
+        "comparisons": 16,
+        "supported": 16,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 1.1458333333333333,
+        "tick_2_3_action_difference_mae": 0.4166666666666667,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 1.4375,
+            "tick_2_3_queue_mae": 1.4375,
+            "delivered_mae_by_tick": [
+              0.5,
+              1.125,
+              1.75
+            ],
+            "service_sensitive_comparisons": 16
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 1.1875,
+            "tick_2_3_queue_mae": 1.1875,
+            "delivered_mae_by_tick": [
+              0.5,
+              1.125,
+              1.25
+            ],
+            "service_sensitive_comparisons": 16
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.8125,
+            "tick_2_3_queue_mae": 0.8125,
+            "delivered_mae_by_tick": [
+              0.5,
+              0.875,
+              0.75
+            ],
+            "service_sensitive_comparisons": 16
+          }
+        }
+      },
+      "24": {
+        "comparisons": 16,
+        "supported": 16,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.9697265625,
+        "tick_2_3_action_difference_mae": 0.3886311848958333,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 1.22344970703125,
+            "tick_2_3_queue_mae": 1.22344970703125,
+            "delivered_mae_by_tick": [
+              0.625,
+              1.0625,
+              1.3843994140625
+            ],
+            "service_sensitive_comparisons": 16
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 1.01446533203125,
+            "tick_2_3_queue_mae": 1.01446533203125,
+            "delivered_mae_by_tick": [
+              0.625,
+              1.060546875,
+              0.9683837890625
+            ],
+            "service_sensitive_comparisons": 16
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.6712646484375,
+            "tick_2_3_queue_mae": 0.6712646484375,
+            "delivered_mae_by_tick": [
+              0.625,
+              0.798828125,
+              0.543701171875
+            ],
+            "service_sensitive_comparisons": 16
+          }
+        }
+      },
+      "96": {
+        "comparisons": 16,
+        "supported": 16,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 1.0774424870808919,
+        "tick_2_3_action_difference_mae": 0.40299073855082196,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 1.3561028242111206,
+            "tick_2_3_queue_mae": 1.3561028242111206,
+            "delivered_mae_by_tick": [
+              0.546875,
+              1.1015625,
+              1.6106431484222412
+            ],
+            "service_sensitive_comparisons": 16
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 1.1201533079147339,
+            "tick_2_3_queue_mae": 1.1201533079147339,
+            "delivered_mae_by_tick": [
+              0.546875,
+              1.101287841796875,
+              1.1390187740325928
+            ],
+            "service_sensitive_comparisons": 16
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.7560713291168213,
+            "tick_2_3_queue_mae": 0.7560713291168213,
+            "delivered_mae_by_tick": [
+              0.546875,
+              0.845977783203125,
+              0.6661648750305176
+            ],
+            "service_sensitive_comparisons": 16
+          }
+        }
+      }
+    },
+    "low_to_high": {
+      "fixed_prior": {
+        "comparisons": 16,
+        "supported": 16,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 1.1354166666666667,
+        "tick_2_3_action_difference_mae": 0.8229166666666666,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 1.828125,
+            "tick_2_3_queue_mae": 1.828125,
+            "delivered_mae_by_tick": [
+              1.0,
+              2.0,
+              1.65625
+            ],
+            "service_sensitive_comparisons": 16
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.984375,
+            "tick_2_3_queue_mae": 0.984375,
+            "delivered_mae_by_tick": [
+              1.0,
+              1.125,
+              0.84375
+            ],
+            "service_sensitive_comparisons": 16
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.59375,
+            "tick_2_3_queue_mae": 0.59375,
+            "delivered_mae_by_tick": [
+              1.0,
+              0.75,
+              0.4375
+            ],
+            "service_sensitive_comparisons": 16
+          }
+        }
+      },
+      "0": {
+        "comparisons": 16,
+        "supported": 0,
+        "coverage": 0.0,
+        "tick_2_3_state_mae": null,
+        "tick_2_3_action_difference_mae": null,
+        "support_range_contains_actual": null,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          },
+          "1": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          },
+          "0": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          }
+        }
+      },
+      "6": {
+        "comparisons": 16,
+        "supported": 16,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.9166666666666666,
+        "tick_2_3_action_difference_mae": 1.0,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 1.75,
+            "tick_2_3_queue_mae": 1.75,
+            "delivered_mae_by_tick": [
+              1.0,
+              2.0,
+              1.5
+            ],
+            "service_sensitive_comparisons": 16
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.75,
+            "tick_2_3_queue_mae": 0.75,
+            "delivered_mae_by_tick": [
+              1.0,
+              1.0,
+              0.5
+            ],
+            "service_sensitive_comparisons": 16
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.25,
+            "tick_2_3_queue_mae": 0.25,
+            "delivered_mae_by_tick": [
+              1.0,
+              0.5,
+              0.0
+            ],
+            "service_sensitive_comparisons": 16
+          }
+        }
+      },
+      "24": {
+        "comparisons": 16,
+        "supported": 16,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.9733072916666666,
+        "tick_2_3_action_difference_mae": 0.9278971354166666,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 1.755615234375,
+            "tick_2_3_queue_mae": 1.755615234375,
+            "delivered_mae_by_tick": [
+              1.0,
+              2.0,
+              1.51123046875
+            ],
+            "service_sensitive_comparisons": 16
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.800537109375,
+            "tick_2_3_queue_mae": 0.800537109375,
+            "delivered_mae_by_tick": [
+              1.0,
+              1.0078125,
+              0.59326171875
+            ],
+            "service_sensitive_comparisons": 16
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.36376953125,
+            "tick_2_3_queue_mae": 0.36376953125,
+            "delivered_mae_by_tick": [
+              1.0,
+              0.5625,
+              0.1650390625
+            ],
+            "service_sensitive_comparisons": 16
+          }
+        }
+      },
+      "96": {
+        "comparisons": 16,
+        "supported": 16,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.9380594889322916,
+        "tick_2_3_action_difference_mae": 0.970372200012207,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 1.7508111000061035,
+            "tick_2_3_queue_mae": 1.7508111000061035,
+            "delivered_mae_by_tick": [
+              1.0,
+              2.0,
+              1.501622200012207
+            ],
+            "service_sensitive_comparisons": 16
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.7681145668029785,
+            "tick_2_3_queue_mae": 0.7681145668029785,
+            "delivered_mae_by_tick": [
+              1.0,
+              1.0010986328125,
+              0.535130500793457
+            ],
+            "service_sensitive_comparisons": 16
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.29525279998779297,
+            "tick_2_3_queue_mae": 0.29525279998779297,
+            "delivered_mae_by_tick": [
+              1.0,
+              0.5234375,
+              0.06706809997558594
+            ],
+            "service_sensitive_comparisons": 16
+          }
+        }
+      }
+    }
+  },
+  "scores_by_prefix": {
+    "stable_low/prefix:0:pending": {
+      "fixed_prior": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 1.2291666666666667,
+        "tick_2_3_action_difference_mae": 1.1666666666666667,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 2.125,
+            "tick_2_3_queue_mae": 2.125,
+            "delivered_mae_by_tick": [
+              1.0,
+              2.0,
+              2.25
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 1.1875,
+            "tick_2_3_queue_mae": 1.1875,
+            "delivered_mae_by_tick": [
+              1.0,
+              1.5,
+              0.875
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.375,
+            "tick_2_3_queue_mae": 0.375,
+            "delivered_mae_by_tick": [
+              1.0,
+              0.75,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "0": {
+        "comparisons": 4,
+        "supported": 0,
+        "coverage": 0.0,
+        "tick_2_3_state_mae": null,
+        "tick_2_3_action_difference_mae": null,
+        "support_range_contains_actual": null,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          },
+          "1": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          },
+          "0": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          }
+        }
+      },
+      "6": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.0,
+        "tick_2_3_action_difference_mae": 0.0,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 0.0,
+            "tick_2_3_queue_mae": 0.0,
+            "delivered_mae_by_tick": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.0,
+            "tick_2_3_queue_mae": 0.0,
+            "delivered_mae_by_tick": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.0,
+            "tick_2_3_queue_mae": 0.0,
+            "delivered_mae_by_tick": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "24": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.3727213541666667,
+        "tick_2_3_action_difference_mae": 0.3229166666666667,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 0.6015625,
+            "tick_2_3_queue_mae": 0.6015625,
+            "delivered_mae_by_tick": [
+              0.25,
+              0.5,
+              0.703125
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.3994140625,
+            "tick_2_3_queue_mae": 0.3994140625,
+            "delivered_mae_by_tick": [
+              0.25,
+              0.46875,
+              0.330078125
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.1171875,
+            "tick_2_3_queue_mae": 0.1171875,
+            "delivered_mae_by_tick": [
+              0.25,
+              0.234375,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "96": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.1451587677001953,
+        "tick_2_3_action_difference_mae": 0.12353515625,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 0.2310791015625,
+            "tick_2_3_queue_mae": 0.2310791015625,
+            "delivered_mae_by_tick": [
+              0.09375,
+              0.1875,
+              0.274658203125
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.15862083435058594,
+            "tick_2_3_queue_mae": 0.15862083435058594,
+            "delivered_mae_by_tick": [
+              0.09375,
+              0.18310546875,
+              0.13413619995117188
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.0457763671875,
+            "tick_2_3_queue_mae": 0.0457763671875,
+            "delivered_mae_by_tick": [
+              0.09375,
+              0.091552734375,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      }
+    },
+    "stable_low/prefix:0:queue_and_pending": {
+      "fixed_prior": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 2.1041666666666665,
+        "tick_2_3_action_difference_mae": 0.4583333333333333,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 2.4375,
+            "tick_2_3_queue_mae": 2.4375,
+            "delivered_mae_by_tick": [
+              1.0,
+              2.0,
+              2.875
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 2.125,
+            "tick_2_3_queue_mae": 2.125,
+            "delivered_mae_by_tick": [
+              1.0,
+              2.0,
+              2.25
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 1.75,
+            "tick_2_3_queue_mae": 1.75,
+            "delivered_mae_by_tick": [
+              1.0,
+              1.75,
+              1.75
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "0": {
+        "comparisons": 4,
+        "supported": 0,
+        "coverage": 0.0,
+        "tick_2_3_state_mae": null,
+        "tick_2_3_action_difference_mae": null,
+        "support_range_contains_actual": null,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          },
+          "1": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          },
+          "0": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          }
+        }
+      },
+      "6": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.0,
+        "tick_2_3_action_difference_mae": 0.0,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 0.0,
+            "tick_2_3_queue_mae": 0.0,
+            "delivered_mae_by_tick": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.0,
+            "tick_2_3_queue_mae": 0.0,
+            "delivered_mae_by_tick": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.0,
+            "tick_2_3_queue_mae": 0.0,
+            "delivered_mae_by_tick": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "24": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.5992838541666666,
+        "tick_2_3_action_difference_mae": 0.034505208333333336,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 0.6240234375,
+            "tick_2_3_queue_mae": 0.6240234375,
+            "delivered_mae_by_tick": [
+              0.25,
+              0.5,
+              0.748046875
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.6015625,
+            "tick_2_3_queue_mae": 0.6015625,
+            "delivered_mae_by_tick": [
+              0.25,
+              0.5,
+              0.703125
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.572265625,
+            "tick_2_3_queue_mae": 0.572265625,
+            "delivered_mae_by_tick": [
+              0.25,
+              0.484375,
+              0.66015625
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "96": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.2307300567626953,
+        "tick_2_3_action_difference_mae": 0.005023956298828125,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 0.23432350158691406,
+            "tick_2_3_queue_mae": 0.23432350158691406,
+            "delivered_mae_by_tick": [
+              0.09375,
+              0.1875,
+              0.2811470031738281
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.2310791015625,
+            "tick_2_3_queue_mae": 0.2310791015625,
+            "delivered_mae_by_tick": [
+              0.09375,
+              0.1875,
+              0.274658203125
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.22678756713867188,
+            "tick_2_3_queue_mae": 0.22678756713867188,
+            "delivered_mae_by_tick": [
+              0.09375,
+              0.185302734375,
+              0.26827239990234375
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      }
+    },
+    "stable_low/prefix:8:pending": {
+      "fixed_prior": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 1.2291666666666667,
+        "tick_2_3_action_difference_mae": 1.1666666666666667,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 2.125,
+            "tick_2_3_queue_mae": 2.125,
+            "delivered_mae_by_tick": [
+              1.0,
+              2.0,
+              2.25
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 1.1875,
+            "tick_2_3_queue_mae": 1.1875,
+            "delivered_mae_by_tick": [
+              1.0,
+              1.5,
+              0.875
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.375,
+            "tick_2_3_queue_mae": 0.375,
+            "delivered_mae_by_tick": [
+              1.0,
+              0.75,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "0": {
+        "comparisons": 4,
+        "supported": 0,
+        "coverage": 0.0,
+        "tick_2_3_state_mae": null,
+        "tick_2_3_action_difference_mae": null,
+        "support_range_contains_actual": null,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          },
+          "1": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          },
+          "0": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          }
+        }
+      },
+      "6": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.0,
+        "tick_2_3_action_difference_mae": 0.0,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 0.0,
+            "tick_2_3_queue_mae": 0.0,
+            "delivered_mae_by_tick": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.0,
+            "tick_2_3_queue_mae": 0.0,
+            "delivered_mae_by_tick": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.0,
+            "tick_2_3_queue_mae": 0.0,
+            "delivered_mae_by_tick": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "24": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.3727213541666667,
+        "tick_2_3_action_difference_mae": 0.3229166666666667,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 0.6015625,
+            "tick_2_3_queue_mae": 0.6015625,
+            "delivered_mae_by_tick": [
+              0.25,
+              0.5,
+              0.703125
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.3994140625,
+            "tick_2_3_queue_mae": 0.3994140625,
+            "delivered_mae_by_tick": [
+              0.25,
+              0.46875,
+              0.330078125
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.1171875,
+            "tick_2_3_queue_mae": 0.1171875,
+            "delivered_mae_by_tick": [
+              0.25,
+              0.234375,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "96": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.1451587677001953,
+        "tick_2_3_action_difference_mae": 0.12353515625,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 0.2310791015625,
+            "tick_2_3_queue_mae": 0.2310791015625,
+            "delivered_mae_by_tick": [
+              0.09375,
+              0.1875,
+              0.274658203125
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.15862083435058594,
+            "tick_2_3_queue_mae": 0.15862083435058594,
+            "delivered_mae_by_tick": [
+              0.09375,
+              0.18310546875,
+              0.13413619995117188
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.0457763671875,
+            "tick_2_3_queue_mae": 0.0457763671875,
+            "delivered_mae_by_tick": [
+              0.09375,
+              0.091552734375,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      }
+    },
+    "stable_low/prefix:8:queue_and_pending": {
+      "fixed_prior": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 2.1041666666666665,
+        "tick_2_3_action_difference_mae": 0.4583333333333333,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 2.4375,
+            "tick_2_3_queue_mae": 2.4375,
+            "delivered_mae_by_tick": [
+              1.0,
+              2.0,
+              2.875
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 2.125,
+            "tick_2_3_queue_mae": 2.125,
+            "delivered_mae_by_tick": [
+              1.0,
+              2.0,
+              2.25
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 1.75,
+            "tick_2_3_queue_mae": 1.75,
+            "delivered_mae_by_tick": [
+              1.0,
+              1.75,
+              1.75
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "0": {
+        "comparisons": 4,
+        "supported": 0,
+        "coverage": 0.0,
+        "tick_2_3_state_mae": null,
+        "tick_2_3_action_difference_mae": null,
+        "support_range_contains_actual": null,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          },
+          "1": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          },
+          "0": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          }
+        }
+      },
+      "6": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.0,
+        "tick_2_3_action_difference_mae": 0.0,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 0.0,
+            "tick_2_3_queue_mae": 0.0,
+            "delivered_mae_by_tick": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.0,
+            "tick_2_3_queue_mae": 0.0,
+            "delivered_mae_by_tick": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.0,
+            "tick_2_3_queue_mae": 0.0,
+            "delivered_mae_by_tick": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "24": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.5992838541666666,
+        "tick_2_3_action_difference_mae": 0.034505208333333336,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 0.6240234375,
+            "tick_2_3_queue_mae": 0.6240234375,
+            "delivered_mae_by_tick": [
+              0.25,
+              0.5,
+              0.748046875
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.6015625,
+            "tick_2_3_queue_mae": 0.6015625,
+            "delivered_mae_by_tick": [
+              0.25,
+              0.5,
+              0.703125
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.572265625,
+            "tick_2_3_queue_mae": 0.572265625,
+            "delivered_mae_by_tick": [
+              0.25,
+              0.484375,
+              0.66015625
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "96": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.2307300567626953,
+        "tick_2_3_action_difference_mae": 0.005023956298828125,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 0.23432350158691406,
+            "tick_2_3_queue_mae": 0.23432350158691406,
+            "delivered_mae_by_tick": [
+              0.09375,
+              0.1875,
+              0.2811470031738281
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.2310791015625,
+            "tick_2_3_queue_mae": 0.2310791015625,
+            "delivered_mae_by_tick": [
+              0.09375,
+              0.1875,
+              0.274658203125
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.22678756713867188,
+            "tick_2_3_queue_mae": 0.22678756713867188,
+            "delivered_mae_by_tick": [
+              0.09375,
+              0.185302734375,
+              0.26827239990234375
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      }
+    },
+    "noisy_low/prefix:0:pending": {
+      "fixed_prior": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.59375,
+        "tick_2_3_action_difference_mae": 0.5729166666666666,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 0.875,
+            "tick_2_3_queue_mae": 0.875,
+            "delivered_mae_by_tick": [
+              1.0,
+              1.0,
+              0.75
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.65625,
+            "tick_2_3_queue_mae": 0.65625,
+            "delivered_mae_by_tick": [
+              1.0,
+              1.0,
+              0.3125
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.25,
+            "tick_2_3_queue_mae": 0.25,
+            "delivered_mae_by_tick": [
+              1.0,
+              0.5,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "0": {
+        "comparisons": 4,
+        "supported": 0,
+        "coverage": 0.0,
+        "tick_2_3_state_mae": null,
+        "tick_2_3_action_difference_mae": null,
+        "support_range_contains_actual": null,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          },
+          "1": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          },
+          "0": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          }
+        }
+      },
+      "6": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.7916666666666666,
+        "tick_2_3_action_difference_mae": 0.6666666666666666,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 1.25,
+            "tick_2_3_queue_mae": 1.25,
+            "delivered_mae_by_tick": [
+              0.5,
+              1.0,
+              1.5
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.875,
+            "tick_2_3_queue_mae": 0.875,
+            "delivered_mae_by_tick": [
+              0.5,
+              1.0,
+              0.75
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.25,
+            "tick_2_3_queue_mae": 0.25,
+            "delivered_mae_by_tick": [
+              0.5,
+              0.5,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "24": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.70556640625,
+        "tick_2_3_action_difference_mae": 0.5546875,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 1.07421875,
+            "tick_2_3_queue_mae": 1.07421875,
+            "delivered_mae_by_tick": [
+              0.625,
+              1.0,
+              1.1484375
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.79248046875,
+            "tick_2_3_queue_mae": 0.79248046875,
+            "delivered_mae_by_tick": [
+              0.625,
+              1.0,
+              0.5849609375
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.25,
+            "tick_2_3_queue_mae": 0.25,
+            "delivered_mae_by_tick": [
+              0.625,
+              0.5,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "96": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.757600466410319,
+        "tick_2_3_action_difference_mae": 0.6216227213541666,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 1.18133544921875,
+            "tick_2_3_queue_mae": 1.18133544921875,
+            "delivered_mae_by_tick": [
+              0.546875,
+              1.0,
+              1.3626708984375
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.841465950012207,
+            "tick_2_3_queue_mae": 0.841465950012207,
+            "delivered_mae_by_tick": [
+              0.546875,
+              1.0,
+              0.6829319000244141
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.25,
+            "tick_2_3_queue_mae": 0.25,
+            "delivered_mae_by_tick": [
+              0.546875,
+              0.5,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      }
+    },
+    "noisy_low/prefix:0:queue_and_pending": {
+      "fixed_prior": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.7395833333333334,
+        "tick_2_3_action_difference_mae": 0.6354166666666666,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 1.109375,
+            "tick_2_3_queue_mae": 1.109375,
+            "delivered_mae_by_tick": [
+              1.0,
+              1.0,
+              1.21875
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.640625,
+            "tick_2_3_queue_mae": 0.640625,
+            "delivered_mae_by_tick": [
+              1.0,
+              0.875,
+              0.40625
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.46875,
+            "tick_2_3_queue_mae": 0.46875,
+            "delivered_mae_by_tick": [
+              1.0,
+              0.75,
+              0.1875
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "0": {
+        "comparisons": 4,
+        "supported": 0,
+        "coverage": 0.0,
+        "tick_2_3_state_mae": null,
+        "tick_2_3_action_difference_mae": null,
+        "support_range_contains_actual": null,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          },
+          "1": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          },
+          "0": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          }
+        }
+      },
+      "6": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 1.25,
+        "tick_2_3_action_difference_mae": 0.0,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 1.25,
+            "tick_2_3_queue_mae": 1.25,
+            "delivered_mae_by_tick": [
+              0.5,
+              1.0,
+              1.5
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 1.25,
+            "tick_2_3_queue_mae": 1.25,
+            "delivered_mae_by_tick": [
+              0.5,
+              1.0,
+              1.5
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 1.25,
+            "tick_2_3_queue_mae": 1.25,
+            "delivered_mae_by_tick": [
+              0.5,
+              1.0,
+              1.5
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "24": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 1.0174153645833333,
+        "tick_2_3_action_difference_mae": 0.10660807291666667,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 1.057373046875,
+            "tick_2_3_queue_mae": 1.057373046875,
+            "delivered_mae_by_tick": [
+              0.625,
+              1.0,
+              1.11474609375
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 1.023681640625,
+            "tick_2_3_queue_mae": 1.023681640625,
+            "delivered_mae_by_tick": [
+              0.625,
+              0.9921875,
+              1.05517578125
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.97119140625,
+            "tick_2_3_queue_mae": 0.97119140625,
+            "delivered_mae_by_tick": [
+              0.625,
+              0.9375,
+              1.0048828125
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "96": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 1.1599340438842773,
+        "tick_2_3_action_difference_mae": 0.034651756286621094,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 1.1789021492004395,
+            "tick_2_3_queue_mae": 1.1789021492004395,
+            "delivered_mae_by_tick": [
+              0.546875,
+              1.0,
+              1.357804298400879
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 1.1632208824157715,
+            "tick_2_3_queue_mae": 1.1632208824157715,
+            "delivered_mae_by_tick": [
+              0.546875,
+              0.9989013671875,
+              1.327540397644043
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 1.137679100036621,
+            "tick_2_3_queue_mae": 1.137679100036621,
+            "delivered_mae_by_tick": [
+              0.546875,
+              0.9765625,
+              1.2987957000732422
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      }
+    },
+    "noisy_low/prefix:8:pending": {
+      "fixed_prior": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.59375,
+        "tick_2_3_action_difference_mae": 0.5729166666666666,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 0.875,
+            "tick_2_3_queue_mae": 0.875,
+            "delivered_mae_by_tick": [
+              1.0,
+              1.0,
+              0.75
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.65625,
+            "tick_2_3_queue_mae": 0.65625,
+            "delivered_mae_by_tick": [
+              1.0,
+              1.0,
+              0.3125
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.25,
+            "tick_2_3_queue_mae": 0.25,
+            "delivered_mae_by_tick": [
+              1.0,
+              0.5,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "0": {
+        "comparisons": 4,
+        "supported": 0,
+        "coverage": 0.0,
+        "tick_2_3_state_mae": null,
+        "tick_2_3_action_difference_mae": null,
+        "support_range_contains_actual": null,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          },
+          "1": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          },
+          "0": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          }
+        }
+      },
+      "6": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.7916666666666666,
+        "tick_2_3_action_difference_mae": 0.6666666666666666,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 1.25,
+            "tick_2_3_queue_mae": 1.25,
+            "delivered_mae_by_tick": [
+              0.0,
+              1.0,
+              1.5
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.875,
+            "tick_2_3_queue_mae": 0.875,
+            "delivered_mae_by_tick": [
+              0.0,
+              1.0,
+              0.75
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.25,
+            "tick_2_3_queue_mae": 0.25,
+            "delivered_mae_by_tick": [
+              0.0,
+              0.5,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "24": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.70556640625,
+        "tick_2_3_action_difference_mae": 0.5546875,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 1.07421875,
+            "tick_2_3_queue_mae": 1.07421875,
+            "delivered_mae_by_tick": [
+              0.25,
+              1.0,
+              1.1484375
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.79248046875,
+            "tick_2_3_queue_mae": 0.79248046875,
+            "delivered_mae_by_tick": [
+              0.25,
+              1.0,
+              0.5849609375
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.25,
+            "tick_2_3_queue_mae": 0.25,
+            "delivered_mae_by_tick": [
+              0.25,
+              0.5,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "96": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.757600466410319,
+        "tick_2_3_action_difference_mae": 0.6216227213541666,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 1.18133544921875,
+            "tick_2_3_queue_mae": 1.18133544921875,
+            "delivered_mae_by_tick": [
+              0.09375,
+              1.0,
+              1.3626708984375
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.841465950012207,
+            "tick_2_3_queue_mae": 0.841465950012207,
+            "delivered_mae_by_tick": [
+              0.09375,
+              1.0,
+              0.6829319000244141
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.25,
+            "tick_2_3_queue_mae": 0.25,
+            "delivered_mae_by_tick": [
+              0.09375,
+              0.5,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      }
+    },
+    "noisy_low/prefix:8:queue_and_pending": {
+      "fixed_prior": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.7916666666666666,
+        "tick_2_3_action_difference_mae": 0.4166666666666667,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 1.0,
+            "tick_2_3_queue_mae": 1.0,
+            "delivered_mae_by_tick": [
+              1.0,
+              0.5,
+              1.5
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.75,
+            "tick_2_3_queue_mae": 0.75,
+            "delivered_mae_by_tick": [
+              1.0,
+              0.5,
+              1.0
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.625,
+            "tick_2_3_queue_mae": 0.625,
+            "delivered_mae_by_tick": [
+              1.0,
+              0.625,
+              0.625
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "0": {
+        "comparisons": 4,
+        "supported": 0,
+        "coverage": 0.0,
+        "tick_2_3_state_mae": null,
+        "tick_2_3_action_difference_mae": null,
+        "support_range_contains_actual": null,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          },
+          "1": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          },
+          "0": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          }
+        }
+      },
+      "6": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 1.75,
+        "tick_2_3_action_difference_mae": 0.3333333333333333,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 2.0,
+            "tick_2_3_queue_mae": 2.0,
+            "delivered_mae_by_tick": [
+              1.0,
+              1.5,
+              2.5
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 1.75,
+            "tick_2_3_queue_mae": 1.75,
+            "delivered_mae_by_tick": [
+              1.0,
+              1.5,
+              2.0
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 1.5,
+            "tick_2_3_queue_mae": 1.5,
+            "delivered_mae_by_tick": [
+              1.0,
+              1.5,
+              1.5
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "24": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 1.4503580729166667,
+        "tick_2_3_action_difference_mae": 0.3385416666666667,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 1.68798828125,
+            "tick_2_3_queue_mae": 1.68798828125,
+            "delivered_mae_by_tick": [
+              1.0,
+              1.25,
+              2.1259765625
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 1.44921875,
+            "tick_2_3_queue_mae": 1.44921875,
+            "delivered_mae_by_tick": [
+              1.0,
+              1.25,
+              1.6484375
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 1.2138671875,
+            "tick_2_3_queue_mae": 1.2138671875,
+            "delivered_mae_by_tick": [
+              1.0,
+              1.2578125,
+              1.169921875
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "96": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 1.6346349716186523,
+        "tick_2_3_action_difference_mae": 0.3340657552083333,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 1.882838249206543,
+            "tick_2_3_queue_mae": 1.882838249206543,
+            "delivered_mae_by_tick": [
+              1.0,
+              1.40625,
+              2.359426498413086
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 1.63446044921875,
+            "tick_2_3_queue_mae": 1.63446044921875,
+            "delivered_mae_by_tick": [
+              1.0,
+              1.40625,
+              1.8626708984375
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 1.386606216430664,
+            "tick_2_3_queue_mae": 1.386606216430664,
+            "delivered_mae_by_tick": [
+              1.0,
+              1.4073486328125,
+              1.3658638000488281
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      }
+    },
+    "low_to_high/prefix:0:pending": {
+      "fixed_prior": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 1.2291666666666667,
+        "tick_2_3_action_difference_mae": 1.1666666666666667,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 2.125,
+            "tick_2_3_queue_mae": 2.125,
+            "delivered_mae_by_tick": [
+              1.0,
+              2.0,
+              2.25
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 1.1875,
+            "tick_2_3_queue_mae": 1.1875,
+            "delivered_mae_by_tick": [
+              1.0,
+              1.5,
+              0.875
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.375,
+            "tick_2_3_queue_mae": 0.375,
+            "delivered_mae_by_tick": [
+              1.0,
+              0.75,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "0": {
+        "comparisons": 4,
+        "supported": 0,
+        "coverage": 0.0,
+        "tick_2_3_state_mae": null,
+        "tick_2_3_action_difference_mae": null,
+        "support_range_contains_actual": null,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          },
+          "1": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          },
+          "0": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          }
+        }
+      },
+      "6": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.0,
+        "tick_2_3_action_difference_mae": 0.0,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 0.0,
+            "tick_2_3_queue_mae": 0.0,
+            "delivered_mae_by_tick": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.0,
+            "tick_2_3_queue_mae": 0.0,
+            "delivered_mae_by_tick": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.0,
+            "tick_2_3_queue_mae": 0.0,
+            "delivered_mae_by_tick": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "24": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.3727213541666667,
+        "tick_2_3_action_difference_mae": 0.3229166666666667,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 0.6015625,
+            "tick_2_3_queue_mae": 0.6015625,
+            "delivered_mae_by_tick": [
+              0.25,
+              0.5,
+              0.703125
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.3994140625,
+            "tick_2_3_queue_mae": 0.3994140625,
+            "delivered_mae_by_tick": [
+              0.25,
+              0.46875,
+              0.330078125
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.1171875,
+            "tick_2_3_queue_mae": 0.1171875,
+            "delivered_mae_by_tick": [
+              0.25,
+              0.234375,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "96": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.1451587677001953,
+        "tick_2_3_action_difference_mae": 0.12353515625,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 0.2310791015625,
+            "tick_2_3_queue_mae": 0.2310791015625,
+            "delivered_mae_by_tick": [
+              0.09375,
+              0.1875,
+              0.274658203125
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.15862083435058594,
+            "tick_2_3_queue_mae": 0.15862083435058594,
+            "delivered_mae_by_tick": [
+              0.09375,
+              0.18310546875,
+              0.13413619995117188
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.0457763671875,
+            "tick_2_3_queue_mae": 0.0457763671875,
+            "delivered_mae_by_tick": [
+              0.09375,
+              0.091552734375,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      }
+    },
+    "low_to_high/prefix:0:queue_and_pending": {
+      "fixed_prior": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 2.1041666666666665,
+        "tick_2_3_action_difference_mae": 0.4583333333333333,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 2.4375,
+            "tick_2_3_queue_mae": 2.4375,
+            "delivered_mae_by_tick": [
+              1.0,
+              2.0,
+              2.875
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 2.125,
+            "tick_2_3_queue_mae": 2.125,
+            "delivered_mae_by_tick": [
+              1.0,
+              2.0,
+              2.25
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 1.75,
+            "tick_2_3_queue_mae": 1.75,
+            "delivered_mae_by_tick": [
+              1.0,
+              1.75,
+              1.75
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "0": {
+        "comparisons": 4,
+        "supported": 0,
+        "coverage": 0.0,
+        "tick_2_3_state_mae": null,
+        "tick_2_3_action_difference_mae": null,
+        "support_range_contains_actual": null,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          },
+          "1": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          },
+          "0": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          }
+        }
+      },
+      "6": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.0,
+        "tick_2_3_action_difference_mae": 0.0,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 0.0,
+            "tick_2_3_queue_mae": 0.0,
+            "delivered_mae_by_tick": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.0,
+            "tick_2_3_queue_mae": 0.0,
+            "delivered_mae_by_tick": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.0,
+            "tick_2_3_queue_mae": 0.0,
+            "delivered_mae_by_tick": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "24": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.5992838541666666,
+        "tick_2_3_action_difference_mae": 0.034505208333333336,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 0.6240234375,
+            "tick_2_3_queue_mae": 0.6240234375,
+            "delivered_mae_by_tick": [
+              0.25,
+              0.5,
+              0.748046875
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.6015625,
+            "tick_2_3_queue_mae": 0.6015625,
+            "delivered_mae_by_tick": [
+              0.25,
+              0.5,
+              0.703125
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.572265625,
+            "tick_2_3_queue_mae": 0.572265625,
+            "delivered_mae_by_tick": [
+              0.25,
+              0.484375,
+              0.66015625
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "96": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.2307300567626953,
+        "tick_2_3_action_difference_mae": 0.005023956298828125,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 0.23432350158691406,
+            "tick_2_3_queue_mae": 0.23432350158691406,
+            "delivered_mae_by_tick": [
+              0.09375,
+              0.1875,
+              0.2811470031738281
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.2310791015625,
+            "tick_2_3_queue_mae": 0.2310791015625,
+            "delivered_mae_by_tick": [
+              0.09375,
+              0.1875,
+              0.274658203125
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.22678756713867188,
+            "tick_2_3_queue_mae": 0.22678756713867188,
+            "delivered_mae_by_tick": [
+              0.09375,
+              0.185302734375,
+              0.26827239990234375
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      }
+    },
+    "low_to_high/prefix:8:pending": {
+      "fixed_prior": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.6041666666666666,
+        "tick_2_3_action_difference_mae": 0.8333333333333334,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 1.375,
+            "tick_2_3_queue_mae": 1.375,
+            "delivered_mae_by_tick": [
+              1.0,
+              2.0,
+              0.75
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.3125,
+            "tick_2_3_queue_mae": 0.3125,
+            "delivered_mae_by_tick": [
+              1.0,
+              0.5,
+              0.125
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.125,
+            "tick_2_3_queue_mae": 0.125,
+            "delivered_mae_by_tick": [
+              1.0,
+              0.25,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "0": {
+        "comparisons": 4,
+        "supported": 0,
+        "coverage": 0.0,
+        "tick_2_3_state_mae": null,
+        "tick_2_3_action_difference_mae": null,
+        "support_range_contains_actual": null,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          },
+          "1": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          },
+          "0": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          }
+        }
+      },
+      "6": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 1.8333333333333333,
+        "tick_2_3_action_difference_mae": 2.0,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 3.5,
+            "tick_2_3_queue_mae": 3.5,
+            "delivered_mae_by_tick": [
+              2.0,
+              4.0,
+              3.0
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 1.5,
+            "tick_2_3_queue_mae": 1.5,
+            "delivered_mae_by_tick": [
+              2.0,
+              2.0,
+              1.0
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.5,
+            "tick_2_3_queue_mae": 0.5,
+            "delivered_mae_by_tick": [
+              2.0,
+              1.0,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "24": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 1.4606119791666667,
+        "tick_2_3_action_difference_mae": 1.6770833333333333,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 2.8984375,
+            "tick_2_3_queue_mae": 2.8984375,
+            "delivered_mae_by_tick": [
+              1.75,
+              3.5,
+              2.296875
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 1.1005859375,
+            "tick_2_3_queue_mae": 1.1005859375,
+            "delivered_mae_by_tick": [
+              1.75,
+              1.53125,
+              0.669921875
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.3828125,
+            "tick_2_3_queue_mae": 0.3828125,
+            "delivered_mae_by_tick": [
+              1.75,
+              0.765625,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "96": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 1.688174565633138,
+        "tick_2_3_action_difference_mae": 1.87646484375,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 3.2689208984375,
+            "tick_2_3_queue_mae": 3.2689208984375,
+            "delivered_mae_by_tick": [
+              1.90625,
+              3.8125,
+              2.725341796875
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 1.341379165649414,
+            "tick_2_3_queue_mae": 1.341379165649414,
+            "delivered_mae_by_tick": [
+              1.90625,
+              1.81689453125,
+              0.8658638000488281
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.4542236328125,
+            "tick_2_3_queue_mae": 0.4542236328125,
+            "delivered_mae_by_tick": [
+              1.90625,
+              0.908447265625,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      }
+    },
+    "low_to_high/prefix:8:queue_and_pending": {
+      "fixed_prior": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 0.6041666666666666,
+        "tick_2_3_action_difference_mae": 0.8333333333333334,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 1.375,
+            "tick_2_3_queue_mae": 1.375,
+            "delivered_mae_by_tick": [
+              1.0,
+              2.0,
+              0.75
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 0.3125,
+            "tick_2_3_queue_mae": 0.3125,
+            "delivered_mae_by_tick": [
+              1.0,
+              0.5,
+              0.125
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.125,
+            "tick_2_3_queue_mae": 0.125,
+            "delivered_mae_by_tick": [
+              1.0,
+              0.25,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "0": {
+        "comparisons": 4,
+        "supported": 0,
+        "coverage": 0.0,
+        "tick_2_3_state_mae": null,
+        "tick_2_3_action_difference_mae": null,
+        "support_range_contains_actual": null,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          },
+          "1": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          },
+          "0": {
+            "tick_2_3_delivered_mae": null,
+            "tick_2_3_queue_mae": null,
+            "delivered_mae_by_tick": [
+              null,
+              null,
+              null
+            ],
+            "service_sensitive_comparisons": 0
+          }
+        }
+      },
+      "6": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 1.8333333333333333,
+        "tick_2_3_action_difference_mae": 2.0,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 3.5,
+            "tick_2_3_queue_mae": 3.5,
+            "delivered_mae_by_tick": [
+              2.0,
+              4.0,
+              3.0
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 1.5,
+            "tick_2_3_queue_mae": 1.5,
+            "delivered_mae_by_tick": [
+              2.0,
+              2.0,
+              1.0
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.5,
+            "tick_2_3_queue_mae": 0.5,
+            "delivered_mae_by_tick": [
+              2.0,
+              1.0,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "24": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 1.4606119791666667,
+        "tick_2_3_action_difference_mae": 1.6770833333333333,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 2.8984375,
+            "tick_2_3_queue_mae": 2.8984375,
+            "delivered_mae_by_tick": [
+              1.75,
+              3.5,
+              2.296875
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 1.1005859375,
+            "tick_2_3_queue_mae": 1.1005859375,
+            "delivered_mae_by_tick": [
+              1.75,
+              1.53125,
+              0.669921875
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.3828125,
+            "tick_2_3_queue_mae": 0.3828125,
+            "delivered_mae_by_tick": [
+              1.75,
+              0.765625,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      },
+      "96": {
+        "comparisons": 4,
+        "supported": 4,
+        "coverage": 1.0,
+        "tick_2_3_state_mae": 1.688174565633138,
+        "tick_2_3_action_difference_mae": 1.87646484375,
+        "support_range_contains_actual": 1.0,
+        "per_action": {
+          "3": {
+            "tick_2_3_delivered_mae": 3.2689208984375,
+            "tick_2_3_queue_mae": 3.2689208984375,
+            "delivered_mae_by_tick": [
+              1.90625,
+              3.8125,
+              2.725341796875
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "1": {
+            "tick_2_3_delivered_mae": 1.341379165649414,
+            "tick_2_3_queue_mae": 1.341379165649414,
+            "delivered_mae_by_tick": [
+              1.90625,
+              1.81689453125,
+              0.8658638000488281
+            ],
+            "service_sensitive_comparisons": 4
+          },
+          "0": {
+            "tick_2_3_delivered_mae": 0.4542236328125,
+            "tick_2_3_queue_mae": 0.4542236328125,
+            "delivered_mae_by_tick": [
+              1.90625,
+              0.908447265625,
+              0.0
+            ],
+            "service_sensitive_comparisons": 4
+          }
+        }
+      }
+    }
+  },
+  "existing_online_one_step_mae": 0.46236111111111106,
+  "existing_online_one_step_predictions": 432,
+  "evaluation_unsafe": 0,
+  "execution_engine_calls": 2448,
+  "total_cpu_seconds": 40.83157,
+  "total_wall_seconds": 48.621373415982816,
+  "semantic_hash": "4d8f700cf618202479830a310f597d45c3c57cc6fb1c8d78602f2fb7c3236cb1",
+  "limits": [
+    "iid stationary marginal assumed",
+    "known action/arrival rules are not learned",
+    "no action ranking or decision improvement claim"
+  ],
+  "initial_states": {
+    "comparisons": 48,
+    "nonempty_queue": 19,
+    "nonempty_pending": 48,
+    "nonempty_work": 48,
+    "receipt_backed_prefix_transitions": 792
+  },
+  "replication": {
+    "runs": 2,
+    "scores_equal": true,
+    "per_action_scores_equal": true,
+    "semantic_hash_equal": true,
+    "second_total_cpu_seconds": 38.889084,
+    "second_total_wall_seconds": 45.99651966599049,
+    "second_fit": {
+      "0": {
+        "cpu_seconds": 0.1145529999999999,
+        "wall_seconds": 0.12707412499003112,
+        "training_count": 0,
+        "informative_count": 0,
+        "probe_count": 0,
+        "ordinary_count": 0
+      },
+      "6": {
+        "cpu_seconds": 0.1086450000000001,
+        "wall_seconds": 0.12118812499102205,
+        "training_count": 6,
+        "informative_count": 4,
+        "probe_count": 2,
+        "ordinary_count": 2
+      },
+      "24": {
+        "cpu_seconds": 0.12939999999999996,
+        "wall_seconds": 0.1415128749795258,
+        "training_count": 24,
+        "informative_count": 16,
+        "probe_count": 8,
+        "ordinary_count": 8
+      },
+      "96": {
+        "cpu_seconds": 0.13214099999999984,
+        "wall_seconds": 0.148906042042654,
+        "training_count": 96,
+        "informative_count": 64,
+        "probe_count": 32,
+        "ordinary_count": 32
+      }
+    },
+    "second_inference": {
+      "fixed_prior": {
+        "cpu_seconds": 0.06454700000000013,
+        "wall_seconds": 0.0647496209712699,
+        "engine_calls": 144,
+        "service_paths": 1152
+      },
+      "0": {
+        "cpu_seconds": 0.043692000000021824,
+        "wall_seconds": 0.04373549891170114,
+        "engine_calls": 144,
+        "service_paths": 0
+      },
+      "6": {
+        "cpu_seconds": 0.06831100000000756,
+        "wall_seconds": 0.06840645795455202,
+        "engine_calls": 144,
+        "service_paths": 1152
+      },
+      "24": {
+        "cpu_seconds": 0.0695750000000106,
+        "wall_seconds": 0.06994566967478022,
+        "engine_calls": 144,
+        "service_paths": 1152
+      },
+      "96": {
+        "cpu_seconds": 0.06998299999999658,
+        "wall_seconds": 0.07003428926691413,
+        "engine_calls": 144,
+        "service_paths": 1152
+      }
+    },
+    "audits": [
+      {
+        "status": "passed-queue-temporal-audit",
+        "training_transitions": 96,
+        "evaluation_transitions": 1224,
+        "paired_comparisons": 48,
+        "models": 4,
+        "audit_sha256": "c6c3a7845ac83e1e4bc6f015bdfdd302249f19125fd71c40396c0d922dd41906",
+        "scope": "Revalidated receipts, authority, fit, paired forecasts and scores; timing not independently certified"
+      },
+      {
+        "status": "passed-queue-temporal-audit",
+        "training_transitions": 96,
+        "evaluation_transitions": 1224,
+        "paired_comparisons": 48,
+        "models": 4,
+        "audit_sha256": "c6c3a7845ac83e1e4bc6f015bdfdd302249f19125fd71c40396c0d922dd41906",
+        "scope": "Revalidated receipts, authority, fit, paired forecasts and scores; timing not independently certified"
+      }
+    ]
+  }
+}
