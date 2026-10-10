@@ -1,5 +1,15 @@
 # Composable World Model Runtime
 
+## 長期的な目的
+
+PreActは世界モデルの機能を交換可能なモジュールとして再現し、認知・予測・
+シミュレーション・意思決定・実行を統合する。目指すのは、エージェントが環境の
+内部モデルを構築し、複数Actionの未来を不確実性も含めて比較し、適切に実行し、
+実結果からモデルと行動を改善し続ける能力である。
+特定のニューラル構造・学習手法・表現を固定しない。この目的は到達済み能力の宣言ではない。
+能力・重要責務・データ意味・安全境界・大幅なスコープ変更は設計承認を要し、
+承認内の実装・修正・検証は自律的に進める。詳細はAGENTS.mdを参照する。
+
 PreAct is not a monolithic learned world model. It is a domain-independent runtime
 that composes heterogeneous prediction, simulation and verification engines to
 construct and verify task-relevant futures before an agent acts.

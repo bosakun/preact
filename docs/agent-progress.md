@@ -516,3 +516,43 @@ PR #8: https://github.com/bosakun/preact/pull/8 。main 0b3e88bfからの独立1
 517ローカルtests＋auditor更新後の2再現tests、frontend/E2E、2本測定のauthority監査を完了。
 GitHub CIを確認中。最新headの結果をPR Checksで確認できる。mainへのmergeは行わない。
 残る研究課題はshift対応、未見入力/部分観測の表現、不確実性校正、Software予測と再開契約。
+
+## 2026-10-10 — 承認済み3 tick Action比較
+
+main fb49828 / PR #8を確認し、元workspaceの未コミット変更を保持した独立worktree・
+feat/learned-queue-temporalで作業。開発者が承認した能力分布＋既知遅延Dynamicsの設計を実装。
+上位思想と重要設計の承認境界を既存文書/AGENTS.mdへ追加し、自律開発規則を維持した。
+QueueServiceAdapterは全遷移数と有効能力観測数、probe/ordinaryを区別する。
+既存Dataset/Trainer/Artifactを再利用し、Core/Runtime/Gate/Memory/既存Adapter差分はゼロ。
+QueueTemporalEngineと読み取り専用比較はRegistryの明示的Claim/continuationを通す。
+最大3 tick/8経路/Action。予測はINFERENCEでcheckを確定せず、既定経路も行動順位も変更しない。
+pilot成立後、固定protocol（SHA 8e99c903…）を新DBで反復。
+各96学習遷移（有効64=probe32+ordinary32）、504評価遷移、24 paired比較、4モデルを監査。
+安定lowのAction差分MAEは固定事前0.583333→学習96件0.061768、noisy0.5→0.273438。
+low→high全体0.5→0.5で改善なし。変化後は0.416667→0.938232と悪化。
+標本6件が96件より良い条件もあり、学習量と改善の単調関係を主張しない。
+全分岐support範囲の包含100%は校正や学習効果の証拠ではない。独立/定常性は仮定。
+初期テストではcapability tier必須項目、列挙sample budget不足が発覚し修正した。
+監査ではJSONのtuple/list差を意味的に正規化。偽スコア/trace拒否テストも追加。
+Python全536 tests、Ruff、contract byte一致/build、独立ポート18333のChromium E2E6 tests成功。
+distribution integrityはwheel/sdistの78 sources照合成功。
+最終State identity/schema否定テスト追加後に全チェックとdistributionを再確認する。
+raw DB/manifest/model/casesはprivate cacheのみ。公開は固定protocol・集計JSON。
+残る課題: 隠れたshift検出/失効、時間相関、区間校正、意思決定への有効な接続。
+次: 最終再現結果・全回帰・差分監査、独立PR作成/CI確認。mainへmergeしない。
+
+## 2026-10-10 — Temporal比較 最終ローカル受入
+
+State内容ID再検証・将来schema拒否を追加後、全Python537 passed in64.73s
+（既存517＋新規20）、Ruff lint/format170 files成功。
+frontend契約byte一致/build成功。8000番の既存サービスを避けた独立ポート18333の
+今回のworktree APIで既存Chromium6 passed in8.2s。一時設定は削除し公開しない。
+最終sourceの新DB2回で96/504遷移・24比較・4モデルを再監査し、全スコアと意味的hash一致。
+96件fit CPU0.10565/wall0.11807秒、72推論は固定事前CPU31.38ms→学習34.60ms（約10.3%増）。
+全benchmark wall19.75/20.07秒。標準実行の高速化や意思決定改善は主張しない。
+公開集計JSONが監査済みraw runと一致し、旧進捗/旧結果がprefixのまま保持されていることも確認。
+Core/Runtime/Gate/Memory/Trainer/既存Queueへの差分なし。最終配布物監査後に独立PRを作成する。
+
+最終wheel/sdistのdistribution integrityも成功（各78 Python sources照合）。
+13ファイルの公開候補を確認し、private cache/raw model/DB/研究原文は含めていない。
+mainはfb49828のまま、既存open PRなし。独立PRを作成して最新headのCIを確認する。

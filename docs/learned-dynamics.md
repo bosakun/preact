@@ -123,3 +123,102 @@ shift、CPU/wallを計測する。意思決定の改善は予測改善とは別�
 
 今回見送る: latent/factored/causal表現、確率rollout、融合、OS Sandbox、execution
 reconciliation、drift/rollback、分散学習。安全な再開とモデル失効は次の候補とする。
+
+## 2026-10-10 承認判断：学習した能力分布による時間的Action比較
+
+PR #8の上記記録は一手先学習の履歴として保持する。追加するのはQueue v2の
+最大3 tickの読み取り専用比較。Core、Trainer、State/Action、Gate、Memoryの意味は変えない。
+既存学習モデルの直接反復、複数tickの直接教師化、全Dynamicsの再学習を検討し、
+最小範囲として「実経験から学ぶ能力分布＋既知の遅延到着・保存則」を開発者が承認した。
+
+### 学習するものと既知のもの
+
+`QueueServiceAdapter`は既存Datasetから、能力を識別できたか、高能力だったか、
+probe由来か通常実績由来かの4つの指標を返す。正式なprobe測定、または
+available_work>=3で処理能力1/3を識別できる成功実績だけが有効標本である。
+需要不足・失敗にはmask=0を使う。これは能力ゼロ・低能力の教師ではない。
+
+`TabularDynamicsTrainer`をそのまま使い、cell.countは全遷移数、有効数は
+`cell.count * mean(informative)`、高能力数は`cell.count * mean(high_and_informative)`
+として別々に復元する。高能力確率は高能力数/有効数。有効数がmin_samples未満ならunknown。
+probe/ordinaryの件数も別に返す。新Adapterを別ファイルに置き、既存Adapter source hashを保つ。
+教師の入手可能性だけがmaskを決め、実観測に含まれない隠れたscheduleは読まない。
+
+投入量・2 tick後の到着・仕事の保存・処理上限は既存の公開規則である。
+これらを学んだとは主張しない。学習するのは、識別可能な実績から得た能力1/3の周辺分布。
+tick間独立・短期間定常・Actionから能力への影響なしはモデル仮定であり、学習済み事実ではない。
+需要不足による選別が能力分布を歪めないという仮定にも依存する。非定常/相関環境では限界がある。
+
+### 時間と予測契約
+
+`QueueTemporalEngine`は整数の分岐状態を最大8通り列挙し、各分岐へ同じ既知規則を適用する。
+最初のActionの仕事をpendingとして保持するので、即時の差がゼロでも後続tickへ影響が残る。
+平均Stateを再びモデルへ入力しない。既存Prediction.vectorsに期待queue/delivered/pendingを返し、
+分岐・重みはboundedなraw派生結果として保持する。authoritative Stateや第二Ledgerは作らない。
+
+horizon>1は既存NO_OVERFLOW ClaimInstanceとDYNAMICS_V2のenvironment_only条件に束縛する。
+これは継続条件の明示であり、学習エンジンはそのcheckを解決しない。INFERENCE、check結果なし、
+mandatory_checksなし、success/riskはunknown。Registryのscope/identity/予算検査を通す。
+各Action最大8経路、3候補最大24経路を明示的に確保する。不足ならunknown。
+既定Registry/CLI/Plannerは変更せず、比較結果を候補順位・承認へ使わない。
+
+全1/3経路のsupport rangeは既知のモデル内範囲であり、確率区間でも安全証明でもない。
+別途iid標本を仮定したWilson 95%の能力確率区間と、その両端での平均予測の感度を返す。
+これらも時間相関や隠れたshiftに対して校正済みではない。
+比較では同じ外生能力経路を全Actionへ適用し、独立な予測として差分の幅を合成しない。
+
+```mermaid
+flowchart TD
+    R[Ledger・complete receipt・実観測] --> D[既存TransitionDataset]
+    D --> A[QueueServiceAdapter / 有効観測mask]
+    A --> T[既存TabularDynamicsTrainer]
+    T --> M[Versioned DynamicsModel]
+    S[新しい観測State・異なるAction] --> E[Registry / QueueTemporalEngine]
+    M --> E
+    K[既知の遅延到着・保存則] --> E
+    E --> C[3 tick曲線・共有経路でのAction差分]
+    V[既存Verifier・Gate・Authorization] --> X[Durable intent / 一手実行]
+    X --> R
+    C -. 評価系列と照合 .-> R
+```
+
+### opt-in API
+
+```python
+from preact.domains.queue_service_features import QueueServiceAdapter
+from preact.engines.queue_temporal import QueueTemporalEngine, compare_actions
+from preact.learning import TabularDynamicsTrainer
+from preact.core.registry import Registry
+
+# dataset is an existing receipt-backed TransitionDataset, never a fabricated snapshot.
+model = await TabularDynamicsTrainer().fit(dataset, QueueServiceAdapter())
+state = await world.observe()
+actions = [world.action(state, n) for n in (3, 1, 0)]
+engine = QueueTemporalEngine(world.task, model)
+comparison = await compare_actions(Registry([engine]), engine, state, actions)
+# comparison never executes; actual actions still require the existing Runtime.
+```
+
+固定事前baselineには`QueueTemporalEngine(world.task, prior=0.5)`を使う。
+同じ既知Dynamics・初期状態・Action・列挙予算を保ち、学習した分布だけを置き換える。
+同じデータ/設定の再訓練は同じモデルになり、保存/読込は既存DynamicsModel/Artifactsを使う。
+モデルは検証時点の歴史的snapshotの派生物で、推論ごとのreceipt再検証や自動失効は行わない。
+新しいfitと監査はauthorityを再検証する。旧モデルを現在の観測や安全性authorityとして扱わない。
+
+### 評価・受入境界
+
+別episode/seedで学習・評価を分離し、同じseedとprobe prefixでWorldを再構成する。
+予測はroot実行前に記録。rootの後には正式なdrainを一手ずつGateに通す。
+drainは外部Actionであり、「追加投入なし」のenvironment_onlyとQueue/処理の遷移が一致する。
+無断で時間を進めない。ABSTAINなら実測は成立せず、不完全な評価を成功として報告しない。
+これは共通外生条件での条件付きAction比較であり、汎用因果推論の実証ではない。
+
+未学習/有効数不足/公開schema・provenance不一致/残りtick不足/推論失敗はunknown。
+不正なState内容IDやClaim/capabilityを再検証が拒否する場合は例外で停止し、旧予測へfallbackしない。
+隠れた分布変化は同じ公開Stateから必ず検出できるものではなく、誤予測を起こし得る。
+安定・ノイズ・shiftを固定protocolで測り、shift前後も集計する。
+cell.countと有効数、coverage、状態誤差、Action差分誤差、CPU/wall、失敗条件を報告する。
+意思決定の改善、一般化された因果理解、校正済み安全性は今回の受入対象外。
+
+次の候補は、時間相関・分布変化の検出とモデル失効、独立データでの区間校正、
+その後に予測比較を意思決定へ接続する価値の検証。今回LLM/latent/汎用rollout/UIは追加しない。
