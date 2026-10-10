@@ -103,6 +103,18 @@ fix bugs, improve tests, perform local cleanup and performance work autonomously
 Continue through validation and completion; do not request routine design approval again.
 These boundaries supplement, rather than remove, the autonomous rules below.
 
+#### Functional completion before computational optimization
+
+Prioritize working, verifiable cognitive/world-model capabilities over routine
+speedups, caching, parallelization and performance refactoring. Measure and record
+CPU time, wall time, memory and execution cost. Slow experimental implementations
+are acceptable when they complete and preserve correctness and safety. Optimize
+early only when resource exhaustion, noncompletion or inability to validate blocks
+the capability or threatens safety/correctness. Prediction accuracy, model validity,
+learning effects, independent evaluation and safety must be evaluated now; they
+are not deferred computational optimizations. Preserve benchmarks, audits and failures.
+Model recovery does not change this priority into optimization of drift monitoring.
+
 This repository is intended to be developed autonomously by Codex for long-running sessions.
 
 Do not ask the user for routine implementation decisions.

@@ -681,3 +681,35 @@ Core/Gate/Engine/Trainer/Memory・既存APIへの追加差分なし。raw DB/mod
 - 研究・実装の次段階: receipt-backed増分検証で監視コストを削減、相関/緩やかな変化の評価、
   新training manifest→新artifact→held-out評価→明示的Guard/Registry切替。
   自動再学習・昇格・rollbackの承認/受入条件は別設計とする。
+
+## Model recovery sprint — 承認済み設計と実装開始
+
+- 公開main6ae35c5（PR #10 merge/CI成功）からfeat/model-recovery独立worktreeを作成。
+- 元作業ツリーの未コミット変更を保護。Core/Gate/Trainer/Registry/Guardは変更しない。
+- 失効後の元episode suffixでBを学習し、別実episodeで評価、さらに別episodeで監視準備。
+  LifecycleはWorldをresetせず、同一Worldの連続的な自己改善とは主張しない。
+- 固定条件: 学習/評価有効16、比較8組、状態/差分MAE<=0.5、prior許容0.05、
+  A比状態MAE10%以上改善、差分許容0.05、coverage100%、昇格Health available。
+- 候補・予測事前記録・独立評価・昇格承認・active切替を既存Artifacts/Storeで区別。
+- 初回pilotでTaskの0/0.0正規化によるClaim context hash不一致を検出。
+  予測入口で既存契約に再正規化して修正し、pilot再実行中。閾値/seedは変更しない。
+- AGENTSへ機能的完成優先・計算費用計測・正確性/安全性評価維持の規則を追加。
+- 残り: 否定/再起動テスト、固定本評価2回、独立監査、全回帰、文書、PR/CI。
+
+## Model recovery sprint — 最小経路・回帰と最終評価開始
+
+- 初期pilot: 両方向で昇格/予測回復/再起動照合が成功、学習4有効件は拒否。
+  独立auditorで432実遷移、数値分布/MAE/receipt/cutoffを照合。
+- 新規24ケース: 学習/評価/監視分離、不正receipt/Artifact、歴史cutoff、
+  取消（commit前/後）と明示restore、durable commit中のwriter更新、Gate拒否を検証。
+- 一度、事後予測登録テストの拒否メッセージ期待が違い、修正。
+  同一stageのJSON再読込で0/0.0のhashが異なる問題も入口で正規化して修正。
+- 学習/評価有効数を別集計。評価数はroot+継続のみに限定し、準備prefixを含めない。
+  旧A誤差0では10%相対改善を主張できないため拒否。固定閾値は変更していない。
+- 全Python597 passed in197.67s、Ruff183 files、frontend契約byte一致/build。
+  専用API18334の既存Chromium6 passed in8.2s。sandbox内のlisten拒否後、許可経路で再実行。
+- 配布物監査83 sources一致。最終の入力copy変更後の配布物は再build/監査予定。
+- 旧benchmarks67ファイルbyte一致、Core/Trainer/Registry/Guard/Memoryへの差分なし。
+- 最終sourceのpilot→監査→本評価A→監査→本評価B→監査を逐次実行中。
+  CPU測定中に重い回帰を重ねない。結果はまだ本評価完了として扱わない。
+- 残り: 最終実測/失敗条件記録、最終source検証、配布物再監査、PR作成とCI確認。

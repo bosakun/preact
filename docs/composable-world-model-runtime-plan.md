@@ -162,3 +162,13 @@ Receipt-backed Dynamics Learningと3tick Action比較に続き、固定モデル
 純粋なdrift履歴再構築とdomain側のreceipt/cutoff/Registry管理を分離する。
 学習契約、状態意味、Core安全境界を変更しない。Queue実装を上位目的へ固定しない。
 自動再学習・昇格・rollbackとActionランキングは別の設計承認・評価段階とする。
+
+## Model Recovery & Safe Promotion：次の承認済み縦切り
+
+PR #10の失効機構を再利用し、失効後suffixの学習、episode/run/receiptを分離した
+評価、新監視episodeの準備、明示的なactive切替までを接続する。
+現行Guardのtick0/初期観測/完全manifest契約を維持する。同一episodeの途中anchorは
+将来の契約拡張とし、ID付替えやLifecycleによるWorld resetで回避しない。
+候補/評価/昇格記録と実行receiptを混同せず、Core・Trainer・Registryの意味を変更しない。
+固定条件と独立監査で成功・拒否・中断復元を評価する。旧protocol/結果を保持する。
+今回の計算性能最適化・自動昇格・rollback・Actionランキングは非目標。
