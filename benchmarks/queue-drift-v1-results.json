@@ -1,0 +1,2609 @@
+{
+  "schema_version": "1",
+  "protocol": "benchmarks/queue-drift-v1.json",
+  "runs": [
+    {
+      "schema_version": "1",
+      "protocol_sha256": "11170114c68aa21122bc0546d0e555cb6c719e8b5c0d7df319e3978f2c9ce6b3",
+      "source_sha256": "b8abcdd4d85e852f2dbc3737b143ce27ce0d7015427e54f7f4143a5eec00ee0c",
+      "environment": {
+        "python": "3.12.13",
+        "platform": "macOS-27.0.1-arm64-arm-64bit"
+      },
+      "models": {
+        "low": {
+          "version": "6eb37aee7e6e28341ec66f6fe2b446d10695bedb7e102e172a04dd14faac7f70",
+          "dataset_hash": "11e98a0b69ce8e00331198ace97252724c1373ce289a557e8cb2651fa48b0ba4",
+          "artifact_hash": "61c9bb1aae1b222692e2672d74336975277c00cbc05f8b456a5b7b0671240c83",
+          "transitions": 96,
+          "informative_count": 64,
+          "high_count": 3
+        },
+        "high": {
+          "version": "71e4c74ac5bdb2946b69e833f53ad4433d5e7e9f31663806d8b09880a1096b23",
+          "dataset_hash": "2bfaa170fe168212ef9263ab6d9ecc607c5fe44266ddd99662d7520866a8bdaf",
+          "artifact_hash": "204c615e58be427607facf55a4befc835f79eb1a489c196a150849ecc8080a85",
+          "transitions": 96,
+          "informative_count": 64,
+          "high_count": 61
+        }
+      },
+      "scores": {
+        "stable_low": {
+          "episodes": 4,
+          "detected": 0,
+          "detection_rate": 0.0,
+          "false_alarm_rate": 0.0,
+          "missed_rate": null,
+          "delay_ticks": [],
+          "delay_effective_samples": [],
+          "first_suppressed_cutoffs": [],
+          "suppressed_predictions": 0,
+          "scores": {
+            "fixed": {
+              "predictions": 64,
+              "supported": 64,
+              "coverage": 1.0,
+              "unknown_rate": 0.0,
+              "state_mae": 0.12931060791015625,
+              "pre_change_mae": 0.12931060791015625,
+              "post_change_mae": null
+            },
+            "guarded": {
+              "predictions": 64,
+              "supported": 48,
+              "coverage": 0.75,
+              "unknown_rate": 0.25,
+              "state_mae": 0.1404791937934028,
+              "pre_change_mae": 0.1404791937934028,
+              "post_change_mae": null
+            },
+            "all_unknown": {
+              "predictions": 64,
+              "supported": 0,
+              "coverage": 0.0,
+              "unknown_rate": 1.0,
+              "state_mae": null,
+              "pre_change_mae": null,
+              "post_change_mae": null
+            }
+          },
+          "fixed_mae_on_guarded_support": 0.1404791937934028,
+          "timing": {
+            "fixed": {
+              "cpu_seconds": 0.03654199999998742,
+              "wall_seconds": 0.03649441513698548
+            },
+            "guarded": {
+              "cpu_seconds": 21.050426999999985,
+              "wall_seconds": 23.3534130792832
+            }
+          }
+        },
+        "stable_high": {
+          "episodes": 4,
+          "detected": 0,
+          "detection_rate": 0.0,
+          "false_alarm_rate": 0.0,
+          "missed_rate": null,
+          "delay_ticks": [],
+          "delay_effective_samples": [],
+          "first_suppressed_cutoffs": [],
+          "suppressed_predictions": 0,
+          "scores": {
+            "fixed": {
+              "predictions": 64,
+              "supported": 64,
+              "coverage": 1.0,
+              "unknown_rate": 0.0,
+              "state_mae": 0.06974283854166667,
+              "pre_change_mae": 0.06974283854166667,
+              "post_change_mae": null
+            },
+            "guarded": {
+              "predictions": 64,
+              "supported": 48,
+              "coverage": 0.75,
+              "unknown_rate": 0.25,
+              "state_mae": 0.08232964409722222,
+              "pre_change_mae": 0.08232964409722222,
+              "post_change_mae": null
+            },
+            "all_unknown": {
+              "predictions": 64,
+              "supported": 0,
+              "coverage": 0.0,
+              "unknown_rate": 1.0,
+              "state_mae": null,
+              "pre_change_mae": null,
+              "post_change_mae": null
+            }
+          },
+          "fixed_mae_on_guarded_support": 0.08232964409722222,
+          "timing": {
+            "fixed": {
+              "cpu_seconds": 0.03670199999997692,
+              "wall_seconds": 0.03664795111399144
+            },
+            "guarded": {
+              "cpu_seconds": 21.202733000000045,
+              "wall_seconds": 23.498836123151705
+            }
+          }
+        },
+        "low_to_high": {
+          "episodes": 4,
+          "detected": 4,
+          "detection_rate": 1.0,
+          "false_alarm_rate": null,
+          "missed_rate": 0.0,
+          "delay_ticks": [
+            21,
+            11,
+            13,
+            13
+          ],
+          "delay_effective_samples": [
+            11,
+            6,
+            7,
+            7
+          ],
+          "first_suppressed_cutoffs": [
+            45,
+            37,
+            37,
+            37
+          ],
+          "suppressed_predictions": 26,
+          "scores": {
+            "fixed": {
+              "predictions": 64,
+              "supported": 64,
+              "coverage": 1.0,
+              "unknown_rate": 0.0,
+              "state_mae": 0.5803070068359375,
+              "pre_change_mae": 0.08445909288194445,
+              "post_change_mae": 0.8778157552083333
+            },
+            "guarded": {
+              "predictions": 64,
+              "supported": 22,
+              "coverage": 0.34375,
+              "unknown_rate": 0.65625,
+              "state_mae": 0.5645936908143939,
+              "pre_change_mae": 0.061767578125,
+              "post_change_mae": 0.8519228980654762
+            },
+            "all_unknown": {
+              "predictions": 64,
+              "supported": 0,
+              "coverage": 0.0,
+              "unknown_rate": 1.0,
+              "state_mae": null,
+              "pre_change_mae": null,
+              "post_change_mae": null
+            }
+          },
+          "fixed_mae_on_guarded_support": 0.5645936908143939,
+          "timing": {
+            "fixed": {
+              "cpu_seconds": 0.036986000000119645,
+              "wall_seconds": 0.03693841787753627
+            },
+            "guarded": {
+              "cpu_seconds": 21.376956000000035,
+              "wall_seconds": 23.671837130212225
+            }
+          }
+        },
+        "high_to_low": {
+          "episodes": 4,
+          "detected": 4,
+          "detection_rate": 1.0,
+          "false_alarm_rate": null,
+          "missed_rate": 0.0,
+          "delay_ticks": [
+            21,
+            11,
+            13,
+            13
+          ],
+          "delay_effective_samples": [
+            11,
+            6,
+            7,
+            7
+          ],
+          "first_suppressed_cutoffs": [
+            45,
+            37,
+            37,
+            37
+          ],
+          "suppressed_predictions": 26,
+          "scores": {
+            "fixed": {
+              "predictions": 64,
+              "supported": 64,
+              "coverage": 1.0,
+              "unknown_rate": 0.0,
+              "state_mae": 0.5533167521158854,
+              "pre_change_mae": 0.031982421875,
+              "post_change_mae": 0.8661173502604167
+            },
+            "guarded": {
+              "predictions": 64,
+              "supported": 22,
+              "coverage": 0.34375,
+              "unknown_rate": 0.65625,
+              "state_mae": 0.5274621212121212,
+              "pre_change_mae": 0.031982421875,
+              "post_change_mae": 0.8105933779761905
+            },
+            "all_unknown": {
+              "predictions": 64,
+              "supported": 0,
+              "coverage": 0.0,
+              "unknown_rate": 1.0,
+              "state_mae": null,
+              "pre_change_mae": null,
+              "post_change_mae": null
+            }
+          },
+          "fixed_mae_on_guarded_support": 0.5274621212121212,
+          "timing": {
+            "fixed": {
+              "cpu_seconds": 0.03733400000004394,
+              "wall_seconds": 0.0372539630625397
+            },
+            "guarded": {
+              "cpu_seconds": 21.445641000000023,
+              "wall_seconds": 23.74675629270496
+            }
+          }
+        },
+        "noise": {
+          "episodes": 4,
+          "detected": 4,
+          "detection_rate": 1.0,
+          "false_alarm_rate": null,
+          "missed_rate": 0.0,
+          "delay_ticks": [
+            15,
+            15,
+            15,
+            15
+          ],
+          "delay_effective_samples": [
+            8,
+            8,
+            8,
+            8
+          ],
+          "first_suppressed_cutoffs": [
+            17,
+            17,
+            17,
+            17
+          ],
+          "suppressed_predictions": 48,
+          "scores": {
+            "fixed": {
+              "predictions": 64,
+              "supported": 64,
+              "coverage": 1.0,
+              "unknown_rate": 0.0,
+              "state_mae": 0.5279210408528646,
+              "pre_change_mae": null,
+              "post_change_mae": 0.5279210408528646
+            },
+            "guarded": {
+              "predictions": 64,
+              "supported": 0,
+              "coverage": 0.0,
+              "unknown_rate": 1.0,
+              "state_mae": null,
+              "pre_change_mae": null,
+              "post_change_mae": null
+            },
+            "all_unknown": {
+              "predictions": 64,
+              "supported": 0,
+              "coverage": 0.0,
+              "unknown_rate": 1.0,
+              "state_mae": null,
+              "pre_change_mae": null,
+              "post_change_mae": null
+            }
+          },
+          "fixed_mae_on_guarded_support": null,
+          "timing": {
+            "fixed": {
+              "cpu_seconds": 0.03800399999991555,
+              "wall_seconds": 0.03793812304502353
+            },
+            "guarded": {
+              "cpu_seconds": 21.45095700000003,
+              "wall_seconds": 23.750462037103716
+            }
+          }
+        },
+        "partial_low_to_high": {
+          "episodes": 4,
+          "detected": 0,
+          "detection_rate": 0.0,
+          "false_alarm_rate": null,
+          "missed_rate": 1.0,
+          "delay_ticks": [],
+          "delay_effective_samples": [],
+          "first_suppressed_cutoffs": [],
+          "suppressed_predictions": 0,
+          "scores": {
+            "fixed": {
+              "predictions": 64,
+              "supported": 64,
+              "coverage": 1.0,
+              "unknown_rate": 0.0,
+              "state_mae": 0.0,
+              "pre_change_mae": 0.0,
+              "post_change_mae": 0.0
+            },
+            "guarded": {
+              "predictions": 64,
+              "supported": 0,
+              "coverage": 0.0,
+              "unknown_rate": 1.0,
+              "state_mae": null,
+              "pre_change_mae": null,
+              "post_change_mae": null
+            },
+            "all_unknown": {
+              "predictions": 64,
+              "supported": 0,
+              "coverage": 0.0,
+              "unknown_rate": 1.0,
+              "state_mae": null,
+              "pre_change_mae": null,
+              "post_change_mae": null
+            }
+          },
+          "fixed_mae_on_guarded_support": null,
+          "timing": {
+            "fixed": {
+              "cpu_seconds": 0.03790900000001329,
+              "wall_seconds": 0.037778836966026574
+            },
+            "guarded": {
+              "cpu_seconds": 21.777165999999937,
+              "wall_seconds": 24.138378209725488
+            }
+          }
+        },
+        "stable_ordinary": {
+          "episodes": 4,
+          "detected": 0,
+          "detection_rate": 0.0,
+          "false_alarm_rate": 0.0,
+          "missed_rate": null,
+          "delay_ticks": [],
+          "delay_effective_samples": [],
+          "first_suppressed_cutoffs": [],
+          "suppressed_predictions": 0,
+          "scores": {
+            "fixed": {
+              "predictions": 64,
+              "supported": 64,
+              "coverage": 1.0,
+              "unknown_rate": 0.0,
+              "state_mae": 0.12931060791015625,
+              "pre_change_mae": 0.12931060791015625,
+              "post_change_mae": null
+            },
+            "guarded": {
+              "predictions": 64,
+              "supported": 32,
+              "coverage": 0.5,
+              "unknown_rate": 0.5,
+              "state_mae": 0.17983500162760416,
+              "pre_change_mae": 0.17983500162760416,
+              "post_change_mae": null
+            },
+            "all_unknown": {
+              "predictions": 64,
+              "supported": 0,
+              "coverage": 0.0,
+              "unknown_rate": 1.0,
+              "state_mae": null,
+              "pre_change_mae": null,
+              "post_change_mae": null
+            }
+          },
+          "fixed_mae_on_guarded_support": 0.17983500162760416,
+          "timing": {
+            "fixed": {
+              "cpu_seconds": 0.037907999999987396,
+              "wall_seconds": 0.03778499801410362
+            },
+            "guarded": {
+              "cpu_seconds": 21.685110999999836,
+              "wall_seconds": 23.9860706179752
+            }
+          }
+        },
+        "ordinary_low_to_high": {
+          "episodes": 4,
+          "detected": 4,
+          "detection_rate": 1.0,
+          "false_alarm_rate": null,
+          "missed_rate": 0.0,
+          "delay_ticks": [
+            31,
+            19,
+            19,
+            19
+          ],
+          "delay_effective_samples": [
+            8,
+            5,
+            5,
+            5
+          ],
+          "first_suppressed_cutoffs": [
+            57,
+            45,
+            45,
+            45
+          ],
+          "suppressed_predictions": 17,
+          "scores": {
+            "fixed": {
+              "predictions": 64,
+              "supported": 64,
+              "coverage": 1.0,
+              "unknown_rate": 0.0,
+              "state_mae": 0.5803070068359375,
+              "pre_change_mae": 0.08445909288194445,
+              "post_change_mae": 0.8778157552083333
+            },
+            "guarded": {
+              "predictions": 64,
+              "supported": 15,
+              "coverage": 0.234375,
+              "unknown_rate": 0.765625,
+              "state_mae": 0.8576768663194444,
+              "pre_change_mae": null,
+              "post_change_mae": 0.8576768663194444
+            },
+            "all_unknown": {
+              "predictions": 64,
+              "supported": 0,
+              "coverage": 0.0,
+              "unknown_rate": 1.0,
+              "state_mae": null,
+              "pre_change_mae": null,
+              "post_change_mae": null
+            }
+          },
+          "fixed_mae_on_guarded_support": 0.8576768663194444,
+          "timing": {
+            "fixed": {
+              "cpu_seconds": 0.038825000000002774,
+              "wall_seconds": 0.03869749297155067
+            },
+            "guarded": {
+              "cpu_seconds": 21.901479999999964,
+              "wall_seconds": 24.211961379100103
+            }
+          }
+        }
+      },
+      "sensitivity": {
+        "stable_low": [
+          {
+            "setting": {
+              "window": 8
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "window": 32
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "alpha": 0.01
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "min_effect": 0.25
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "training_transition_limit": 6
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              4,
+              4,
+              4,
+              4
+            ]
+          },
+          {
+            "setting": {
+              "training_transition_limit": 24
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              16,
+              16,
+              16,
+              16
+            ]
+          }
+        ],
+        "stable_high": [
+          {
+            "setting": {
+              "window": 8
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "window": 32
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "alpha": 0.01
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "min_effect": 0.25
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "training_transition_limit": 6
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              4,
+              4,
+              4,
+              4
+            ]
+          },
+          {
+            "setting": {
+              "training_transition_limit": 24
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              16,
+              16,
+              16,
+              16
+            ]
+          }
+        ],
+        "low_to_high": [
+          {
+            "setting": {
+              "window": 8
+            },
+            "episodes": 4,
+            "detected": 4,
+            "first_invalid_ticks": [
+              33,
+              33,
+              33,
+              33
+            ],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "window": 32
+            },
+            "episodes": 4,
+            "detected": 4,
+            "first_invalid_ticks": [
+              49,
+              37,
+              41,
+              41
+            ],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "alpha": 0.01
+            },
+            "episodes": 4,
+            "detected": 4,
+            "first_invalid_ticks": [
+              47,
+              37,
+              39,
+              39
+            ],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "min_effect": 0.25
+            },
+            "episodes": 4,
+            "detected": 4,
+            "first_invalid_ticks": [
+              45,
+              35,
+              37,
+              37
+            ],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "training_transition_limit": 6
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              4,
+              4,
+              4,
+              4
+            ]
+          },
+          {
+            "setting": {
+              "training_transition_limit": 24
+            },
+            "episodes": 4,
+            "detected": 3,
+            "first_invalid_ticks": [
+              51,
+              51,
+              53
+            ],
+            "training_counts": [
+              16,
+              16,
+              16,
+              16
+            ]
+          }
+        ],
+        "high_to_low": [
+          {
+            "setting": {
+              "window": 8
+            },
+            "episodes": 4,
+            "detected": 4,
+            "first_invalid_ticks": [
+              33,
+              33,
+              33,
+              33
+            ],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "window": 32
+            },
+            "episodes": 4,
+            "detected": 4,
+            "first_invalid_ticks": [
+              49,
+              37,
+              41,
+              41
+            ],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "alpha": 0.01
+            },
+            "episodes": 4,
+            "detected": 4,
+            "first_invalid_ticks": [
+              47,
+              37,
+              39,
+              39
+            ],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "min_effect": 0.25
+            },
+            "episodes": 4,
+            "detected": 4,
+            "first_invalid_ticks": [
+              45,
+              35,
+              37,
+              37
+            ],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "training_transition_limit": 6
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              4,
+              4,
+              4,
+              4
+            ]
+          },
+          {
+            "setting": {
+              "training_transition_limit": 24
+            },
+            "episodes": 4,
+            "detected": 3,
+            "first_invalid_ticks": [
+              51,
+              51,
+              53
+            ],
+            "training_counts": [
+              16,
+              16,
+              16,
+              16
+            ]
+          }
+        ],
+        "noise": [
+          {
+            "setting": {
+              "window": 8
+            },
+            "episodes": 4,
+            "detected": 4,
+            "first_invalid_ticks": [
+              15,
+              15,
+              15,
+              15
+            ],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "window": 32
+            },
+            "episodes": 4,
+            "detected": 4,
+            "first_invalid_ticks": [
+              15,
+              15,
+              15,
+              15
+            ],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "alpha": 0.01
+            },
+            "episodes": 4,
+            "detected": 4,
+            "first_invalid_ticks": [
+              15,
+              15,
+              19,
+              15
+            ],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "min_effect": 0.25
+            },
+            "episodes": 4,
+            "detected": 4,
+            "first_invalid_ticks": [
+              15,
+              15,
+              15,
+              15
+            ],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "training_transition_limit": 6
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              4,
+              4,
+              4,
+              4
+            ]
+          },
+          {
+            "setting": {
+              "training_transition_limit": 24
+            },
+            "episodes": 4,
+            "detected": 1,
+            "first_invalid_ticks": [
+              15
+            ],
+            "training_counts": [
+              16,
+              16,
+              16,
+              16
+            ]
+          }
+        ],
+        "partial_low_to_high": [
+          {
+            "setting": {
+              "window": 8
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "window": 32
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "alpha": 0.01
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "min_effect": 0.25
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "training_transition_limit": 6
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              4,
+              4,
+              4,
+              4
+            ]
+          },
+          {
+            "setting": {
+              "training_transition_limit": 24
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              16,
+              16,
+              16,
+              16
+            ]
+          }
+        ],
+        "stable_ordinary": [
+          {
+            "setting": {
+              "window": 8
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "window": 32
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "alpha": 0.01
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "min_effect": 0.25
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "training_transition_limit": 6
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              4,
+              4,
+              4,
+              4
+            ]
+          },
+          {
+            "setting": {
+              "training_transition_limit": 24
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              16,
+              16,
+              16,
+              16
+            ]
+          }
+        ],
+        "ordinary_low_to_high": [
+          {
+            "setting": {
+              "window": 8
+            },
+            "episodes": 4,
+            "detected": 4,
+            "first_invalid_ticks": [
+              51,
+              39,
+              39,
+              39
+            ],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "window": 32
+            },
+            "episodes": 4,
+            "detected": 4,
+            "first_invalid_ticks": [
+              55,
+              43,
+              43,
+              43
+            ],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "alpha": 0.01
+            },
+            "episodes": 4,
+            "detected": 3,
+            "first_invalid_ticks": [
+              47,
+              47,
+              55
+            ],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "min_effect": 0.25
+            },
+            "episodes": 4,
+            "detected": 4,
+            "first_invalid_ticks": [
+              55,
+              43,
+              43,
+              43
+            ],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "training_transition_limit": 6
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              4,
+              4,
+              4,
+              4
+            ]
+          },
+          {
+            "setting": {
+              "training_transition_limit": 24
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              16,
+              16,
+              16,
+              16
+            ]
+          }
+        ]
+      },
+      "unsafe": 0,
+      "execution_transitions": 2048,
+      "engine_calls": 4096,
+      "semantic_hash": "43559916bd5ce884d2a26f3a10bbf6170bffedf7eaf3b00048160e08a79eb626",
+      "total_cpu_seconds": 253.076806,
+      "total_wall_seconds": 284.5281911249622,
+      "limits": [
+        "Fisher requires iid unbiased Bernoulli sampling; overlapping windows use union bound only under valid marginal p-values",
+        "Small samples, temporal correlation, censoring, gradual changes and alpha spending may miss drift",
+        "No retraining, ranking or decision performance claim",
+        "Only monitored entrypoint invalidates; unmanaged engine is explicitly out of scope",
+        "Full receipt/model revalidation has CPU cost; all-unknown baseline included"
+      ]
+    },
+    {
+      "schema_version": "1",
+      "protocol_sha256": "11170114c68aa21122bc0546d0e555cb6c719e8b5c0d7df319e3978f2c9ce6b3",
+      "source_sha256": "b8abcdd4d85e852f2dbc3737b143ce27ce0d7015427e54f7f4143a5eec00ee0c",
+      "environment": {
+        "python": "3.12.13",
+        "platform": "macOS-27.0.1-arm64-arm-64bit"
+      },
+      "models": {
+        "low": {
+          "version": "01cf70c4bcc00cad3f31f5ed57a2a0bb7e61b2135882cda8445989d76f0e06cf",
+          "dataset_hash": "f2cbb5a63f5ae2e96b1171b5ae4ab419d316109318af07b693200f6edd262104",
+          "artifact_hash": "c44028237f9aac10a0b40dac5e2a15541d6c0e777f1155300c0810be0578e3f3",
+          "transitions": 96,
+          "informative_count": 64,
+          "high_count": 3
+        },
+        "high": {
+          "version": "01dcbe020a0082c826331fa35c5dec2100959dbc068f59c341c9ad0c859fa2b8",
+          "dataset_hash": "d05410e82a1f38598ed36dafc1bd6b01e6d25d5657c1a3029252c394714533fc",
+          "artifact_hash": "38cb2d2ec72c2bc6ee13c65e12a9428083d119ae72b06427fbdd96a4e5795be2",
+          "transitions": 96,
+          "informative_count": 64,
+          "high_count": 61
+        }
+      },
+      "scores": {
+        "stable_low": {
+          "episodes": 4,
+          "detected": 0,
+          "detection_rate": 0.0,
+          "false_alarm_rate": 0.0,
+          "missed_rate": null,
+          "delay_ticks": [],
+          "delay_effective_samples": [],
+          "first_suppressed_cutoffs": [],
+          "suppressed_predictions": 0,
+          "scores": {
+            "fixed": {
+              "predictions": 64,
+              "supported": 64,
+              "coverage": 1.0,
+              "unknown_rate": 0.0,
+              "state_mae": 0.12931060791015625,
+              "pre_change_mae": 0.12931060791015625,
+              "post_change_mae": null
+            },
+            "guarded": {
+              "predictions": 64,
+              "supported": 48,
+              "coverage": 0.75,
+              "unknown_rate": 0.25,
+              "state_mae": 0.1404791937934028,
+              "pre_change_mae": 0.1404791937934028,
+              "post_change_mae": null
+            },
+            "all_unknown": {
+              "predictions": 64,
+              "supported": 0,
+              "coverage": 0.0,
+              "unknown_rate": 1.0,
+              "state_mae": null,
+              "pre_change_mae": null,
+              "post_change_mae": null
+            }
+          },
+          "fixed_mae_on_guarded_support": 0.1404791937934028,
+          "timing": {
+            "fixed": {
+              "cpu_seconds": 0.03605900000001672,
+              "wall_seconds": 0.03602145321201533
+            },
+            "guarded": {
+              "cpu_seconds": 20.752810000000004,
+              "wall_seconds": 23.051839337975252
+            }
+          }
+        },
+        "stable_high": {
+          "episodes": 4,
+          "detected": 0,
+          "detection_rate": 0.0,
+          "false_alarm_rate": 0.0,
+          "missed_rate": null,
+          "delay_ticks": [],
+          "delay_effective_samples": [],
+          "first_suppressed_cutoffs": [],
+          "suppressed_predictions": 0,
+          "scores": {
+            "fixed": {
+              "predictions": 64,
+              "supported": 64,
+              "coverage": 1.0,
+              "unknown_rate": 0.0,
+              "state_mae": 0.06974283854166667,
+              "pre_change_mae": 0.06974283854166667,
+              "post_change_mae": null
+            },
+            "guarded": {
+              "predictions": 64,
+              "supported": 48,
+              "coverage": 0.75,
+              "unknown_rate": 0.25,
+              "state_mae": 0.08232964409722222,
+              "pre_change_mae": 0.08232964409722222,
+              "post_change_mae": null
+            },
+            "all_unknown": {
+              "predictions": 64,
+              "supported": 0,
+              "coverage": 0.0,
+              "unknown_rate": 1.0,
+              "state_mae": null,
+              "pre_change_mae": null,
+              "post_change_mae": null
+            }
+          },
+          "fixed_mae_on_guarded_support": 0.08232964409722222,
+          "timing": {
+            "fixed": {
+              "cpu_seconds": 0.03629800000000216,
+              "wall_seconds": 0.03621520672459155
+            },
+            "guarded": {
+              "cpu_seconds": 20.859008999999993,
+              "wall_seconds": 23.165919667168055
+            }
+          }
+        },
+        "low_to_high": {
+          "episodes": 4,
+          "detected": 4,
+          "detection_rate": 1.0,
+          "false_alarm_rate": null,
+          "missed_rate": 0.0,
+          "delay_ticks": [
+            21,
+            11,
+            13,
+            13
+          ],
+          "delay_effective_samples": [
+            11,
+            6,
+            7,
+            7
+          ],
+          "first_suppressed_cutoffs": [
+            45,
+            37,
+            37,
+            37
+          ],
+          "suppressed_predictions": 26,
+          "scores": {
+            "fixed": {
+              "predictions": 64,
+              "supported": 64,
+              "coverage": 1.0,
+              "unknown_rate": 0.0,
+              "state_mae": 0.5803070068359375,
+              "pre_change_mae": 0.08445909288194445,
+              "post_change_mae": 0.8778157552083333
+            },
+            "guarded": {
+              "predictions": 64,
+              "supported": 22,
+              "coverage": 0.34375,
+              "unknown_rate": 0.65625,
+              "state_mae": 0.5645936908143939,
+              "pre_change_mae": 0.061767578125,
+              "post_change_mae": 0.8519228980654762
+            },
+            "all_unknown": {
+              "predictions": 64,
+              "supported": 0,
+              "coverage": 0.0,
+              "unknown_rate": 1.0,
+              "state_mae": null,
+              "pre_change_mae": null,
+              "post_change_mae": null
+            }
+          },
+          "fixed_mae_on_guarded_support": 0.5645936908143939,
+          "timing": {
+            "fixed": {
+              "cpu_seconds": 0.0364699999999516,
+              "wall_seconds": 0.036382546997629106
+            },
+            "guarded": {
+              "cpu_seconds": 20.852994000000038,
+              "wall_seconds": 23.15164262469625
+            }
+          }
+        },
+        "high_to_low": {
+          "episodes": 4,
+          "detected": 4,
+          "detection_rate": 1.0,
+          "false_alarm_rate": null,
+          "missed_rate": 0.0,
+          "delay_ticks": [
+            21,
+            11,
+            13,
+            13
+          ],
+          "delay_effective_samples": [
+            11,
+            6,
+            7,
+            7
+          ],
+          "first_suppressed_cutoffs": [
+            45,
+            37,
+            37,
+            37
+          ],
+          "suppressed_predictions": 26,
+          "scores": {
+            "fixed": {
+              "predictions": 64,
+              "supported": 64,
+              "coverage": 1.0,
+              "unknown_rate": 0.0,
+              "state_mae": 0.5533167521158854,
+              "pre_change_mae": 0.031982421875,
+              "post_change_mae": 0.8661173502604167
+            },
+            "guarded": {
+              "predictions": 64,
+              "supported": 22,
+              "coverage": 0.34375,
+              "unknown_rate": 0.65625,
+              "state_mae": 0.5274621212121212,
+              "pre_change_mae": 0.031982421875,
+              "post_change_mae": 0.8105933779761905
+            },
+            "all_unknown": {
+              "predictions": 64,
+              "supported": 0,
+              "coverage": 0.0,
+              "unknown_rate": 1.0,
+              "state_mae": null,
+              "pre_change_mae": null,
+              "post_change_mae": null
+            }
+          },
+          "fixed_mae_on_guarded_support": 0.5274621212121212,
+          "timing": {
+            "fixed": {
+              "cpu_seconds": 0.036960000000021864,
+              "wall_seconds": 0.03688086906913668
+            },
+            "guarded": {
+              "cpu_seconds": 20.991742000000016,
+              "wall_seconds": 23.294031917932443
+            }
+          }
+        },
+        "noise": {
+          "episodes": 4,
+          "detected": 4,
+          "detection_rate": 1.0,
+          "false_alarm_rate": null,
+          "missed_rate": 0.0,
+          "delay_ticks": [
+            15,
+            15,
+            15,
+            15
+          ],
+          "delay_effective_samples": [
+            8,
+            8,
+            8,
+            8
+          ],
+          "first_suppressed_cutoffs": [
+            17,
+            17,
+            17,
+            17
+          ],
+          "suppressed_predictions": 48,
+          "scores": {
+            "fixed": {
+              "predictions": 64,
+              "supported": 64,
+              "coverage": 1.0,
+              "unknown_rate": 0.0,
+              "state_mae": 0.5279210408528646,
+              "pre_change_mae": null,
+              "post_change_mae": 0.5279210408528646
+            },
+            "guarded": {
+              "predictions": 64,
+              "supported": 0,
+              "coverage": 0.0,
+              "unknown_rate": 1.0,
+              "state_mae": null,
+              "pre_change_mae": null,
+              "post_change_mae": null
+            },
+            "all_unknown": {
+              "predictions": 64,
+              "supported": 0,
+              "coverage": 0.0,
+              "unknown_rate": 1.0,
+              "state_mae": null,
+              "pre_change_mae": null,
+              "post_change_mae": null
+            }
+          },
+          "fixed_mae_on_guarded_support": null,
+          "timing": {
+            "fixed": {
+              "cpu_seconds": 0.037828000000146744,
+              "wall_seconds": 0.03774004313163459
+            },
+            "guarded": {
+              "cpu_seconds": 21.06695599999999,
+              "wall_seconds": 23.367505874775816
+            }
+          }
+        },
+        "partial_low_to_high": {
+          "episodes": 4,
+          "detected": 0,
+          "detection_rate": 0.0,
+          "false_alarm_rate": null,
+          "missed_rate": 1.0,
+          "delay_ticks": [],
+          "delay_effective_samples": [],
+          "first_suppressed_cutoffs": [],
+          "suppressed_predictions": 0,
+          "scores": {
+            "fixed": {
+              "predictions": 64,
+              "supported": 64,
+              "coverage": 1.0,
+              "unknown_rate": 0.0,
+              "state_mae": 0.0,
+              "pre_change_mae": 0.0,
+              "post_change_mae": 0.0
+            },
+            "guarded": {
+              "predictions": 64,
+              "supported": 0,
+              "coverage": 0.0,
+              "unknown_rate": 1.0,
+              "state_mae": null,
+              "pre_change_mae": null,
+              "post_change_mae": null
+            },
+            "all_unknown": {
+              "predictions": 64,
+              "supported": 0,
+              "coverage": 0.0,
+              "unknown_rate": 1.0,
+              "state_mae": null,
+              "pre_change_mae": null,
+              "post_change_mae": null
+            }
+          },
+          "fixed_mae_on_guarded_support": null,
+          "timing": {
+            "fixed": {
+              "cpu_seconds": 0.03758899999994014,
+              "wall_seconds": 0.03745529102161527
+            },
+            "guarded": {
+              "cpu_seconds": 21.272692000000063,
+              "wall_seconds": 23.57594041794073
+            }
+          }
+        },
+        "stable_ordinary": {
+          "episodes": 4,
+          "detected": 0,
+          "detection_rate": 0.0,
+          "false_alarm_rate": 0.0,
+          "missed_rate": null,
+          "delay_ticks": [],
+          "delay_effective_samples": [],
+          "first_suppressed_cutoffs": [],
+          "suppressed_predictions": 0,
+          "scores": {
+            "fixed": {
+              "predictions": 64,
+              "supported": 64,
+              "coverage": 1.0,
+              "unknown_rate": 0.0,
+              "state_mae": 0.12931060791015625,
+              "pre_change_mae": 0.12931060791015625,
+              "post_change_mae": null
+            },
+            "guarded": {
+              "predictions": 64,
+              "supported": 32,
+              "coverage": 0.5,
+              "unknown_rate": 0.5,
+              "state_mae": 0.17983500162760416,
+              "pre_change_mae": 0.17983500162760416,
+              "post_change_mae": null
+            },
+            "all_unknown": {
+              "predictions": 64,
+              "supported": 0,
+              "coverage": 0.0,
+              "unknown_rate": 1.0,
+              "state_mae": null,
+              "pre_change_mae": null,
+              "post_change_mae": null
+            }
+          },
+          "fixed_mae_on_guarded_support": 0.17983500162760416,
+          "timing": {
+            "fixed": {
+              "cpu_seconds": 0.03780899999989629,
+              "wall_seconds": 0.037682335067074746
+            },
+            "guarded": {
+              "cpu_seconds": 21.29213200000001,
+              "wall_seconds": 23.623709209728986
+            }
+          }
+        },
+        "ordinary_low_to_high": {
+          "episodes": 4,
+          "detected": 4,
+          "detection_rate": 1.0,
+          "false_alarm_rate": null,
+          "missed_rate": 0.0,
+          "delay_ticks": [
+            31,
+            19,
+            19,
+            19
+          ],
+          "delay_effective_samples": [
+            8,
+            5,
+            5,
+            5
+          ],
+          "first_suppressed_cutoffs": [
+            57,
+            45,
+            45,
+            45
+          ],
+          "suppressed_predictions": 17,
+          "scores": {
+            "fixed": {
+              "predictions": 64,
+              "supported": 64,
+              "coverage": 1.0,
+              "unknown_rate": 0.0,
+              "state_mae": 0.5803070068359375,
+              "pre_change_mae": 0.08445909288194445,
+              "post_change_mae": 0.8778157552083333
+            },
+            "guarded": {
+              "predictions": 64,
+              "supported": 15,
+              "coverage": 0.234375,
+              "unknown_rate": 0.765625,
+              "state_mae": 0.8576768663194444,
+              "pre_change_mae": null,
+              "post_change_mae": 0.8576768663194444
+            },
+            "all_unknown": {
+              "predictions": 64,
+              "supported": 0,
+              "coverage": 0.0,
+              "unknown_rate": 1.0,
+              "state_mae": null,
+              "pre_change_mae": null,
+              "post_change_mae": null
+            }
+          },
+          "fixed_mae_on_guarded_support": 0.8576768663194444,
+          "timing": {
+            "fixed": {
+              "cpu_seconds": 0.037662000000096896,
+              "wall_seconds": 0.03751970612211153
+            },
+            "guarded": {
+              "cpu_seconds": 21.2406399999999,
+              "wall_seconds": 23.544027420168277
+            }
+          }
+        }
+      },
+      "sensitivity": {
+        "stable_low": [
+          {
+            "setting": {
+              "window": 8
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "window": 32
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "alpha": 0.01
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "min_effect": 0.25
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "training_transition_limit": 6
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              4,
+              4,
+              4,
+              4
+            ]
+          },
+          {
+            "setting": {
+              "training_transition_limit": 24
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              16,
+              16,
+              16,
+              16
+            ]
+          }
+        ],
+        "stable_high": [
+          {
+            "setting": {
+              "window": 8
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "window": 32
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "alpha": 0.01
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "min_effect": 0.25
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "training_transition_limit": 6
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              4,
+              4,
+              4,
+              4
+            ]
+          },
+          {
+            "setting": {
+              "training_transition_limit": 24
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              16,
+              16,
+              16,
+              16
+            ]
+          }
+        ],
+        "low_to_high": [
+          {
+            "setting": {
+              "window": 8
+            },
+            "episodes": 4,
+            "detected": 4,
+            "first_invalid_ticks": [
+              33,
+              33,
+              33,
+              33
+            ],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "window": 32
+            },
+            "episodes": 4,
+            "detected": 4,
+            "first_invalid_ticks": [
+              49,
+              37,
+              41,
+              41
+            ],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "alpha": 0.01
+            },
+            "episodes": 4,
+            "detected": 4,
+            "first_invalid_ticks": [
+              47,
+              37,
+              39,
+              39
+            ],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "min_effect": 0.25
+            },
+            "episodes": 4,
+            "detected": 4,
+            "first_invalid_ticks": [
+              45,
+              35,
+              37,
+              37
+            ],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "training_transition_limit": 6
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              4,
+              4,
+              4,
+              4
+            ]
+          },
+          {
+            "setting": {
+              "training_transition_limit": 24
+            },
+            "episodes": 4,
+            "detected": 3,
+            "first_invalid_ticks": [
+              51,
+              51,
+              53
+            ],
+            "training_counts": [
+              16,
+              16,
+              16,
+              16
+            ]
+          }
+        ],
+        "high_to_low": [
+          {
+            "setting": {
+              "window": 8
+            },
+            "episodes": 4,
+            "detected": 4,
+            "first_invalid_ticks": [
+              33,
+              33,
+              33,
+              33
+            ],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "window": 32
+            },
+            "episodes": 4,
+            "detected": 4,
+            "first_invalid_ticks": [
+              49,
+              37,
+              41,
+              41
+            ],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "alpha": 0.01
+            },
+            "episodes": 4,
+            "detected": 4,
+            "first_invalid_ticks": [
+              47,
+              37,
+              39,
+              39
+            ],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "min_effect": 0.25
+            },
+            "episodes": 4,
+            "detected": 4,
+            "first_invalid_ticks": [
+              45,
+              35,
+              37,
+              37
+            ],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "training_transition_limit": 6
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              4,
+              4,
+              4,
+              4
+            ]
+          },
+          {
+            "setting": {
+              "training_transition_limit": 24
+            },
+            "episodes": 4,
+            "detected": 3,
+            "first_invalid_ticks": [
+              51,
+              51,
+              53
+            ],
+            "training_counts": [
+              16,
+              16,
+              16,
+              16
+            ]
+          }
+        ],
+        "noise": [
+          {
+            "setting": {
+              "window": 8
+            },
+            "episodes": 4,
+            "detected": 4,
+            "first_invalid_ticks": [
+              15,
+              15,
+              15,
+              15
+            ],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "window": 32
+            },
+            "episodes": 4,
+            "detected": 4,
+            "first_invalid_ticks": [
+              15,
+              15,
+              15,
+              15
+            ],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "alpha": 0.01
+            },
+            "episodes": 4,
+            "detected": 4,
+            "first_invalid_ticks": [
+              15,
+              15,
+              19,
+              15
+            ],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "min_effect": 0.25
+            },
+            "episodes": 4,
+            "detected": 4,
+            "first_invalid_ticks": [
+              15,
+              15,
+              15,
+              15
+            ],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "training_transition_limit": 6
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              4,
+              4,
+              4,
+              4
+            ]
+          },
+          {
+            "setting": {
+              "training_transition_limit": 24
+            },
+            "episodes": 4,
+            "detected": 1,
+            "first_invalid_ticks": [
+              15
+            ],
+            "training_counts": [
+              16,
+              16,
+              16,
+              16
+            ]
+          }
+        ],
+        "partial_low_to_high": [
+          {
+            "setting": {
+              "window": 8
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "window": 32
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "alpha": 0.01
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "min_effect": 0.25
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "training_transition_limit": 6
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              4,
+              4,
+              4,
+              4
+            ]
+          },
+          {
+            "setting": {
+              "training_transition_limit": 24
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              16,
+              16,
+              16,
+              16
+            ]
+          }
+        ],
+        "stable_ordinary": [
+          {
+            "setting": {
+              "window": 8
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "window": 32
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "alpha": 0.01
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "min_effect": 0.25
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "training_transition_limit": 6
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              4,
+              4,
+              4,
+              4
+            ]
+          },
+          {
+            "setting": {
+              "training_transition_limit": 24
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              16,
+              16,
+              16,
+              16
+            ]
+          }
+        ],
+        "ordinary_low_to_high": [
+          {
+            "setting": {
+              "window": 8
+            },
+            "episodes": 4,
+            "detected": 4,
+            "first_invalid_ticks": [
+              51,
+              39,
+              39,
+              39
+            ],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "window": 32
+            },
+            "episodes": 4,
+            "detected": 4,
+            "first_invalid_ticks": [
+              55,
+              43,
+              43,
+              43
+            ],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "alpha": 0.01
+            },
+            "episodes": 4,
+            "detected": 3,
+            "first_invalid_ticks": [
+              47,
+              47,
+              55
+            ],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "min_effect": 0.25
+            },
+            "episodes": 4,
+            "detected": 4,
+            "first_invalid_ticks": [
+              55,
+              43,
+              43,
+              43
+            ],
+            "training_counts": [
+              64,
+              64,
+              64,
+              64
+            ]
+          },
+          {
+            "setting": {
+              "training_transition_limit": 6
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              4,
+              4,
+              4,
+              4
+            ]
+          },
+          {
+            "setting": {
+              "training_transition_limit": 24
+            },
+            "episodes": 4,
+            "detected": 0,
+            "first_invalid_ticks": [],
+            "training_counts": [
+              16,
+              16,
+              16,
+              16
+            ]
+          }
+        ]
+      },
+      "unsafe": 0,
+      "execution_transitions": 2048,
+      "engine_calls": 4096,
+      "semantic_hash": "43559916bd5ce884d2a26f3a10bbf6170bffedf7eaf3b00048160e08a79eb626",
+      "total_cpu_seconds": 248.67212,
+      "total_wall_seconds": 279.9851867079851,
+      "limits": [
+        "Fisher requires iid unbiased Bernoulli sampling; overlapping windows use union bound only under valid marginal p-values",
+        "Small samples, temporal correlation, censoring, gradual changes and alpha spending may miss drift",
+        "No retraining, ranking or decision performance claim",
+        "Only monitored entrypoint invalidates; unmanaged engine is explicitly out of scope",
+        "Full receipt/model revalidation has CPU cost; all-unknown baseline included"
+      ]
+    }
+  ],
+  "reproduction": {
+    "semantic_hash_equal": true,
+    "scores_and_sensitivity_equal": true,
+    "semantic_hash": "43559916bd5ce884d2a26f3a10bbf6170bffedf7eaf3b00048160e08a79eb626"
+  },
+  "audits": [
+    {
+      "passed": true,
+      "comparisons": 512,
+      "validated_transitions": 2240,
+      "fisher_independently_checked": true,
+      "suppression_checked": true,
+      "scores_independently_checked": true,
+      "timings_certified": false
+    },
+    {
+      "passed": true,
+      "comparisons": 512,
+      "validated_transitions": 2240,
+      "fisher_independently_checked": true,
+      "suppression_checked": true,
+      "scores_independently_checked": true,
+      "timings_certified": false
+    }
+  ]
+}

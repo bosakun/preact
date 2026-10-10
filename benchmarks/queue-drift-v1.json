@@ -1,0 +1,199 @@
+{
+  "schema_version": "1",
+  "training_seeds": [
+    11,
+    12,
+    13,
+    14
+  ],
+  "pilot_seeds": [
+    201
+  ],
+  "evaluation_seeds": [
+    101,
+    102,
+    103,
+    104
+  ],
+  "training_ticks": 24,
+  "evaluation_ticks": 64,
+  "training_noise": 0.05,
+  "training_actions": [
+    "probe",
+    3,
+    0
+  ],
+  "detector": {
+    "window": 16,
+    "min_recent": 8,
+    "min_training": 16,
+    "min_effect": 0.1,
+    "alpha": 0.05,
+    "max_gap_ticks": 16
+  },
+  "sensitivity": [
+    {
+      "window": 8
+    },
+    {
+      "window": 32
+    },
+    {
+      "alpha": 0.01
+    },
+    {
+      "min_effect": 0.25
+    },
+    {
+      "training_transition_limit": 6
+    },
+    {
+      "training_transition_limit": 24
+    }
+  ],
+  "policy": {
+    "search": false,
+    "calibration": false,
+    "width": 1,
+    "max_nodes": 1,
+    "max_calls": 32
+  },
+  "environments": {
+    "stable_low": {
+      "world": {
+        "high_first": false,
+        "shift_tick": 64,
+        "noise": 0.05
+      },
+      "training_regime": "low",
+      "stable": true,
+      "change_tick": 64,
+      "actions": [
+        "probe",
+        3,
+        0,
+        0
+      ]
+    },
+    "stable_high": {
+      "world": {
+        "high_first": true,
+        "shift_tick": 64,
+        "noise": 0.05
+      },
+      "training_regime": "high",
+      "stable": true,
+      "change_tick": 64,
+      "actions": [
+        "probe",
+        3,
+        0,
+        0
+      ]
+    },
+    "low_to_high": {
+      "world": {
+        "high_first": false,
+        "shift_tick": 24,
+        "noise": 0.05
+      },
+      "training_regime": "low",
+      "stable": false,
+      "change_tick": 24,
+      "actions": [
+        "probe",
+        3,
+        0,
+        0
+      ]
+    },
+    "high_to_low": {
+      "world": {
+        "high_first": true,
+        "shift_tick": 24,
+        "noise": 0.05
+      },
+      "training_regime": "high",
+      "stable": false,
+      "change_tick": 24,
+      "actions": [
+        "probe",
+        3,
+        0,
+        0
+      ]
+    },
+    "noise": {
+      "world": {
+        "high_first": false,
+        "shift_tick": 64,
+        "noise": 0.5
+      },
+      "training_regime": "low",
+      "stable": false,
+      "change_tick": 0,
+      "actions": [
+        "probe",
+        3,
+        0,
+        0
+      ]
+    },
+    "partial_low_to_high": {
+      "world": {
+        "high_first": false,
+        "shift_tick": 24,
+        "noise": 0.05
+      },
+      "training_regime": "low",
+      "stable": false,
+      "change_tick": 24,
+      "actions": [
+        0,
+        1,
+        0,
+        0
+      ]
+    },
+    "stable_ordinary": {
+      "world": {
+        "high_first": false,
+        "shift_tick": 64,
+        "noise": 0.05
+      },
+      "training_regime": "low",
+      "stable": true,
+      "change_tick": 64,
+      "actions": [
+        0,
+        3,
+        0,
+        0
+      ]
+    },
+    "ordinary_low_to_high": {
+      "world": {
+        "high_first": false,
+        "shift_tick": 24,
+        "noise": 0.05
+      },
+      "training_regime": "low",
+      "stable": false,
+      "change_tick": 24,
+      "actions": [
+        0,
+        3,
+        0,
+        0
+      ]
+    }
+  },
+  "freeze_stage": "Pilot integration followed by frozen held-out evaluation; no post-score tuning",
+  "limits": [
+    "Fisher requires iid unbiased Bernoulli sampling; overlapping windows use union bound only under valid marginal p-values",
+    "Small samples, temporal correlation, censoring, gradual changes and alpha spending may miss drift",
+    "No retraining, ranking or decision performance claim",
+    "Only monitored entrypoint invalidates; unmanaged engine is explicitly out of scope",
+    "Full receipt/model revalidation has CPU cost; all-unknown baseline included"
+  ]
+}

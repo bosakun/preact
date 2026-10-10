@@ -261,3 +261,117 @@ submit(3)は`[4,7,9]`、submit(1)は`[4,7,7]`、drainは`[4,6,6]`。
 確率保証や校正指標ではない。p=0/1モデルでも経路supportには未観測能力を含む。
 全サイズを残し、状態誤差と差分誤差が異なる方向に変わる場合も併記する。
 追加評価でもprefixの測定/実績を学習モデルに混ぜず、予測を教師にしない。
+
+## 承認済み追加設計: Dynamics drift監視
+
+確定経験の直近ウィンドウと学習時の有限能力標本を両側Fisher検定で比較する。
+既存Calibrationは予測信頼度、online Beliefは現在状態の推定であり、ここでは
+固定モデルの環境分布仮定と利用可否を扱う。Trainer/Adapter/TransitionDatasetは再利用する。
+既定値は学習有効数16、直近16（8から判定）、割合差0.10、総alpha0.05、
+`alpha_k=0.05/(k*(k+1))`、有効観測なし16tickを超えれば不足扱い。
+同一prefixの再判定は同じlookを再構築し、追加の検定予算を使わない。
+統計的失効はmodel/episode scopeでラッチする。検証失敗は統計的driftと区別する。
+
+監視付き入口は毎回receiptと観測時系列を再検証し、immutable Health viewと
+新しいRegistryを生成する。失効時はINFERENCE unknownを返す。
+既存QueueTemporalEngine直接呼出しは監視対象外であり、Core/Gate/実行権限は変更しない。
+新しいAPIはAction比較専用で、ランキングや自動再学習・昇格・rollbackは行わない。
+
+```mermaid
+flowchart TD
+  R[Ledger + completed receipts] --> T[TransitionDataset再検証]
+  T --> A[QueueServiceAdapter 有効能力標本]
+  M[不変DynamicsModel + 学習receipt参照] --> H[Fisher window履歴の再構築]
+  A --> H
+  O[新しいauthoritative State + cutoff] --> T
+  H --> V[Healthに束縛したEngine view]
+  V --> G[新しいprivate Registry]
+  G --> P[利用可能なら既存3tick推論 / 失効ならunknown]
+  P --> F[Store更新の最終検査]
+  F --> C[読取専用Action比較]
+```
+
+統計的有意差を環境変化の確証、未検出を定常性の証明、unknownを安全証明とは扱わない。
+有限標本、時間相関、選択・検閲、緩やかな変化と逐次alpha減少に検知限界がある。
+
+### 監視APIと責務
+
+```python
+from preact.engines.queue_temporal_guard import QueueTemporalGuard
+
+# model/training_manifest are produced by the existing receipt-backed Trainer.
+# Persist this initial State and the complete ordered manifest for restart/replay.
+initial = await world.observe()  # tick 0; supplied by the authoritative World
+monitor = QueueTemporalGuard(
+    store, world.task, model, training_manifest,
+    episode_id="deployment-episode", initial=initial,
+)
+state = await world.observe()  # never replaced with an old observation
+comparison = await monitor.compare(
+    state, [world.action(state, n) for n in (3, 1, 0)], completed_run_ids,
+)
+# Read-only inference, NOT authorization. Use the existing Runtime for execution.
+health = await monitor.health(await world.observe(), completed_run_ids)
+```
+
+`learning/drift.py`はdomainを知らないBernoulli判定だけを扱う。
+`engines/queue_temporal_guard.py`はQueue v2のteacher mask、receipt/時系列/Task検証、
+モデル適合性・統計値の再照合、監視付き予測入口を担当する。
+Trainerを同じ学習receiptに対して再計算して整合性を検証するが、新しい経験でモデルを
+再学習・置換する処理ではない。この保守的な再検証の計算コストは計測対象である。
+
+返すHealthの状態は`insufficient_data`（学習/最近の有効数不足・観測の陳腐化）、
+`available`（失効条件に達していない）、`suspected`（割合差>=0.10かつnominal p<=0.05だが
+逐次閾値に未達）、`invalidated`（逐次p閾値と割合差の双方を満たす、scope内でラッチ）。
+互換性・破損・未確定実行・偽造・cutoff不整合は統計的状態と混同せず例外で拒否する。
+`available`も定常性の証明ではなく、有限標本に基づく利用判断にすぎない。
+
+model version、学習dataset hash、監視prefixのbasis hash、scope/cutoff、config、
+全lookの学習/最近の標本数・high数・割合差・p・alpha・出所referenceを返す。
+Health hashとguardコードhashと元モデルversionでEngine view versionを生成する。
+Predictionは元モデルversion/学習dataset hashとHealth/view versionを保持し、
+INFERENCE・未確定success/risk・未解決mandatory safety checksを維持する。
+個々のlookは新しい有効receiptにのみ対応し、同じ履歴の再読込でalphaを二重消費しない。
+failed/censored teacherはwindowを増やさない。失効後に分布が戻っても自動復活しない。
+
+### 有効性の範囲と失敗時の動作
+
+監視manifestは一つの実World episodeを所有する呼出し側が管理する。
+学習episode/run/receiptとmonitoringを分離し、initial tick0から連続する全実遷移を要求する。
+Training observation/outcome確定時刻<=deployment initial時刻、各after/outcome確定時刻<=現在観測時刻、
+最後の実観測と現在Stateの全内容（timestamp以外）一致、現在時刻の非逆転を検証する。
+Domain/provenance/schema/uncertaintyなどを含め、State IDだけを根拠にしない。
+Scope中のmanifest切り詰め・差し替え、別Task、future receipt、未確定/aborted intentは拒否する。
+再開時は**同じモデル・config・initial・scopeと全ordered manifest**を提供して履歴を再構築する。
+新しいconfig/scopeへ移ることは明示的な新しい監視設定であり、全域失効保証ではない。
+
+現行State/Receiptには暗号学的なWorld instance IDがない。同じTask・可視状態の別Worldを
+任意の呼出し側が偽ってmanifestへ結び付けることまで認証するAPIではない。
+Task seedと連続性で通常の混入は拒否するが、World所有者の正しいepisode manifestを前提とする。
+また、manifestに含めない別runのwriterは発見しない。既知runの追記、status変更、
+receipt-only外部更新はStore.run_headsで読込前後・予測後に検査する。
+append-only Ledgerへのin-place改変、DB rollback/置換、最後のfence後の更新はStoreの保証外。
+保証されるのは最終fence時点の入力に基づく今回の比較であり、永続的な未来の承認ではない。
+
+取得・検証・推論の例外/キャンセルは伝播し、保存済み利用可能Health/予測へfallbackしない。
+正当なデータ不足/統計的失効では空のvectors/metricsを持つunknownを返す。
+同一呼出し内だけにRegistryを所有し、前の比較のaccepted/cacheを持ち越さない。
+既存の直接`QueueTemporalEngine`利用を変更せず、任意の長寿命Registryへの監視保証も主張しない。
+
+### 統計的仮定と次段階
+
+Fisher検定のp値は固定有限標本同士の二項分布比較であり、環境が変化した確率ではない。
+独立・定常・非偏り標本という仮定の下でのみ、各p値とalphaのunion boundに意味がある。
+window重複自体はunion boundを壊さないが、時間相関・有効観測の選択/失敗・検閲による
+偏り、有限学習標本、ゆっくりした変化、観測不足、後半の小さなalphaに検知限界がある。
+error budgetはmodel/monitor scope単位であり、複数episode全体の5%保証ではない。
+未校正の予測support/区間も安全証明へ昇格しない。
+
+次の独立段階は失効の根拠から明示的な新training manifestを作り、既存Trainerで新artifactを
+作成し、held-out評価を経て新しいGuard/Registryへ切り替えること。
+作成と利用可否判定を分離し、旧モデルのversion/capabilitiesをin-placeで書き換えない。
+自動再学習・昇格・rollbackの承認条件と評価は今回実装していない。
+
+検定の定義・両側p値の取り扱いは
+[SciPy公式Fisher exact test](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.fisher_exact.html)
+に照合した。既存lockfileのSciPyを再利用し、依存追加はない。

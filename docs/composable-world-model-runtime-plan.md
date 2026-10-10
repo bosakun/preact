@@ -154,3 +154,11 @@ and accurate docs, not interfaces alone. Remaining constraints: bounded search,
 model/dynamics assumptions, unknown correlations, less reuse, no long-horizon actual
 labels. Nebius/ConTree/Isaac/Cosmos/GPU/cloud need real access/hardware; keep boundaries
 and report pending validation without substituting local or mocked results.
+
+## Model lifecycleの最初の承認済み縦切り
+
+Receipt-backed Dynamics Learningと3tick Action比較に続き、固定モデルの
+環境分布仮定を確定経験のwindowで監視し、失効モデルを監視付き入口から利用しない。
+純粋なdrift履歴再構築とdomain側のreceipt/cutoff/Registry管理を分離する。
+学習契約、状態意味、Core安全境界を変更しない。Queue実装を上位目的へ固定しない。
+自動再学習・昇格・rollbackとActionランキングは別の設計承認・評価段階とする。
