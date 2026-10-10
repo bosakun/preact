@@ -602,3 +602,70 @@ wheel/sdist integrity成功（各78 sources）。既存v1 protocol/結果はbyte
 Core/Gate/Engine/Trainer/Memory・既存APIへの追加差分なし。raw DB/model/casesは非公開。
 次: この追加評価をPR #9にpushし最新head CIを確認。mainへmergeしない。
 残る研究課題: 分布変化/時間相関と失効、区間校正、実際の意思決定価値。
+
+## Dynamics drift sprint — 承認済み設計・監査
+
+- 公開main d0c211d（PR #9 merge済み）、open PRなしを確認。
+- 保護対象の未コミット変更には触れず、feat/dynamics-drift独立worktreeを作成。
+- Registryはpredict前にcacheを返すため、可変healthフラグ方式を採用しない。
+- TransitionDataset/QueueServiceAdapterを再利用し、純粋な履歴再構築とfresh Registry入口を追加する。
+- 既存Calibration/Belief/Trainer/Coreの意味は維持。固定protocolで別途評価・監査予定。
+
+## Dynamics drift sprint — 最小経路とpilot
+
+- learning/drift.py: 有効標本だけのFisher window、逐次alpha、失効ラッチ、再現可能な履歴。
+- queue_temporal_guard.py: 学習receipt/モデル再照合、fresh State cutoff/Task/連続tick検証、
+  Store更新fence、private RegistryごとのHealth view。unknownか例外を返し、過去の予測へfallbackしない。
+- pilot（別seed）: stable available、shift invalidated、partial insufficient_data。独立監査24比較/144遷移がpass。
+- 初期テスト不一致: 正規化前0と正規化後0.0のhash、SQL receipt JSON列とreceipt ID列のテスト取り違え、
+  再現比較への実測latency混入を修正。既存テストは削除・弱体化していない。
+- 閾値・8条件・4seed・窓/alpha/効果量/学習標本数の感度条件を本評価前に固定。
+- Ruff、frontend contracts無差分/build、専用APIポート18333で既存Chromium E2E 6件pass。
+- 全Python、本評価・再現実行、配布監査、文書実測、PR/CIが残る。
+
+## Dynamics drift sprint — 本評価1回目・独立監査
+
+- 本評価32 episode/2048実遷移（全engine calls4096）と学習192実遷移を正式Runtime/Receiptで収集。unsafe0。
+- default: 安定12 episode誤失効0、probe併用急変8/8検知（11〜21tick）、
+  通常実績のみ急変4/4検知（19〜31tick）、noise4/4検知（15tick）、部分観測0/4。
+- 失効予測117件を抑止。coverage/unknown/共通採点集合を別集計し、MAE低下を能力向上と解釈しない。
+- 通常実績急変はsupported MAE0.580307→0.857677と悪化、coverage23.4375%。結果は保持。
+- fullsource/model再照合で監視CPU平均297ms/比較、固定0.62ms。高速化は主張しない。
+- 独立auditor: 512比較/2240遷移、Fisherをhypergeometric列挙で照合、
+  fixture seed・receipt・cutoff・Health/view・suppression・感度・スコアの再検証pass。
+- 全Python570 pass（99.29s）、Ruff176 files、既存APIと別ポートのChromium6 pass。
+- 初回wheel/sdist監査: 全80 Python sources一致、privateパス除外pass。
+- 同条件の2回目を、他の重い検証と重ねず開始。閾値・評価条件は変更しない。
+
+## Dynamics drift sprint — 時点整合の追加監査
+
+- 2回目も全semantic/hash/スコア/感度一致、独立監査512比較/2240遷移pass。
+- 追加監査でObservation生成時刻とdurable outcome記録時刻の間を区別する必要を特定。
+  Receiptが現在completeでも、過去の観測cutoff後に記録されたoutcomeは当時利用できなかった。
+- Guardにoutcome event確定時刻<=観測cutoff、training outcome確定<=deployment anchor、
+  未来timestamp拒否を追加。Core/既存契約/閾値/評価条件は変更していない。
+- 否定テストで上記を拒否し、freshな現在観測では通常予測を返すことを確認。
+- 最終sourceで全回帰、固定本評価2回と監査を再実行する。先の計測は変更前の実行記録として保持。
+
+- 最終cutoff検査を含むコードでfrontend契約再生成byte一致/build、Ruff176 files、
+  独立APIポート18333のChromium6 pass（8.0s）。全Python回帰を再実行中。
+- 非空pendingを正式Runtime prefixで作る追加テストでは、監視付きと直接Engineの
+  Action比較が一致し、private scheduleを触らず、実Actionを追加しないことを確認する。
+
+## Dynamics drift sprint — 最終コードの再評価
+
+- 追加時点検査・非空prefixを含む全Python573 pass（89.45s）、新規30ケース。
+- 最終sourceの2実行: semantic hash43559916…e626、判定/スコア/感度/予測/actual trace完全一致。
+- 閾値・protocolは固定のまま。検知・抑止件数・失敗条件は初回と同じ。
+- 512比較/方式/実行、CPU平均固定0.586/0.579ms、監視付き335.724/328.768ms（約570倍）。
+  全実験CPU253.077/248.672s、wall284.528/279.985s。両計測中に重い検証は重ねなかった。
+- 最終両実行の独立監査を並列実行中。結果集計の最終更新・配布監査・PR/CI確認が残る。
+
+- 最終2実行とも独立auditor pass: 各512比較/2240実遷移、Fisher/receipt/cutoff/
+  Model Health/view version/抑止/fixture seed/感度/全主要スコア一致。時間の独立認証は対象外。
+- benchmarks/queue-drift-v1-results.jsonを最終sourceの集計と両監査結果で確定。
+  raw DB/モデル/receipt/manifest/casesと研究原文は公開ファイルに含めない。
+
+- 最終wheel/sdist監査pass（80 Python sources一致、private/generated path除外）。
+- 旧64 benchmark JSON byte一致、既存文書は全て元内容を維持して追記。
+- main d0c211dからの独立ブランチでPR準備。Core/既存Trainer/Adapter/TemporalEngineは無変更。

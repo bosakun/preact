@@ -318,3 +318,100 @@ Ruff lint/format170 files成功。frontend contracts byte一致/build成功、
 Core/Gate/学習契約の追加変更なし。学習予測は引き続きINFERENCEで、
 mandatory safety check/実観測/実行承認へ昇格しない。
 残る課題は分布変化・時間相関とモデル失効、区間校正、意思決定性能の実測である。
+
+## Dynamics drift / Safe model invalidation v1（独立評価）
+旧PR #8/#9のprotocol・結果を維持し、`benchmarks/queue-drift-v1.json`を別途固定した。
+小規模pilot（seed201、3条件）は24比較/144実遷移の独立監査に成功後、本評価へ進んだ。
+学習seed11〜14、評価seed101〜104、8条件×4 episode、各64tick。学習はlow/high各96遷移、
+有効能力標本各64（low high-count3、high high-count61）。予測はroot通常Actionと
+2回の実drainに対応する3tickだけを採点する。各方式の実Action列・Runtime・Verifier予算は同じ。
+学習/評価episode・run・receiptを分離し、モデルは更新せず固定する。thresholdは本評価後に変更しない。
+window16（8有効観測から）、学習有効数16以上、割合差0.10、alpha_k=0.05/(k*(k+1))。
+観測が識別不能な場合に低能力教師を補完しない。
+
+| 条件 | 検知 | 遅延tick / 有効標本数 | 固定MAE | 監視付きsupported MAE | coverage / unknown | 失効抑止数 |
+|---|---:|---|---:|---:|---|---:|
+| stable_low | 0/4 | — | 0.129311 | 0.140479 | 75.0000% / 25.0000% | 0 |
+| stable_high | 0/4 | — | 0.069743 | 0.082330 | 75.0000% / 25.0000% | 0 |
+| low_to_high | 4/4 | 11〜21 / 6〜11 | 0.580307 | 0.564594 | 34.3750% / 65.6250% | 26 |
+| high_to_low | 4/4 | 11〜21 / 6〜11 | 0.553317 | 0.527462 | 34.3750% / 65.6250% | 26 |
+| noise | 4/4 | 15〜15 / 8〜8 | 0.527921 | — | 0.0000% / 100.0000% | 48 |
+| partial_low_to_high | 0/4 | — | 0.000000 | — | 0.0000% / 100.0000% | 0 |
+| stable_ordinary | 0/4 | — | 0.129311 | 0.179835 | 50.0000% / 50.0000% | 0 |
+| ordinary_low_to_high | 4/4 | 19〜31 / 5〜8 | 0.580307 | 0.857677 | 23.4375% / 76.5625% | 17 |
+
+MAEはqueue/deliveredの3tick平均絶対誤差で、supportがある予測だけを採点する。
+固定モデルのcoverageは全条件100%。全unknown方式は全条件coverage0%、unknown100%、MAEは未定義。
+監視付きの予測値は利用可能な間、固定モデルと同じ。**同じ採点集合の固定MAEは監視付きMAEと完全一致する。**
+異なる集合のMAEを比較して予測能力の改善とは主張しない。通常実績急変の全体supported MAEは
+0.580307→0.857677と悪化しており、その結果を保持する。noiseでは最初の利用可能判定時に失効し、
+coverage0%で全unknown方式と同じである。partialでは固定方式の誤差が0でも監視は教師を識別できずunknownとなる。
+検知・予測抑止・精度/coverageを分離した評価であり、ランキング/タスク成功率の改善は測定していない。
+
+安定low/highと通常実績の計12 episodeで誤失効0（観測範囲の結果、普遍的false-alarm保証ではない）。
+probe併用急変8/8、通常実績急変4/4、noise4/4で検知、部分観測急変4/4では未検出。
+noiseはlow .05学習から .5環境へのdeployment初期不一致としてchange_tick0で採点した。
+既定のprobe併用急変は11〜21tick（6〜11有効観測）、通常実績のみでは19〜31tick（5〜8有効観測）。
+検知tickは初めて有効標本で失効条件を満たすafter tick。実際の予測抑止は次の4tick周期の予測入口からで、
+そのcutoffは結果JSONのfirst_suppressed_cutoffsで別に記録する。未検出episodeの遅延を0で補完しない。
+
+事前固定の感度評価: window8ではprobe併用急変4/4を各方向tick33で検知、
+window32ではtick37〜49、alpha0.01ではtick37〜47となった。通常実績だけの急変は
+alpha0.01で3/4検知（1/4未検出）。学習16有効標本の有限比較はprobe急変各3/4、noise1/4、
+通常実績急変0/4と弱まった。学習4有効標本は全条件insufficient_data。
+これらは同じ評価traceで有限標本/window設定を変えた統計的感度分析で、学習モデルの再昇格・予測更新ではない。
+既定設定を有利な感度設定へ変更していない。
+
+独立auditorは2240実遷移（学習192+評価2048）、512比較を再検証する。
+Fisherの両側p値を別のhypergeometric列挙で検査し、既存receipt検証、モデル再fit、
+fixture seedによる実結果、current cutoffのHealth再構築、Engine view version、
+失効時の空vectors/INFERENCE、感度分析、MAE/coverage/検知遅延を再採点した。
+監査のfixture schedule再現は評価oracleに限定し、Learner/Guard/Engineに渡さない。
+raw DB・receipts・モデル・manifest・casesは.cache内のみ、公開は集計JSON。時間の独立認証は行わない。
+
+再現コマンド（毎回新しい出力先）:
+
+```bash
+uv run python -m scripts.benchmark_queue_drift --protocol benchmarks/queue-drift-v1.json --output .cache/drift-run-A
+uv run python -m scripts.audit_queue_drift --protocol benchmarks/queue-drift-v1.json --output .cache/drift-run-A
+uv run python -m scripts.benchmark_queue_drift --protocol benchmarks/queue-drift-v1.json --output .cache/drift-run-B
+uv run python -m scripts.audit_queue_drift --protocol benchmarks/queue-drift-v1.json --output .cache/drift-run-B
+```
+
+時間相関/緩やかな変化は今回のfixtureで実測していない。Fisherのiid標本仮定、
+通常観測の検閲・失敗による偏り、少数標本と逐次alpha減少による未検出・遅延は残る。
+取得/推論コスト、future timestamp、外部更新、pending/aborted/forged、reset、キャンセル、
+監視対象外の直接利用とscope所有契約は設計文書に記載した。
+
+最終sourceの2回の固定条件実行で、実Action/可視trace、予測vectors、Health判定、検知tick/有効数、
+MAE/coverage、感度分析が一致した。意味的hashは
+`43559916bd5ce884d2a26f3a10bbf6170bffedf7eaf3b00048160e08a79eb626`。
+raw receipt ID/timestamp/model versionは実行ごとに異なり、意味的比較では正規化した。
+結果は`benchmarks/queue-drift-v1-results.json`に集計のみを保存する。
+
+Python3.12.13/macOS arm64、512予測/方式/実行。CPU平均/比較は固定0.586/0.579ms、
+監視付き335.724/328.768ms、wall平均は固定0.585/0.578ms、監視付き371.792/364.794ms。
+全実験CPU253.077/248.672s、wall284.528/279.985s。
+最終sourceの両実行とも他の重い検証を同時に行わなかった。
+OS負荷の影響と計測の独立認証がないことは残る。
+**約570倍のCPU増加**であり、高速化の主張はできない。
+全Ledger/receiptを繰り返し検証し、固定学習統計を再fit照合し、look履歴を再構築する
+安全側の初期実装による負担である。既存の直接Engine/APIはこのopt-inコストを負わない。
+次にreceipt-backed更新検出と固定prefixの派生キャッシュを活かした増分検証を検討する。
+
+失効後の予測採用は117件すべて抑止、実遷移unsafe0、Runtime検証engine calls4096/実行。
+新機能はActionを実行せず、Gate/Authorization/Intent/Receiptの意味を変更しない。
+実観測の再取得とreceipt検証を省略する最適化は行っていない。
+
+時点監査で観測生成とoutcome記録の間を区別する必要を見つけ、outcome eventの記録
+timestampもcutoff以下であることと未来timestamp拒否を追加した。これを含む最終sourceで
+2回再実行し、前の結果との意味的hashも一致した。閾値・protocol・条件は変えていない。
+記録timestampとread時のcomplete receiptを併用する。DBの物理commit-clock履歴や
+暗号学的World認証を追加したわけではなく、既存append-only StoreとWorld所有契約の範囲である。
+
+最終Python **573 passed in89.45s**（新規30ケース）、Ruff lint/format176 files成功。
+frontend契約再生成byte一致/build、専用worktree API（18333）のChromium6 passed in8.0s。
+既存64 benchmark JSONとCore/Trainer/TransitionDataset/Adapter/QueueTemporalEngineの変更なし。
+
+最終wheel/sdistのdistribution integrityは全80 Python sourcesのbyte一致と
+private/generated path除外に成功。配布物のインストール後実行や秘密情報検出の保証は対象外。

@@ -172,3 +172,17 @@ Cosmos currently has no extracted claim predicate, so video artifacts cannot res
 Gate claims. Real Nebius/ConTree/Isaac/Cosmos/GPU/cloud acceptance remains pending
 where access/hardware is unavailable. This architecture is not a complete world
 model, perfect simulator, safety guarantee, human cognitive system or AGI.
+
+## Opt-in model lifecycle boundary
+
+Queue temporalモデルの監視付き入口は`QueueTemporalGuard.compare`である。
+`TransitionDataset`が再検証した実経験を基に、固定学習分布と最近の有効標本を比較する。
+統計判定の履歴と利用可否は学習処理・Calibration・実行許可から分離される。
+Healthごとに不変のEngine viewを作り、呼出しごとに新しいprivate Registryを使う。
+失効時はINFERENCE unknownになり、古いRegistryのキャッシュを持ち越さない。
+既存`QueueTemporalEngine`の直接利用は従来どおり監視対象外である。
+
+これはQueue専用の初期lifecycle実装であり、世界モデル全体の定義ではない。
+receipt検証失敗・不整合・キャンセルは例外で停止し、古い利用可能状態へ戻らない。
+Core/Gate/Authorizationを変更せず、Action比較は読取専用のままである。
+詳細な統計的仮定・適用範囲は`docs/learned-dynamics.md`を参照する。

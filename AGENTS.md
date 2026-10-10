@@ -19,6 +19,10 @@ See `docs/learned-dynamics.md` and its dedicated frozen benchmark/results.
 Opt-in Queue temporal analysis learns identifiable service observations separately
 from total transitions and compares three-tick effects with known arrival rules.
 It uses Registry continuation claims, remains inference, and never ranks or executes actions.
+Opt-in Queue drift monitoring revalidates receipt/cutoff provenance, replays finite-sample
+Fisher windows and suppresses invalidated forecasts through fresh private Registries.
+Raw QueueTemporalEngine calls remain unmanaged; health never certifies safety.
+See docs/learned-dynamics.md and the separate queue-drift protocol/results.
 Native World proposals also support Software cognitive rounds and explicit hypothetical
 search, with optional episode-wide budgets. See `docs/software-cognition.md`; Core
 verification and execution authority remain unchanged. The Software CLI uses trusted local fixtures.
