@@ -100,21 +100,42 @@ async def audit(output: Path, protocol_path: Path):
             "Effective sample counts changed",
         )
         models[key] = model
-    expected_cases = {
-        f"eval:{env}:{seed}:{prefix}"
-        for env, seed, prefix in itertools.product(
-            protocol["evaluation_environments"],
-            protocol["evaluation_seeds"],
-            protocol["prefix_ticks"],
+    detailed = "workload_prefixes" in protocol
+    expected_cases = {}
+    for env, seed, warmup, (label, workload) in itertools.product(
+        protocol["evaluation_environments"],
+        protocol["evaluation_seeds"],
+        protocol["prefix_ticks"],
+        protocol.get("workload_prefixes", {"empty": []}).items(),
+    ):
+        suffix = f"{warmup}:{label}" if detailed else str(warmup)
+        expected_cases[f"eval:{env}:{seed}:{suffix}"] = (
+            env,
+            seed,
+            suffix,
+            ["probe"] * warmup + workload,
         )
-    }
     check(
-        {c["id"] for c in cases} == expected_cases and len(cases) == len(expected_cases),
+        {c["id"] for c in cases} == set(expected_cases) and len(cases) == len(expected_cases),
         "Missing or duplicate cases",
     )
     scores = {}
     calls, old_errors, semantics = 0, [], []
     for case in cases:
+        env, seed, condition, sequence = expected_cases[case["id"]]
+        check(
+            case["environment"] == env
+            and case["seed"] == seed
+            and case["prefix"] == len(sequence)
+            and len(case["branches"]) == len(protocol["actions"])
+            and set(case["comparisons"]) == set(summary["inference"]) == {"fixed_prior", *models},
+            "Case conditions changed",
+        )
+        if detailed:
+            check(
+                case["initial_condition"] == condition and case["prefix_actions"] == sequence,
+                "Prefix specification changed",
+            )
         world = InformationQueueWorld(
             seed=case["seed"],
             ticks=protocol["evaluation_ticks"],
@@ -145,6 +166,9 @@ async def audit(output: Path, protocol_path: Path):
             rows = [r for r in evaluation.transitions if r.episode_id == episode]
             roots = rows[case["prefix"] :]
             check(
+                rows[0].before.payload == world.payload, "Prefix did not start at configured reset"
+            )
+            check(
                 len(roots) == 3
                 and roots[0].before.payload == state.payload
                 and roots[0].before.provenance == state.provenance,
@@ -154,8 +178,21 @@ async def audit(output: Path, protocol_path: Path):
                 all(r.continuous_from_previous is not False for r in rows), "Discontinuous episode"
             )
             check(
-                all(r.action.kind == "probe_service" for r in rows[: case["prefix"]]),
+                all(
+                    r.action.kind == "probe_service"
+                    if value == "probe"
+                    else r.action.kind == "submit" and action_amount(r.before, r.action) == value
+                    for r, value in zip(rows[: case["prefix"]], sequence)
+                ),
                 "Prefix semantics changed",
+            )
+            check(
+                not sequence
+                or (
+                    rows[case["prefix"] - 1].after.state.payload == state.payload
+                    and rows[case["prefix"] - 1].after.state.provenance == state.provenance
+                ),
+                "Initial state not backed by completed prefix receipt",
             )
             trace = []
             memory = EpisodicMemory(store)
@@ -226,15 +263,43 @@ async def audit(output: Path, protocol_path: Path):
                 len(matching) == 1 and matching[0]["data"] == {"condition": key, **recorded},
                 "Analysis Ledger mismatch",
             )
-            for scope in (case["environment"], f"{case['environment']}/prefix:{case['prefix']}"):
+            for scope in (case["environment"], f"{case['environment']}/prefix:{condition}"):
                 group = scores.setdefault(scope, {}).setdefault(
                     key,
-                    {"count": 0, "supported": 0, "errors": [], "differences": [], "covered": []},
+                    {
+                        "count": 0,
+                        "supported": 0,
+                        "errors": [],
+                        "differences": [],
+                        "covered": [],
+                        "actions": {
+                            str(n): {
+                                "delivered": [],
+                                "queue": [],
+                                "ticks": [[], [], []],
+                                "sensitive": 0,
+                            }
+                            for n in protocol["actions"]
+                        },
+                    },
                 )
                 group["count"] += 1
                 if recorded["status"] == "estimated":
                     group["supported"] += 1
-                    for p, trace in zip(predictions, actual):
+                    for amount, p, trace in zip(protocol["actions"], predictions, actual):
+                        action_group = group["actions"][str(amount)]
+                        for t in range(3):
+                            action_group["ticks"][t].append(
+                                abs(p.vectors["delivered"][t] - trace[t]["delivered"])
+                            )
+                        for metric in ("queue", "delivered"):
+                            action_group[metric].extend(
+                                abs(p.vectors[metric][t] - trace[t][metric]) for t in (1, 2)
+                            )
+                        action_group["sensitive"] += any(
+                            len({b["delivered"][t] for b in p.raw["branches"]}) > 1
+                            for t in range(3)
+                        )
                         group["errors"].extend(
                             abs(p.vectors["delivered"][t] - trace[t]["delivered"]) for t in (1, 2)
                         )
@@ -278,17 +343,69 @@ async def audit(output: Path, protocol_path: Path):
                 if group["covered"]
                 else None,
             }
-            for metric, value in recomputed.items():
-                section = (
-                    "scores"
-                    if environment in protocol["evaluation_environments"]
-                    else "scores_by_prefix"
+            section = (
+                "scores"
+                if environment in protocol["evaluation_environments"]
+                else "scores_by_prefix"
+            )
+            if detailed:
+                check(
+                    set(summary[section][environment][key]["per_action"]) == set(group["actions"]),
+                    "Per-action coverage changed",
                 )
+                for amount, action_group in group["actions"].items():
+                    stored_action = summary[section][environment][key]["per_action"][amount]
+                    check(
+                        stored_action["service_sensitive_comparisons"] == action_group["sensitive"],
+                        "Service sensitivity count changed",
+                    )
+                    for metric in ("queue", "delivered"):
+                        errors = action_group[metric]
+                        value = fmean(errors) if errors else None
+                        stored = stored_action[f"tick_2_3_{metric}_mae"]
+                        check(
+                            stored is None
+                            if value is None
+                            else math.isclose(stored, value, abs_tol=1e-12),
+                            "Per-action score mismatch",
+                        )
+                    check(len(stored_action["delivered_mae_by_tick"]) == 3, "Tick coverage changed")
+                    for stored, errors in zip(
+                        stored_action["delivered_mae_by_tick"], action_group["ticks"]
+                    ):
+                        check(
+                            stored is None
+                            if not errors
+                            else math.isclose(stored, fmean(errors), abs_tol=1e-12),
+                            "Per-tick score mismatch",
+                        )
+            for metric, value in recomputed.items():
                 stored = summary[section][environment][key][metric]
                 check(
                     stored is None if value is None else math.isclose(stored, value, abs_tol=1e-12),
                     f"Score mismatch: {environment}/{key}/{metric}",
                 )
+    check(
+        set(summary["scores"]) | set(summary["scores_by_prefix"]) == set(scores),
+        "Score groups changed",
+    )
+    if detailed:
+        check(
+            summary["initial_states"]
+            == {
+                "comparisons": len(cases),
+                "nonempty_queue": sum(c["initial"]["payload"]["queue"] > 0 for c in cases),
+                "nonempty_pending": sum(bool(c["initial"]["payload"]["pending"]) for c in cases),
+                "nonempty_work": sum(
+                    c["initial"]["payload"]["queue"] > 0 or bool(c["initial"]["payload"]["pending"])
+                    for c in cases
+                ),
+                "receipt_backed_prefix_transitions": sum(
+                    len(b["prefix_runs"]) for c in cases for b in c["branches"]
+                ),
+            },
+            "Initial condition counts changed",
+        )
     check(identity(semantics) == summary["semantic_hash"], "Semantic summary changed")
     check(calls == summary["execution_engine_calls"], "Execution call count changed")
     check(

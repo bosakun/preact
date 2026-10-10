@@ -222,3 +222,42 @@ cell.countと有効数、coverage、状態誤差、Action差分誤差、CPU/wall
 
 次の候補は、時間相関・分布変化の検出とモデル失効、独立データでの区間校正、
 その後に予測比較を意思決定へ接続する価値の検証。今回LLM/latent/汎用rollout/UIは追加しない。
+
+### 2026-10-10 PR #9レビュー対応：非空初期状態の追加評価
+
+空queue/pendingからの既存評価はそのまま保持する。追加の
+[非空初期状態protocol](../benchmarks/queue-temporal-nonempty-v1.json)では、
+既存benchmark/auditorに任意の`workload_prefixes`を追加した。省略時は従来のprobe-only条件。
+これは評価の拡張であり、Core/Gate/Engine/Adapter/Trainerの契約や実行経路を変更しない。
+
+準備probeを0または8 tick実行後、`pending: [3]`または
+`queue_and_pending: [3,3]`を通常Runtimeで一手ずつ実行する。
+各Action branchを同じseed・外部条件・prefixで再構成し、fresh観測をroot入力にする。
+queue/pendingの直接書換えは行わない。prefixにも通常Verifier・Gate・Authorization・
+durable intent・complete receiptが必要。監査はreceiptを再検証し、最後のprefixの
+実観測、root前観測、分析入力のpayload/provenance一致と連続性を確認する。
+
+```mermaid
+flowchart LR
+    P[Runtimeで準備probeとsubmitを一手ずつ実行] --> R[確定receiptと実観測]
+    R --> S[非空queueまたはpendingを持つfresh State]
+    S --> F[同じStateから3 ActionのRegistry予測]
+    F --> C[固定事前と学習分布を比較]
+    S --> X[各branchでrootとdrainをRuntime実行]
+    X --> A[receipt再検証と実測誤差の独立監査]
+    C --> A
+```
+
+到着する既存仕事があるため、drainやsubmit(1)でも能力1/3により処理量が変わる。
+例えば正式submit(3)を2回実行したlow環境ではtick2にqueue2、pending3が残る。
+その後3 tickのdeliveredは能力が常に1なら全Actionで`[2,3,4]`、常に3なら
+submit(3)は`[4,7,9]`、submit(1)は`[4,7,7]`、drainは`[4,6,6]`。
+この単純な両端例は既知規則と能力の関係を示すもので、学習効果の実証とは分ける。
+学習寄与は同じ初期State・同じ列挙経路に対する固定事前/学習分布のheld-out誤差で測る。
+
+追加集計はAction別のqueue/delivered MAE、1/2/3 tickのdelivered MAE、
+初期状態の非空件数、receipt-backed準備遷移数を含む。
+`service_sensitive_comparisons`は全binary service経路でdelivered曲線が異なる比較数で、
+確率保証や校正指標ではない。p=0/1モデルでも経路supportには未観測能力を含む。
+全サイズを残し、状態誤差と差分誤差が異なる方向に変わる場合も併記する。
+追加評価でもprefixの測定/実績を学習モデルに混ぜず、予測を教師にしない。

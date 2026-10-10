@@ -381,3 +381,115 @@ async def test_mutated_state_identity_and_future_schema_fail_closed():
     state = (await world.observe()).model_copy(update={"schema_version": "2"})
     result = await compare_actions(Registry([engine]), engine, state, [world.action(state, 3)])
     assert result["status"] == "unknown"
+
+
+async def test_receipt_backed_nonempty_root_makes_all_actions_service_sensitive(tmp_path):
+    world, store, result, dataset = await collect(tmp_path, [3, 3])
+    rows = (await dataset.snapshot()).transitions
+    state = await world.observe()
+    assert len(rows) == len(result.run_ids) == 2
+    assert state.payload == rows[-1].after.state.payload
+    assert state.payload["queue"] == 2 and state.payload["pending"] == [{"due": 3, "amount": 3}]
+    for row in rows:
+        events = store.read_events(row.run_id)
+        assert sum(e["kind"] == "authorization" for e in events) == 1
+        assert sum(e["kind"] == "outcome" for e in events) == 1
+
+    class Forbidden:
+        def __getitem__(self, key):
+            raise AssertionError("Forecast read the private schedule")
+
+    world._service = Forbidden()
+    actions = [world.action(state, n) for n in (3, 1, 0)]
+    forecasts = []
+    for prior in (0, 1):
+        engine = QueueTemporalEngine(world.task, prior=prior)
+        comparison = await compare_actions(Registry([engine]), engine, state, actions)
+        assert comparison["status"] == "estimated"
+        forecasts.append([p.vectors["delivered"] for p in comparison["predictions"]])
+    assert forecasts[0] == [[2, 3, 4]] * 3
+    assert forecasts[1] == [[4, 7, 9], [4, 7, 7], [4, 6, 6]]
+    assert all(a != b for a, b in zip(*forecasts))
+    assert len((await dataset.snapshot()).transitions) == 2  # Analysis is not experience.
+
+
+async def test_nonempty_benchmark_audits_prefix_receipts_and_per_action_scores(tmp_path):
+    import json
+    from pathlib import Path
+
+    from scripts.audit_queue_temporal import audit
+    from scripts.benchmark_queue_temporal import benchmark
+
+    protocol = json.loads(Path("benchmarks/queue-temporal-v1.json").read_text())
+    protocol.update(
+        training_seeds=[11],
+        evaluation_seeds=[101],
+        training_ticks=6,
+        training_sizes=[0, 6],
+        prefix_ticks=[0],
+        workload_prefixes={"pending": [3], "queue_and_pending": [3, 3]},
+    )
+    protocol["training_environment"]["shift_tick"] = 6
+    protocol["evaluation_environments"] = {
+        "stable_low": {"high_first": False, "shift_tick": 12, "noise": 0}
+    }
+    path = tmp_path / "protocol.json"
+    path.write_text(json.dumps(protocol))
+    output = tmp_path / "run"
+    summary = await benchmark(path, output)
+    assert (await audit(output, path))["paired_comparisons"] == 2
+    assert summary["initial_states"] == {
+        "comparisons": 2,
+        "nonempty_queue": 1,
+        "nonempty_pending": 2,
+        "nonempty_work": 2,
+        "receipt_backed_prefix_transitions": 9,
+    }
+    score = summary["scores"]["stable_low"]["fixed_prior"]
+    assert all(a["service_sensitive_comparisons"] == 2 for a in score["per_action"].values())
+    assert all(a["tick_2_3_delivered_mae"] > 0 for a in score["per_action"].values())
+    assert score["tick_2_3_action_difference_mae"] != 2 * score["tick_2_3_state_mae"]
+    score_path = output / "summary.json"
+    saved = score_path.read_text()
+    summary["scores"]["stable_low"]["fixed_prior"]["per_action"]["0"]["tick_2_3_queue_mae"] += 1
+    score_path.write_text(json.dumps(summary))
+    with pytest.raises(ValueError, match="Per-action score mismatch"):
+        await audit(output, path)
+    score_path.write_text(saved)
+    cases_path = output / "cases.json"
+    cases = json.loads(cases_path.read_text())
+    original_cases = cases_path.read_text()
+    cases[0]["prefix_actions"] = [0]
+    cases_path.write_text(json.dumps(cases))
+    with pytest.raises(ValueError, match="Prefix specification changed"):
+        await audit(output, path)
+    cases_path.write_text(original_cases)
+    # A completed root cannot rescue an uncommitted preparation receipt.
+    store = Store("sqlite:///" + str(output / "ledger.db"))
+    prefix_run = cases[0]["branches"][0]["prefix_runs"][0]
+    with store.db.begin() as conn:
+        conn.execute(
+            update(store.executions)
+            .where(store.executions.c.run_id == prefix_run)
+            .values(status="pending")
+        )
+    with pytest.raises(ValueError, match="committed"):
+        await audit(output, path)
+    store.db.dispose()
+
+
+@pytest.mark.parametrize("workload", [[True], [2], ["probe"], [3] * 12])
+async def test_invalid_workload_prefix_rejected_before_collection(tmp_path, workload):
+    import json
+    from pathlib import Path
+
+    from scripts.benchmark_queue_temporal import benchmark
+
+    protocol = json.loads(Path("benchmarks/queue-temporal-v1.json").read_text())
+    protocol["workload_prefixes"] = {"invalid": workload}
+    path = tmp_path / "protocol.json"
+    path.write_text(json.dumps(protocol))
+    output = tmp_path / "run"
+    with pytest.raises(ValueError, match="Unsupported initial condition"):
+        await benchmark(path, output)
+    assert not output.exists()

@@ -566,3 +566,39 @@ PR #9: https://github.com/bosakun/preact/pull/9 。独立branch feat/learned-que
 push/pull_requestのGitHub CIは実行中。最新headの結果はPR Checksで確認する。
 研究原文・raw DB/model/cases・依存・一時E2E設定は公開していない。
 次の研究優先度はshift/時間相関とモデル失効、区間校正、意思決定価値の検証。
+
+## 2026-10-10 — PR #9 非空初期状態の追加評価開始
+
+開発者レビューで指摘された空queue/pending評価の限定性に対し、既存v1 protocol/結果を
+変更せず、正式なRuntimeでsubmit(3)を1回/2回実行したreceipt-backed初期条件を追加。
+準備probe 0/8 tick後に同一prefixを各Action branchで実行し、3 tickの予測と実観測を比較。
+Core/Gate/Trainer/Engineへの追加変更なし。benchmarkと独立auditorのみ拡張し、
+Action別queue/delivered誤差・tick別誤差・service path感度・非空初期状態数を監査する。
+pilot: 8比較、全て非空pending、3件非空queue、評価204確定遷移、unsafe0。
+安定条件は学習で誤差減少、変化条件はAction差分MAE0.82292→1.00000と悪化。
+新監査のケース集合比較ミスで旧mini benchmarkテストが一度失敗し、dictをsetへ変換して修正。
+旧20＋追加6の関連26テスト成功。追加protocolをpilot後に固定し、本評価2回・独立監査・全回帰へ進む。
+PRはOPEN、前headのCI成功。mainは変更せず、今回もmergeしない。
+
+## 2026-10-10 — PR #9 非空初期状態 本評価と再監査
+
+固定追加protocolで2回再現。48比較は全て非空pending、19件queueも非空。
+学習96（有効64）/評価1224確定遷移を各回独立監査。準備792＋root/継続432、
+unsafe0、実行Verifier calls2448。各Actionの3 tick曲線と実観測・Action差分を比較し、
+全環境/初期条件/Action別スコアと意味的hashが一致。
+固定事前→96件学習の状態/差分MAE: 安定1.66667/0.81250→0.18794/0.06428、
+noisy0.67969/0.54948→1.07744/0.40299、変化後0.60417/0.83333→1.68817/1.87646。
+全Actionが能力差の影響を受け、差分MAEは状態MAEの2倍ではない。
+noisyの状態誤差・shift後の両誤差悪化を保存。6/24件・unknown0件も省略しない。
+144推論CPU固定64.29/64.55ms、学習70.41/69.98ms。全wall48.62/46.00秒。
+時間には他の検証との同時実行によるOS負荷を含み、速度改善/時間の独立認証は主張しない。
+
+監査はprefix reset、Action系列、最終実観測と予測入力の一致、receipt連続性、
+refit/mask/予測/全集計を再検証。pending準備receiptでは確定rootがあっても拒否。
+全Python最終543 passed in65.37s、関連26 passed、Ruff170 files成功。
+frontend契約byte一致/build成功、独立API18333の既存Chromium6 passed in10.1s。
+wheel/sdist integrity成功（各78 sources）。既存v1 protocol/結果はbyte一致、
+過去文書/進捗はprefixとして保持。追加変更はbenchmark/auditor/tests/文書/新集計のみ。
+Core/Gate/Engine/Trainer/Memory・既存APIへの追加差分なし。raw DB/model/casesは非公開。
+次: この追加評価をPR #9にpushし最新head CIを確認。mainへmergeしない。
+残る研究課題: 分布変化/時間相関と失効、区間校正、実際の意思決定価値。

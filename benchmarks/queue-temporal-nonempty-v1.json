@@ -1,0 +1,99 @@
+{
+  "schema_version": "2",
+  "training_seeds": [
+    11,
+    12,
+    13,
+    14
+  ],
+  "evaluation_seeds": [
+    101,
+    102,
+    103,
+    104
+  ],
+  "training_ticks": 24,
+  "evaluation_ticks": 16,
+  "training_sizes": [
+    0,
+    6,
+    24,
+    96
+  ],
+  "min_samples": 4,
+  "training_seed": 17,
+  "capacity": 12,
+  "target": 999,
+  "horizon": 3,
+  "prefix_ticks": [
+    0,
+    8
+  ],
+  "actions": [
+    3,
+    1,
+    0
+  ],
+  "fixed_prior": 0.5,
+  "training_environment": {
+    "high_first": false,
+    "shift_tick": 24,
+    "noise": 0.05
+  },
+  "evaluation_environments": {
+    "stable_low": {
+      "high_first": false,
+      "shift_tick": 16,
+      "noise": 0.05
+    },
+    "noisy_low": {
+      "high_first": false,
+      "shift_tick": 16,
+      "noise": 0.25
+    },
+    "low_to_high": {
+      "high_first": false,
+      "shift_tick": 8,
+      "noise": 0.05
+    }
+  },
+  "policy": {
+    "search": false,
+    "calibration": false,
+    "width": 1,
+    "max_nodes": 1,
+    "max_calls": 32
+  },
+  "training_actions": [
+    "probe",
+    3,
+    0
+  ],
+  "evaluation_prefix": "Gated probes for 0 or 8 ticks, then one or two gated submit(3); initial state bound to completed prefix receipts. Prefix samples never fitted into learned distribution.",
+  "continuation": "root action then actual gated drain actions; no further admissions",
+  "primary_metrics": [
+    "tick_2_3_state_mae",
+    "tick_2_3_action_difference_mae",
+    "coverage",
+    "per_action delivered/queue MAE and per-tick delivered MAE",
+    "service_sensitive_comparisons",
+    "receipt-backed nonempty initial state counts"
+  ],
+  "uncertainty": "binary path support ranges and iid Wilson service interval; no calibration guarantee",
+  "limits": [
+    "iid stationary marginal assumed",
+    "known action/arrival rules are not learned",
+    "no action ranking or decision improvement claim"
+  ],
+  "workload_prefixes": {
+    "pending": [
+      3
+    ],
+    "queue_and_pending": [
+      3,
+      3
+    ]
+  },
+  "purpose": "Supplement existing empty-root results with actual gated, receipt-backed workload prefixes; all specified cases retained",
+  "freeze_stage": "Frozen after a small integration/safety pilot; no main-score-based selection"
+}
