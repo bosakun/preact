@@ -23,6 +23,9 @@ Opt-in Queue drift monitoring revalidates receipt/cutoff provenance, replays fin
 Fisher windows and suppresses invalidated forecasts through fresh private Registries.
 Raw QueueTemporalEngine calls remain unmanaged; health never certifies safety.
 See docs/learned-dynamics.md and the separate queue-drift protocol/results.
+Explicit Queue recovery reuses receipt-backed training, independent evaluation and a
+separate actual monitoring episode before promotion. Restart revalidates all sources;
+neither promotion records nor learned forecasts grant execution authority.
 Native World proposals also support Software cognitive rounds and explicit hypothetical
 search, with optional episode-wide budgets. See `docs/software-cognition.md`; Core
 verification and execution authority remain unchanged. The Software CLI uses trusted local fixtures.

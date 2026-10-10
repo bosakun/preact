@@ -713,3 +713,30 @@ Core/Gate/Engine/Trainer/Memory・既存APIへの追加差分なし。raw DB/mod
 - 最終sourceのpilot→監査→本評価A→監査→本評価B→監査を逐次実行中。
   CPU測定中に重い回帰を重ねない。結果はまだ本評価完了として扱わない。
 - 残り: 最終実測/失敗条件記録、最終source検証、配布物再監査、PR作成とCI確認。
+
+## Model recovery sprint — 固定本評価1回目と監査完了
+
+- 本評価32ケース: 昇格12（両方向8+noise4）、拒否12（学習/品質/監視不足各4）、
+  stable8は未失効・切替なし。全4477実遷移を正式Runtimeで収集、unsafe0。
+- 独立auditor pass: receipt/fixture再現、first cutoff、元suffix、独立性、固定条件、
+  MAE/差分/coverage、新Health・restore、公開集計の照合。時間は独立認証対象外。
+- semantic hash2395594a…ea3f。2回目の同条件実行・監査を継続中。
+- 追加否定テスト: 公開集計改ざん、正当なcomplete receiptを持つ測定失敗は有効標本0、
+  有効JSONのモデル統計/seed変更。最終全回帰で確認する。
+
+## Model recovery sprint — 本評価再現・最終受入検証
+
+- 最終2実行ともsemantic hash2395594a376cb299a733ea95b32a72b3c0912a1f6867c51adddb97bda3a9ea3f。
+  実Action/実観測、判定、MAE/差分/coverage、拒否理由が一致。
+- 両独立auditor各32ケース/4477遷移pass。pilot432遷移pass。
+  公開集計は監査済みsummaryだけから生成し、raw DB/receipt/model/研究原文は含めない。
+- 両方向の昇格後別集合: B状態/差分MAE0/0、coverage100%、unknown0%。
+  A直接（比較のみ）はhigh1.888889/1.333333、low3/0.888889。
+  回復なし/全unknownはcoverage0%、MAE未定義。意思決定性能改善は主張しない。
+- 全Python600 passed in229.92s（新規27）。Ruff183 files、契約再生成byte一致/build、
+  Chromium6 passed in8.3s、wheel/sdist83 sourcesとprivate path integrity pass。
+- CPU合計425.014/418.620s、wall480.410/473.791s。回復比較CPU平均2.727/2.683s。
+  process peak138854400/144375808 bytes。増分メモリや高速化の主張はしない。
+- 制約: 新episodeへの回復のみ、単一所有者/append-onlyの点時点保証、manifest所有責任。
+  noise4 seedの16学習tickは結果として全high。一般的な耐ノイズ性は未実証。
+- 残り: 公開diffの最終確認、commit/push/独立PR、最新commitのCI。mainへmergeしない。

@@ -366,14 +366,26 @@ async def test_promoted_inference_alone_cannot_authorize_an_action(prepared, tmp
     ).transitions
 
 
-async def test_valid_json_model_with_forged_statistics_is_rejected(prepared):
+@pytest.mark.parametrize("parameter", ["seed", "statistics"])
+async def test_valid_json_model_with_forged_parameters_is_rejected(prepared, parameter):
     from preact.domains.queue_service_features import QueueServiceAdapter
     from preact.learning import DynamicsModel
 
     lifecycle, c = prepared
     candidate = lifecycle._load(c["candidate"], CandidateModel)
     model = DynamicsModel.load(lifecycle.artifacts, candidate.model_artifact, QueueServiceAdapter())
-    forged = model.model_copy(update={"seed": 999})
+    if parameter == "seed":
+        forged = model.model_copy(update={"seed": 999})
+    else:
+        cell = model.cells[0].model_copy(
+            update={
+                "mean": (1.0, 0.5, 1.0, 0.0),
+                "variance": (0.0, 0.25, 0.0, 0.0),
+                "minimum": (1.0, 0.0, 1.0, 0.0),
+                "maximum": (1.0, 1.0, 1.0, 0.0),
+            }
+        )
+        forged = model.model_copy(update={"cells": (cell,)})
     artifact = forged.save(lifecycle.artifacts)
     bad_candidate = candidate.model_copy(
         update={"model_artifact": artifact, "model_version": forged.version}
@@ -472,3 +484,68 @@ async def test_independent_auditor_rejects_changed_public_result(successful_reco
     (output / "summary.json").write_text(json.dumps(summary))
     with pytest.raises(ValueError, match="aggregate changed"):
         await audit(path, output)
+
+
+async def test_completed_failed_probes_do_not_become_low_service_teachers(tmp_path):
+    from preact.domains.information_queue import InformationQueueWorld
+    from preact.domains.queue_recovery import effective
+    from preact.domains.queue_service_features import QueueServiceAdapter
+    from preact.engines.queue_temporal_guard import QueueTemporalGuard
+    from preact.learning import TabularDynamicsTrainer, TrainingConfig
+    from scripts.benchmark_queue_temporal import execute_sequence
+
+    protocol = json.loads(PROTOCOL.read_text())
+    store, artifacts = (
+        Store("sqlite:///" + str(tmp_path / "failed.db")),
+        Artifacts(str(tmp_path / "artifacts")),
+    )
+    parent_world = InformationQueueWorld(
+        ticks=128, target=999, high_first=False, shift_tick=128, noise=0
+    )
+    training = {
+        "parent": await execute_sequence(
+            parent_world, ["probe"] * 16, store, artifacts, protocol["policy"]
+        )
+    }
+    parent = await TabularDynamicsTrainer().fit(
+        TransitionDataset(store, training), QueueServiceAdapter(), TrainingConfig(min_samples=16)
+    )
+
+    class FailedProbeWorld(InformationQueueWorld):
+        sensor_failed = False
+
+        async def execute(self, action, receipt):
+            result = await super().execute(action, receipt)
+            if self.sensor_failed:
+                result.checks["probe_success"] = False
+            return result
+
+    instance = FailedProbeWorld(ticks=128, target=999, high_first=False, shift_tick=8, noise=0)
+    initial = await instance.observe()
+    guard = QueueTemporalGuard(
+        store, instance.task, parent, training, episode_id="source", initial=initial
+    )
+    lifecycle = await QueueModelRecovery.create(store, artifacts)
+    runs = []
+    for _ in range(40):
+        runs += await execute_sequence(instance, ["probe"], store, artifacts, protocol["policy"])
+        state = await instance.observe()
+        if (await guard.health(state, runs)).status == "invalidated":
+            break
+    origin = await lifecycle.begin(
+        parent,
+        training,
+        episode_id="source",
+        task=instance.task,
+        initial=initial,
+        cutoff=state,
+        runs=runs,
+    )
+    instance.sensor_failed = True
+    runs += await execute_sequence(instance, ["probe"] * 16, store, artifacts, protocol["policy"])
+    state = await instance.observe()
+    _, suffix = await lifecycle._training(await lifecycle._origin(origin), state, runs)
+    assert len(suffix.transitions) == 16 and effective(suffix) == 0
+    assert all(r.receipt_status == "complete" for r in suffix.transitions)
+    with pytest.raises(RecoveryRejected, match="insufficient_training"):
+        await lifecycle.prepare_candidate(origin, state, runs)
