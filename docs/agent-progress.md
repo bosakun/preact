@@ -681,3 +681,116 @@ Core/Gate/Engine/Trainer/Memory・既存APIへの追加差分なし。raw DB/mod
 - 研究・実装の次段階: receipt-backed増分検証で監視コストを削減、相関/緩やかな変化の評価、
   新training manifest→新artifact→held-out評価→明示的Guard/Registry切替。
   自動再学習・昇格・rollbackの承認/受入条件は別設計とする。
+
+## Model recovery sprint — 承認済み設計と実装開始
+
+- 公開main6ae35c5（PR #10 merge/CI成功）からfeat/model-recovery独立worktreeを作成。
+- 元作業ツリーの未コミット変更を保護。Core/Gate/Trainer/Registry/Guardは変更しない。
+- 失効後の元episode suffixでBを学習し、別実episodeで評価、さらに別episodeで監視準備。
+  LifecycleはWorldをresetせず、同一Worldの連続的な自己改善とは主張しない。
+- 固定条件: 学習/評価有効16、比較8組、状態/差分MAE<=0.5、prior許容0.05、
+  A比状態MAE10%以上改善、差分許容0.05、coverage100%、昇格Health available。
+- 候補・予測事前記録・独立評価・昇格承認・active切替を既存Artifacts/Storeで区別。
+- 初回pilotでTaskの0/0.0正規化によるClaim context hash不一致を検出。
+  予測入口で既存契約に再正規化して修正し、pilot再実行中。閾値/seedは変更しない。
+- AGENTSへ機能的完成優先・計算費用計測・正確性/安全性評価維持の規則を追加。
+- 残り: 否定/再起動テスト、固定本評価2回、独立監査、全回帰、文書、PR/CI。
+
+## Model recovery sprint — 最小経路・回帰と最終評価開始
+
+- 初期pilot: 両方向で昇格/予測回復/再起動照合が成功、学習4有効件は拒否。
+  独立auditorで432実遷移、数値分布/MAE/receipt/cutoffを照合。
+- 新規24ケース: 学習/評価/監視分離、不正receipt/Artifact、歴史cutoff、
+  取消（commit前/後）と明示restore、durable commit中のwriter更新、Gate拒否を検証。
+- 一度、事後予測登録テストの拒否メッセージ期待が違い、修正。
+  同一stageのJSON再読込で0/0.0のhashが異なる問題も入口で正規化して修正。
+- 学習/評価有効数を別集計。評価数はroot+継続のみに限定し、準備prefixを含めない。
+  旧A誤差0では10%相対改善を主張できないため拒否。固定閾値は変更していない。
+- 全Python597 passed in197.67s、Ruff183 files、frontend契約byte一致/build。
+  専用API18334の既存Chromium6 passed in8.2s。sandbox内のlisten拒否後、許可経路で再実行。
+- 配布物監査83 sources一致。最終の入力copy変更後の配布物は再build/監査予定。
+- 旧benchmarks67ファイルbyte一致、Core/Trainer/Registry/Guard/Memoryへの差分なし。
+- 最終sourceのpilot→監査→本評価A→監査→本評価B→監査を逐次実行中。
+  CPU測定中に重い回帰を重ねない。結果はまだ本評価完了として扱わない。
+- 残り: 最終実測/失敗条件記録、最終source検証、配布物再監査、PR作成とCI確認。
+
+## Model recovery sprint — 固定本評価1回目と監査完了
+
+- 本評価32ケース: 昇格12（両方向8+noise4）、拒否12（学習/品質/監視不足各4）、
+  stable8は未失効・切替なし。全4477実遷移を正式Runtimeで収集、unsafe0。
+- 独立auditor pass: receipt/fixture再現、first cutoff、元suffix、独立性、固定条件、
+  MAE/差分/coverage、新Health・restore、公開集計の照合。時間は独立認証対象外。
+- semantic hash2395594a…ea3f。2回目の同条件実行・監査を継続中。
+- 追加否定テスト: 公開集計改ざん、正当なcomplete receiptを持つ測定失敗は有効標本0、
+  有効JSONのモデル統計/seed変更。最終全回帰で確認する。
+
+## Model recovery sprint — 本評価再現・最終受入検証
+
+- 最終2実行ともsemantic hash2395594a376cb299a733ea95b32a72b3c0912a1f6867c51adddb97bda3a9ea3f。
+  実Action/実観測、判定、MAE/差分/coverage、拒否理由が一致。
+- 両独立auditor各32ケース/4477遷移pass。pilot432遷移pass。
+  公開集計は監査済みsummaryだけから生成し、raw DB/receipt/model/研究原文は含めない。
+- 両方向の昇格後別集合: B状態/差分MAE0/0、coverage100%、unknown0%。
+  A直接（比較のみ）はhigh1.888889/1.333333、low3/0.888889。
+  回復なし/全unknownはcoverage0%、MAE未定義。意思決定性能改善は主張しない。
+- 全Python600 passed in229.92s（新規27）。Ruff183 files、契約再生成byte一致/build、
+  Chromium6 passed in8.3s、wheel/sdist83 sourcesとprivate path integrity pass。
+- CPU合計425.014/418.620s、wall480.410/473.791s。回復比較CPU平均2.727/2.683s。
+  process peak138854400/144375808 bytes。増分メモリや高速化の主張はしない。
+- 制約: 新episodeへの回復のみ、単一所有者/append-onlyの点時点保証、manifest所有責任。
+  noise4 seedの16学習tickは結果として全high。一般的な耐ノイズ性は未実証。
+- 残り: 公開diffの最終確認、commit/push/独立PR、最新commitのCI。mainへmergeしない。
+
+## Model recovery sprint — PR作成・レビュー引継ぎ
+
+- PR #11: https://github.com/bosakun/preact/pull/11
+- 実装/結果commit baf31e2361a74651ee938be7a9ef21e16c817783。
+  15ファイルに限定し、既存Core/学習/実行契約は無変更。元作業ツリーは保持。
+- 公開集計を含む最終wheel/sdist再buildと83 sources/private path integrity監査もpass。
+- ローカル全受入検証・固定2実行と独立監査は完了。PR作成時点のGitHub CIは実行中。
+  最新commitの終了結果を確認し、PR本文と最終報告に記録する。
+- main/auto-mergeを操作しない。次は人間レビュー。
+- 次能力: 同一episode途中anchorの明示契約、長いnoise/相関/緩やかな変化の評価、
+  その後の意思決定価値。単一ownerからの分散切替・自動昇格は別設計とする。
+
+## Model recovery review — 実観測の時点境界修正
+
+- PR #11のレビュー指摘に従い、評価最終Receipt Stateのtimestamp置換を除去。
+  EvaluationBranch v2へ必須のfinal_observationを追加し、Runtime/Receipt確定後に
+  評価World.observe()が返したStateを保存する。古いbranch記録は補完せず拒否。
+- fresh Stateの内容/provenance/uncertaintyと最終Receiptを照合。全必要outcomeの
+  確定時刻/receipt State時刻より厳密に後、評価cutoff以下であることを検証。
+  Guardへは保存した実Stateをそのまま渡す。Core/Trainer/Registry/既存Guardは無変更。
+- 独立auditorは同じ境界を別計算で検証。監視のrestore監査とテストfixtureも
+  timestamp置換を廃止し、保存実観測または所有fixtureのobserve()を使う。
+- 修正後pilot: 両方向昇格・学習不足拒否、432実遷移独立監査pass。
+  通常条件は決定論的。複数seedの同値性を一般化性能の根拠にしない。
+- 旧protocol/結果JSONは保持。fresh-observation/v2として別実行・別公開結果を追加予定。
+- 残り: 新規境界否定テストと既存回復回帰、固定本評価/監査、全Python/frontend/
+  E2E/distribution再検証、PR更新と最新commitのCI。mainへmergeしない。
+
+- 関連42ケースの初回: 41pass/1fail。新しいpayload改ざんテストでState IDを更新して
+  いなかったため、独立監査の前に既存Pydantic identity検証で拒否された。
+  整合IDも持つ改変JSONへ修正し、監査独自の照合で拒否されることを全回帰で確認中。
+- Ruff183 files、frontend契約byte一致/build、専用API18335の既存Chromium6pass（8.0s）。
+
+- 最終全回帰615 passed in225.51s。新規境界15件を含み、既存昇格/拒否/再起動/取消もpass。
+  独立auditorの改変拒否4件は本体の_evaluateへ到達する前に独自照合で拒否することを確認。
+- 本評価2実行と各独立監査を逐次開始。CPU測定中に重いテスト/ビルドは重ねない。
+
+- 修正後本評価A: 昇格12/拒否12/未失効8、4477実遷移、独立auditor pass。
+  各branchの保存実観測・Receipt内容/provenance・確定時刻/cutoffを再検証した。
+  旧と同じbehavior hash2395594a…ea3f。通常決定論的条件の一致は一般化性能ではない。
+  CPU473.755s/wall530.149s。本評価Bを継続中。旧公開結果は無変更。
+
+- 修正後本評価B/独立監査もpass。各32ケース/4477遷移、昇格12/拒否12/未失効8。
+  両実行と旧behavior hashが一致。保存評価実観測480件、監視実観測48件を各監査した。
+- 別公開結果queue-recovery-v1-fresh-observation-results.jsonを追加。旧protocol/結果は無変更。
+  CPU A473.755/B631.055s、wall A530.149/B689.293s、process peak132.344/131.094MiB。
+  費用増/実行間変動も記録。高速化や決定論的seedからの一般化は主張しない。
+- Bの昇格後MAE0/0・coverage100%。品質不良2.444444/1.111111拒否、Health不足は
+  MAE0でも拒否。回復なし/全unknownはcoverage0・MAE未定義。旧と同じ採点対象を維持。
+- 最終Ruff183 filesと83 sourcesのwheel/sdist integrityもpass。
+  全Python615、frontend契約byte一致/build、Chromium6、pilot/本評価2独立監査が完了。
+- PR #11へ通常pushと本文更新を行い、最新commitのGitHub push/PR CIを確認する。
+  main/auto-mergeは操作しない。元作業ツリーの未commit変更は保持。

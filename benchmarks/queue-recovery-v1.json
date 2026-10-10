@@ -1,0 +1,30 @@
+{
+  "schema_version": "1",
+  "pilot_seeds": [201],
+  "evaluation_seeds": [101, 102, 103, 104],
+  "comparison_seeds": [301, 302, 303, 304],
+  "parent_training_seeds": [11, 12],
+  "parent_training_ticks": 16,
+  "recovery_training_ticks": 16,
+  "monitoring_ticks": 8,
+  "workloads": {"pending": [3], "queue_pending": [3, 3]},
+  "capacity": 12,
+  "episode_ticks": 128,
+  "shift_tick": 8,
+  "target": 999,
+  "detector": {"window": 16, "min_recent": 8, "min_training": 16, "min_effect": 0.1, "alpha": 0.05, "max_gap_ticks": 16},
+  "policy": {"search": false, "calibration": false, "width": 1, "max_nodes": 1, "max_calls": 32},
+  "promotion": {"min_training": 16, "min_evaluation": 16, "min_comparisons": 8, "max_state_mae": 0.5, "max_difference_mae": 0.5, "baseline_tolerance": 0.05, "parent_improvement": 0.1, "prior": 0.5},
+  "conditions": {
+    "low_to_high": {"parent_high": false, "shift": true, "noise": 0.0},
+    "high_to_low": {"parent_high": true, "shift": true, "noise": 0.0},
+    "stable_low": {"parent_high": false, "shift": false, "noise": 0.0},
+    "stable_high": {"parent_high": true, "shift": false, "noise": 0.0},
+    "insufficient_training": {"parent_high": false, "shift": true, "noise": 0.0, "training_ticks": 4},
+    "quality_rejected": {"parent_high": false, "shift": true, "noise": 0.0, "evaluation_high": false},
+    "health_rejected": {"parent_high": false, "shift": true, "noise": 0.0, "monitoring_actions": [0, 0, 0, 0, 0, 0, 0, 0]},
+    "noisy_shift": {"parent_high": false, "shift": true, "noise": 0.05}
+  },
+  "freeze_stage": "Approved thresholds fixed before implementation; pilot tests integration only. No post-score seed or threshold selection.",
+  "limits": ["Recovery crosses actual episodes; no continuous queue preservation", "Explicit promotion only; no action ranking", "Future service iid/stationary assumption; finite held-out tests are not safety certificates", "Single-owner lifecycle and append-only Store consistency boundary", "Post-promotion data is excluded from candidate selection"]
+}

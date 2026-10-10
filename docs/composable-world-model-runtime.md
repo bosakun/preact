@@ -186,3 +186,14 @@ Healthごとに不変のEngine viewを作り、呼出しごとに新しいprivat
 receipt検証失敗・不整合・キャンセルは例外で停止し、古い利用可能状態へ戻らない。
 Core/Gate/Authorizationを変更せず、Action比較は読取専用のままである。
 詳細な統計的仮定・適用範囲は`docs/learned-dynamics.md`を参照する。
+
+### Explicit model recovery boundary
+
+承認済みの次段階は、失効後の確定経験で候補を作成し、別episodeで独立評価、
+さらに別の実監視episodeで新しいHealthを確認して明示的に切り替えることである。
+候補作成・評価合格・昇格承認・active切替を区別し、既存Artifacts/Storeへ記録する。
+再起動時は全根拠と現在観測を再検証する。旧モデルの失効を解除せず、新Guardと
+呼出しごとのprivate Registryを構築する。予測はINFERENCEのままで、Gate/Verifier/
+Authorizationへの権限変更はない。詳細・固定受入条件はlearned-dynamics.mdを参照。
+これはepisodeをまたぐ回復であり、同一Worldの連続回復・自動昇格・rollbackは未実装。
+機能的完成を通常の計算性能最適化より優先し、正確性・安全性と計算費用を測定する。

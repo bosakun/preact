@@ -375,3 +375,166 @@ error budgetはmodel/monitor scope単位であり、複数episode全体の5%保�
 検定の定義・両側p値の取り扱いは
 [SciPy公式Fisher exact test](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.fisher_exact.html)
 に照合した。既存lockfileのSciPyを再利用し、依存追加はない。
+
+## Model Recovery & Safe Model Promotion v1：承認済み設計
+
+今回の能力は**実際の新episodeへのモデル回復**であり、同じWorldのqueue/pendingを
+維持した連続的自己改善ではない。最上位目的・既存Coreの責務は維持する。
+LifecycleはWorldをresetしない。呼出し側が別の実episodeを開始し、そのtick0観測と
+ordered manifestを提供する。Queue固有の閾値をPreAct全体の世界モデルの定義にしない。
+機能的完成を通常の計算最適化より優先する。予測精度・安全性の評価は延期しない。
+
+```mermaid
+flowchart TD
+  A[Model A / 既存Guard] --> I[最初の失効cutoffを固定]
+  I --> T[元episodeの失効後suffix / complete receipts]
+  T --> D[既存TransitionDataset / QueueServiceAdapter]
+  D --> F[既存TabularDynamicsTrainer]
+  F --> B[候補B / version付きArtifact]
+  B --> P[独立episodeで予測を事前記録]
+  P --> E[Runtimeによるroot + 2 drain / 確定実観測]
+  E --> Q[固定条件で独立評価]
+  Q --> W[別の実監視episode / tick0から全履歴]
+  W --> H[BのHealthを検証 / 不足時は待機]
+  H --> S[明示的promote / 承認記録 / durable切替記録]
+  S --> C[新Guard / 新Health view / private Registry]
+  C --> R[3 tick Action比較を再開 / INFERENCE]
+```
+
+### 責務と公開操作
+
+- `learning/recovery.py`: 小さな派生記録と固定PromotionPolicy。Queue計算は持たない。
+- `domains/queue_recovery.py`: 観測cutoff、有効標本、queue/deliveredの採点、合否理由。
+- `engines/queue_temporal_recovery.py`: 単一所有者の明示操作・既存Guardの組立・切替。
+
+`QueueModelRecovery.create(store, artifacts)`で既存Storeに専用の監査runを作る。
+`begin(parent, training, episode_id=..., task=..., initial=..., cutoff=..., runs=...)`
+は**最初に失効した観測時点**で呼び、その時点のHealthと全前履歴を固定する。
+後から都合のよいcutoffを選ぶことは拒否する。`prepare_candidate(origin, state, runs)`は
+その後の元episodeの全manifestを検証し、whole-run suffixだけを既存Trainerへ渡す。
+元episode IDを維持し、失効前履歴と失効根拠を毎回再照合する。
+
+```python
+from preact.engines.queue_temporal_recovery import QueueModelRecovery
+from preact.learning.recovery import CandidateEvaluation
+import json
+
+recovery = await QueueModelRecovery.create(store, artifacts)
+# origin is captured at the FIRST invalidated fresh observation.
+origin = await recovery.begin(
+    model_a, training_a, episode_id=source_episode, task=source_world.task,
+    initial=source_initial, cutoff=invalidated_observation, runs=source_prefix,
+)
+# Collect new actions using the existing Runtime; no predicted teacher data.
+candidate = await recovery.prepare_candidate(origin, source_observation, source_runs)
+# forecast_candidate persists each comparison BEFORE executing its evaluation roots.
+# EvaluationCase binds that record to three separate actual episode manifests.
+evaluation = await recovery.evaluate_candidate(candidate, evaluation_cases, cutoff_timestamp)
+report = CandidateEvaluation.model_validate(json.loads(artifacts.read(evaluation)))
+# A passed report alone does not activate B. Start a real new monitoring episode,
+# collect enough gated observations, then explicitly request promotion.
+promotion = await recovery.promote(
+    evaluation, episode_id=monitor_episode, task=monitor_world.task,
+    initial=monitor_initial, state=await monitor_world.observe(), runs=monitor_runs,
+)
+state = await monitor_world.observe()
+result = await recovery.compare(state, [monitor_world.action(state, n) for n in (3, 1, 0)], monitor_runs)
+# Restart requires explicit revalidation; a durable record never activates itself.
+restarted = QueueModelRecovery(store, artifacts, recovery.journal_run)
+await restarted.restore(await monitor_world.observe(), complete_monitor_runs)
+```
+
+正式な教師・root・継続の実行はRuntime、Verifier、Gate、Authorization、Intent、Receiptを通す。
+LifecycleはActionを実行しない。未実行branch、Prediction、Beliefは教師にならない。
+需要不足や失敗は既存adapterのmask=0を維持し、有効能力数へ加えない。
+
+### 固定昇格条件
+
+承認済み`benchmarks/queue-recovery-v1.json`を実装前に固定した。
+有効学習16以上、有効評価16以上、3Action比較8組以上、非空queue/pendingを含む。
+対応する評価対象のcoverage100%、状態MAE<=0.5、Action差分MAE<=0.5仕事単位。
+固定事前p_high=0.5の両MAEに対する悪化許容0.05。
+旧Aに対して状態MAE10%以上改善、差分MAE悪化許容0.05。旧Aの誤差が0なら
+相対改善を示せないため昇格を拒否する。有効評価数はroot/継続の実績だけを数え、
+準備prefixは含めない。
+昇格時のB Healthはavailableに限定し、suspected/不足/失効では昇格を拒否する。
+標本不足では架空モデルを作成しない。評価不合格は明示的な未昇格記録となる。
+
+状態MAEは3Action×3tick×queue/delivered、差分MAEは全3ペア×3tick×同じ2metric。
+評価対象はhorizon3を満たす公開対応Stateであり、unknownを除外して合格させない。
+未対応入力・残りtick不足などのunknownは別の否定テストで確認する。
+閾値は有限の利用基準であり、確率保証・定常性証明・安全証明ではない。
+
+### 時間・実体の分離
+
+Bの学習、昇格前評価、昇格後監視はepisode/run/receiptを互いに分離する。
+学習はAの最初の失効cutoff以降の実行前観測を持つ確定経験に限る。
+候補生成時点より前に教師outcomeが確定し、候補の学習が各評価episodeのtick0より前に
+完了し、予測記録がroot実行前であることを検証する。全評価outcomeは判断cutoff以下。
+評価記録確定後に新監視episodeを開始し、その観測数へ学習/評価データを流用しない。
+新監視の8有効標本等が不足すれば利用不可のまま。Health/lookはその新scopeで再構築する。
+旧Aの失効を解除せず、別model/versionと独立したHealth/Engine viewを作る。
+
+### 永続化と切替の保証範囲
+
+候補・予測事前記録・評価・昇格承認をhash検証付きArtifactsに保存し、既存Storeに
+対応するstage eventを記録する。正規化した同一stageの再試行は元記録を再利用する。
+これらは実行receiptや安全Evidenceではない。
+active切替は`model_promotion_committed`を別eventとして永続化後、Source更新を
+もう一度検査する。最後のfenceからawaitなしで完全なGuard bundleの参照を公開する。切替開始・例外・取消ではactiveを利用不可にする。
+承認だけが残った中断はrestoreで拒否。commitが残っていても、全根拠・現在観測・
+完全manifest・現在Healthを再検証できなければrestoreしない。旧Aへfallbackしない。
+
+単一Lifecycle所有者のasync lockで直列化する。複数process間のactiveモデル分散合意は
+今回未実装。Source run_headsによるappend/receipt更新の最終fenceは点時点の保証で、
+既存append-only Store外のDB巻戻し/in-place改変、fence後の更新は保証外。
+直接QueueTemporalEngine利用は引き続き監視対象外。Lifecycleの保証を全APIへ一般化しない。
+World instanceの暗号学的認証はなく、正しいmanifestのWorld所有責任は呼出し側に残る。
+
+### 実験・非目標
+
+独立seedのpilot後、stable low/high、両方向shift、学習不足、品質不良、監視不足、
+noisy shiftを全seedで評価する。評価準備は各branchの実Worldで正式なsubmitを実行する。
+3tick予測を先に記録し、rootと2drainを実行する。fixtureの共有外生条件はauditorだけが
+再現し、学習/予測/昇格処理へprivate scheduleを渡さない。
+昇格後の別データも採点し、旧固定モデル/固定事前/全unknown/回復なしと同じ集合で比較。
+episode別tick数と逐次実験の総実行数を記録し、同一Worldの連続回復遅延とは呼ばない。
+計算費用・失敗条件を保持する。時間相関・汎用世界理解・意思決定性能の改善は未実証。
+
+今回は自動昇格/rollback/ランキング変更/監視高速化を実装しない。
+次段階は同一episodeのreceipt-backed途中anchorと区間契約、その後の意思決定価値評価。
+
+### PR #11レビュー修正：評価最終観測を実Stateに結び付ける
+
+評価branchのRuntime実行・Receipt確定後、所有者が正式な`world.observe()`を呼び、
+返されたStateを`EvaluationBranch.final_observation`へ保存する。branchのschemaはv2で、
+このフィールドは必須。旧記録からReceipt Stateの時刻を補完して移行することはしない。
+コードhashも変わるため、旧候補/昇格記録を新コードで無検証に復元しない。
+
+```python
+# completed_runs contains the actual preparation, root and two drain executions.
+branch = EvaluationBranch(
+    episode_id=actual_episode_id,
+    initial=initial_observation,
+    runs=completed_runs,
+    final_observation=await evaluation_world.observe(),
+)
+```
+
+`_evaluate()`は最終Receipt Stateとこの観測のtimestamp以外の全フィールドを照合する。
+payload/State IDだけでなく、kind/domain/provenance/uncertainty等も一致が必要。
+全branch履歴のoutcome記録時刻とReceipt State時刻が**観測時刻より厳密に前**、
+その観測時刻が評価cutoff以下であることを検証する。`guard.health()`には保存Stateを
+そのまま渡す。ReceiptのStateやtimestampは更新しない。
+
+独立auditorは保存Stateの内容/provenanceと上記時点条件を別計算で確認してから、
+本体の再評価と突き合わせる。新JSON/hashでpayloadや時刻等を改変した記録も拒否する
+否定テストを含む。監視restoreの監査も、実Worldから保存した最終観測を使う。
+Artifactの内容hashと既存receipt検証を併用するが、任意の呼出側が実際にobserveを
+呼んだことを暗号学的に認証する新Authorityは追加しない。World/manifest所有者の
+責任という既存契約は維持する。
+
+固定protocol・閾値・採点対象は維持し、修正後の実行記録を`fresh-observation/v2`で区別する。
+旧の公開結果は上書きしない。通常条件はnoise=0の決定論的fixtureで、同じ条件のseedを
+変えて同じ結果になることは、実装の再現性の確認である。未知環境への一般化性能を
+示す独立な環境サンプルとは扱わない。noise条件の短い標本に関する限界も維持する。

@@ -415,3 +415,247 @@ frontend契約再生成byte一致/build、専用worktree API（18333）のChromi
 
 最終wheel/sdistのdistribution integrityは全80 Python sourcesのbyte一致と
 private/generated path除外に成功。配布物のインストール後実行や秘密情報検出の保証は対象外。
+
+## Model Recovery & Safe Model Promotion v1
+
+今回実証するのは、**失効後の新しい実経験から学習し、別の実episodeで評価・監視準備を
+行って、明示的な切替で3tick予測を再開する能力**である。同じWorldのqueue/pendingを
+保持する連続的更新、Actionランキングやタスク成功率の改善は実証していない。
+固定protocolは`benchmarks/queue-recovery-v1.json`、公開集計は
+`benchmarks/queue-recovery-v1-results.json`。PR #8/#9/#10の結果は変更していない。
+
+### 固定条件と独立性
+
+学習16有効件、評価16有効件、Action比較8組、状態/差分MAE各0.5以下、
+固定事前との悪化許容0.05、旧A比状態MAE10%改善、coverage100%、新Health availableを
+本評価前に固定した。pilotはseed201、本評価は101〜104、比較用301〜304、
+旧A学習11/12。8条件の全seedを実行し、閾値やseedを結果に合わせて変更していない。
+
+Aの学習は実probe16件。元source episodeの全履歴を検証し、最初の失効観測を
+`begin`で固定してからB用の16実probeを追加する。suffixのepisode IDは元のまま。
+需要不足・測定失敗を能力低/ゼロの教師へ補完しない。教師とoutcomeの確定時刻も確認する。
+
+昇格前評価は各比較seed×2 workload（pending、queue+pending）の8組。
+各組のsubmit(3)、submit(1)、drainは、同じ外生fixture条件を持つ3つの実Worldで実行する。
+準備submitもRuntime/Receiptを通し、rootの3tick予測を記録してからroot+2drainを実行する。
+各branchは実際のtick0からの完全manifestを持つ。学習/評価/新監視はepisode/run/receiptで
+分離し、prefixの準備実績を評価の有効標本数に含めない。
+有効評価数はhigh36、low60。学習・評価の標本を新Healthへ流用しない。
+
+評価完了後、さらに別の監視episodeで8probeと2submitを正式実行する。
+昇格はその新scopeのavailable Healthを検証してから行う。昇格後の比較にも
+3つの別実Worldを用い、submit(3)/submit(1)/drain+2drainの実結果を採点する。
+このデータは候補選択・昇格前合否判定に使わない。Learner/Engine/Lifecycleへ
+隠されたサービスscheduleを渡さず、fixture再生は独立auditorだけが行う。
+
+### 昇格成功と拒否
+
+| 条件 | 4 seedの結果 | 根拠・限界 |
+|---|---|---|
+| low→high | 4昇格 | 最初の失効tick18、B有効学習16 |
+| high→low | 4昇格 | 最初の失効tick18、B有効学習16 |
+| stable low/high | 各4切替なし | A未失効。不要な回復は開始しない |
+| 学習不足 | 4拒否 | 有効4件。候補を作らない |
+| 品質不足 | 4拒否 | Bをhighで学習後、lowで独立評価。品質/prior/A比較不合格 |
+| 監視不足 | 4拒否 | 独立評価は合格でも、新scopeの有効数不足 |
+| noise 0.05 | 4昇格 | 最初の失効tick18/19/19/17。短い有限fixtureの結果 |
+
+全32ケースで12昇格・12拒否・8切替なし。不適切な昇格は、この定義済み不合格条件で0。
+未失効8件を除いた24件で昇格率50%、拒否率50%。両方向の通常shiftは8/8昇格。
+4477の実遷移、Runtime engine calls8954、unsafe0。ゼロ件はこのfixture内の観測結果で、
+一般の安全性保証ではない。失効した24ケースでAの監視付き予測がunknownへ変わることも照合した。
+
+### 精度とcoverage（MAEは仕事単位）
+
+昇格前の8組を各seedで採点した結果は以下。各予測方式のcoverageは100%、unknown0%。
+
+| 独立評価の環境 | B 状態/差分MAE | 旧A 状態/差分MAE | 固定事前 状態/差分MAE |
+|---|---|---|---|
+| high（low→high） | 0 / 0 | 2.444444 / 1.111111 | 1.000000 / 0.569444 |
+| low（high→low） | 0 / 0 | 2.444444 / 1.111111 | 1.444444 / 0.541667 |
+| low（品質不合格） | 2.444444 / 1.111111 | 0 / 0 | 1.444444 / 0.541667 |
+
+昇格後の**別集合**（各seedで1組・3Action×3tick）では以下。
+旧Aの数値は監視対象外の直接Engineによる比較用予測であり、失効後の実利用ではない。
+
+| 回復先 | B 状態/差分MAE | 旧A直接 状態/差分MAE | 固定事前 状態/差分MAE |
+|---|---|---|---|
+| high | 0 / 0 | 1.888889 / 1.333333 | 0.736111 / 0.555556 |
+| low | 0 / 0 | 3.000000 / 0.888889 | 1.736111 / 0.305556 |
+
+B/旧A直接/priorのcoverage100%、unknown0%。回復なし（失効Guard）と全unknown方式は
+coverage0%、unknown100%、MAEは未定義(null)。unknownを誤差0として採点しない。
+昇格前後は状態集合が異なるため、両者のMAE減少を同じ対象の改善として比較しない。
+
+noise条件でも今回の4 seedは上記highの数値と同じだった。失効遅延にはノイズの影響が
+あったが、切り出した16学習tickには全seedでlow測定がなく、評価/回復後の短い採点集合も
+結果としてhigh予測と一致した。したがって、この結果だけでノイズ分布の学習や頑健性を
+主張できない。長い独立採点区間、時間相関、緩やかな変化は今後の課題である。
+
+### 回復に必要な実行と計算費用
+
+両方向成功ケースは、source失効後16tick、独立評価の準備込み108実行、
+昇格対象の新監視episodeは10tick（8probe+2submit）で準備した。
+3Actionの昇格後比較用に監視Worldを3つ用意するため、逐次実験の合計は
+16+108+3×10=154実行。これは**episodeをまたぐ実験の実行数**であり、
+同じWorldの失効から154tickで連続回復したという意味ではない。
+
+Python3.12.13/macOS arm64で、本評価2実行の全ケースCPU合計425.014/418.620秒、
+wall合計480.410/473.791秒。成功ケース平均はCPU21.852/21.496秒、
+wall24.608/24.242秒。計測中に重い回帰テスト/ビルドを重ねなかった。
+
+| 成功ケースのstage | 平均CPU秒（1回目 / 2回目） | 平均wall秒（1回目 / 2回目） |
+|---|---|---|
+| B学習・根拠検証 | 0.292 / 0.287 | 0.324 / 0.320 |
+| 独立評価・根拠検証 | 2.109 / 2.064 | 2.330 / 2.284 |
+| 明示昇格 | 2.891 / 2.835 | 3.198 / 3.142 |
+| 回復した3Action比較 | 2.727 / 2.683 | 3.015 / 2.976 |
+| 明示restore | 2.593 / 2.543 | 2.868 / 2.818 |
+
+各入口が完全なauthority/evaluationを再検証・再fitするため高コストであり、
+高速化は主張しない。旧の直接Engineや新機能opt-outへこのコストを課さない。
+ru_maxrssの最大は138,854,400/144,375,808 bytes（約132.42/137.69 MiB）。
+これは各実行process全体の累積high-waterであり、個別caseやモデルの増分メモリではない。
+OS負荷と時計精度の影響は残る。合計時間はcaseの合計で、独立auditor時間を含まない。
+
+2実行の判定・予測スコア・実Action/実観測の意味的hashは一致した:
+`2395594a376cb299a733ea95b32a72b3c0912a1f6867c51adddb97bda3a9ea3f`。
+ランダムrun/receipt/model ID、timestamp、latencyを意味的比較から分離した。
+
+### 再現・監査
+
+毎回新しい出力先を指定する。raw DB/モデル/manifest/receiptsはprivate cacheに留める。
+
+```bash
+uv run python -m scripts.benchmark_queue_recovery --pilot --output .cache/recovery-pilot-new
+uv run python -m scripts.audit_queue_recovery --protocol benchmarks/queue-recovery-v1.json --output .cache/recovery-pilot-new
+uv run python -m scripts.benchmark_queue_recovery --output .cache/recovery-run-new-A
+uv run python -m scripts.audit_queue_recovery --protocol benchmarks/queue-recovery-v1.json --output .cache/recovery-run-new-A
+uv run python -m scripts.benchmark_queue_recovery --output .cache/recovery-run-new-B
+uv run python -m scripts.audit_queue_recovery --protocol benchmarks/queue-recovery-v1.json --output .cache/recovery-run-new-B
+```
+
+独立auditorはactual fixture再生・Receipt・時点・suffix・源データの非重複を検証し、
+能力分布/3tick列挙と状態/Action差分MAEを別計算する。固定条件の昇格判定、
+新Health/view/Registry、Aの抑止、再起動restore、公開集計を再照合する。
+Fisherの計算も独立hypergeometric列挙で確認する。計測時間の独立認証は対象外。
+
+取消/commit中のwriter更新ではactiveを利用不可にし、Aへ戻さない。
+承認のみの中断はrestore拒否、commit済みの中断でもfresh観測と全根拠の再検証を要求する。
+pending/aborted/forged receipt、Artifact破損、正しいJSONでも異なるモデル統計、
+データ再ラベル・重複、未来/事後予測、prefix差替えを否定テストで確認する。
+実行権限は既存Gate/Verifier/Authorization/Intent/Receiptに留まり、BもINFERENCEである。
+
+単一所有者/append-only Storeの点時点保証、World manifestの所有者責任、
+直接Engineは監視外という既存境界を維持する。自動昇格・rollback、分散所有、
+同一episode途中anchor、意思決定価値は未実装・未実証。今回のCPU費用を理由に
+検証を省略せず、通常の高速化を後続へ残した。
+
+### 最終検証
+
+本評価2実行の独立auditorは各32ケース/4477遷移でpass、pilotも432遷移でpass。
+新規27ケースを含むPython全回帰は**600 passed in229.92s**。
+Ruff check/format183 files、frontend contract再生成のbyte一致、frontend build成功。
+専用API18334と所有済みChromiumの既存E2Eは**6 passed in8.3s**。
+wheel/sdist監査は83 Python sourcesの一致・assets/license・private path除外を確認した。
+旧67 benchmarkファイル、Core/Gate/Registry/Memory/Trainer/既存Guardへの変更はない。
+既存テストは削除・弱体化していない。
+
+初期失敗はTask/Artifactの0と0.0正規化によるhash差、fixtureコピー後のtimestamp差、
+否定テストの拒否メッセージ期待の不一致であり、正規化/原時刻保持/期待範囲を修正して再実行した。
+E2Eのsandbox内listen制限は許可経路で再実行した。昇格条件を緩める修正はしていない。
+通常のmodelとReceiptの不整合、取消、取得中更新は例外を伝播してactiveを破棄する。
+完全なOS隔離、暗号学的World認証、DB巻戻し耐性、live外部サービスは今回の監査対象外である。
+
+## PR #11追評価：fresh ObservationのAuthority境界
+
+上記Model Recovery v1の数値と`benchmarks/queue-recovery-v1-results.json`は
+commit8051aad時点の修正前記録として保持する。その実装は評価最終Receipt Stateの
+timestampを評価cutoffへ置換しており、同時刻の実観測取得を裏付けていなかった。
+レビュー指摘に従い置換を除去し、実Runtime/Receipt確定後のWorld.observe()で取得した
+final_observationを必須のEvaluationBranch v2へ保存・再検証する方式へ修正した。
+
+protocol、seed、昇格閾値、Action、採点集合は変更しない。実行記録/監査に
+`validation_revision: fresh-observation/v2`を付け、別の出力先へ全条件を再実行する。
+修正後の公開集計は`benchmarks/queue-recovery-v1-fresh-observation-results.json`。
+旧記録を新timestamp/架空のObservationで補完して使うことはしない。
+
+通常条件（noise=0）は決定論的で、異なるseedでも同じサービス列と予測結果になる。
+この同値性は再現性/処理経路の確認であり、独立な多様環境への一般化性能の実証ではない。
+学習・評価・監視のreceipt/episode非重複はデータ漏洩の防止であり、環境分布の多様性とは別。
+既知Dynamicsを持つ限定fixtureと、noise条件の短い標本の限界を維持する。
+
+同一固定protocolの修正後再現コマンド（全て新しいprivate出力先）:
+
+```bash
+uv run python -m scripts.benchmark_queue_recovery --pilot --output .cache/recovery-fresh-pilot-new
+uv run python -m scripts.audit_queue_recovery --protocol benchmarks/queue-recovery-v1.json --output .cache/recovery-fresh-pilot-new
+uv run python -m scripts.benchmark_queue_recovery --output .cache/recovery-fresh-run-new-A
+uv run python -m scripts.audit_queue_recovery --protocol benchmarks/queue-recovery-v1.json --output .cache/recovery-fresh-run-new-A
+uv run python -m scripts.benchmark_queue_recovery --output .cache/recovery-fresh-run-new-B
+uv run python -m scripts.audit_queue_recovery --protocol benchmarks/queue-recovery-v1.json --output .cache/recovery-fresh-run-new-B
+```
+
+### 修正後の固定本評価の測定
+
+macOS arm64/Python3.12.13で同じ32ケースを2回実行した。各実行とも昇格12、拒否12、
+未失効8、実Action/遷移4477、Runtime engine calls8954、unsafe0だった。
+両実行の判定・実観測・Action・スコアの意味的hashは
+`2395594a376cb299a733ea95b32a72b3c0912a1f6867c51adddb97bda3a9ea3f`で一致し、
+修正前のbehavior hashとも一致する。ただし、同じ数値は旧timestamp置換の正当化ではない。
+今回の評価では実取得した観測とReceipt確定時刻の照合を別途要求している。
+
+| 条件 | 各実行の結果 | Bの昇格前状態MAE / Action差分MAE | coverage |
+|---|---|---|---|
+| low→high / high→low | 各4/4昇格 | 0 / 0 | 100% |
+| stable low / high | 各4/4未失効・切替なし | 評価なし | — |
+| 有効学習不足 | 4/4拒否（有効4件） | 評価なし | — |
+| 予測品質不足 | 4/4拒否 | 2.444444 / 1.111111 | 100% |
+| 新監視Health不足 | 4/4拒否 | 0 / 0でも昇格不可 | 100% |
+| noisy shift（noise0.05） | 4/4昇格 | 0 / 0 | 100% |
+
+昇格後の別採点集合でも両方向のBは状態/Action差分MAE0/0、coverage100%、unknown0%。
+同集合の旧A直接予測はhigh1.888889/1.333333、low3.000000/0.888889、
+固定事前はhigh0.736111/0.555556、low1.736111/0.305556。
+回復なし/全unknownはcoverage0%、unknown100%、MAEは未定義。
+旧A直接予測は監視外の比較対象であり、失効後のactive経路がAへ戻ることはない。
+
+noise条件の16学習tickが結果として全highで、短い採点集合もその予測と一致する
+という既存の限界は解消していない。通常の決定論的条件の複数seed一致も含め、
+広い環境への一般化、耐ノイズ性、意思決定性能改善を主張しない。
+学習・評価・新episode監視のepisode/run/receipt分離は維持し、連続World内の回復は対象外。
+
+| 参考費用 | 実行A | 実行B |
+|---|---:|---:|
+| ケースCPU合計（秒） | 473.755 | 631.055 |
+| ケースwall合計（秒） | 530.149 | 689.293 |
+| 昇格後比較の平均CPU（秒） | 3.151 | 4.041 |
+| process peak（MiB） | 132.344 | 131.094 |
+
+process peakは累積ru_maxrssで、ケースの増分割当ではない。監査時間は上記ケース合計に
+含まれず、監査による時間の独立認証も行っていない。修正前の2実行はCPU425.014/418.620秒、
+wall480.410/473.791秒だった。今回は追加観測・検証のある別実行で、費用増と実行間変動を
+記録するが、変動要因の分離や統計的性能比較は行わない。高速化は主張しない。
+
+### 修正後の監査・全回帰
+
+本評価A/Bの独立auditorは各32ケース/4477遷移でpass、pilotも432遷移でpass。
+各実行の保存評価最終観測480件、監視最終観測48件を、実Fixture再生・Receipt・
+内容/provenance・時刻・cutoffと照合した。公開JSONは監査済みprivate集計から抽出し、
+raw State、DB、manifest、モデル、receiptは公開しない。
+
+追加15件を含むPython全回帰は**615 passed in225.51s**、関連回復42ケースも含む。
+Ruff check/format183 files、frontend contract再生成byte一致/build成功、
+専用API18335と既存Chromium E2Eは**6 passed in8.0s**。
+wheel/sdistは83 Python sourcesとassets/license/private pathのintegrity監査pass。
+既存Core/Gate/Trainer/Registry/Guardと旧protocol/結果に差分はない。
+
+初回の追加payload改変テスト1件は、payloadに対応するState IDを更新していなかったため、
+独立auditorより前のPydantic identity検証で拒否された。整合IDも持つ改変入力へ修正し、
+監査独自の照合で拒否されることを確認した。テスト削除や本体の検証緩和はしていない。
+4件の監査改変否定テストは、評価本体を呼ぶ前に内容/provenance/uncertainty/時刻の
+変更を拒否する。回復成功・標本/品質/Health拒否・再起動・取消の既存回帰もpass。
+
+保存観測の真正性は既存の所有者・manifest・append-only Store前提に従う。
+暗号学的な外部観測認証や独立なlive環境の検証を新たに証明したわけではない。
+GitHub CIは更新commitで別途確認し、結果をPRへ記録する。mainにはmergeしない。
