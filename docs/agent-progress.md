@@ -740,3 +740,15 @@ Core/Gate/Engine/Trainer/Memory・既存APIへの追加差分なし。raw DB/mod
 - 制約: 新episodeへの回復のみ、単一所有者/append-onlyの点時点保証、manifest所有責任。
   noise4 seedの16学習tickは結果として全high。一般的な耐ノイズ性は未実証。
 - 残り: 公開diffの最終確認、commit/push/独立PR、最新commitのCI。mainへmergeしない。
+
+## Model recovery sprint — PR作成・レビュー引継ぎ
+
+- PR #11: https://github.com/bosakun/preact/pull/11
+- 実装/結果commit baf31e2361a74651ee938be7a9ef21e16c817783。
+  15ファイルに限定し、既存Core/学習/実行契約は無変更。元作業ツリーは保持。
+- 公開集計を含む最終wheel/sdist再buildと83 sources/private path integrity監査もpass。
+- ローカル全受入検証・固定2実行と独立監査は完了。PR作成時点のGitHub CIは実行中。
+  最新commitの終了結果を確認し、PR本文と最終報告に記録する。
+- main/auto-mergeを操作しない。次は人間レビュー。
+- 次能力: 同一episode途中anchorの明示契約、長いnoise/相関/緩やかな変化の評価、
+  その後の意思決定価値。単一ownerからの分散切替・自動昇格は別設計とする。
