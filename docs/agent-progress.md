@@ -669,3 +669,15 @@ Core/Gate/Engine/Trainer/Memory・既存APIへの追加差分なし。raw DB/mod
 - 最終wheel/sdist監査pass（80 Python sources一致、private/generated path除外）。
 - 旧64 benchmark JSON byte一致、既存文書は全て元内容を維持して追記。
 - main d0c211dからの独立ブランチでPR準備。Core/既存Trainer/Adapter/TemporalEngineは無変更。
+
+## Dynamics drift sprint — PRとレビュー引継ぎ
+
+- PR #10: https://github.com/bosakun/preact/pull/10
+- 実装commit19d354cf987bbc305ac4cc93cdc302ab17559ed1。14ファイル、
+  production2モジュール・テスト・固定protocol/集計/独立auditor・既存文書追記に限定。
+- ローカル受入検証・最終source2実行の再現と監査・配布物監査が完了。
+- PR作成時点でpush/PR CIが実行中。最終状況はPR checksを参照し、終了前に確認してPR本文へ記録する。
+- mainは無変更、自動mergeは行わない。次は人間レビュー。
+- 研究・実装の次段階: receipt-backed増分検証で監視コストを削減、相関/緩やかな変化の評価、
+  新training manifest→新artifact→held-out評価→明示的Guard/Registry切替。
+  自動再学習・昇格・rollbackの承認/受入条件は別設計とする。
