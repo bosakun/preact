@@ -5,13 +5,14 @@ import asyncio
 import itertools
 import json
 from dataclasses import asdict
+from datetime import datetime, timezone
 from pathlib import Path
 from statistics import fmean
 
 from preact.core.models import State, Task, identity
 from preact.core.store import Artifacts, Store
 from preact.domains.cognitive_queue import transition
-from preact.domains.information_queue import InformationQueueWorld
+from preact.domains.information_queue import DOMAIN, PROVENANCE, InformationQueueWorld
 from preact.domains.queue_service_features import QueueServiceAdapter
 from preact.engines.queue_temporal_guard import QueueTemporalGuard
 from preact.engines.queue_temporal_recovery import QueueModelRecovery
@@ -29,6 +30,41 @@ from scripts.benchmark_queue_recovery import semantic, world
 def check(condition, message):
     if not condition:
         raise ValueError(message)
+
+
+async def verify_final_observation(store, snapshot, state, cutoff):
+    """Independently audit the saved real observation, not a retimed receipt State."""
+    timestamp = datetime.fromisoformat(state.timestamp)
+    bound = datetime.fromisoformat(cutoff)
+    check(
+        timestamp.tzinfo is not None
+        and timestamp.utcoffset() is not None
+        and bound.tzinfo is not None
+        and bound.utcoffset() is not None,
+        "Final observation timestamp lacks timezone",
+    )
+    check(
+        state.kind == "observed" and state.domain == DOMAIN and state.provenance == PROVENANCE,
+        "Final observation authority mismatch",
+    )
+    check(
+        timestamp <= bound <= datetime.now(timezone.utc),
+        "Final observation exceeds audit cutoff",
+    )
+    check(
+        state.model_dump(exclude={"timestamp"})
+        == snapshot.transitions[-1].after.state.model_dump(exclude={"timestamp"}),
+        "Final observation differs from receipt State",
+    )
+    for row in snapshot.transitions:
+        events = await store.call("read_events", row.run_id)
+        seq = int(row.outcome_reference.rsplit(":", 1)[1])
+        event = next(e for e in events if e["seq"] == seq)
+        check(
+            datetime.fromisoformat(event["timestamp"]) < timestamp
+            and datetime.fromisoformat(row.after.state.timestamp) < timestamp,
+            "Final observation precedes required outcome commit",
+        )
 
 
 async def verify_trace(store, episodes, fixture):
@@ -116,6 +152,7 @@ def verify_distribution(comparison, state, probability):
 async def audit(protocol_path: Path, output: Path):
     protocol = json.loads(protocol_path.read_text())
     summary = json.loads((output / "summary.json").read_text())
+    check(summary.get("validation_revision") == "fresh-observation/v2", "Old observation contract")
     check(summary["protocol_hash"] == identity(protocol), "Protocol changed")
     seeds = protocol["pilot_seeds"] if summary["pilot"] else protocol["evaluation_seeds"]
     names = (
@@ -128,6 +165,7 @@ async def audit(protocol_path: Path, output: Path):
     for name, seed in sorted(expected):
         directory = output / f"{name}-{seed}"
         c = json.loads((directory / "case.json").read_text())
+        check(c.get("validation_revision") == "fresh-observation/v2", "Old case contract")
         spec = protocol["conditions"][name]
         store = Store("sqlite:///" + str(directory / "ledger.db"))
         artifacts = Artifacts(str(directory / "artifacts"))
@@ -236,11 +274,10 @@ async def audit(protocol_path: Path, output: Path):
                     "Pre-invalidation teacher",
                 )
                 report = lifecycle._load(c["evaluation"], CandidateEvaluation)
-                recomputed, evaluation = await lifecycle._evaluate(
-                    c["candidate"], report.cases, report.cutoff
-                )
+                evaluation = await TransitionDataset(
+                    store, {b.episode_id: b.runs for case in report.cases for b in case.branches}
+                ).snapshot()
                 role_snapshots["evaluation"] = evaluation
-                check(recomputed == report, "Evaluation record mismatch")
                 probabilities = {}
                 for key, m, snapshot in (
                     ("candidate", model, b_training),
@@ -275,6 +312,9 @@ async def audit(protocol_path: Path, output: Path):
                         snapshot = await verify_trace(
                             store, {branch.episode_id: branch.runs}, fixture
                         )
+                        await verify_final_observation(
+                            store, snapshot, branch.final_observation, report.cutoff
+                        )
                         truths.append([r.after.state.payload for r in snapshot.transitions[-3:]])
                         independent_count += sum(
                             int(QueueServiceAdapter().targets(r)[0])
@@ -285,6 +325,10 @@ async def audit(protocol_path: Path, output: Path):
                         verify_distribution(forecast.forecasts[key], forecast.state, p)
                         comparisons[key].append(forecast.forecasts[key])
                 independent = {k: independent_scores(v, actual) for k, v in comparisons.items()}
+                recomputed, _ = await lifecycle._evaluate(
+                    c["candidate"], report.cases, report.cutoff
+                )
+                check(recomputed == report, "Evaluation record mismatch")
                 check(
                     independent_count == report.effective_count,
                     "Effective evaluation count includes preparation or changed",
@@ -324,18 +368,17 @@ async def audit(protocol_path: Path, output: Path):
                     require_disjoint(snapshot, evaluation)
                     require_disjoint(snapshot, b_training)
                     require_disjoint(snapshot, source)
+                    await verify_final_observation(
+                        store,
+                        snapshot,
+                        State.model_validate(monitor["final_observation"]),
+                        c["source_cutoff"]["timestamp"],
+                    )
                     transitions += len(snapshot.transitions)
                 if c["status"] == "promoted":
                     promoted += 1
                     monitor = c["monitoring"][0]
-                    rows = (
-                        await TransitionDataset(
-                            store, {monitor["episode_id"]: monitor["runs"]}
-                        ).snapshot()
-                    ).transitions
-                    fresh = rows[-1].after.state.model_copy(
-                        update={"timestamp": c["source_cutoff"]["timestamp"]}
-                    )
+                    fresh = State.model_validate(monitor["final_observation"])
                     check(
                         await lifecycle.restore(fresh, monitor["runs"]) == c["promotion"],
                         "Promotion restore mismatch",
@@ -418,6 +461,7 @@ async def audit(protocol_path: Path, output: Path):
     for raw, brief in zip(ordered, summary["cases"], strict=True):
         check(all(brief[k] == raw.get(k) for k in brief), "Summary aggregate changed")
     result = {
+        "validation_revision": "fresh-observation/v2",
         "status": "passed",
         "cases": len(records),
         "promoted": promoted,

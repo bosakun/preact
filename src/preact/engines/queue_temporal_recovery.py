@@ -16,6 +16,7 @@ from preact.domains.queue_recovery import (
     same_state,
     score,
     timepoint,
+    validate_final_observation,
 )
 from preact.domains.queue_service_features import QueueServiceAdapter
 from preact.engines.queue_temporal import QueueTemporalEngine, compare_actions
@@ -329,6 +330,9 @@ class QueueModelRecovery:
                 for other in (training, source, parent_training):
                     require_disjoint(other, snapshot)
                 await check_cutoff(self.store, snapshot, cutoff)
+                await validate_final_observation(
+                    self.store, snapshot, branch.final_observation, cutoff
+                )
                 rows = snapshot.transitions
                 if len(rows) < 3:
                     raise ValueError("Evaluation requires actual three-tick outcomes")
@@ -352,9 +356,7 @@ class QueueModelRecovery:
                     initial=branch.initial,
                     config=DriftConfig(**origin.config),
                 )
-                await guard.health(
-                    rows[-1].after.state.model_copy(update={"timestamp": cutoff}), branch.runs
-                )
+                await guard.health(branch.final_observation, branch.runs)
                 count += sum(int(QueueServiceAdapter().targets(r)[0]) for r in rows[-3:])
                 actual.append([r.after.state.payload for r in rows[-3:]])
             if record.state.payload["queue"]:

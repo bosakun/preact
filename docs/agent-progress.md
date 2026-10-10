@@ -752,3 +752,28 @@ Core/Gate/Engine/Trainer/Memory・既存APIへの追加差分なし。raw DB/mod
 - main/auto-mergeを操作しない。次は人間レビュー。
 - 次能力: 同一episode途中anchorの明示契約、長いnoise/相関/緩やかな変化の評価、
   その後の意思決定価値。単一ownerからの分散切替・自動昇格は別設計とする。
+
+## Model recovery review — 実観測の時点境界修正
+
+- PR #11のレビュー指摘に従い、評価最終Receipt Stateのtimestamp置換を除去。
+  EvaluationBranch v2へ必須のfinal_observationを追加し、Runtime/Receipt確定後に
+  評価World.observe()が返したStateを保存する。古いbranch記録は補完せず拒否。
+- fresh Stateの内容/provenance/uncertaintyと最終Receiptを照合。全必要outcomeの
+  確定時刻/receipt State時刻より厳密に後、評価cutoff以下であることを検証。
+  Guardへは保存した実Stateをそのまま渡す。Core/Trainer/Registry/既存Guardは無変更。
+- 独立auditorは同じ境界を別計算で検証。監視のrestore監査とテストfixtureも
+  timestamp置換を廃止し、保存実観測または所有fixtureのobserve()を使う。
+- 修正後pilot: 両方向昇格・学習不足拒否、432実遷移独立監査pass。
+  通常条件は決定論的。複数seedの同値性を一般化性能の根拠にしない。
+- 旧protocol/結果JSONは保持。fresh-observation/v2として別実行・別公開結果を追加予定。
+- 残り: 新規境界否定テストと既存回復回帰、固定本評価/監査、全Python/frontend/
+  E2E/distribution再検証、PR更新と最新commitのCI。mainへmergeしない。
+
+- 関連42ケースの初回: 41pass/1fail。新しいpayload改ざんテストでState IDを更新して
+  いなかったため、独立監査の前に既存Pydantic identity検証で拒否された。
+  整合IDも持つ改変JSONへ修正し、監査独自の照合で拒否されることを全回帰で確認中。
+- Ruff183 files、frontend契約byte一致/build、専用API18335の既存Chromium6pass（8.0s）。
+
+- 最終全回帰615 passed in225.51s。新規境界15件を含み、既存昇格/拒否/再起動/取消もpass。
+  独立auditorの改変拒否4件は本体の_evaluateへ到達する前に独自照合で拒否することを確認。
+- 本評価2実行と各独立監査を逐次開始。CPU測定中に重いテスト/ビルドは重ねない。

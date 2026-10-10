@@ -39,7 +39,9 @@ def effective(snapshot: TransitionSnapshot) -> int:
     )
 
 
-async def check_cutoff(store: Store, snapshot: TransitionSnapshot, cutoff: str) -> None:
+async def check_cutoff(
+    store: Store, snapshot: TransitionSnapshot, cutoff: str, *, strict: bool = False
+) -> None:
     snapshot.verify_identity()
     if snapshot.unlabelled_receipts:
         raise ValueError("Incomplete execution cannot enter model recovery")
@@ -52,8 +54,22 @@ async def check_cutoff(store: Store, snapshot: TransitionSnapshot, cutoff: str) 
         events = await store.call("read_events", row.run_id)
         seq = int(row.outcome_reference.rsplit(":", 1)[1])
         event = next(e for e in events if e["seq"] == seq)
-        if timepoint(event["timestamp"]) > bound or timepoint(row.after.state.timestamp) > bound:
+        times = (timepoint(event["timestamp"]), timepoint(row.after.state.timestamp))
+        if any(t > bound or (strict and t == bound) for t in times):
             raise ValueError("Future or not-yet-committed recovery outcome")
+
+
+async def validate_final_observation(
+    store: Store, snapshot: TransitionSnapshot, state: State, cutoff: str
+) -> None:
+    """Bind an actual passive observation to its completed branch, without retiming receipts."""
+    observed(state)
+    if not snapshot.transitions or not same_state(state, snapshot.transitions[-1].after.state):
+        raise ValueError("Evaluation final observation differs from completed receipt State")
+    if timepoint(state.timestamp) > timepoint(cutoff):
+        raise ValueError("Evaluation final observation exceeds evaluation cutoff")
+    # All required outcomes must already have been durably recorded when observed.
+    await check_cutoff(store, snapshot, state.timestamp, strict=True)
 
 
 def score(comparisons: list[dict], truths: list[list[list[dict]]]) -> dict:

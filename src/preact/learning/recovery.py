@@ -63,9 +63,11 @@ class ForecastRecord(RecoveryRecord):
 
 
 class EvaluationBranch(RecoveryRecord):
+    schema_version: Literal["2"] = "2"
     episode_id: str
     initial: State
     runs: list[str]
+    final_observation: State
 
 
 class EvaluationCase(RecoveryRecord):

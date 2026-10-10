@@ -1,20 +1,21 @@
 import asyncio
 import json
 import shutil
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import pytest
 import pytest_asyncio
 from sqlalchemy import delete, update
 
-from preact.core.models import State
+from preact.core.models import State, identity
 from preact.core.store import Artifacts, Store
 from preact.engines.queue_temporal_recovery import QueueModelRecovery
 from preact.learning import TransitionDataset
 from preact.learning.recovery import (
     CandidateEvaluation,
     CandidateModel,
+    EvaluationCase,
     ModelPromotion,
     RecoveryRejected,
 )
@@ -43,13 +44,21 @@ def prepared(successful_recovery, tmp_path):
 
 
 async def latest(lifecycle, record):
+    from scripts.benchmark_queue_recovery import world
+
     m = record["monitoring"][0]
     rows = (
         await TransitionDataset(lifecycle.store, {m["episode_id"]: m["runs"]}).snapshot()
     ).transitions
-    return rows[-1].after.state.model_copy(
-        update={"timestamp": datetime.now(timezone.utc).isoformat()}
-    ), m["runs"]
+    protocol = json.loads(PROTOCOL.read_text())
+    spec = protocol["conditions"][record["condition"]]
+    fixture = world(
+        protocol, record["seed"] + 1000, high=not spec["parent_high"], noise=spec["noise"]
+    )
+    # Reconstruct the owned fixture for restart tests; no new teacher or receipt is written.
+    for row in rows:
+        await fixture.execute(row.action, row.receipt)
+    return await fixture.observe(), m["runs"]
 
 
 async def restored(lifecycle, record):
@@ -437,9 +446,8 @@ async def test_writer_update_during_durable_commit_blocks_publication(prepared, 
     assert lifecycle._active is None
 
 
-async def test_independent_auditor_rejects_changed_public_result(successful_recovery, tmp_path):
+def audit_bundle(successful_recovery, tmp_path):
     from preact.core.models import identity
-    from scripts.audit_queue_recovery import audit
     from scripts.benchmark_queue_recovery import semantic
 
     output = tmp_path / "audit"
@@ -472,17 +480,181 @@ async def test_independent_auditor_rejects_changed_public_result(successful_reco
         "parent_prediction_stopped",
     )
     summary = {
+        "validation_revision": "fresh-observation/v2",
         "pilot": False,
         "protocol_hash": identity(protocol),
         "semantic_hash": semantic([record]),
         "cases": [{k: record.get(k) for k in keys}],
     }
     (output / "summary.json").write_text(json.dumps(summary))
+    return path, output, record, summary
+
+
+async def test_independent_auditor_rejects_changed_public_result(successful_recovery, tmp_path):
+    from scripts.audit_queue_recovery import audit
+
+    path, output, record, summary = audit_bundle(successful_recovery, tmp_path)
     result = await audit(path, output)
     assert result["status"] == "passed" and result["promoted"] == 1
     summary["cases"][0]["status"] = "rejected"
     (output / "summary.json").write_text(json.dumps(summary))
     with pytest.raises(ValueError, match="aggregate changed"):
+        await audit(path, output)
+
+
+async def test_evaluation_uses_saved_fresh_observations_without_retiming_receipts(
+    prepared, monkeypatch
+):
+    from preact.domains.queue_recovery import same_state, timepoint
+    from preact.engines.queue_temporal_guard import QueueTemporalGuard
+
+    lifecycle, c = prepared
+    report = lifecycle._load(c["evaluation"], CandidateEvaluation)
+    expected = {b.episode_id: b.final_observation for case in report.cases for b in case.branches}
+    original, seen = QueueTemporalGuard.health, []
+
+    async def capturing(self, state, runs):
+        if self._episode in expected:
+            assert state.model_dump() == expected[self._episode].model_dump()
+            seen.append(self._episode)
+        return await original(self, state, runs)
+
+    monkeypatch.setattr(QueueTemporalGuard, "health", capturing)
+    recalculated, snapshot = await lifecycle._evaluate(c["candidate"], report.cases, report.cutoff)
+    assert recalculated == report and set(seen) == set(expected)
+    for case in report.cases:
+        for branch in case.branches:
+            rows = [r for r in snapshot.transitions if r.episode_id == branch.episode_id]
+            receipt_state = rows[-1].after.state
+            assert same_state(receipt_state, branch.final_observation)
+            assert timepoint(receipt_state.timestamp) < timepoint(
+                branch.final_observation.timestamp
+            )
+            assert timepoint(branch.final_observation.timestamp) <= timepoint(report.cutoff)
+            for row in rows:
+                event = next(
+                    e
+                    for e in lifecycle.store.read_events(row.run_id)
+                    if e["seq"] == int(row.outcome_reference.rsplit(":", 1)[1])
+                )
+                assert timepoint(event["timestamp"]) < timepoint(branch.final_observation.timestamp)
+    # Re-evaluation leaves every receipt-bound timestamp unchanged.
+    again = await TransitionDataset(lifecycle.store, snapshot.episodes).snapshot()
+    assert again == snapshot
+
+
+@pytest.mark.parametrize(
+    "change",
+    [
+        "payload",
+        "provenance",
+        "uncertainty",
+        "hypothetical",
+        "before_commit",
+        "at_commit",
+        "after_cutoff",
+        "missing",
+        "old_schema",
+    ],
+)
+async def test_invalid_evaluation_final_observation_is_rejected(prepared, change):
+    lifecycle, c = prepared
+    report = lifecycle._load(c["evaluation"], CandidateEvaluation)
+    raw = report.cases[0].model_dump()
+    branch = raw["branches"][0]
+    state = branch["final_observation"]
+    rows = (
+        await TransitionDataset(lifecycle.store, {branch["episode_id"]: branch["runs"]}).snapshot()
+    ).transitions
+    if change == "payload":
+        state["payload"]["queue"] += 1
+        state["id"] = identity({"domain": state["domain"], "payload": state["payload"]})
+    elif change == "provenance":
+        state["provenance"] = "forged"
+    elif change == "uncertainty":
+        state["uncertainty"] = 0.5
+    elif change == "hypothetical":
+        state["kind"] = "hypothetical"
+    elif change == "before_commit":
+        state["timestamp"] = rows[-1].after.state.timestamp
+    elif change == "at_commit":
+        state["timestamp"] = next(
+            e["timestamp"]
+            for e in lifecycle.store.read_events(rows[-1].run_id)
+            if e["seq"] == int(rows[-1].outcome_reference.rsplit(":", 1)[1])
+        )
+    elif change == "after_cutoff":
+        state["timestamp"] = (
+            datetime.fromisoformat(report.cutoff) + timedelta(microseconds=1)
+        ).isoformat()
+    elif change == "missing":
+        del branch["final_observation"]
+    else:
+        branch["schema_version"] = "1"
+    with pytest.raises(ValueError):
+        bad = EvaluationCase.model_validate(raw)
+        await lifecycle._evaluate(c["candidate"], [bad, *report.cases[1:]], report.cutoff)
+
+
+async def test_outcome_committed_after_saved_observation_is_rejected(prepared):
+    lifecycle, c = prepared
+    report = lifecycle._load(c["evaluation"], CandidateEvaluation)
+    branch = report.cases[0].branches[0]
+    rows = (
+        await TransitionDataset(lifecycle.store, {branch.episode_id: branch.runs}).snapshot()
+    ).transitions
+    row = rows[-1]
+    late = (
+        datetime.fromisoformat(branch.final_observation.timestamp) + timedelta(microseconds=1)
+    ).isoformat()
+    assert datetime.fromisoformat(late) < datetime.fromisoformat(report.cutoff)
+    with lifecycle.store.db.begin() as conn:
+        conn.execute(
+            update(lifecycle.store.events)
+            .where(
+                (lifecycle.store.events.c.run_id == row.run_id)
+                & (lifecycle.store.events.c.seq == int(row.outcome_reference.rsplit(":", 1)[1]))
+            )
+            .values(timestamp=late)
+        )
+    with pytest.raises(ValueError, match="not-yet-committed"):
+        await lifecycle._evaluate(c["candidate"], report.cases, report.cutoff)
+
+
+@pytest.mark.parametrize("change", ["payload", "provenance", "uncertainty", "timestamp"])
+async def test_independent_auditor_rejects_changed_evaluation_observation(
+    successful_recovery, tmp_path, monkeypatch, change
+):
+    from scripts.audit_queue_recovery import audit
+
+    path, output, c, _ = audit_bundle(successful_recovery, tmp_path)
+    directory = output / "low_to_high-201"
+    artifacts = Artifacts(str(directory / "artifacts"))
+    raw = json.loads(artifacts.read(c["evaluation"]))
+    branch = raw["cases"][0]["branches"][0]
+    if change == "payload":
+        branch["final_observation"]["payload"]["queue"] += 1
+        state = branch["final_observation"]
+        state["id"] = identity({"domain": state["domain"], "payload": state["payload"]})
+    elif change == "provenance":
+        branch["final_observation"]["provenance"] = "forged"
+    elif change == "uncertainty":
+        branch["final_observation"]["uncertainty"] = 0.5
+    else:
+        store = Store("sqlite:///" + str(directory / "ledger.db"))
+        rows = (
+            await TransitionDataset(store, {branch["episode_id"]: branch["runs"]}).snapshot()
+        ).transitions
+        branch["final_observation"]["timestamp"] = rows[-1].after.state.timestamp
+    # A new valid JSON/content hash still must fail the auditor's independent checks.
+    c["evaluation"] = artifacts.json(raw)
+    (directory / "case.json").write_text(json.dumps(c))
+
+    async def must_not_reach_production_evaluation(*args, **kwargs):
+        raise AssertionError("Independent observation audit must reject first")
+
+    monkeypatch.setattr(QueueModelRecovery, "_evaluate", must_not_reach_production_evaluation)
+    with pytest.raises(ValueError, match="Final observation"):
         await audit(path, output)
 
 

@@ -503,3 +503,38 @@ episode別tick数と逐次実験の総実行数を記録し、同一Worldの連�
 
 今回は自動昇格/rollback/ランキング変更/監視高速化を実装しない。
 次段階は同一episodeのreceipt-backed途中anchorと区間契約、その後の意思決定価値評価。
+
+### PR #11レビュー修正：評価最終観測を実Stateに結び付ける
+
+評価branchのRuntime実行・Receipt確定後、所有者が正式な`world.observe()`を呼び、
+返されたStateを`EvaluationBranch.final_observation`へ保存する。branchのschemaはv2で、
+このフィールドは必須。旧記録からReceipt Stateの時刻を補完して移行することはしない。
+コードhashも変わるため、旧候補/昇格記録を新コードで無検証に復元しない。
+
+```python
+# completed_runs contains the actual preparation, root and two drain executions.
+branch = EvaluationBranch(
+    episode_id=actual_episode_id,
+    initial=initial_observation,
+    runs=completed_runs,
+    final_observation=await evaluation_world.observe(),
+)
+```
+
+`_evaluate()`は最終Receipt Stateとこの観測のtimestamp以外の全フィールドを照合する。
+payload/State IDだけでなく、kind/domain/provenance/uncertainty等も一致が必要。
+全branch履歴のoutcome記録時刻とReceipt State時刻が**観測時刻より厳密に前**、
+その観測時刻が評価cutoff以下であることを検証する。`guard.health()`には保存Stateを
+そのまま渡す。ReceiptのStateやtimestampは更新しない。
+
+独立auditorは保存Stateの内容/provenanceと上記時点条件を別計算で確認してから、
+本体の再評価と突き合わせる。新JSON/hashでpayloadや時刻等を改変した記録も拒否する
+否定テストを含む。監視restoreの監査も、実Worldから保存した最終観測を使う。
+Artifactの内容hashと既存receipt検証を併用するが、任意の呼出側が実際にobserveを
+呼んだことを暗号学的に認証する新Authorityは追加しない。World/manifest所有者の
+責任という既存契約は維持する。
+
+固定protocol・閾値・採点対象は維持し、修正後の実行記録を`fresh-observation/v2`で区別する。
+旧の公開結果は上書きしない。通常条件はnoise=0の決定論的fixtureで、同じ条件のseedを
+変えて同じ結果になることは、実装の再現性の確認である。未知環境への一般化性能を
+示す独立な環境サンプルとは扱わない。noise条件の短い標本に関する限界も維持する。

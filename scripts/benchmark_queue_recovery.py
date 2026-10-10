@@ -82,6 +82,7 @@ async def evaluation_cases(lifecycle, candidate, protocol, *, high, noise=0):
                         episode_id=f"evaluation:{seed}:{label}:{amount}",
                         initial=initials[i],
                         runs=prefixes[i] + suffix,
+                        final_observation=await worlds[i].observe(),
                     )
                 )
             cases.append(EvaluationCase(forecast_artifact=forecast, branches=branches))
@@ -145,6 +146,7 @@ async def recovery_case(protocol, name, seed, output):
     record = {
         "condition": name,
         "seed": seed,
+        "validation_revision": "fresh-observation/v2",
         "journal_run": lifecycle.journal_run,
         "parent_artifact": parent.save(artifacts),
         "training": training,
@@ -248,6 +250,7 @@ async def recovery_case(protocol, name, seed, output):
                     "initial": i.model_dump(),
                     "runs": r,
                     "task": w.task.model_dump(),
+                    "final_observation": (await w.observe()).model_dump(),
                 }
                 for amount, i, r, w in zip(
                     (3, 1, 0), monitor_initials, monitor_runs, monitor_worlds
@@ -287,6 +290,9 @@ async def recovery_case(protocol, name, seed, output):
                 ).transitions
                 actual.append([r.after.state.payload for r in rows[-3:]])
                 record["monitoring"][i]["runs"] = monitor_runs[i]
+                record["monitoring"][i]["final_observation"] = (
+                    await monitor_worlds[i].observe()
+                ).model_dump()
             from preact.core.registry import Registry
             from preact.engines.queue_temporal import QueueTemporalEngine, compare_actions
 
@@ -437,6 +443,7 @@ async def benchmark(protocol_path: Path, output: Path, *, pilot=False):
                 flush=True,
             )
     summary = {
+        "validation_revision": "fresh-observation/v2",
         "protocol_hash": identity(protocol),
         "pilot": pilot,
         "platform": platform.platform(),

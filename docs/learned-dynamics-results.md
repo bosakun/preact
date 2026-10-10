@@ -566,3 +566,32 @@ wheel/sdist監査は83 Python sourcesの一致・assets/license・private path�
 E2Eのsandbox内listen制限は許可経路で再実行した。昇格条件を緩める修正はしていない。
 通常のmodelとReceiptの不整合、取消、取得中更新は例外を伝播してactiveを破棄する。
 完全なOS隔離、暗号学的World認証、DB巻戻し耐性、live外部サービスは今回の監査対象外である。
+
+## PR #11追評価：fresh ObservationのAuthority境界
+
+上記Model Recovery v1の数値と`benchmarks/queue-recovery-v1-results.json`は
+commit8051aad時点の修正前記録として保持する。その実装は評価最終Receipt Stateの
+timestampを評価cutoffへ置換しており、同時刻の実観測取得を裏付けていなかった。
+レビュー指摘に従い置換を除去し、実Runtime/Receipt確定後のWorld.observe()で取得した
+final_observationを必須のEvaluationBranch v2へ保存・再検証する方式へ修正した。
+
+protocol、seed、昇格閾値、Action、採点集合は変更しない。実行記録/監査に
+`validation_revision: fresh-observation/v2`を付け、別の出力先へ全条件を再実行する。
+修正後の公開集計は`benchmarks/queue-recovery-v1-fresh-observation-results.json`。
+旧記録を新timestamp/架空のObservationで補完して使うことはしない。
+
+通常条件（noise=0）は決定論的で、異なるseedでも同じサービス列と予測結果になる。
+この同値性は再現性/処理経路の確認であり、独立な多様環境への一般化性能の実証ではない。
+学習・評価・監視のreceipt/episode非重複はデータ漏洩の防止であり、環境分布の多様性とは別。
+既知Dynamicsを持つ限定fixtureと、noise条件の短い標本の限界を維持する。
+
+同一固定protocolの修正後再現コマンド（全て新しいprivate出力先）:
+
+```bash
+uv run python -m scripts.benchmark_queue_recovery --pilot --output .cache/recovery-fresh-pilot-new
+uv run python -m scripts.audit_queue_recovery --protocol benchmarks/queue-recovery-v1.json --output .cache/recovery-fresh-pilot-new
+uv run python -m scripts.benchmark_queue_recovery --output .cache/recovery-fresh-run-new-A
+uv run python -m scripts.audit_queue_recovery --protocol benchmarks/queue-recovery-v1.json --output .cache/recovery-fresh-run-new-A
+uv run python -m scripts.benchmark_queue_recovery --output .cache/recovery-fresh-run-new-B
+uv run python -m scripts.audit_queue_recovery --protocol benchmarks/queue-recovery-v1.json --output .cache/recovery-fresh-run-new-B
+```
