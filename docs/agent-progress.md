@@ -556,3 +556,13 @@ Core/Runtime/Gate/Memory/Trainer/既存Queueへの差分なし。最終配布物
 最終wheel/sdistのdistribution integrityも成功（各78 Python sources照合）。
 13ファイルの公開候補を確認し、private cache/raw model/DB/研究原文は含めていない。
 mainはfb49828のまま、既存open PRなし。独立PRを作成して最新headのCIを確認する。
+
+## 2026-10-10 — Temporal比較 PR作成
+
+PR #9: https://github.com/bosakun/preact/pull/9 。独立branch feat/learned-queue-temporal、
+実装commit6e458ca、13ファイル。承認設計と追加4条件の範囲で、重大な設計変更なし。
+537ローカルtests・frontend・独立API E2E・最終distribution・2回のauthority監査を実施済み。
+公開mainはfb49828のまま。PRはOPEN、autoMergeRequest=nullでレビュー待ち。
+push/pull_requestのGitHub CIは実行中。最新headの結果はPR Checksで確認する。
+研究原文・raw DB/model/cases・依存・一時E2E設定は公開していない。
+次の研究優先度はshift/時間相関とモデル失効、区間校正、意思決定価値の検証。
