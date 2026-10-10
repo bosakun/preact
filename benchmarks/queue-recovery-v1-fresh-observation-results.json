@@ -1,0 +1,2111 @@
+{
+  "schema_version": "1",
+  "validation_revision": "fresh-observation/v2",
+  "protocol": "benchmarks/queue-recovery-v1.json",
+  "protocol_sha256": "b3f1d94830826765c8ff53004a226151fd949f9ff06afb6d362a06a334304786",
+  "protocol_hash": "a8edfd70f39808369e7ac215d7d984bf8c608f6ef4fee87ca1c5546c7304ceb6",
+  "recovery_code_hash": "0ee6bcd8e79f1f6e1baa96c21b5979921751d4868fceb95234c0112e7a70debc",
+  "script_hashes": {
+    "scripts/benchmark_queue_recovery.py": "24436bab386842057e9691a41b6d0f1be9d83a59bdc3f60e2de9d8c14997cdb5",
+    "scripts/audit_queue_recovery.py": "e5a3e787f95d88445a93324314b463fba0c5acb10b197df6374b5c6da4cd2dcf"
+  },
+  "semantic_replay_equal": true,
+  "historical_comparison": {
+    "result": "benchmarks/queue-recovery-v1-results.json",
+    "sha256": "2ce0071c8427e55cb4694054e5c4ad8452c3f98f7145c725f408ce34a1026092",
+    "behavior_semantic_hash_equal": true,
+    "observation_validation_changed": true,
+    "note": "Same numeric outcomes do not validate old synthetic observations. Original protocol/results are preserved."
+  },
+  "cases": [
+    {
+      "condition": "low_to_high",
+      "seed": 101,
+      "status": "promoted",
+      "rejection": null,
+      "invalidation_tick": 18,
+      "scores": {
+        "candidate": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.0,
+          "state_mae": 0.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "parent": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 1.1111111111111112,
+          "state_mae": 2.4444444444444446,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "prior": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.5694444444444444,
+          "state_mae": 1.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        }
+      },
+      "post_scores": {
+        "candidate": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 0.0,
+          "difference_mae": 0.0
+        },
+        "parent_unmanaged": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 1.8888888888888888,
+          "difference_mae": 1.3333333333333333
+        },
+        "prior": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 0.7361111111111112,
+          "difference_mae": 0.5555555555555556
+        },
+        "invalidated_no_recovery": {
+          "comparisons": 1,
+          "supported": 0,
+          "coverage": 0.0,
+          "unknown_rate": 1.0,
+          "state_mae": null,
+          "difference_mae": null
+        },
+        "all_unknown": {
+          "comparisons": 1,
+          "supported": 0,
+          "coverage": 0.0,
+          "unknown_rate": 1.0,
+          "state_mae": null,
+          "difference_mae": null
+        }
+      },
+      "recovery_ticks": {
+        "source_after_invalidation": 16,
+        "evaluation_executions": 108,
+        "monitoring_before_promotion": 10,
+        "total": 154,
+        "semantics": "Sequential experiment execution across different episodes, not continuous-world latency"
+      },
+      "actual_semantic_hash": "29734fa870cfc3d01a00d429ca34182d40c6ec24721cadeec9c73756ec103ffb",
+      "executed_actions": 197,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 394,
+      "parent_prediction_stopped": true,
+      "saved_evaluation_final_observations": 24,
+      "saved_monitor_final_observations": 3,
+      "candidate_effective_count": 16,
+      "evaluation_effective_count": 36
+    },
+    {
+      "condition": "low_to_high",
+      "seed": 102,
+      "status": "promoted",
+      "rejection": null,
+      "invalidation_tick": 18,
+      "scores": {
+        "candidate": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.0,
+          "state_mae": 0.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "parent": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 1.1111111111111112,
+          "state_mae": 2.4444444444444446,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "prior": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.5694444444444444,
+          "state_mae": 1.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        }
+      },
+      "post_scores": {
+        "candidate": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 0.0,
+          "difference_mae": 0.0
+        },
+        "parent_unmanaged": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 1.8888888888888888,
+          "difference_mae": 1.3333333333333333
+        },
+        "prior": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 0.7361111111111112,
+          "difference_mae": 0.5555555555555556
+        },
+        "invalidated_no_recovery": {
+          "comparisons": 1,
+          "supported": 0,
+          "coverage": 0.0,
+          "unknown_rate": 1.0,
+          "state_mae": null,
+          "difference_mae": null
+        },
+        "all_unknown": {
+          "comparisons": 1,
+          "supported": 0,
+          "coverage": 0.0,
+          "unknown_rate": 1.0,
+          "state_mae": null,
+          "difference_mae": null
+        }
+      },
+      "recovery_ticks": {
+        "source_after_invalidation": 16,
+        "evaluation_executions": 108,
+        "monitoring_before_promotion": 10,
+        "total": 154,
+        "semantics": "Sequential experiment execution across different episodes, not continuous-world latency"
+      },
+      "actual_semantic_hash": "29734fa870cfc3d01a00d429ca34182d40c6ec24721cadeec9c73756ec103ffb",
+      "executed_actions": 197,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 394,
+      "parent_prediction_stopped": true,
+      "saved_evaluation_final_observations": 24,
+      "saved_monitor_final_observations": 3,
+      "candidate_effective_count": 16,
+      "evaluation_effective_count": 36
+    },
+    {
+      "condition": "low_to_high",
+      "seed": 103,
+      "status": "promoted",
+      "rejection": null,
+      "invalidation_tick": 18,
+      "scores": {
+        "candidate": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.0,
+          "state_mae": 0.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "parent": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 1.1111111111111112,
+          "state_mae": 2.4444444444444446,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "prior": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.5694444444444444,
+          "state_mae": 1.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        }
+      },
+      "post_scores": {
+        "candidate": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 0.0,
+          "difference_mae": 0.0
+        },
+        "parent_unmanaged": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 1.8888888888888888,
+          "difference_mae": 1.3333333333333333
+        },
+        "prior": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 0.7361111111111112,
+          "difference_mae": 0.5555555555555556
+        },
+        "invalidated_no_recovery": {
+          "comparisons": 1,
+          "supported": 0,
+          "coverage": 0.0,
+          "unknown_rate": 1.0,
+          "state_mae": null,
+          "difference_mae": null
+        },
+        "all_unknown": {
+          "comparisons": 1,
+          "supported": 0,
+          "coverage": 0.0,
+          "unknown_rate": 1.0,
+          "state_mae": null,
+          "difference_mae": null
+        }
+      },
+      "recovery_ticks": {
+        "source_after_invalidation": 16,
+        "evaluation_executions": 108,
+        "monitoring_before_promotion": 10,
+        "total": 154,
+        "semantics": "Sequential experiment execution across different episodes, not continuous-world latency"
+      },
+      "actual_semantic_hash": "29734fa870cfc3d01a00d429ca34182d40c6ec24721cadeec9c73756ec103ffb",
+      "executed_actions": 197,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 394,
+      "parent_prediction_stopped": true,
+      "saved_evaluation_final_observations": 24,
+      "saved_monitor_final_observations": 3,
+      "candidate_effective_count": 16,
+      "evaluation_effective_count": 36
+    },
+    {
+      "condition": "low_to_high",
+      "seed": 104,
+      "status": "promoted",
+      "rejection": null,
+      "invalidation_tick": 18,
+      "scores": {
+        "candidate": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.0,
+          "state_mae": 0.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "parent": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 1.1111111111111112,
+          "state_mae": 2.4444444444444446,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "prior": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.5694444444444444,
+          "state_mae": 1.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        }
+      },
+      "post_scores": {
+        "candidate": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 0.0,
+          "difference_mae": 0.0
+        },
+        "parent_unmanaged": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 1.8888888888888888,
+          "difference_mae": 1.3333333333333333
+        },
+        "prior": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 0.7361111111111112,
+          "difference_mae": 0.5555555555555556
+        },
+        "invalidated_no_recovery": {
+          "comparisons": 1,
+          "supported": 0,
+          "coverage": 0.0,
+          "unknown_rate": 1.0,
+          "state_mae": null,
+          "difference_mae": null
+        },
+        "all_unknown": {
+          "comparisons": 1,
+          "supported": 0,
+          "coverage": 0.0,
+          "unknown_rate": 1.0,
+          "state_mae": null,
+          "difference_mae": null
+        }
+      },
+      "recovery_ticks": {
+        "source_after_invalidation": 16,
+        "evaluation_executions": 108,
+        "monitoring_before_promotion": 10,
+        "total": 154,
+        "semantics": "Sequential experiment execution across different episodes, not continuous-world latency"
+      },
+      "actual_semantic_hash": "29734fa870cfc3d01a00d429ca34182d40c6ec24721cadeec9c73756ec103ffb",
+      "executed_actions": 197,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 394,
+      "parent_prediction_stopped": true,
+      "saved_evaluation_final_observations": 24,
+      "saved_monitor_final_observations": 3,
+      "candidate_effective_count": 16,
+      "evaluation_effective_count": 36
+    },
+    {
+      "condition": "high_to_low",
+      "seed": 101,
+      "status": "promoted",
+      "rejection": null,
+      "invalidation_tick": 18,
+      "scores": {
+        "candidate": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.0,
+          "state_mae": 0.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "parent": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 1.1111111111111112,
+          "state_mae": 2.4444444444444446,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "prior": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.5416666666666666,
+          "state_mae": 1.4444444444444444,
+          "supported": 8,
+          "unknown_rate": 0.0
+        }
+      },
+      "post_scores": {
+        "candidate": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 0.0,
+          "difference_mae": 0.0
+        },
+        "parent_unmanaged": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 3.0,
+          "difference_mae": 0.8888888888888888
+        },
+        "prior": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 1.7361111111111112,
+          "difference_mae": 0.3055555555555556
+        },
+        "invalidated_no_recovery": {
+          "comparisons": 1,
+          "supported": 0,
+          "coverage": 0.0,
+          "unknown_rate": 1.0,
+          "state_mae": null,
+          "difference_mae": null
+        },
+        "all_unknown": {
+          "comparisons": 1,
+          "supported": 0,
+          "coverage": 0.0,
+          "unknown_rate": 1.0,
+          "state_mae": null,
+          "difference_mae": null
+        }
+      },
+      "recovery_ticks": {
+        "source_after_invalidation": 16,
+        "evaluation_executions": 108,
+        "monitoring_before_promotion": 10,
+        "total": 154,
+        "semantics": "Sequential experiment execution across different episodes, not continuous-world latency"
+      },
+      "actual_semantic_hash": "dcea33886f61e4e688e4de8d8ebe96fbcc3ec2a1ca33fec75f5319d2aca6e4cb",
+      "executed_actions": 197,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 394,
+      "parent_prediction_stopped": true,
+      "saved_evaluation_final_observations": 24,
+      "saved_monitor_final_observations": 3,
+      "candidate_effective_count": 16,
+      "evaluation_effective_count": 60
+    },
+    {
+      "condition": "high_to_low",
+      "seed": 102,
+      "status": "promoted",
+      "rejection": null,
+      "invalidation_tick": 18,
+      "scores": {
+        "candidate": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.0,
+          "state_mae": 0.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "parent": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 1.1111111111111112,
+          "state_mae": 2.4444444444444446,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "prior": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.5416666666666666,
+          "state_mae": 1.4444444444444444,
+          "supported": 8,
+          "unknown_rate": 0.0
+        }
+      },
+      "post_scores": {
+        "candidate": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 0.0,
+          "difference_mae": 0.0
+        },
+        "parent_unmanaged": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 3.0,
+          "difference_mae": 0.8888888888888888
+        },
+        "prior": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 1.7361111111111112,
+          "difference_mae": 0.3055555555555556
+        },
+        "invalidated_no_recovery": {
+          "comparisons": 1,
+          "supported": 0,
+          "coverage": 0.0,
+          "unknown_rate": 1.0,
+          "state_mae": null,
+          "difference_mae": null
+        },
+        "all_unknown": {
+          "comparisons": 1,
+          "supported": 0,
+          "coverage": 0.0,
+          "unknown_rate": 1.0,
+          "state_mae": null,
+          "difference_mae": null
+        }
+      },
+      "recovery_ticks": {
+        "source_after_invalidation": 16,
+        "evaluation_executions": 108,
+        "monitoring_before_promotion": 10,
+        "total": 154,
+        "semantics": "Sequential experiment execution across different episodes, not continuous-world latency"
+      },
+      "actual_semantic_hash": "dcea33886f61e4e688e4de8d8ebe96fbcc3ec2a1ca33fec75f5319d2aca6e4cb",
+      "executed_actions": 197,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 394,
+      "parent_prediction_stopped": true,
+      "saved_evaluation_final_observations": 24,
+      "saved_monitor_final_observations": 3,
+      "candidate_effective_count": 16,
+      "evaluation_effective_count": 60
+    },
+    {
+      "condition": "high_to_low",
+      "seed": 103,
+      "status": "promoted",
+      "rejection": null,
+      "invalidation_tick": 18,
+      "scores": {
+        "candidate": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.0,
+          "state_mae": 0.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "parent": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 1.1111111111111112,
+          "state_mae": 2.4444444444444446,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "prior": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.5416666666666666,
+          "state_mae": 1.4444444444444444,
+          "supported": 8,
+          "unknown_rate": 0.0
+        }
+      },
+      "post_scores": {
+        "candidate": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 0.0,
+          "difference_mae": 0.0
+        },
+        "parent_unmanaged": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 3.0,
+          "difference_mae": 0.8888888888888888
+        },
+        "prior": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 1.7361111111111112,
+          "difference_mae": 0.3055555555555556
+        },
+        "invalidated_no_recovery": {
+          "comparisons": 1,
+          "supported": 0,
+          "coverage": 0.0,
+          "unknown_rate": 1.0,
+          "state_mae": null,
+          "difference_mae": null
+        },
+        "all_unknown": {
+          "comparisons": 1,
+          "supported": 0,
+          "coverage": 0.0,
+          "unknown_rate": 1.0,
+          "state_mae": null,
+          "difference_mae": null
+        }
+      },
+      "recovery_ticks": {
+        "source_after_invalidation": 16,
+        "evaluation_executions": 108,
+        "monitoring_before_promotion": 10,
+        "total": 154,
+        "semantics": "Sequential experiment execution across different episodes, not continuous-world latency"
+      },
+      "actual_semantic_hash": "dcea33886f61e4e688e4de8d8ebe96fbcc3ec2a1ca33fec75f5319d2aca6e4cb",
+      "executed_actions": 197,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 394,
+      "parent_prediction_stopped": true,
+      "saved_evaluation_final_observations": 24,
+      "saved_monitor_final_observations": 3,
+      "candidate_effective_count": 16,
+      "evaluation_effective_count": 60
+    },
+    {
+      "condition": "high_to_low",
+      "seed": 104,
+      "status": "promoted",
+      "rejection": null,
+      "invalidation_tick": 18,
+      "scores": {
+        "candidate": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.0,
+          "state_mae": 0.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "parent": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 1.1111111111111112,
+          "state_mae": 2.4444444444444446,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "prior": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.5416666666666666,
+          "state_mae": 1.4444444444444444,
+          "supported": 8,
+          "unknown_rate": 0.0
+        }
+      },
+      "post_scores": {
+        "candidate": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 0.0,
+          "difference_mae": 0.0
+        },
+        "parent_unmanaged": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 3.0,
+          "difference_mae": 0.8888888888888888
+        },
+        "prior": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 1.7361111111111112,
+          "difference_mae": 0.3055555555555556
+        },
+        "invalidated_no_recovery": {
+          "comparisons": 1,
+          "supported": 0,
+          "coverage": 0.0,
+          "unknown_rate": 1.0,
+          "state_mae": null,
+          "difference_mae": null
+        },
+        "all_unknown": {
+          "comparisons": 1,
+          "supported": 0,
+          "coverage": 0.0,
+          "unknown_rate": 1.0,
+          "state_mae": null,
+          "difference_mae": null
+        }
+      },
+      "recovery_ticks": {
+        "source_after_invalidation": 16,
+        "evaluation_executions": 108,
+        "monitoring_before_promotion": 10,
+        "total": 154,
+        "semantics": "Sequential experiment execution across different episodes, not continuous-world latency"
+      },
+      "actual_semantic_hash": "dcea33886f61e4e688e4de8d8ebe96fbcc3ec2a1ca33fec75f5319d2aca6e4cb",
+      "executed_actions": 197,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 394,
+      "parent_prediction_stopped": true,
+      "saved_evaluation_final_observations": 24,
+      "saved_monitor_final_observations": 3,
+      "candidate_effective_count": 16,
+      "evaluation_effective_count": 60
+    },
+    {
+      "condition": "stable_low",
+      "seed": 101,
+      "status": "not_invalidated",
+      "rejection": null,
+      "invalidation_tick": null,
+      "scores": null,
+      "post_scores": null,
+      "recovery_ticks": null,
+      "actual_semantic_hash": "ec640e925a81796ac4ab7bd4d4bbfdb56af548a961bb0479f7c16b51dcd98efd",
+      "executed_actions": 72,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 144,
+      "parent_prediction_stopped": false,
+      "saved_evaluation_final_observations": 0,
+      "saved_monitor_final_observations": 0,
+      "candidate_effective_count": null,
+      "evaluation_effective_count": null
+    },
+    {
+      "condition": "stable_low",
+      "seed": 102,
+      "status": "not_invalidated",
+      "rejection": null,
+      "invalidation_tick": null,
+      "scores": null,
+      "post_scores": null,
+      "recovery_ticks": null,
+      "actual_semantic_hash": "ec640e925a81796ac4ab7bd4d4bbfdb56af548a961bb0479f7c16b51dcd98efd",
+      "executed_actions": 72,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 144,
+      "parent_prediction_stopped": false,
+      "saved_evaluation_final_observations": 0,
+      "saved_monitor_final_observations": 0,
+      "candidate_effective_count": null,
+      "evaluation_effective_count": null
+    },
+    {
+      "condition": "stable_low",
+      "seed": 103,
+      "status": "not_invalidated",
+      "rejection": null,
+      "invalidation_tick": null,
+      "scores": null,
+      "post_scores": null,
+      "recovery_ticks": null,
+      "actual_semantic_hash": "ec640e925a81796ac4ab7bd4d4bbfdb56af548a961bb0479f7c16b51dcd98efd",
+      "executed_actions": 72,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 144,
+      "parent_prediction_stopped": false,
+      "saved_evaluation_final_observations": 0,
+      "saved_monitor_final_observations": 0,
+      "candidate_effective_count": null,
+      "evaluation_effective_count": null
+    },
+    {
+      "condition": "stable_low",
+      "seed": 104,
+      "status": "not_invalidated",
+      "rejection": null,
+      "invalidation_tick": null,
+      "scores": null,
+      "post_scores": null,
+      "recovery_ticks": null,
+      "actual_semantic_hash": "ec640e925a81796ac4ab7bd4d4bbfdb56af548a961bb0479f7c16b51dcd98efd",
+      "executed_actions": 72,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 144,
+      "parent_prediction_stopped": false,
+      "saved_evaluation_final_observations": 0,
+      "saved_monitor_final_observations": 0,
+      "candidate_effective_count": null,
+      "evaluation_effective_count": null
+    },
+    {
+      "condition": "stable_high",
+      "seed": 101,
+      "status": "not_invalidated",
+      "rejection": null,
+      "invalidation_tick": null,
+      "scores": null,
+      "post_scores": null,
+      "recovery_ticks": null,
+      "actual_semantic_hash": "aaada7d2aaba9f8e4ddd168656b73f57d07407787c9d4ff89de330ad1424ea99",
+      "executed_actions": 72,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 144,
+      "parent_prediction_stopped": false,
+      "saved_evaluation_final_observations": 0,
+      "saved_monitor_final_observations": 0,
+      "candidate_effective_count": null,
+      "evaluation_effective_count": null
+    },
+    {
+      "condition": "stable_high",
+      "seed": 102,
+      "status": "not_invalidated",
+      "rejection": null,
+      "invalidation_tick": null,
+      "scores": null,
+      "post_scores": null,
+      "recovery_ticks": null,
+      "actual_semantic_hash": "aaada7d2aaba9f8e4ddd168656b73f57d07407787c9d4ff89de330ad1424ea99",
+      "executed_actions": 72,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 144,
+      "parent_prediction_stopped": false,
+      "saved_evaluation_final_observations": 0,
+      "saved_monitor_final_observations": 0,
+      "candidate_effective_count": null,
+      "evaluation_effective_count": null
+    },
+    {
+      "condition": "stable_high",
+      "seed": 103,
+      "status": "not_invalidated",
+      "rejection": null,
+      "invalidation_tick": null,
+      "scores": null,
+      "post_scores": null,
+      "recovery_ticks": null,
+      "actual_semantic_hash": "aaada7d2aaba9f8e4ddd168656b73f57d07407787c9d4ff89de330ad1424ea99",
+      "executed_actions": 72,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 144,
+      "parent_prediction_stopped": false,
+      "saved_evaluation_final_observations": 0,
+      "saved_monitor_final_observations": 0,
+      "candidate_effective_count": null,
+      "evaluation_effective_count": null
+    },
+    {
+      "condition": "stable_high",
+      "seed": 104,
+      "status": "not_invalidated",
+      "rejection": null,
+      "invalidation_tick": null,
+      "scores": null,
+      "post_scores": null,
+      "recovery_ticks": null,
+      "actual_semantic_hash": "aaada7d2aaba9f8e4ddd168656b73f57d07407787c9d4ff89de330ad1424ea99",
+      "executed_actions": 72,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 144,
+      "parent_prediction_stopped": false,
+      "saved_evaluation_final_observations": 0,
+      "saved_monitor_final_observations": 0,
+      "candidate_effective_count": null,
+      "evaluation_effective_count": null
+    },
+    {
+      "condition": "insufficient_training",
+      "seed": 101,
+      "status": "rejected",
+      "rejection": "insufficient_training",
+      "invalidation_tick": 18,
+      "scores": null,
+      "post_scores": null,
+      "recovery_ticks": null,
+      "actual_semantic_hash": "6058e7ff11ebc75fca3fc771548913f33d50465256f04b32e41ef660d3c879e6",
+      "executed_actions": 38,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 76,
+      "parent_prediction_stopped": true,
+      "saved_evaluation_final_observations": 0,
+      "saved_monitor_final_observations": 0,
+      "candidate_effective_count": null,
+      "evaluation_effective_count": null
+    },
+    {
+      "condition": "insufficient_training",
+      "seed": 102,
+      "status": "rejected",
+      "rejection": "insufficient_training",
+      "invalidation_tick": 18,
+      "scores": null,
+      "post_scores": null,
+      "recovery_ticks": null,
+      "actual_semantic_hash": "6058e7ff11ebc75fca3fc771548913f33d50465256f04b32e41ef660d3c879e6",
+      "executed_actions": 38,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 76,
+      "parent_prediction_stopped": true,
+      "saved_evaluation_final_observations": 0,
+      "saved_monitor_final_observations": 0,
+      "candidate_effective_count": null,
+      "evaluation_effective_count": null
+    },
+    {
+      "condition": "insufficient_training",
+      "seed": 103,
+      "status": "rejected",
+      "rejection": "insufficient_training",
+      "invalidation_tick": 18,
+      "scores": null,
+      "post_scores": null,
+      "recovery_ticks": null,
+      "actual_semantic_hash": "6058e7ff11ebc75fca3fc771548913f33d50465256f04b32e41ef660d3c879e6",
+      "executed_actions": 38,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 76,
+      "parent_prediction_stopped": true,
+      "saved_evaluation_final_observations": 0,
+      "saved_monitor_final_observations": 0,
+      "candidate_effective_count": null,
+      "evaluation_effective_count": null
+    },
+    {
+      "condition": "insufficient_training",
+      "seed": 104,
+      "status": "rejected",
+      "rejection": "insufficient_training",
+      "invalidation_tick": 18,
+      "scores": null,
+      "post_scores": null,
+      "recovery_ticks": null,
+      "actual_semantic_hash": "6058e7ff11ebc75fca3fc771548913f33d50465256f04b32e41ef660d3c879e6",
+      "executed_actions": 38,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 76,
+      "parent_prediction_stopped": true,
+      "saved_evaluation_final_observations": 0,
+      "saved_monitor_final_observations": 0,
+      "candidate_effective_count": null,
+      "evaluation_effective_count": null
+    },
+    {
+      "condition": "quality_rejected",
+      "seed": 101,
+      "status": "rejected",
+      "rejection": "evaluation_rejected:prediction_quality,prior_comparison,parent_comparison",
+      "invalidation_tick": 18,
+      "scores": {
+        "candidate": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 1.1111111111111112,
+          "state_mae": 2.4444444444444446,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "parent": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.0,
+          "state_mae": 0.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "prior": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.5416666666666666,
+          "state_mae": 1.4444444444444444,
+          "supported": 8,
+          "unknown_rate": 0.0
+        }
+      },
+      "post_scores": null,
+      "recovery_ticks": null,
+      "actual_semantic_hash": "3fbf8f440be095bdbd6f38a3ba929dbeeefba4f868f231ac9090248bdcf95a1c",
+      "executed_actions": 158,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 316,
+      "parent_prediction_stopped": true,
+      "saved_evaluation_final_observations": 24,
+      "saved_monitor_final_observations": 0,
+      "candidate_effective_count": 16,
+      "evaluation_effective_count": 60
+    },
+    {
+      "condition": "quality_rejected",
+      "seed": 102,
+      "status": "rejected",
+      "rejection": "evaluation_rejected:prediction_quality,prior_comparison,parent_comparison",
+      "invalidation_tick": 18,
+      "scores": {
+        "candidate": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 1.1111111111111112,
+          "state_mae": 2.4444444444444446,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "parent": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.0,
+          "state_mae": 0.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "prior": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.5416666666666666,
+          "state_mae": 1.4444444444444444,
+          "supported": 8,
+          "unknown_rate": 0.0
+        }
+      },
+      "post_scores": null,
+      "recovery_ticks": null,
+      "actual_semantic_hash": "3fbf8f440be095bdbd6f38a3ba929dbeeefba4f868f231ac9090248bdcf95a1c",
+      "executed_actions": 158,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 316,
+      "parent_prediction_stopped": true,
+      "saved_evaluation_final_observations": 24,
+      "saved_monitor_final_observations": 0,
+      "candidate_effective_count": 16,
+      "evaluation_effective_count": 60
+    },
+    {
+      "condition": "quality_rejected",
+      "seed": 103,
+      "status": "rejected",
+      "rejection": "evaluation_rejected:prediction_quality,prior_comparison,parent_comparison",
+      "invalidation_tick": 18,
+      "scores": {
+        "candidate": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 1.1111111111111112,
+          "state_mae": 2.4444444444444446,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "parent": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.0,
+          "state_mae": 0.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "prior": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.5416666666666666,
+          "state_mae": 1.4444444444444444,
+          "supported": 8,
+          "unknown_rate": 0.0
+        }
+      },
+      "post_scores": null,
+      "recovery_ticks": null,
+      "actual_semantic_hash": "3fbf8f440be095bdbd6f38a3ba929dbeeefba4f868f231ac9090248bdcf95a1c",
+      "executed_actions": 158,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 316,
+      "parent_prediction_stopped": true,
+      "saved_evaluation_final_observations": 24,
+      "saved_monitor_final_observations": 0,
+      "candidate_effective_count": 16,
+      "evaluation_effective_count": 60
+    },
+    {
+      "condition": "quality_rejected",
+      "seed": 104,
+      "status": "rejected",
+      "rejection": "evaluation_rejected:prediction_quality,prior_comparison,parent_comparison",
+      "invalidation_tick": 18,
+      "scores": {
+        "candidate": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 1.1111111111111112,
+          "state_mae": 2.4444444444444446,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "parent": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.0,
+          "state_mae": 0.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "prior": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.5416666666666666,
+          "state_mae": 1.4444444444444444,
+          "supported": 8,
+          "unknown_rate": 0.0
+        }
+      },
+      "post_scores": null,
+      "recovery_ticks": null,
+      "actual_semantic_hash": "3fbf8f440be095bdbd6f38a3ba929dbeeefba4f868f231ac9090248bdcf95a1c",
+      "executed_actions": 158,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 316,
+      "parent_prediction_stopped": true,
+      "saved_evaluation_final_observations": 24,
+      "saved_monitor_final_observations": 0,
+      "candidate_effective_count": 16,
+      "evaluation_effective_count": 60
+    },
+    {
+      "condition": "health_rejected",
+      "seed": 101,
+      "status": "rejected",
+      "rejection": "monitor_health_insufficient_data",
+      "invalidation_tick": 18,
+      "scores": {
+        "candidate": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.0,
+          "state_mae": 0.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "parent": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 1.1111111111111112,
+          "state_mae": 2.4444444444444446,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "prior": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.5694444444444444,
+          "state_mae": 1.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        }
+      },
+      "post_scores": null,
+      "recovery_ticks": null,
+      "actual_semantic_hash": "4af6bbdd585e9cbae0d508c031c122c86498bbc777d850f653ca43ab01d2b41e",
+      "executed_actions": 188,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 376,
+      "parent_prediction_stopped": true,
+      "saved_evaluation_final_observations": 24,
+      "saved_monitor_final_observations": 3,
+      "candidate_effective_count": 16,
+      "evaluation_effective_count": 36
+    },
+    {
+      "condition": "health_rejected",
+      "seed": 102,
+      "status": "rejected",
+      "rejection": "monitor_health_insufficient_data",
+      "invalidation_tick": 18,
+      "scores": {
+        "candidate": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.0,
+          "state_mae": 0.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "parent": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 1.1111111111111112,
+          "state_mae": 2.4444444444444446,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "prior": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.5694444444444444,
+          "state_mae": 1.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        }
+      },
+      "post_scores": null,
+      "recovery_ticks": null,
+      "actual_semantic_hash": "4af6bbdd585e9cbae0d508c031c122c86498bbc777d850f653ca43ab01d2b41e",
+      "executed_actions": 188,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 376,
+      "parent_prediction_stopped": true,
+      "saved_evaluation_final_observations": 24,
+      "saved_monitor_final_observations": 3,
+      "candidate_effective_count": 16,
+      "evaluation_effective_count": 36
+    },
+    {
+      "condition": "health_rejected",
+      "seed": 103,
+      "status": "rejected",
+      "rejection": "monitor_health_insufficient_data",
+      "invalidation_tick": 18,
+      "scores": {
+        "candidate": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.0,
+          "state_mae": 0.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "parent": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 1.1111111111111112,
+          "state_mae": 2.4444444444444446,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "prior": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.5694444444444444,
+          "state_mae": 1.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        }
+      },
+      "post_scores": null,
+      "recovery_ticks": null,
+      "actual_semantic_hash": "4af6bbdd585e9cbae0d508c031c122c86498bbc777d850f653ca43ab01d2b41e",
+      "executed_actions": 188,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 376,
+      "parent_prediction_stopped": true,
+      "saved_evaluation_final_observations": 24,
+      "saved_monitor_final_observations": 3,
+      "candidate_effective_count": 16,
+      "evaluation_effective_count": 36
+    },
+    {
+      "condition": "health_rejected",
+      "seed": 104,
+      "status": "rejected",
+      "rejection": "monitor_health_insufficient_data",
+      "invalidation_tick": 18,
+      "scores": {
+        "candidate": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.0,
+          "state_mae": 0.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "parent": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 1.1111111111111112,
+          "state_mae": 2.4444444444444446,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "prior": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.5694444444444444,
+          "state_mae": 1.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        }
+      },
+      "post_scores": null,
+      "recovery_ticks": null,
+      "actual_semantic_hash": "4af6bbdd585e9cbae0d508c031c122c86498bbc777d850f653ca43ab01d2b41e",
+      "executed_actions": 188,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 376,
+      "parent_prediction_stopped": true,
+      "saved_evaluation_final_observations": 24,
+      "saved_monitor_final_observations": 3,
+      "candidate_effective_count": 16,
+      "evaluation_effective_count": 36
+    },
+    {
+      "condition": "noisy_shift",
+      "seed": 101,
+      "status": "promoted",
+      "rejection": null,
+      "invalidation_tick": 18,
+      "scores": {
+        "candidate": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.0,
+          "state_mae": 0.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "parent": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 1.1111111111111112,
+          "state_mae": 2.4444444444444446,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "prior": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.5694444444444444,
+          "state_mae": 1.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        }
+      },
+      "post_scores": {
+        "candidate": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 0.0,
+          "difference_mae": 0.0
+        },
+        "parent_unmanaged": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 1.8888888888888888,
+          "difference_mae": 1.3333333333333333
+        },
+        "prior": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 0.7361111111111112,
+          "difference_mae": 0.5555555555555556
+        },
+        "invalidated_no_recovery": {
+          "comparisons": 1,
+          "supported": 0,
+          "coverage": 0.0,
+          "unknown_rate": 1.0,
+          "state_mae": null,
+          "difference_mae": null
+        },
+        "all_unknown": {
+          "comparisons": 1,
+          "supported": 0,
+          "coverage": 0.0,
+          "unknown_rate": 1.0,
+          "state_mae": null,
+          "difference_mae": null
+        }
+      },
+      "recovery_ticks": {
+        "source_after_invalidation": 16,
+        "evaluation_executions": 108,
+        "monitoring_before_promotion": 10,
+        "total": 154,
+        "semantics": "Sequential experiment execution across different episodes, not continuous-world latency"
+      },
+      "actual_semantic_hash": "29734fa870cfc3d01a00d429ca34182d40c6ec24721cadeec9c73756ec103ffb",
+      "executed_actions": 197,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 394,
+      "parent_prediction_stopped": true,
+      "saved_evaluation_final_observations": 24,
+      "saved_monitor_final_observations": 3,
+      "candidate_effective_count": 16,
+      "evaluation_effective_count": 36
+    },
+    {
+      "condition": "noisy_shift",
+      "seed": 102,
+      "status": "promoted",
+      "rejection": null,
+      "invalidation_tick": 19,
+      "scores": {
+        "candidate": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.0,
+          "state_mae": 0.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "parent": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 1.1111111111111112,
+          "state_mae": 2.4444444444444446,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "prior": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.5694444444444444,
+          "state_mae": 1.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        }
+      },
+      "post_scores": {
+        "candidate": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 0.0,
+          "difference_mae": 0.0
+        },
+        "parent_unmanaged": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 1.8888888888888888,
+          "difference_mae": 1.3333333333333333
+        },
+        "prior": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 0.7361111111111112,
+          "difference_mae": 0.5555555555555556
+        },
+        "invalidated_no_recovery": {
+          "comparisons": 1,
+          "supported": 0,
+          "coverage": 0.0,
+          "unknown_rate": 1.0,
+          "state_mae": null,
+          "difference_mae": null
+        },
+        "all_unknown": {
+          "comparisons": 1,
+          "supported": 0,
+          "coverage": 0.0,
+          "unknown_rate": 1.0,
+          "state_mae": null,
+          "difference_mae": null
+        }
+      },
+      "recovery_ticks": {
+        "source_after_invalidation": 16,
+        "evaluation_executions": 108,
+        "monitoring_before_promotion": 10,
+        "total": 154,
+        "semantics": "Sequential experiment execution across different episodes, not continuous-world latency"
+      },
+      "actual_semantic_hash": "1d1fb9fe3150c6a3bf30e42bf6d6c0e514872e9035c8e992763422e3e0b91755",
+      "executed_actions": 198,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 396,
+      "parent_prediction_stopped": true,
+      "saved_evaluation_final_observations": 24,
+      "saved_monitor_final_observations": 3,
+      "candidate_effective_count": 16,
+      "evaluation_effective_count": 36
+    },
+    {
+      "condition": "noisy_shift",
+      "seed": 103,
+      "status": "promoted",
+      "rejection": null,
+      "invalidation_tick": 19,
+      "scores": {
+        "candidate": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.0,
+          "state_mae": 0.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "parent": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 1.1111111111111112,
+          "state_mae": 2.4444444444444446,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "prior": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.5694444444444444,
+          "state_mae": 1.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        }
+      },
+      "post_scores": {
+        "candidate": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 0.0,
+          "difference_mae": 0.0
+        },
+        "parent_unmanaged": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 1.8888888888888888,
+          "difference_mae": 1.3333333333333333
+        },
+        "prior": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 0.7361111111111112,
+          "difference_mae": 0.5555555555555556
+        },
+        "invalidated_no_recovery": {
+          "comparisons": 1,
+          "supported": 0,
+          "coverage": 0.0,
+          "unknown_rate": 1.0,
+          "state_mae": null,
+          "difference_mae": null
+        },
+        "all_unknown": {
+          "comparisons": 1,
+          "supported": 0,
+          "coverage": 0.0,
+          "unknown_rate": 1.0,
+          "state_mae": null,
+          "difference_mae": null
+        }
+      },
+      "recovery_ticks": {
+        "source_after_invalidation": 16,
+        "evaluation_executions": 108,
+        "monitoring_before_promotion": 10,
+        "total": 154,
+        "semantics": "Sequential experiment execution across different episodes, not continuous-world latency"
+      },
+      "actual_semantic_hash": "b40828afab8a021ed088a7c5c4ea18b7d855f5f9edb9a5448831c49a05c071c2",
+      "executed_actions": 198,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 396,
+      "parent_prediction_stopped": true,
+      "saved_evaluation_final_observations": 24,
+      "saved_monitor_final_observations": 3,
+      "candidate_effective_count": 16,
+      "evaluation_effective_count": 36
+    },
+    {
+      "condition": "noisy_shift",
+      "seed": 104,
+      "status": "promoted",
+      "rejection": null,
+      "invalidation_tick": 17,
+      "scores": {
+        "candidate": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.0,
+          "state_mae": 0.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "parent": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 1.1111111111111112,
+          "state_mae": 2.4444444444444446,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "prior": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.5694444444444444,
+          "state_mae": 1.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        }
+      },
+      "post_scores": {
+        "candidate": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 0.0,
+          "difference_mae": 0.0
+        },
+        "parent_unmanaged": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 1.8888888888888888,
+          "difference_mae": 1.3333333333333333
+        },
+        "prior": {
+          "comparisons": 1,
+          "supported": 1,
+          "coverage": 1.0,
+          "unknown_rate": 0.0,
+          "state_mae": 0.7361111111111112,
+          "difference_mae": 0.5555555555555556
+        },
+        "invalidated_no_recovery": {
+          "comparisons": 1,
+          "supported": 0,
+          "coverage": 0.0,
+          "unknown_rate": 1.0,
+          "state_mae": null,
+          "difference_mae": null
+        },
+        "all_unknown": {
+          "comparisons": 1,
+          "supported": 0,
+          "coverage": 0.0,
+          "unknown_rate": 1.0,
+          "state_mae": null,
+          "difference_mae": null
+        }
+      },
+      "recovery_ticks": {
+        "source_after_invalidation": 16,
+        "evaluation_executions": 108,
+        "monitoring_before_promotion": 10,
+        "total": 154,
+        "semantics": "Sequential experiment execution across different episodes, not continuous-world latency"
+      },
+      "actual_semantic_hash": "1890364c786cc0f97dc619d22e57c79037be320d081ae0a7189632b3fd67c5d0",
+      "executed_actions": 196,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 392,
+      "parent_prediction_stopped": true,
+      "saved_evaluation_final_observations": 24,
+      "saved_monitor_final_observations": 3,
+      "candidate_effective_count": 16,
+      "evaluation_effective_count": 36
+    }
+  ],
+  "runs": [
+    {
+      "label": "A",
+      "validation_revision": "fresh-observation/v2",
+      "platform": "macOS-27.0.1-arm64-arm-64bit",
+      "python": "3.12.13",
+      "semantic_hash": "2395594a376cb299a733ea95b32a72b3c0912a1f6867c51adddb97bda3a9ea3f",
+      "audit": {
+        "validation_revision": "fresh-observation/v2",
+        "status": "passed",
+        "cases": 32,
+        "promoted": 12,
+        "validated_transitions": 4477,
+        "semantic_hash": "2395594a376cb299a733ea95b32a72b3c0912a1f6867c51adddb97bda3a9ea3f",
+        "scope": "Receipt/fixture/time/source validation, independent MAE/distribution and promotion replay; timing is not independently certified"
+      },
+      "outcomes": {
+        "promoted": 12,
+        "not_invalidated": 8,
+        "rejected": 12
+      },
+      "executed_actions": 4477,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 8954,
+      "cpu_seconds_sum": 473.7547779999999,
+      "wall_seconds_sum": 530.1486585861421,
+      "peak_process_bytes": 138772480,
+      "conditions": {
+        "low_to_high": {
+          "outcomes": {
+            "promoted": 4
+          },
+          "cpu_seconds_mean": 21.573502,
+          "wall_seconds_mean": 24.323202093990403,
+          "stage_means": {
+            "training": {
+              "cpu_seconds": 0.283410500000002,
+              "wall_seconds": 0.3154848334961571
+            },
+            "forecast_and_collect_evaluation": {
+              "cpu_seconds": 4.582615750000001,
+              "wall_seconds": 5.319788635490113
+            },
+            "evaluation": {
+              "cpu_seconds": 2.100066000000002,
+              "wall_seconds": 2.3253421352565056
+            },
+            "promotion": {
+              "cpu_seconds": 2.888200000000002,
+              "wall_seconds": 3.1998490414844127
+            },
+            "recovered_comparison": {
+              "cpu_seconds": 2.714482999999999,
+              "wall_seconds": 3.0095885417686077
+            },
+            "restore": {
+              "cpu_seconds": 2.5875630000000003,
+              "wall_seconds": 2.867019875222468
+            }
+          }
+        },
+        "high_to_low": {
+          "outcomes": {
+            "promoted": 4
+          },
+          "cpu_seconds_mean": 21.819638999999995,
+          "wall_seconds_mean": 24.58152627076197,
+          "stage_means": {
+            "training": {
+              "cpu_seconds": 0.29435250000000224,
+              "wall_seconds": 0.3276581977697788
+            },
+            "forecast_and_collect_evaluation": {
+              "cpu_seconds": 4.6509479999999925,
+              "wall_seconds": 5.3910474165168125
+            },
+            "evaluation": {
+              "cpu_seconds": 2.131063249999997,
+              "wall_seconds": 2.3569350834877696
+            },
+            "promotion": {
+              "cpu_seconds": 2.9041260000000086,
+              "wall_seconds": 3.215584687233786
+            },
+            "recovered_comparison": {
+              "cpu_seconds": 2.738834000000004,
+              "wall_seconds": 3.0326715727424016
+            },
+            "restore": {
+              "cpu_seconds": 2.621000000000013,
+              "wall_seconds": 2.900995791744208
+            }
+          }
+        },
+        "stable_low": {
+          "outcomes": {
+            "not_invalidated": 4
+          },
+          "cpu_seconds_mean": 7.2904814999999985,
+          "wall_seconds_mean": 8.267887010762934,
+          "stage_means": {}
+        },
+        "stable_high": {
+          "outcomes": {
+            "not_invalidated": 4
+          },
+          "cpu_seconds_mean": 7.295211500000001,
+          "wall_seconds_mean": 8.271597927014227,
+          "stage_means": {}
+        },
+        "insufficient_training": {
+          "outcomes": {
+            "rejected": 4
+          },
+          "cpu_seconds_mean": 2.532058500000005,
+          "wall_seconds_mean": 2.880501323248609,
+          "stage_means": {
+            "training": {
+              "cpu_seconds": 0.21377700000000033,
+              "wall_seconds": 0.23709463524573948
+            }
+          }
+        },
+        "quality_rejected": {
+          "outcomes": {
+            "rejected": 4
+          },
+          "cpu_seconds_mean": 9.851123000000001,
+          "wall_seconds_mean": 11.236361281000427,
+          "stage_means": {
+            "training": {
+              "cpu_seconds": 0.2923482500000034,
+              "wall_seconds": 0.32497095824510325
+            },
+            "forecast_and_collect_evaluation": {
+              "cpu_seconds": 4.650467749999983,
+              "wall_seconds": 5.388090229025693
+            },
+            "evaluation": {
+              "cpu_seconds": 2.126136999999993,
+              "wall_seconds": 2.350504447997082
+            }
+          }
+        },
+        "health_rejected": {
+          "outcomes": {
+            "rejected": 4
+          },
+          "cpu_seconds_mean": 13.528929749999989,
+          "wall_seconds_mean": 15.414070354250725,
+          "stage_means": {
+            "training": {
+              "cpu_seconds": 0.29084349999999404,
+              "wall_seconds": 0.3229515937564429
+            },
+            "forecast_and_collect_evaluation": {
+              "cpu_seconds": 4.6523427500000025,
+              "wall_seconds": 5.392822916750447
+            },
+            "evaluation": {
+              "cpu_seconds": 2.135926500000025,
+              "wall_seconds": 2.360375489501166
+            },
+            "promotion": {
+              "cpu_seconds": 2.9070290000000085,
+              "wall_seconds": 3.2180625732580665
+            }
+          }
+        },
+        "noisy_shift": {
+          "outcomes": {
+            "promoted": 4
+          },
+          "cpu_seconds_mean": 34.54774924999998,
+          "wall_seconds_mean": 37.562018385506235,
+          "stage_means": {
+            "training": {
+              "cpu_seconds": 0.43431549999999675,
+              "wall_seconds": 0.4680223955074325
+            },
+            "forecast_and_collect_evaluation": {
+              "cpu_seconds": 7.395372999999978,
+              "wall_seconds": 8.261959010502324
+            },
+            "evaluation": {
+              "cpu_seconds": 3.482226749999981,
+              "wall_seconds": 3.7298608647688525
+            },
+            "promotion": {
+              "cpu_seconds": 4.718388499999989,
+              "wall_seconds": 5.057996999763418
+            },
+            "recovered_comparison": {
+              "cpu_seconds": 3.998766499999988,
+              "wall_seconds": 4.294675135737634
+            },
+            "restore": {
+              "cpu_seconds": 4.404694750000019,
+              "wall_seconds": 4.686090958479326
+            }
+          }
+        }
+      }
+    },
+    {
+      "label": "B",
+      "validation_revision": "fresh-observation/v2",
+      "platform": "macOS-27.0.1-arm64-arm-64bit",
+      "python": "3.12.13",
+      "semantic_hash": "2395594a376cb299a733ea95b32a72b3c0912a1f6867c51adddb97bda3a9ea3f",
+      "audit": {
+        "validation_revision": "fresh-observation/v2",
+        "status": "passed",
+        "cases": 32,
+        "promoted": 12,
+        "validated_transitions": 4477,
+        "semantic_hash": "2395594a376cb299a733ea95b32a72b3c0912a1f6867c51adddb97bda3a9ea3f",
+        "scope": "Receipt/fixture/time/source validation, independent MAE/distribution and promotion replay; timing is not independently certified"
+      },
+      "outcomes": {
+        "promoted": 12,
+        "not_invalidated": 8,
+        "rejected": 12
+      },
+      "executed_actions": 4477,
+      "unsafe_outcomes": 0,
+      "runtime_engine_calls": 8954,
+      "cpu_seconds_sum": 631.0547980000001,
+      "wall_seconds_sum": 689.2934977529803,
+      "peak_process_bytes": 137461760,
+      "conditions": {
+        "low_to_high": {
+          "outcomes": {
+            "promoted": 4
+          },
+          "cpu_seconds_mean": 32.601072,
+          "wall_seconds_mean": 35.49469326050894,
+          "stage_means": {
+            "training": {
+              "cpu_seconds": 0.4806960000000027,
+              "wall_seconds": 0.5139302502502687
+            },
+            "forecast_and_collect_evaluation": {
+              "cpu_seconds": 7.075416749999997,
+              "wall_seconds": 7.891788562497823
+            },
+            "evaluation": {
+              "cpu_seconds": 3.1222684999999997,
+              "wall_seconds": 3.3446375517523848
+            },
+            "promotion": {
+              "cpu_seconds": 4.277252499999996,
+              "wall_seconds": 4.585809354000958
+            },
+            "recovered_comparison": {
+              "cpu_seconds": 4.053911000000002,
+              "wall_seconds": 4.348391791761969
+            },
+            "restore": {
+              "cpu_seconds": 3.8555284999999992,
+              "wall_seconds": 4.132681062736083
+            }
+          }
+        },
+        "high_to_low": {
+          "outcomes": {
+            "promoted": 4
+          },
+          "cpu_seconds_mean": 32.37817175,
+          "wall_seconds_mean": 35.41855429172574,
+          "stage_means": {
+            "training": {
+              "cpu_seconds": 0.42171600000000353,
+              "wall_seconds": 0.4534436037502019
+            },
+            "forecast_and_collect_evaluation": {
+              "cpu_seconds": 6.935061000000012,
+              "wall_seconds": 7.718083364510676
+            },
+            "evaluation": {
+              "cpu_seconds": 3.1597527500000027,
+              "wall_seconds": 3.382350010506343
+            },
+            "promotion": {
+              "cpu_seconds": 4.260601250000001,
+              "wall_seconds": 4.567847395737772
+            },
+            "recovered_comparison": {
+              "cpu_seconds": 4.004779749999997,
+              "wall_seconds": 4.295372687513009
+            },
+            "restore": {
+              "cpu_seconds": 3.789946999999991,
+              "wall_seconds": 4.066400031253579
+            }
+          }
+        },
+        "stable_low": {
+          "outcomes": {
+            "not_invalidated": 4
+          },
+          "cpu_seconds_mean": 10.7777545,
+          "wall_seconds_mean": 11.78117427075631,
+          "stage_means": {}
+        },
+        "stable_high": {
+          "outcomes": {
+            "not_invalidated": 4
+          },
+          "cpu_seconds_mean": 10.639256250000017,
+          "wall_seconds_mean": 11.636873510753503,
+          "stage_means": {}
+        },
+        "insufficient_training": {
+          "outcomes": {
+            "rejected": 4
+          },
+          "cpu_seconds_mean": 3.732740250000006,
+          "wall_seconds_mean": 4.094709458266152,
+          "stage_means": {
+            "training": {
+              "cpu_seconds": 0.31031699999999773,
+              "wall_seconds": 0.33345682274375577
+            }
+          }
+        },
+        "quality_rejected": {
+          "outcomes": {
+            "rejected": 4
+          },
+          "cpu_seconds_mean": 14.56309975000002,
+          "wall_seconds_mean": 16.04564544824825,
+          "stage_means": {
+            "training": {
+              "cpu_seconds": 0.4211350000000067,
+              "wall_seconds": 0.4534931772504933
+            },
+            "forecast_and_collect_evaluation": {
+              "cpu_seconds": 6.920995000000005,
+              "wall_seconds": 7.719589541477035
+            },
+            "evaluation": {
+              "cpu_seconds": 3.096846999999997,
+              "wall_seconds": 3.3194641979935113
+            }
+          }
+        },
+        "health_rejected": {
+          "outcomes": {
+            "rejected": 4
+          },
+          "cpu_seconds_mean": 20.274276,
+          "wall_seconds_mean": 22.192126239751815,
+          "stage_means": {
+            "training": {
+              "cpu_seconds": 0.42349800000000926,
+              "wall_seconds": 0.4553492290142458
+            },
+            "forecast_and_collect_evaluation": {
+              "cpu_seconds": 7.156853999999996,
+              "wall_seconds": 7.938855250016786
+            },
+            "evaluation": {
+              "cpu_seconds": 3.1051330000000092,
+              "wall_seconds": 3.327054457986378
+            },
+            "promotion": {
+              "cpu_seconds": 4.304544250000006,
+              "wall_seconds": 4.613033416753751
+            }
+          }
+        },
+        "noisy_shift": {
+          "outcomes": {
+            "promoted": 4
+          },
+          "cpu_seconds_mean": 32.79732899999999,
+          "wall_seconds_mean": 35.65959795823437,
+          "stage_means": {
+            "training": {
+              "cpu_seconds": 0.46055400000003033,
+              "wall_seconds": 0.4921652707271278
+            },
+            "forecast_and_collect_evaluation": {
+              "cpu_seconds": 7.097349250000008,
+              "wall_seconds": 7.8919233752531
+            },
+            "evaluation": {
+              "cpu_seconds": 3.1035512499999953,
+              "wall_seconds": 3.325567937499727
+            },
+            "promotion": {
+              "cpu_seconds": 4.372021749999959,
+              "wall_seconds": 4.694075562729267
+            },
+            "recovered_comparison": {
+              "cpu_seconds": 4.064691249999953,
+              "wall_seconds": 4.356581541753258
+            },
+            "restore": {
+              "cpu_seconds": 3.8767457499999693,
+              "wall_seconds": 4.15366611474019
+            }
+          }
+        }
+      }
+    }
+  ],
+  "scope": [
+    "Actual fresh post-receipt World observations, verified against receipt contents/provenance and commit/observation/evaluation cutoffs",
+    "All normal noise=0 fixtures are deterministic; multi-seed equality is reproducibility, not generalization evidence",
+    "Actual cross-episode recovery; no continuous World preservation or action ranking",
+    "Unknown MAE is null; coverage and errors must be read together",
+    "Process memory is cumulative ru_maxrss, not case allocation",
+    "Independent auditor verifies private raw source summaries; timing is not independently certified",
+    "No raw States, databases, receipt manifests, model artifacts or predictions in this public aggregate"
+  ]
+}

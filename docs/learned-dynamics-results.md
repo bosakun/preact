@@ -595,3 +595,67 @@ uv run python -m scripts.audit_queue_recovery --protocol benchmarks/queue-recove
 uv run python -m scripts.benchmark_queue_recovery --output .cache/recovery-fresh-run-new-B
 uv run python -m scripts.audit_queue_recovery --protocol benchmarks/queue-recovery-v1.json --output .cache/recovery-fresh-run-new-B
 ```
+
+### 修正後の固定本評価の測定
+
+macOS arm64/Python3.12.13で同じ32ケースを2回実行した。各実行とも昇格12、拒否12、
+未失効8、実Action/遷移4477、Runtime engine calls8954、unsafe0だった。
+両実行の判定・実観測・Action・スコアの意味的hashは
+`2395594a376cb299a733ea95b32a72b3c0912a1f6867c51adddb97bda3a9ea3f`で一致し、
+修正前のbehavior hashとも一致する。ただし、同じ数値は旧timestamp置換の正当化ではない。
+今回の評価では実取得した観測とReceipt確定時刻の照合を別途要求している。
+
+| 条件 | 各実行の結果 | Bの昇格前状態MAE / Action差分MAE | coverage |
+|---|---|---|---|
+| low→high / high→low | 各4/4昇格 | 0 / 0 | 100% |
+| stable low / high | 各4/4未失効・切替なし | 評価なし | — |
+| 有効学習不足 | 4/4拒否（有効4件） | 評価なし | — |
+| 予測品質不足 | 4/4拒否 | 2.444444 / 1.111111 | 100% |
+| 新監視Health不足 | 4/4拒否 | 0 / 0でも昇格不可 | 100% |
+| noisy shift（noise0.05） | 4/4昇格 | 0 / 0 | 100% |
+
+昇格後の別採点集合でも両方向のBは状態/Action差分MAE0/0、coverage100%、unknown0%。
+同集合の旧A直接予測はhigh1.888889/1.333333、low3.000000/0.888889、
+固定事前はhigh0.736111/0.555556、low1.736111/0.305556。
+回復なし/全unknownはcoverage0%、unknown100%、MAEは未定義。
+旧A直接予測は監視外の比較対象であり、失効後のactive経路がAへ戻ることはない。
+
+noise条件の16学習tickが結果として全highで、短い採点集合もその予測と一致する
+という既存の限界は解消していない。通常の決定論的条件の複数seed一致も含め、
+広い環境への一般化、耐ノイズ性、意思決定性能改善を主張しない。
+学習・評価・新episode監視のepisode/run/receipt分離は維持し、連続World内の回復は対象外。
+
+| 参考費用 | 実行A | 実行B |
+|---|---:|---:|
+| ケースCPU合計（秒） | 473.755 | 631.055 |
+| ケースwall合計（秒） | 530.149 | 689.293 |
+| 昇格後比較の平均CPU（秒） | 3.151 | 4.041 |
+| process peak（MiB） | 132.344 | 131.094 |
+
+process peakは累積ru_maxrssで、ケースの増分割当ではない。監査時間は上記ケース合計に
+含まれず、監査による時間の独立認証も行っていない。修正前の2実行はCPU425.014/418.620秒、
+wall480.410/473.791秒だった。今回は追加観測・検証のある別実行で、費用増と実行間変動を
+記録するが、変動要因の分離や統計的性能比較は行わない。高速化は主張しない。
+
+### 修正後の監査・全回帰
+
+本評価A/Bの独立auditorは各32ケース/4477遷移でpass、pilotも432遷移でpass。
+各実行の保存評価最終観測480件、監視最終観測48件を、実Fixture再生・Receipt・
+内容/provenance・時刻・cutoffと照合した。公開JSONは監査済みprivate集計から抽出し、
+raw State、DB、manifest、モデル、receiptは公開しない。
+
+追加15件を含むPython全回帰は**615 passed in225.51s**、関連回復42ケースも含む。
+Ruff check/format183 files、frontend contract再生成byte一致/build成功、
+専用API18335と既存Chromium E2Eは**6 passed in8.0s**。
+wheel/sdistは83 Python sourcesとassets/license/private pathのintegrity監査pass。
+既存Core/Gate/Trainer/Registry/Guardと旧protocol/結果に差分はない。
+
+初回の追加payload改変テスト1件は、payloadに対応するState IDを更新していなかったため、
+独立auditorより前のPydantic identity検証で拒否された。整合IDも持つ改変入力へ修正し、
+監査独自の照合で拒否されることを確認した。テスト削除や本体の検証緩和はしていない。
+4件の監査改変否定テストは、評価本体を呼ぶ前に内容/provenance/uncertainty/時刻の
+変更を拒否する。回復成功・標本/品質/Health拒否・再起動・取消の既存回帰もpass。
+
+保存観測の真正性は既存の所有者・manifest・append-only Store前提に従う。
+暗号学的な外部観測認証や独立なlive環境の検証を新たに証明したわけではない。
+GitHub CIは更新commitで別途確認し、結果をPRへ記録する。mainにはmergeしない。

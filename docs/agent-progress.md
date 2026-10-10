@@ -777,3 +777,20 @@ Core/Gate/Engine/Trainer/Memory・既存APIへの追加差分なし。raw DB/mod
 - 最終全回帰615 passed in225.51s。新規境界15件を含み、既存昇格/拒否/再起動/取消もpass。
   独立auditorの改変拒否4件は本体の_evaluateへ到達する前に独自照合で拒否することを確認。
 - 本評価2実行と各独立監査を逐次開始。CPU測定中に重いテスト/ビルドは重ねない。
+
+- 修正後本評価A: 昇格12/拒否12/未失効8、4477実遷移、独立auditor pass。
+  各branchの保存実観測・Receipt内容/provenance・確定時刻/cutoffを再検証した。
+  旧と同じbehavior hash2395594a…ea3f。通常決定論的条件の一致は一般化性能ではない。
+  CPU473.755s/wall530.149s。本評価Bを継続中。旧公開結果は無変更。
+
+- 修正後本評価B/独立監査もpass。各32ケース/4477遷移、昇格12/拒否12/未失効8。
+  両実行と旧behavior hashが一致。保存評価実観測480件、監視実観測48件を各監査した。
+- 別公開結果queue-recovery-v1-fresh-observation-results.jsonを追加。旧protocol/結果は無変更。
+  CPU A473.755/B631.055s、wall A530.149/B689.293s、process peak132.344/131.094MiB。
+  費用増/実行間変動も記録。高速化や決定論的seedからの一般化は主張しない。
+- Bの昇格後MAE0/0・coverage100%。品質不良2.444444/1.111111拒否、Health不足は
+  MAE0でも拒否。回復なし/全unknownはcoverage0・MAE未定義。旧と同じ採点対象を維持。
+- 最終Ruff183 filesと83 sourcesのwheel/sdist integrityもpass。
+  全Python615、frontend契約byte一致/build、Chromium6、pilot/本評価2独立監査が完了。
+- PR #11へ通常pushと本文更新を行い、最新commitのGitHub push/PR CIを確認する。
+  main/auto-mergeは操作しない。元作業ツリーの未commit変更は保持。
