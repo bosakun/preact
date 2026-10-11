@@ -867,3 +867,9 @@ source/auditor/semantic hash、readiness、指標scopeと独立監査結果を�
 旧Core/学習/Guard/Recovery・凍結protocol/resultsは無変更。元作業ツリーも保持。
 ローカル検証完了後にfeature branchをcommit/pushし、独立PRと最終head CIへ進む。
 main/auto-mergeは操作しない。
+
+World Model-Grounded Action Selectionの独立PR #12を作成:
+https://github.com/bosakun/preact/pull/12 。実装commit ee4b2ab3eada716c111a16d7c6e7d5389494b589。
+ローカル全回帰・本評価・独立監査・最終distributionは完了し、元作業ツリーは保護した。
+最終headのGitHub CIはPRで確認し、その結果をPR本文へ記録する。
+PRはレビュー待ちに残し、merge/auto-mergeは行わない。
