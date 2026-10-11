@@ -40,6 +40,8 @@ from scripts.audit_queue_model_selection import verify_distribution
 from scripts.benchmark_queue_model_selection import selection_source_hash
 
 ROOT = Path(__file__).resolve().parents[1]
+AUDITOR_FILES = [Path(__file__), ROOT / "scripts/audit_queue_model_selection.py"]
+AUDITOR_HASH = identity({p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in AUDITOR_FILES})
 
 
 def check(condition, message):
@@ -141,7 +143,7 @@ async def verified_predictions(store, artifacts, events, node_id, state, action,
     return predictions
 
 
-async def audit_case(store, artifacts, protocol, case):
+async def audit_case(store, artifacts, protocol, case, *, execution_stats=None):
     model = DynamicsModel.load(artifacts, case["model_artifact"], QueueServiceAdapter())
     dataset = TransitionDataset(store, case["training"])
     refit = await TabularDynamicsTrainer().fit(
@@ -180,6 +182,27 @@ async def audit_case(store, artifacts, protocol, case):
     if case["promotion"]:
         recovery = QueueModelRecovery(store, artifacts, case["journal_run"])
         promotion = ModelPromotion.model_validate(json.loads(artifacts.read(case["promotion"])))
+        journal = store.read_events(case["journal_run"])
+        approved = [
+            e
+            for e in journal
+            if e["kind"] == "model_promotion_approved"
+            and e["data"]["artifact"] == case["promotion"]
+        ]
+        committed = [
+            e
+            for e in journal
+            if e["kind"] == "model_promotion_committed"
+            and e["data"]["artifact"] == case["promotion"]
+        ]
+        check(
+            len(approved) == len(committed) == 1
+            and approved[0]["seq"] < committed[0]["seq"]
+            and datetime.fromisoformat(promotion.cutoff.timestamp)
+            <= datetime.fromisoformat(approved[0]["timestamp"])
+            <= datetime.fromisoformat(committed[0]["timestamp"]),
+            "Promotion has no ordered durable approval/commit",
+        )
         check(
             promotion.episode_id == case["episode_id"] and promotion.initial == initial,
             "Promotion monitoring scope changed",
@@ -278,6 +301,8 @@ async def audit_case(store, artifacts, protocol, case):
         ),
     }
     errors = []
+    model_execution_ticks, fallback_execution_ticks = [], []
+    promotion_deactivated = False
     for index, run_id in enumerate(case["runs"]):
         events = store.read_events(run_id)
         run = store.get_run(run_id)
@@ -355,8 +380,37 @@ async def audit_case(store, artifacts, protocol, case):
             "Prediction has future observation",
         )
         health = await guard.health(state, record["monitor_runs"])
-        if record["health"] is not None:
-            check(canonical(asdict(health)) == record["health"], "Health does not reproduce")
+        check(canonical(asdict(health)) == record["health"], "Health does not reproduce")
+        if case["promotion"]:
+            check(
+                record["promotion"] == canonical(promotion.model_dump()),
+                "Prediction lost explicit promotion provenance",
+            )
+            check(
+                datetime.fromisoformat(committed[0]["timestamp"])
+                <= datetime.fromisoformat(state.timestamp)
+                and committed[0]["seq"] <= record["source_heads"][case["journal_run"]]["next_seq"],
+                "Prediction precedes durable promotion commit",
+            )
+            promotion_deactivated |= health.status != "available"
+        available = (
+            expected_mode in {"learned", "prior"}
+            and health.status == "available"
+            and state.payload["tick"] + 3 <= state.payload["episode_ticks"]
+            and not promotion_deactivated
+        )
+        expected_basis = (
+            "fixed_prior"
+            if available and expected_mode == "prior"
+            else "learned_model"
+            if available
+            else "fixed_rule"
+            if expected_mode == "fixed"
+            else "existing_planner"
+            if expected_mode == "existing"
+            else "fallback"
+        )
+        check(record["basis"] == expected_basis, "Selection basis contradicts Health/scope")
         dependencies = [r for runs in case["training"].values() for r in runs]
         if case["promotion"]:
             report = recovery._load(promotion.evaluation_artifact, CandidateEvaluation)
@@ -384,6 +438,7 @@ async def audit_case(store, artifacts, protocol, case):
             "Prediction candidate set changed",
         )
         for c in cs:
+            check((c["value"] is not None) == available, "Incomplete or fabricated value set")
             action = Action.model_validate(c["action"])
             check(
                 action.state_id == state.id and action.fingerprint == c["fingerprint"],
@@ -672,6 +727,16 @@ async def audit_case(store, artifacts, protocol, case):
                 "Authorization expired before dispatch",
             )
             expected_metrics["actions"].append(row.action.payload["amount"])
+            if (
+                record["basis"] == "learned_model"
+                and record.get("selection_rule") != "core_utility_control"
+            ):
+                model_execution_ticks.append(state.payload["tick"])
+            if (
+                record["basis"] == "fallback"
+                and record.get("selection_rule") != "core_utility_control"
+            ):
+                fallback_execution_ticks.append(state.payload["tick"])
             expected_metrics["alternatives_executed"] += int(
                 rejected and case["mode"] != "single_learned"
             )
@@ -726,11 +791,28 @@ async def audit_case(store, artifacts, protocol, case):
     )
     for key, expected in expected_metrics.items():
         check(case["metrics"][key] == expected, "Metric does not reproduce: " + key)
+    final = State.model_validate(case["final_observation"])
+    actual = all_observations[-1].state if all_observations else initial
     check(
-        case["final_observation"]["payload"]
-        == (all_observations[-1].state.payload if all_observations else initial.payload),
+        final.model_dump(exclude={"timestamp"}) == actual.model_dump(exclude={"timestamp"})
+        and datetime.fromisoformat(final.timestamp) >= datetime.fromisoformat(actual.timestamp),
         "Final observation changed",
     )
+    if execution_stats is not None:
+        execution_stats.update(
+            environment=case["environment"],
+            seed=case["seed"],
+            mode=case["mode"],
+            model_executions=len(model_execution_ticks),
+            first_model_execution_tick=model_execution_ticks[0] if model_execution_ticks else None,
+            fallback_executions=len(fallback_execution_ticks),
+            submit_actions_after_goal=sum(
+                r.action.payload.get("amount", 0) > 0
+                and r.before.payload["delivered"] >= protocol["target"]
+                for r in monitoring.transitions
+            ),
+            submitted_jobs=sum(r.action.payload.get("amount", 0) for r in monitoring.transitions),
+        )
     return len(case["runs"]), len(expected_metrics["actions"])
 
 
@@ -751,6 +833,14 @@ async def audit_diagnostics(store, artifacts, protocol, manifest, summary):
         effective = sum(int(t[0]) for t in targets)
         probability = sum(int(t[1]) for t in targets) / effective
         state = State.model_validate(d["state"])
+        for row in training.transitions:
+            outcomes = [e for e in store.read_events(row.run_id) if e["kind"] == "outcome"]
+            check(
+                len(outcomes) == 1
+                and datetime.fromisoformat(outcomes[0]["timestamp"])
+                <= datetime.fromisoformat(state.timestamp),
+                "Diagnostic model includes future or unconfirmed learning",
+            )
         check([b["amount"] for b in d["branches"]] == [3, 1, 0], "Diagnostic actions changed")
         for b in d["branches"]:
             runs = b["prefix_runs"] + b["runs"]
@@ -768,6 +858,8 @@ async def audit_diagnostics(store, artifacts, protocol, manifest, summary):
             check(
                 rows[-3].before.model_dump(exclude={"timestamp"})
                 == state.model_dump(exclude={"timestamp"})
+                and datetime.fromisoformat(state.timestamp)
+                <= datetime.fromisoformat(rows[-3].before.timestamp)
                 and [r.action.payload["amount"] for r in rows[-3:]] == [b["amount"], 0, 0]
                 and [r.after.state.payload for r in rows[-3:]] == b["trace"],
                 "Diagnostic root/environment-only actual trace changed",
@@ -900,8 +992,11 @@ async def audit(output, protocol_path):
     artifacts = Artifacts(str(output / "artifacts"))
     audit_protocol_cases(protocol, manifest, summary)
     decisions, executed = 0, 0
+    execution_stats = []
     for case in manifest["cases"]:
-        d, e = await audit_case(store, artifacts, protocol, case)
+        stats = {}
+        d, e = await audit_case(store, artifacts, protocol, case, execution_stats=stats)
+        execution_stats.append(stats)
         decisions += d
         executed += e
         print("audited", case["id"], flush=True)
@@ -915,7 +1010,14 @@ async def audit(output, protocol_path):
         "decisions": decisions,
         "executions": executed,
         "protocol_hash": identity(protocol),
+        "execution_stats": execution_stats,
+        "auditor_hash": AUDITOR_HASH,
     }
+    check(
+        AUDITOR_HASH
+        == identity({p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in AUDITOR_FILES}),
+        "Auditor implementation changed during replay",
+    )
     (output / "audit.json").write_text(json.dumps(report, indent=2))
     store.db.dispose()
     return report

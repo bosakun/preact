@@ -219,14 +219,17 @@ async def test_selector_failure_never_falls_back_to_core_utility(tmp_path, failu
         "authorization",
     ],
 )
-async def test_change_after_qualification_stops_before_native_effect(tmp_path, change, monkeypatch):
+@pytest.mark.parametrize("stage", ["candidate_selection", "execution_intent"])
+async def test_change_after_qualification_stops_before_native_effect(
+    tmp_path, change, stage, monkeypatch
+):
     store, world, planner, wrapper, agent = await setup(tmp_path, services=[3, 1] * 8)
     tick = world.payload["tick"]
     original = Runtime.emit
 
     async def emit(runtime, kind, data):
         result = await original(runtime, kind, data)
-        if kind == "candidate_selection":
+        if kind == stage:
             if change == "state":
                 world.payload["queue"] += 1
             if change in {"provenance", "uncertainty"}:

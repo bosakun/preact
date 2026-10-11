@@ -915,3 +915,20 @@ then all quality checks. No PR or merge has occurred for this change.
   これは回復後の新episodeでの利用であり、同一episodeでの回復・一般的優位性の実証ではない。
 - 次の作業: 最終pilot監査、本評価120episode、専用auditor、費用/反例を含む結果文書、
   最終配布監査、独立PRとCI確認。mainへのmerge/auto-mergeは行わない。
+
+### Verified multi-candidate — final evaluation in progress (2026-10-11)
+
+- 最終actorコードでPython全回帰678件pass後、intent後の否定ケース9件を追加。
+  新機能/独立監査42件pass、最終全回帰を再実行中。
+- frontend契約差分なし、build pass、最終Chromium E2E 6件pass (12.7s)。
+- v2最終pilot 60 episode / 2121判断 / 2120実行を独立監査pass。
+  本評価120 episodeを実行中。通常ケースの計測は完了し、回復ケースを実行中。
+- 新旧モデルの実Action差、独立permit veto後の代替実行、全拒否・未解決・予算不足、
+  selector例外/変更/取消、選択後およびintent後のState/source/Health/Auth失効を検証した。
+- 専用16 tickの再現確認を2つの独立したStore/Worldで実行。各8判断/8実行、
+  7件の代替実行、Action列と時間以外の集計hashが一致し、両方を独立監査pass。
+  これは本評価全体の再実行や、一般化性能の証明ではない。
+- auditorのPromotion commit順序照合で、RunHead.next_seqが最大確定seqを保持する
+  既存契約を確認。境界を含む比較へ修正し、実際のModel B回復3判断/3実行を再監査pass。
+  Actor・Core契約・昇格条件は変更していない。
+- 次: 本評価と最終auditor完了、結果文書/公開集計、最終配布監査、PR/CI。
