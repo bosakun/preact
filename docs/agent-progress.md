@@ -932,3 +932,35 @@ then all quality checks. No PR or merge has occurred for this change.
   既存契約を確認。境界を含む比較へ修正し、実際のModel B回復3判断/3実行を再監査pass。
   Actor・Core契約・昇格条件は変更していない。
 - 次: 本評価と最終auditor完了、結果文書/公開集計、最終配布監査、PR/CI。
+
+### Verified multi-candidate — local regression and main measurement complete
+
+- 最終Python全回帰687件pass (1206.04s)。新規42件を含み、過去テストは変更していない。
+- v2本評価120 episodeの計測完了: 4242判断、unsafe 0、ABSTAIN 2、
+  全候補検証完了4242、代替qualifiedあり260/代替実行260。最終auditorで再検証中。
+- permit fixtureの新方式では第一候補拒否68件を別qualified候補の正式実行へ接続。
+  一候補方式は同条件で2件ABSTAINしGoal未達。通常環境では新旧方式の結果は一致。
+- 固定事前より良い条件はあるが、noise/partialでは固定方策のGoal-capped Utilityが高い。
+  標準条件のVerifierは210対70と新方式が3倍。全方式への優位性を主張しない。
+- 結果文書と公開集計JSONを作成。raw Ledger/manifest/artifactはprivate cacheに保持する。
+- 次: 120 episodeの最終独立監査、最終配布監査、公開用監査JSON、PR/CI。
+
+### Verified multi-candidate — completed local evidence (2026-10-11)
+
+- 最終独立auditor: 120 episode / 4242判断 / 4240実行を再計算してpass。
+  2未実行は一候補対照のGate拒否。120件の公開集計と監査件数を専用JSONに記録した。
+- Model Bの新監視episodeでも実モデル選択を確認（low→high 26回/high→low 17回/episode）。
+  partialはtick42から4回、invalidatedはモデル利用0回/fallback35回であり、別々に報告する。
+- 正式学習した2分布の同じStateでの実Action差、最高価値候補拒否後の代替実行、
+  全候補未解決/取消/変更時のfail closed、source/Healthのintent後fencingを含む687テストpass。
+- Ruff/format、契約再生成一致、frontend build、Chromium6件、最終wheel/sdist監査pass。
+  配布buildはsandbox DNS失敗後、既存build依存を許可ネットワークで取得して再実行pass。
+- CPU2754.361s/wall2954.581s/peakRSS163250176bytes。計算性能の最適化は行っていない。
+  通常条件は一候補方式と同結果、Verifier calls増。noise/partialの固定方策優位も報告した。
+- Core変更はflat rootの明示的selector契約のみ。None時の選択規則、Gate/Verifier/Utility/
+  Authorization/Intent/Receipt意味は維持し、Software/Physicalへ強制適用しない。
+- 残る能力: 低予算の部分qualified集合の契約、時間相関を含むモデル、同一episodeでの回復。
+  同一episode昇格、自動昇格、深い探索、一般的優位性は今回未実装/未実証。
+- このcheckpoint後は専用branchをpushして独立PRを作成し、最終headのCIを確認する。
+  CIの実行結果はPR本文/Checksと最終報告へ記録する。mainへmerge/auto-mergeは行わない。
+  元の未コミット変更と過去protocol/resultsは保護した。

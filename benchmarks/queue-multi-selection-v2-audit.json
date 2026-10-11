@@ -1,0 +1,1210 @@
+{
+  "status": "passed-independent-multi-selection-audit",
+  "episodes": 120,
+  "decisions": 4242,
+  "executions": 4240,
+  "protocol_hash": "2502a96b783a16d0f74d389e3ab08bb4e52170ce169ee0b793e8ef00d3503160",
+  "execution_stats": [
+    {
+      "environment": "stable_low",
+      "seed": 101,
+      "mode": "multi_learned",
+      "model_executions": 24,
+      "first_model_execution_tick": 13,
+      "fallback_executions": 11,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "stable_low",
+      "seed": 101,
+      "mode": "single_learned",
+      "model_executions": 24,
+      "first_model_execution_tick": 13,
+      "fallback_executions": 11,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "stable_low",
+      "seed": 101,
+      "mode": "multi_prior",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 2,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 30
+    },
+    {
+      "environment": "stable_low",
+      "seed": 101,
+      "mode": "existing",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "stable_low",
+      "seed": 101,
+      "mode": "fixed",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 9,
+      "submitted_jobs": 41
+    },
+    {
+      "environment": "stable_low",
+      "seed": 101,
+      "mode": "core_utility_control",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 9,
+      "submitted_jobs": 51
+    },
+    {
+      "environment": "stable_low",
+      "seed": 102,
+      "mode": "multi_learned",
+      "model_executions": 24,
+      "first_model_execution_tick": 13,
+      "fallback_executions": 11,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "stable_low",
+      "seed": 102,
+      "mode": "single_learned",
+      "model_executions": 24,
+      "first_model_execution_tick": 13,
+      "fallback_executions": 11,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "stable_low",
+      "seed": 102,
+      "mode": "multi_prior",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 2,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 30
+    },
+    {
+      "environment": "stable_low",
+      "seed": 102,
+      "mode": "existing",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "stable_low",
+      "seed": 102,
+      "mode": "fixed",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 9,
+      "submitted_jobs": 41
+    },
+    {
+      "environment": "stable_low",
+      "seed": 102,
+      "mode": "core_utility_control",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 9,
+      "submitted_jobs": 51
+    },
+    {
+      "environment": "stable_high",
+      "seed": 101,
+      "mode": "multi_learned",
+      "model_executions": 26,
+      "first_model_execution_tick": 13,
+      "fallback_executions": 9,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 30
+    },
+    {
+      "environment": "stable_high",
+      "seed": 101,
+      "mode": "single_learned",
+      "model_executions": 26,
+      "first_model_execution_tick": 13,
+      "fallback_executions": 9,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 30
+    },
+    {
+      "environment": "stable_high",
+      "seed": 101,
+      "mode": "multi_prior",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 9,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 30
+    },
+    {
+      "environment": "stable_high",
+      "seed": 101,
+      "mode": "existing",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "stable_high",
+      "seed": 101,
+      "mode": "fixed",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 10,
+      "submitted_jobs": 41
+    },
+    {
+      "environment": "stable_high",
+      "seed": 101,
+      "mode": "core_utility_control",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 26,
+      "submitted_jobs": 111
+    },
+    {
+      "environment": "stable_high",
+      "seed": 102,
+      "mode": "multi_learned",
+      "model_executions": 26,
+      "first_model_execution_tick": 13,
+      "fallback_executions": 9,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 30
+    },
+    {
+      "environment": "stable_high",
+      "seed": 102,
+      "mode": "single_learned",
+      "model_executions": 26,
+      "first_model_execution_tick": 13,
+      "fallback_executions": 9,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 30
+    },
+    {
+      "environment": "stable_high",
+      "seed": 102,
+      "mode": "multi_prior",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 9,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 30
+    },
+    {
+      "environment": "stable_high",
+      "seed": 102,
+      "mode": "existing",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "stable_high",
+      "seed": 102,
+      "mode": "fixed",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 10,
+      "submitted_jobs": 41
+    },
+    {
+      "environment": "stable_high",
+      "seed": 102,
+      "mode": "core_utility_control",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 26,
+      "submitted_jobs": 111
+    },
+    {
+      "environment": "low_to_high",
+      "seed": 101,
+      "mode": "multi_learned",
+      "model_executions": 33,
+      "first_model_execution_tick": 13,
+      "fallback_executions": 2,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 30
+    },
+    {
+      "environment": "low_to_high",
+      "seed": 101,
+      "mode": "single_learned",
+      "model_executions": 33,
+      "first_model_execution_tick": 13,
+      "fallback_executions": 2,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 30
+    },
+    {
+      "environment": "low_to_high",
+      "seed": 101,
+      "mode": "multi_prior",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 3,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 30
+    },
+    {
+      "environment": "low_to_high",
+      "seed": 101,
+      "mode": "existing",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "low_to_high",
+      "seed": 101,
+      "mode": "fixed",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 10,
+      "submitted_jobs": 41
+    },
+    {
+      "environment": "low_to_high",
+      "seed": 101,
+      "mode": "core_utility_control",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 19,
+      "submitted_jobs": 97
+    },
+    {
+      "environment": "low_to_high",
+      "seed": 102,
+      "mode": "multi_learned",
+      "model_executions": 33,
+      "first_model_execution_tick": 13,
+      "fallback_executions": 2,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 30
+    },
+    {
+      "environment": "low_to_high",
+      "seed": 102,
+      "mode": "single_learned",
+      "model_executions": 33,
+      "first_model_execution_tick": 13,
+      "fallback_executions": 2,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 30
+    },
+    {
+      "environment": "low_to_high",
+      "seed": 102,
+      "mode": "multi_prior",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 3,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 30
+    },
+    {
+      "environment": "low_to_high",
+      "seed": 102,
+      "mode": "existing",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "low_to_high",
+      "seed": 102,
+      "mode": "fixed",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 10,
+      "submitted_jobs": 41
+    },
+    {
+      "environment": "low_to_high",
+      "seed": 102,
+      "mode": "core_utility_control",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 19,
+      "submitted_jobs": 97
+    },
+    {
+      "environment": "high_to_low",
+      "seed": 101,
+      "mode": "multi_learned",
+      "model_executions": 26,
+      "first_model_execution_tick": 13,
+      "fallback_executions": 9,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 30
+    },
+    {
+      "environment": "high_to_low",
+      "seed": 101,
+      "mode": "single_learned",
+      "model_executions": 26,
+      "first_model_execution_tick": 13,
+      "fallback_executions": 9,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 30
+    },
+    {
+      "environment": "high_to_low",
+      "seed": 101,
+      "mode": "multi_prior",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 9,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 30
+    },
+    {
+      "environment": "high_to_low",
+      "seed": 101,
+      "mode": "existing",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "high_to_low",
+      "seed": 101,
+      "mode": "fixed",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 10,
+      "submitted_jobs": 41
+    },
+    {
+      "environment": "high_to_low",
+      "seed": 101,
+      "mode": "core_utility_control",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 26,
+      "submitted_jobs": 73
+    },
+    {
+      "environment": "high_to_low",
+      "seed": 102,
+      "mode": "multi_learned",
+      "model_executions": 26,
+      "first_model_execution_tick": 13,
+      "fallback_executions": 9,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 30
+    },
+    {
+      "environment": "high_to_low",
+      "seed": 102,
+      "mode": "single_learned",
+      "model_executions": 26,
+      "first_model_execution_tick": 13,
+      "fallback_executions": 9,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 30
+    },
+    {
+      "environment": "high_to_low",
+      "seed": 102,
+      "mode": "multi_prior",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 9,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 30
+    },
+    {
+      "environment": "high_to_low",
+      "seed": 102,
+      "mode": "existing",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "high_to_low",
+      "seed": 102,
+      "mode": "fixed",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 10,
+      "submitted_jobs": 41
+    },
+    {
+      "environment": "high_to_low",
+      "seed": 102,
+      "mode": "core_utility_control",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 26,
+      "submitted_jobs": 73
+    },
+    {
+      "environment": "noise",
+      "seed": 101,
+      "mode": "multi_learned",
+      "model_executions": 15,
+      "first_model_execution_tick": 13,
+      "fallback_executions": 20,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "noise",
+      "seed": 101,
+      "mode": "single_learned",
+      "model_executions": 15,
+      "first_model_execution_tick": 13,
+      "fallback_executions": 20,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "noise",
+      "seed": 101,
+      "mode": "multi_prior",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 20,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 34
+    },
+    {
+      "environment": "noise",
+      "seed": 101,
+      "mode": "existing",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "noise",
+      "seed": 101,
+      "mode": "fixed",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 10,
+      "submitted_jobs": 41
+    },
+    {
+      "environment": "noise",
+      "seed": 101,
+      "mode": "core_utility_control",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 19,
+      "submitted_jobs": 83
+    },
+    {
+      "environment": "noise",
+      "seed": 102,
+      "mode": "multi_learned",
+      "model_executions": 33,
+      "first_model_execution_tick": 13,
+      "fallback_executions": 2,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 30
+    },
+    {
+      "environment": "noise",
+      "seed": 102,
+      "mode": "single_learned",
+      "model_executions": 33,
+      "first_model_execution_tick": 13,
+      "fallback_executions": 2,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 30
+    },
+    {
+      "environment": "noise",
+      "seed": 102,
+      "mode": "multi_prior",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 3,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 30
+    },
+    {
+      "environment": "noise",
+      "seed": 102,
+      "mode": "existing",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 32
+    },
+    {
+      "environment": "noise",
+      "seed": 102,
+      "mode": "fixed",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 10,
+      "submitted_jobs": 41
+    },
+    {
+      "environment": "noise",
+      "seed": 102,
+      "mode": "core_utility_control",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 19,
+      "submitted_jobs": 93
+    },
+    {
+      "environment": "partial",
+      "seed": 101,
+      "mode": "multi_learned",
+      "model_executions": 4,
+      "first_model_execution_tick": 42,
+      "fallback_executions": 36,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "partial",
+      "seed": 101,
+      "mode": "single_learned",
+      "model_executions": 4,
+      "first_model_execution_tick": 42,
+      "fallback_executions": 36,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "partial",
+      "seed": 101,
+      "mode": "multi_prior",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 36,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "partial",
+      "seed": 101,
+      "mode": "existing",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "partial",
+      "seed": 101,
+      "mode": "fixed",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 9,
+      "submitted_jobs": 40
+    },
+    {
+      "environment": "partial",
+      "seed": 101,
+      "mode": "core_utility_control",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 9,
+      "submitted_jobs": 52
+    },
+    {
+      "environment": "partial",
+      "seed": 102,
+      "mode": "multi_learned",
+      "model_executions": 4,
+      "first_model_execution_tick": 42,
+      "fallback_executions": 36,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "partial",
+      "seed": 102,
+      "mode": "single_learned",
+      "model_executions": 4,
+      "first_model_execution_tick": 42,
+      "fallback_executions": 36,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "partial",
+      "seed": 102,
+      "mode": "multi_prior",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 36,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "partial",
+      "seed": 102,
+      "mode": "existing",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "partial",
+      "seed": 102,
+      "mode": "fixed",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 9,
+      "submitted_jobs": 40
+    },
+    {
+      "environment": "partial",
+      "seed": 102,
+      "mode": "core_utility_control",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 9,
+      "submitted_jobs": 52
+    },
+    {
+      "environment": "invalidated",
+      "seed": 101,
+      "mode": "multi_learned",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 35,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "invalidated",
+      "seed": 101,
+      "mode": "single_learned",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 35,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "invalidated",
+      "seed": 101,
+      "mode": "multi_prior",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 35,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "invalidated",
+      "seed": 101,
+      "mode": "existing",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "invalidated",
+      "seed": 101,
+      "mode": "fixed",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 9,
+      "submitted_jobs": 41
+    },
+    {
+      "environment": "invalidated",
+      "seed": 101,
+      "mode": "core_utility_control",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 9,
+      "submitted_jobs": 51
+    },
+    {
+      "environment": "invalidated",
+      "seed": 102,
+      "mode": "multi_learned",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 35,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "invalidated",
+      "seed": 102,
+      "mode": "single_learned",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 35,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "invalidated",
+      "seed": 102,
+      "mode": "multi_prior",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 35,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "invalidated",
+      "seed": 102,
+      "mode": "existing",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "invalidated",
+      "seed": 102,
+      "mode": "fixed",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 9,
+      "submitted_jobs": 41
+    },
+    {
+      "environment": "invalidated",
+      "seed": 102,
+      "mode": "core_utility_control",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 9,
+      "submitted_jobs": 51
+    },
+    {
+      "environment": "admission_veto",
+      "seed": 101,
+      "mode": "multi_learned",
+      "model_executions": 17,
+      "first_model_execution_tick": 8,
+      "fallback_executions": 23,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 31
+    },
+    {
+      "environment": "admission_veto",
+      "seed": 101,
+      "mode": "single_learned",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 0
+    },
+    {
+      "environment": "admission_veto",
+      "seed": 101,
+      "mode": "multi_prior",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 23,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 31
+    },
+    {
+      "environment": "admission_veto",
+      "seed": 101,
+      "mode": "existing",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 31
+    },
+    {
+      "environment": "admission_veto",
+      "seed": 101,
+      "mode": "fixed",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 9,
+      "submitted_jobs": 40
+    },
+    {
+      "environment": "admission_veto",
+      "seed": 101,
+      "mode": "core_utility_control",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 9,
+      "submitted_jobs": 40
+    },
+    {
+      "environment": "admission_veto",
+      "seed": 102,
+      "mode": "multi_learned",
+      "model_executions": 17,
+      "first_model_execution_tick": 8,
+      "fallback_executions": 23,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 31
+    },
+    {
+      "environment": "admission_veto",
+      "seed": 102,
+      "mode": "single_learned",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 0
+    },
+    {
+      "environment": "admission_veto",
+      "seed": 102,
+      "mode": "multi_prior",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 23,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 31
+    },
+    {
+      "environment": "admission_veto",
+      "seed": 102,
+      "mode": "existing",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 31
+    },
+    {
+      "environment": "admission_veto",
+      "seed": 102,
+      "mode": "fixed",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 9,
+      "submitted_jobs": 40
+    },
+    {
+      "environment": "admission_veto",
+      "seed": 102,
+      "mode": "core_utility_control",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 9,
+      "submitted_jobs": 40
+    },
+    {
+      "environment": "recovered_low_to_high",
+      "seed": 101,
+      "mode": "multi_learned",
+      "model_executions": 26,
+      "first_model_execution_tick": 13,
+      "fallback_executions": 9,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 30
+    },
+    {
+      "environment": "recovered_low_to_high",
+      "seed": 101,
+      "mode": "single_learned",
+      "model_executions": 26,
+      "first_model_execution_tick": 13,
+      "fallback_executions": 9,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 30
+    },
+    {
+      "environment": "recovered_low_to_high",
+      "seed": 101,
+      "mode": "multi_prior",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 9,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 30
+    },
+    {
+      "environment": "recovered_low_to_high",
+      "seed": 101,
+      "mode": "existing",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "recovered_low_to_high",
+      "seed": 101,
+      "mode": "fixed",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 10,
+      "submitted_jobs": 41
+    },
+    {
+      "environment": "recovered_low_to_high",
+      "seed": 101,
+      "mode": "core_utility_control",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 26,
+      "submitted_jobs": 111
+    },
+    {
+      "environment": "recovered_low_to_high",
+      "seed": 102,
+      "mode": "multi_learned",
+      "model_executions": 26,
+      "first_model_execution_tick": 13,
+      "fallback_executions": 9,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 30
+    },
+    {
+      "environment": "recovered_low_to_high",
+      "seed": 102,
+      "mode": "single_learned",
+      "model_executions": 26,
+      "first_model_execution_tick": 13,
+      "fallback_executions": 9,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 30
+    },
+    {
+      "environment": "recovered_low_to_high",
+      "seed": 102,
+      "mode": "multi_prior",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 9,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 30
+    },
+    {
+      "environment": "recovered_low_to_high",
+      "seed": 102,
+      "mode": "existing",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "recovered_low_to_high",
+      "seed": 102,
+      "mode": "fixed",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 10,
+      "submitted_jobs": 41
+    },
+    {
+      "environment": "recovered_low_to_high",
+      "seed": 102,
+      "mode": "core_utility_control",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 26,
+      "submitted_jobs": 111
+    },
+    {
+      "environment": "recovered_high_to_low",
+      "seed": 101,
+      "mode": "multi_learned",
+      "model_executions": 17,
+      "first_model_execution_tick": 13,
+      "fallback_executions": 18,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "recovered_high_to_low",
+      "seed": 101,
+      "mode": "single_learned",
+      "model_executions": 17,
+      "first_model_execution_tick": 13,
+      "fallback_executions": 18,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "recovered_high_to_low",
+      "seed": 101,
+      "mode": "multi_prior",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 2,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 30
+    },
+    {
+      "environment": "recovered_high_to_low",
+      "seed": 101,
+      "mode": "existing",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "recovered_high_to_low",
+      "seed": 101,
+      "mode": "fixed",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 9,
+      "submitted_jobs": 41
+    },
+    {
+      "environment": "recovered_high_to_low",
+      "seed": 101,
+      "mode": "core_utility_control",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 9,
+      "submitted_jobs": 51
+    },
+    {
+      "environment": "recovered_high_to_low",
+      "seed": 102,
+      "mode": "multi_learned",
+      "model_executions": 17,
+      "first_model_execution_tick": 13,
+      "fallback_executions": 18,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "recovered_high_to_low",
+      "seed": 102,
+      "mode": "single_learned",
+      "model_executions": 17,
+      "first_model_execution_tick": 13,
+      "fallback_executions": 18,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "recovered_high_to_low",
+      "seed": 102,
+      "mode": "multi_prior",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 2,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 30
+    },
+    {
+      "environment": "recovered_high_to_low",
+      "seed": 102,
+      "mode": "existing",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 0,
+      "submitted_jobs": 35
+    },
+    {
+      "environment": "recovered_high_to_low",
+      "seed": 102,
+      "mode": "fixed",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 9,
+      "submitted_jobs": 41
+    },
+    {
+      "environment": "recovered_high_to_low",
+      "seed": 102,
+      "mode": "core_utility_control",
+      "model_executions": 0,
+      "first_model_execution_tick": null,
+      "fallback_executions": 0,
+      "submit_actions_after_goal": 9,
+      "submitted_jobs": 51
+    }
+  ],
+  "auditor_hash": "0d56193a32ffac742089702bad26f68a4743c17d20d1c86a4f92cd18b7b1a01d"
+}
