@@ -196,3 +196,15 @@ Runtimeが実際の提案集合と構造化Evaluation/Gate判定を所有し、�
 予測上の順位、Runtime最終選択、complete Receiptは別の証跡とする。
 [設計・利用例](queue-multi-selection.md)と[専用評価](queue-multi-selection-results.md)へ
 境界・費用・反例を記録する。過去のprotocolと結果は凍結したまま保持する。
+# Continuous Queue adaptation vertical slice
+
+Queue v2 may use a fresh mid-episode Observation as a monitoring epoch anchor and
+perform repeated invalidation, post-cutoff receipt-backed training, independent H3
+evaluation and explicit promotion inside one real World episode. Each model owns a
+new Health scope and epoch. World reset, training on predictions and outcomes for
+unexecuted actions are prohibited. The continuous World exposes actual outcomes only
+for executed actions; H3 counterfactual comparisons belong to separately declared
+evaluation Worlds. This is an experimental Queue contract, not a general lifecycle
+API or proof of task-performance improvement. See
+[`docs/continuous-adaptation.md`](continuous-adaptation.md) for architecture, commands,
+results and limits.

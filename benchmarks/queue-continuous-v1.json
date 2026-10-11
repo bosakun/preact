@@ -1,0 +1,29 @@
+{
+  "schema_version": "1",
+  "protocol_id": "queue-continuous-adaptation-v1",
+  "seed": 409,
+  "world_episode_id": "continuous-world-409",
+  "episode_ticks": 160,
+  "target": 10000,
+  "capacity": 12,
+  "noise": 0.0,
+  "service_regimes": [
+    {"start_tick": 0, "end_tick": 24, "service": 1, "label": "low-A"},
+    {"start_tick": 24, "end_tick": 64, "service": 3, "label": "high-B"},
+    {"start_tick": 64, "end_tick": 104, "service": 1, "label": "low-C"},
+    {"start_tick": 104, "end_tick": 160, "service": 3, "label": "high-after-C"}
+  ],
+  "model_a_training": {"episodes": 1, "probes": 16, "service": 1},
+  "detection": {"window": 16, "min_recent": 8, "min_training": 16, "min_effect": 0.1, "alpha": 0.05, "max_gap_ticks": 16},
+  "recovery": {"effective_training": 16, "independent_evaluation_protocol": "queue-recovery-v1", "monitoring_probes": 8},
+  "decision": {"actions": [3, 1, 0], "horizon": 3, "policy": {"search": false, "calibration": false, "width": 3, "max_nodes": 3, "max_calls": 128}},
+  "conditions": ["low-to-high", "high-to-low", "stable-low-through-tick-103"],
+  "predeclared_limits": [
+    "Only executed receipt-backed actions have actual outcomes.",
+    "Three-tick predictions for unexecuted actions are inference, not counterfactual labels.",
+    "Candidate H3 evaluation uses separately declared independent evaluation episodes from queue-recovery-v1.",
+    "Continuous-world monitoring and recovery samples share one episode identifier but use disjoint runs/receipts and ordered tick ranges.",
+    "The fixed deterministic schedule is an owned fixture, not evidence of generalization to stochastic or real environments.",
+    "This protocol measures capability and cost, not a learned-policy reward advantage."
+  ]
+}

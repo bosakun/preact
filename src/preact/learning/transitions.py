@@ -202,3 +202,45 @@ def require_disjoint(training: TransitionSnapshot, evaluation: TransitionSnapsho
         or {t.receipt for t in training.transitions} & {t.receipt for t in evaluation.transitions}
     ):
         raise ValueError("Training and evaluation must be episode/run/receipt disjoint")
+
+
+def require_continuous_split(
+    earlier: TransitionSnapshot,
+    later: TransitionSnapshot,
+    *,
+    continuous_episode: str,
+    require_adjacent: bool = False,
+) -> None:
+    """Validate distinct receipt/run sets separated in time within one real episode.
+
+    This is deliberately narrower than ``require_disjoint``: the episode may be
+    shared only because the caller declares a real continuous World. Runs and
+    receipts remain disjoint, and the earlier observed transitions must end no
+    later than the first later transition begins. It does not certify evaluation
+    independence from policy-selection bias or temporal correlation.
+    """
+    earlier.verify_identity()
+    later.verify_identity()
+    a = [row for row in earlier.transitions if row.episode_id == continuous_episode]
+    b = [row for row in later.transitions if row.episode_id == continuous_episode]
+    if not a or not b:
+        raise ValueError("Continuous split requires observed rows on both sides")
+    if any(row.episode_id != continuous_episode for row in earlier.transitions + later.transitions):
+        raise ValueError("Continuous split cannot mix unrelated episodes")
+    if {row.run_id for row in earlier.transitions} & {row.run_id for row in later.transitions} or {
+        row.receipt for row in earlier.transitions
+    } & {row.receipt for row in later.transitions}:
+        raise ValueError("Continuous split reuses a run or receipt")
+    last = a[-1].after.state
+    first = b[0].before
+    last_tick, first_tick = last.payload.get("tick", -1), first.payload.get("tick", -1)
+    if (
+        first_tick < last_tick
+        or _timestamp(first) < _timestamp(last)
+        or (
+            first_tick == last_tick
+            and first.model_dump(exclude={"timestamp"}) != last.model_dump(exclude={"timestamp"})
+        )
+        or (require_adjacent and first_tick != last_tick)
+    ):
+        raise ValueError("Continuous data splits are not state- and time-ordered")

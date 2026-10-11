@@ -74,6 +74,8 @@ class MonitoredQueueSource:
             episode_id=promotion.episode_id,
             initial=promotion.initial,
             config=DriftConfig(**promotion.config),
+            monitoring_epoch=promotion.monitoring_epoch or promotion.episode_id,
+            allow_same_episode=promotion.continuous_episode,
         )
         source._sources = tuple(
             dict.fromkeys(

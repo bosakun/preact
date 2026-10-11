@@ -120,8 +120,10 @@ class QueueTemporalGuard:
         episode_id: str,
         initial: State,
         config: DriftConfig = DriftConfig(),
+        monitoring_epoch: str | None = None,
+        allow_same_episode: bool = False,
     ):
-        if not episode_id or episode_id in training_episodes:
+        if not episode_id or (episode_id in training_episodes and not allow_same_episode):
             raise ValueError("Monitoring episode must be separate from training")
         self._store = store
         self._task = Task.model_validate(task.model_dump())
@@ -130,13 +132,16 @@ class QueueTemporalGuard:
         self._episode = episode_id
         self._initial = State.model_validate(initial.model_dump())
         self._config = config
+        self._monitoring_epoch = monitoring_epoch or episode_id
+        self._allow_same_episode = allow_same_episode
         if (
             initial.kind != "observed"
             or initial.domain != DOMAIN
             or initial.provenance != PROVENANCE
-            or initial.payload.get("tick") != 0
+            or type(initial.payload.get("tick")) is not int
+            or (initial.payload.get("tick") != 0 and not allow_same_episode)
         ):
-            raise ValueError("Monitoring requires an authoritative Queue v2 observation")
+            raise ValueError("Monitoring requires an authoritative Queue v2 anchor observation")
         if _time(self._initial) > datetime.now(timezone.utc):
             raise ValueError("Deployment observation is in the future")
         self._initial_identity = identity(self._initial.model_dump())
@@ -159,7 +164,16 @@ class QueueTemporalGuard:
         adapter = QueueServiceAdapter()
         self._model.compatible(adapter)
         episodes = {k: list(v) for k, v in self._training.items()}
-        episodes[self._episode] = list(run_ids)
+        if self._episode in episodes:
+            if not self._allow_same_episode:
+                raise ValueError("Training and monitoring episodes overlap")
+            if set(episodes[self._episode]) & set(run_ids):
+                raise ValueError("Training and monitoring runs overlap")
+            episodes[self._episode].extend(run_ids)
+        else:
+            episodes[self._episode] = list(run_ids)
+        if any(len(v) != len(set(v)) for v in episodes.values()):
+            raise ValueError("A monitoring run cannot be repeated")
         dataset = TransitionDataset(self._store, episodes)
         snapshot = await dataset.snapshot()
         snapshot.verify_identity()
@@ -171,8 +185,17 @@ class QueueTemporalGuard:
                 raise ValueError("Monitoring run belongs to a different Task/World scope")
             if run["status"] not in {"complete", "failed_task", "abstained"}:
                 raise ValueError("Monitoring source run is not finalized")
-        training = [r for r in snapshot.transitions if r.episode_id != self._episode]
-        monitoring = [r for r in snapshot.transitions if r.episode_id == self._episode]
+        training_runs = {run for values in self._training.values() for run in values}
+        training_source = [r for r in snapshot.transitions if r.run_id in training_runs]
+        training = training_source[: len(self._model.receipts)]
+        monitoring = [r for r in snapshot.transitions if r.run_id in run_ids]
+        if (
+            tuple(r.receipt for r in training) != self._model.receipts
+            or tuple(r.outcome_reference for r in training) != self._model.outcome_references
+            or {r.run_id for r in training} != set(self._model.run_ids)
+            or len(training) != len(self._model.receipts)
+        ):
+            raise ValueError("Training receipt manifest differs from the learned model")
         # An observation can precede its durable outcome commit. A historical
         # cutoff must not learn from a receipt that became available afterward.
         for row in snapshot.transitions:
@@ -180,7 +203,7 @@ class QueueTemporalGuard:
             seq = int(row.outcome_reference.rsplit(":", 1)[1])
             event = next(e for e in events if e["seq"] == seq)
             committed = datetime.fromisoformat(event["timestamp"])
-            cutoff = _time(state) if row.episode_id == self._episode else _time(self._initial)
+            cutoff = _time(state) if row.run_id in run_ids else _time(self._initial)
             if committed.tzinfo is None or committed.utcoffset() is None or committed > cutoff:
                 raise ValueError("Outcome was not committed by the observation cutoff")
         selected = training[: len(self._model.receipts)]
@@ -242,7 +265,7 @@ class QueueTemporalGuard:
         health = replay_health(
             model_version=self._model.version,
             dataset_hash=self._model.dataset_hash,
-            scope=self._episode,
+            scope=self._monitoring_epoch,
             basis_hash=basis,
             training_count=sum(int(t[0]) for t in targets),
             training_high=sum(int(t[1]) for t in targets),

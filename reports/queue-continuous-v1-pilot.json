@@ -1,0 +1,127 @@
+{
+  "schema_version": "1",
+  "run": "v1-pilot",
+  "protocol_id": "queue-continuous-adaptation-v1",
+  "protocol_sha256": "ce6e7e93cad8f51d3515a0e0740d82540fe1a7fbd4767b2d31e30eec527e2786",
+  "audit_status": "passed",
+  "auditor_code_hash": "3272899654cf65c18d477cdbb6d3ad55aa5c5c54f4cc9ad7c98c4ef0f2ed9d0f",
+  "world_episode_id": "continuous-world-409",
+  "single_world_instance": true,
+  "world_was_reset": false,
+  "continuous_transitions": 100,
+  "invalidation_ticks": [
+    36,
+    75
+  ],
+  "generations": [
+    {
+      "generation": 0,
+      "model_version": "296d3f6c120151d96e7c5bdffc6972341bcfe2bb4ef1b7a7ea3ec31204d6fa8b",
+      "dataset_hash": "8128b2b9c1e54a8d1dcbf8516f037da36603a4571606b350063ea490dc067a70",
+      "selected_action": {
+        "amount": 3
+      },
+      "model_used": true
+    },
+    {
+      "generation": 1,
+      "model_version": "5e21b8a6ef09d0aeadeafdc083be0786872bb44cb4dba031a267e2484a3383ad",
+      "dataset_hash": "013e727a2813a7e13471e9d76e612a2fa48c9d2f33038a20f34ffd63898f90f6",
+      "effective_training": 16,
+      "independent_h3": {
+        "candidate": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.0,
+          "state_mae": 0.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "parent": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 1.1111111111111112,
+          "state_mae": 2.4444444444444446,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "prior": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.5694444444444444,
+          "state_mae": 1.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        }
+      },
+      "explicitly_promoted": true,
+      "restart_restore_verified": true,
+      "selected_action": {
+        "amount": 3
+      },
+      "model_used": true
+    },
+    {
+      "generation": 2,
+      "model_version": "5a9d7664cd3a6c907578f90431440f644500d6eddb822f591725160fd53a9d2c",
+      "dataset_hash": "3be8931de61adfd7b1e78478721188e53dd9cd57a99f6c0af46f8fa7756a5f5e",
+      "effective_training": 16,
+      "independent_h3": {
+        "candidate": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.0,
+          "state_mae": 0.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "parent": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 1.1111111111111112,
+          "state_mae": 2.4444444444444446,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "prior": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.5416666666666666,
+          "state_mae": 1.4444444444444444,
+          "supported": 8,
+          "unknown_rate": 0.0
+        }
+      },
+      "explicitly_promoted": true,
+      "restart_restore_verified": true,
+      "selected_action": {
+        "amount": 3
+      },
+      "model_used": true
+    }
+  ],
+  "adaptation_outcome": {
+    "reward": -0.5000000000000003,
+    "delivered": 6,
+    "holding_loss": 0.75,
+    "unsafe_executions": 0,
+    "final_tick": 100
+  },
+  "fixed_baseline": null,
+  "cost": {
+    "cpu_seconds": 37.580563,
+    "wall_seconds": 42.097527500009164,
+    "max_rss_platform_units": 135004160,
+    "known_external_api_calls": 0,
+    "known_external_api_cost_usd": 0,
+    "compute_dollar_cost": null
+  },
+  "limits": [
+    "Only executed receipt-backed actions have actual outcomes.",
+    "Three-tick predictions for unexecuted actions are inference, not counterfactual labels.",
+    "Candidate H3 evaluation uses separately declared independent evaluation episodes from queue-recovery-v1.",
+    "Continuous-world monitoring and recovery samples share one episode identifier but use disjoint runs/receipts and ordered tick ranges.",
+    "The fixed deterministic schedule is an owned fixture, not evidence of generalization to stochastic or real environments.",
+    "This protocol measures capability and cost, not a learned-policy reward advantage."
+  ]
+}
