@@ -7,7 +7,8 @@ permissions:
 jobs:
   shared-runtime:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    # Receipt-backed recovery/selection regressions replay complete evaluation histories.
+    timeout-minutes: 45
     env:
       UV_CACHE_DIR: ${{ github.workspace }}/.cache/uv
       PREACT_MODE: local
@@ -25,7 +26,7 @@ jobs:
       - run: uv sync --frozen --extra dev --extra physical --extra sandbox
       - run: uv run ruff check src tests workers scripts
       - run: uv run ruff format --check src tests workers scripts
-      - run: uv run pytest -q
+      - run: uv run pytest -q --durations=20
       - name: CPU source bridge across API Python 3.12 and SDK Python 3.11
         run: |
           uv venv --python 3.11 .cache/isaac-import-env

@@ -152,6 +152,11 @@ private-path除外）。独立監査の別計測はwall5168.36s/user3450.97s/sys
 macOS timeのkern.clockrate照会は権限制限で警告したが、監査本体は成功した。
 GitHub CIはPRの最終headで別途確認し、結果をPR本文へ記録する。
 
+初回GitHub CIはPython全回帰の途中で既存20分job上限に達し打切りとなった。
+失敗テストの表示はなく、66%までの進捗とoperation canceledをログで確認した。
+CI上限を45分へ延長し、同じ全テストに終了時durations表示を追加して再実行する。
+実装・評価条件・固定結果は変更せず、最終headのCI結果はPRへ記録する。
+
 ## 同じ実StateでActionが変わる例
 
 統合テストでは、別の実training Worldで正式probeを各16回実行し、

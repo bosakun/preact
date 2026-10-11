@@ -873,3 +873,9 @@ https://github.com/bosakun/preact/pull/12 。実装commit ee4b2ab3eada716c111a16
 ローカル全回帰・本評価・独立監査・最終distributionは完了し、元作業ツリーは保護した。
 最終headのGitHub CIはPRで確認し、その結果をPR本文へ記録する。
 PRはレビュー待ちに残し、merge/auto-mergeは行わない。
+
+最初のPR/push CIは既存job上限20分でPython全回帰の途中に打切り。
+ログは432件相当（66%）までfailure表示なしで進み、その後operation canceled。
+ローカル645passと本評価/監査の結果は維持するが、CI成功とは扱わない。
+正式な回復/選択の履歴再検証を省略せず、CI job上限45分と終了時durations表示を追加。
+テスト・実装・固定protocol・安全Policyは変更しない。新しい最終headの全CIを再確認する。
