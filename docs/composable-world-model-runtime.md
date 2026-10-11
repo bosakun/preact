@@ -207,3 +207,13 @@ Gate、durable intent、complete receiptをrunで関連付ける。Queue専用�
 この最小実装は世界モデル全体の定義や汎用的な最適計画ではない。
 モデルが未利用のfallback-only episodeを成功実証に数えず、実Actionと実Outcomeを
 比較する。詳細と次の複数安全候補への拡張境界はlearned-dynamics.mdに記録する。
+
+## Opt-in verified multi-candidate decision
+
+flat rootに限り、Runtimeは全提案の独立検証を完了してから、qualified集合の
+defensive copyを`CandidateSelector`へ渡せる。selectorのID返却は非権威的な価値選択であり、
+Gate Previewも実行Authorizationではない。最終候補は従来のfresh observation、
+Gate、Authorization、durable intent、Receiptを経る。未解決候補・不正選択・取消では
+停止し、Core utilityへ黙ってfallbackしない。opt-inしていないWorldは従来の選択を使う。
+QueueのH3価値とsource/Health fencingは認知・domain側へ置き、Coreには埋め込まない。
+詳細は[複数候補選択の設計](queue-multi-selection.md)を参照する。

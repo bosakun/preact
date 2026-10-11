@@ -233,6 +233,7 @@ class QueueModelPlanner:
     """
 
     proposal_usage_complete = True
+    multi_candidate = False
 
     @property
     def proposal_calls(self):
@@ -265,8 +266,16 @@ class QueueModelPlanner:
 
     def begin_round(self, run_id: str, policy: Policy, previous: tuple[str, ...]):
         self.end_round()
-        if policy.width != 1 or policy.max_nodes != 1 or policy.search:
-            raise ValueError("Queue model selection requires width=1/max_nodes=1/search=False")
+        width = 3 if self.multi_candidate else 1
+        if (
+            policy.width != width
+            or policy.max_nodes < width
+            or policy.search
+            or (not self.multi_candidate and policy.max_nodes != 1)
+        ):
+            raise ValueError(
+                f"Queue model selection requires width={width}/max_nodes={width}/search=False"
+            )
         self.run_id, self.policy = run_id, policy.model_copy(deep=True)
         self.runs = [*self.prefix_runs, *previous]
 
@@ -282,7 +291,11 @@ class QueueModelPlanner:
     async def propose(self, belief: Belief, goals: list[Goal], width: int) -> list[Action]:
         self.pending = None
         self.usage.clear()
-        if not self._world_bound or self.run_id is None or width != 1:
+        if (
+            not self._world_bound
+            or self.run_id is None
+            or width != (3 if self.multi_candidate else 1)
+        ):
             raise ValueError("Use QueueSelectionWorld with an active CognitiveAgent round")
         if len(goals) != 1 or goals[0].metric != "delivered":
             raise ValueError("Selection v1 requires exactly one delivered goal")
@@ -340,7 +353,11 @@ class QueueModelPlanner:
                         else None,
                     }
                 )
-            safe = [c for c in candidates if c["public_bound_safe"]]
+            safe = (
+                candidates
+                if self.multi_candidate
+                else [c for c in candidates if c["public_bound_safe"]]
+            )
             if available:
                 ranked = sorted(safe, key=lambda c: (-c["value"], c["amount"]))
                 chosen = Action.model_validate(ranked[0]["action"]) if ranked else None
@@ -355,6 +372,17 @@ class QueueModelPlanner:
                     (a for a in proposals if bounded_safe(state.payload, a.payload["amount"])), None
                 )
                 ranked, basis = [], "existing_planner" if self.mode == "existing" else "fallback"
+                if self.multi_candidate:
+                    order = [a.fingerprint for a in proposals]
+                    ranked = sorted(
+                        candidates,
+                        key=lambda c: (
+                            order.index(c["fingerprint"])
+                            if c["fingerprint"] in order
+                            else len(order),
+                            c["amount"],
+                        ),
+                    )
             else:
                 chosen, ranked, basis = None, [], "abstain"
             if await self.source.heads(self.runs) != heads:
@@ -389,11 +417,23 @@ class QueueModelPlanner:
                 "local_api_cost_usd": 0,
                 "compute_dollar_cost": None,
             }
+            if self.multi_candidate:
+                record["first_choice_fingerprint"] = ranked[0]["fingerprint"] if ranked else None
+                record["selected"] = record["selected_fingerprint"] = None
+                record["selection_mode"] = "qualified_value/v1"
+                record["selection_rule"] = self.selection_rule
             record = json.loads(json.dumps(record, allow_nan=False))
-            await self.source.store.call("append", self.run_id, "cognitive_selection", record)
+            await self.source.store.call(
+                "append",
+                self.run_id,
+                "cognitive_prediction" if self.multi_candidate else "cognitive_selection",
+                record,
+            )
             self.records.append(copy.deepcopy(record))
             self.pending = copy.deepcopy(record)
             self._seal = identity(record)
+            if self.multi_candidate:
+                return actions if ranked else []
             return [chosen] if chosen else []
         except BaseException:
             self.pending = None
@@ -423,8 +463,16 @@ class QueueModelPlanner:
         ]:
             raise ValueError("Selection source authority changed before dispatch")
         events = await self.source.store.call("read_events", self.run_id)
-        records = [e for e in events if e["kind"] == "cognitive_selection"]
+        records = [
+            e
+            for e in events
+            if e["kind"]
+            == ("cognitive_prediction" if self.multi_candidate else "cognitive_selection")
+        ]
         if len(records) != 1 or records[0]["data"] != record:
             raise ValueError("Ledger selection trace changed")
-        if action is not None and action.fingerprint != record["selected_fingerprint"]:
-            raise ValueError("Dispatch action differs from selection")
+        if action is not None:
+            if self.multi_candidate:
+                self.check_final_selection(events, action)
+            elif action.fingerprint != record["selected_fingerprint"]:
+                raise ValueError("Dispatch action differs from selection")

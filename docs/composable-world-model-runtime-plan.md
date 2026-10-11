@@ -186,3 +186,13 @@ Goal達成率は100%で改善を示さない。[結果と制約](queue-model-sel
 Goal改善、Reward改善、Actionの変化は別指標とする。
 後続設計は複数の安全候補からの価値選択、同一episode回復の明示契約、相関/長期/
 不確実性を考慮した評価を優先する。自動昇格・Core書換え・性能最適化はこのsliceに含めない。
+
+## Verified multi-candidate root selection vertical slice
+
+承認済みのopt-in `candidate_selector`をflat rootに限定して追加する。
+Runtimeが実際の提案集合と構造化Evaluation/Gate判定を所有し、未展開・未解決が
+一つでも残れば停止する。pure selectorはqualified集合のコピーからIDを選ぶだけで、
+実行権限を持たない。既存Core utility、デフォルト探索、PR #12一候補方式を維持する。
+予測上の順位、Runtime最終選択、complete Receiptは別の証跡とする。
+[設計・利用例](queue-multi-selection.md)と[専用評価](queue-multi-selection-results.md)へ
+境界・費用・反例を記録する。過去のprotocolと結果は凍結したまま保持する。

@@ -2,10 +2,12 @@ from __future__ import annotations
 
 import asyncio
 import heapq
+import inspect
 import math
 import time
 
 from .calibration import Calibration, context_key
+from .candidates import CandidateAssessment, CandidateBatch, CandidateSelector
 from .comparison import compare
 from .consequences import reuse_key
 from .decision import evaluate, gate
@@ -33,10 +35,19 @@ class Runtime:
     """The same decision loop drives every World; no domain dispatch inside Core."""
 
     def __init__(
-        self, store: Store, artifacts: Artifacts, registry: Registry, policy: Policy | None = None
+        self,
+        store: Store,
+        artifacts: Artifacts,
+        registry: Registry,
+        policy: Policy | None = None,
+        *,
+        candidate_selector: CandidateSelector | None = None,
     ):
         self.store, self.artifacts, self.registry = store, artifacts, registry
         self.policy = Policy.model_validate((policy or Policy()).model_dump(warnings=False))
+        if candidate_selector is not None and self.policy.search:
+            raise ValueError("Candidate selectors require flat root comparison")
+        self.candidate_selector = candidate_selector
         self.cancelled = False
         self.calls = 0
         self.agent_calls = 0
@@ -248,9 +259,16 @@ class Runtime:
         frontier, roots, count, serial = [], [], 0, 0
         seen = {}
         pending, visits = {}, {}
+        root_proposals, invalid_contracts, assessed = [], set(), set()
 
         async def expand(parent, successor):
             actions = await self.propose(world, successor, self.policy.width)
+            if self.candidate_selector is not None and parent.id == root.id:
+                if len(actions) > self.policy.width or len({a.fingerprint for a in actions}) != len(
+                    actions
+                ):
+                    raise ValueError("Selector requires a bounded, distinct proposal set")
+                root_proposals.extend(a.model_copy(deep=True) for a in actions)
             await self.emit(
                 "search_expanded",
                 {
@@ -293,6 +311,7 @@ class Runtime:
                 try:
                     world.validate(successor, action)
                 except ValueError:
+                    invalid_contracts.add(action.fingerprint)
                     await self.emit(
                         "action_rejected",
                         {"name": action.name, "reason": "Invalid action contract"},
@@ -442,6 +461,7 @@ class Runtime:
             result = gate(
                 node.evaluation, node.state.id, node.action.fingerprint, self.policy, False
             )
+            assessed.add(node.id)
             node.status = "verified" if result.decision == Decision.EXECUTE else "rejected"
             node.value = node.evaluation.utility
             node.cumulative_risk = min(1.0, node.cumulative_risk + node.evaluation.risk_upper)
@@ -595,19 +615,150 @@ class Runtime:
                 )
                 await self.emit("node_updated", {"node": node.model_dump()})
         qualified = [n for n in roots if n.status == "verified"]
-        selected = max(qualified, key=lambda n: n.value) if qualified else None
+        if self.candidate_selector is None:
+            selected = max(qualified, key=lambda n: n.value) if qualified else None
+        else:
+            selected = await self.select_candidates(
+                state, roots, root_proposals, invalid_contracts, assessed
+            )
         await self.emit(
             "search_selected",
             {
                 "node_id": selected.id if selected else None,
-                "reason": "Highest backed-up value among qualified first actions"
+                "reason": (
+                    "Opt-in selection among completely assessed qualified root actions"
+                    if self.candidate_selector is not None
+                    else "Highest backed-up value among qualified first actions"
+                )
                 if selected
-                else "No root action passed the evidence gate",
+                else (
+                    "No root action selected"
+                    if self.candidate_selector is not None
+                    else "No root action passed the evidence gate"
+                ),
                 "candidates": [
                     {"node_id": n.id, "name": n.action.name, "status": n.status, "value": n.value}
                     for n in roots
                 ],
                 "scope": "Only the first action is authorized; observe and replan after execution",
+            },
+        )
+        return selected
+
+    async def select_candidates(self, state, roots, proposals, invalid_contracts, assessed):
+        candidates = []
+        for action in proposals:
+            node = next((n for n in roots if n.action.fingerprint == action.fingerprint), None)
+            result = None
+            if action.fingerprint in invalid_contracts:
+                status = "invalid_contract"
+            elif node is None or node.id not in assessed:
+                status = "unexpanded" if node is None else "unresolved"
+            else:
+                result = gate(node.evaluation, state.id, action.fingerprint, self.policy, False)
+                # Use the structured Gate decision with verification possible, not
+                # reason text: hard veto remains ABSTAIN, missing evidence is VERIFY.
+                preview = gate(node.evaluation, state.id, action.fingerprint, self.policy, True)
+                status = {
+                    Decision.EXECUTE: "qualified",
+                    Decision.ABSTAIN: "rejected",
+                    Decision.VERIFY: "unresolved",
+                }[preview.decision]
+            candidates.append(
+                CandidateAssessment(
+                    action=action.model_copy(deep=True),
+                    node_id=node.id if node else None,
+                    status=status,
+                    verification_performed=bool(node and node.predictions),
+                    predictions=[p.model_copy(deep=True) for p in node.predictions] if node else [],
+                    evaluation=node.evaluation.model_copy(deep=True) if node else None,
+                    gate=result,
+                )
+            )
+        batch = CandidateBatch(
+            run_id=self.run_id, state=state.model_copy(deep=True), candidates=candidates
+        )
+        digest = identity(batch.model_dump())
+        await self.emit(
+            "candidate_qualification",
+            {
+                "batch": batch.model_dump(),
+                "batch_hash": digest,
+                "complete": batch.complete,
+                "qualified_ids": list(batch.qualified_ids),
+            },
+        )
+        if not batch.complete or not batch.qualified_ids or not self.available():
+            await self.emit(
+                "candidate_selection",
+                {
+                    "batch_hash": digest,
+                    "node_id": None,
+                    "reason": "incomplete_or_unqualified_or_budget_exhausted",
+                },
+            )
+            return None
+
+        def seal():
+            return identity(
+                {
+                    "state": state.model_dump(),
+                    "policy": self.policy.model_dump(),
+                    "task": self.task.model_dump(),
+                    "roots": [n.model_dump() for n in roots],
+                    "budget": [
+                        self.calls,
+                        self.agent_calls,
+                        self.execution_calls,
+                        self.cost,
+                        self.cost_known,
+                        self.started,
+                    ],
+                    "engines": [e.capabilities.model_dump() for e in self.registry.engines],
+                    "declarations": [c.model_dump() for c in self.registry.declarations.values()],
+                }
+            )
+
+        original = seal()
+        isolated = batch.model_copy(deep=True)
+        heads = await self.store.call("run_heads", [self.run_id])
+        chosen = self.candidate_selector.select(isolated)
+        if inspect.isawaitable(chosen):
+            if inspect.iscoroutine(chosen):
+                chosen.close()
+            raise ValueError("Selector must be synchronous and perform no additional work")
+        if (
+            seal() != original
+            or identity(isolated.model_dump()) != digest
+            or await self.store.call("run_heads", [self.run_id]) != heads
+        ):
+            raise ValueError("Selector changed its input or Runtime authority")
+        if not isinstance(chosen, str) or chosen not in batch.qualified_ids:
+            raise ValueError("Selector returned a candidate outside the qualified set")
+        selected = next(n for n in roots if n.id == chosen)
+        entry = next(c for c in batch.candidates if c.node_id == chosen)
+        authorization = gate(
+            selected.evaluation, state.id, selected.action.fingerprint, self.policy, False
+        )
+        if (
+            selected.state != state
+            or selected.action != entry.action
+            or authorization.decision != Decision.EXECUTE
+            or authorization.evidence_hash != entry.gate.evidence_hash
+            or authorization.policy_hash != entry.gate.policy_hash
+            or not self.available()
+        ):
+            raise ValueError("Selected candidate binding or budget changed")
+        await self.emit(
+            "candidate_selection",
+            {
+                "batch_hash": digest,
+                "node_id": chosen,
+                "state_id": state.id,
+                "action_fingerprint": selected.action.fingerprint,
+                "evidence_hash": authorization.evidence_hash,
+                "policy_hash": authorization.policy_hash,
+                "reason": "Opt-in selector; Gate preview is not execution authorization",
             },
         )
         return selected
@@ -619,6 +770,8 @@ class Runtime:
         direct: bool = False,
         forecast_selected: bool = False,
     ):
+        if self.candidate_selector is not None and direct:
+            raise ValueError("Candidate selector cannot use direct execution")
         deadline = asyncio.timeout(self.policy.max_seconds)
         try:
             async with deadline:

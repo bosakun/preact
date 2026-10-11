@@ -879,3 +879,39 @@ PRはレビュー待ちに残し、merge/auto-mergeは行わない。
 ローカル645passと本評価/監査の結果は維持するが、CI成功とは扱わない。
 正式な回復/選択の履歴再検証を省略せず、CI job上限45分と終了時durations表示を追加。
 テスト・実装・固定protocol・安全Policyは変更しない。新しい最終headの全CIを再確認する。
+
+# Verified Multi-Candidate Decision — implementation started
+
+2026-10-11: User approved an opt-in flat-root selector. Work starts from public main
+151d99ca54b0dd64cd379ce29fafb60097b5652c in a separate worktree; original dirty
+workspace is untouched. Runtime owns proposal completeness and Gate qualification;
+the pure synchronous selector chooses only an admitted node ID. Defaults retain Core
+utility. Prediction, qualification, selection and execution records are separate.
+
+Initial integration tests demonstrate a genuine independent permit veto followed by
+submit(1) execution/complete receipt, and two receipt-trained models choosing 1/3
+at the same complete State with equal Core utility. Initial failures exposed numeric
+rehydration changing record hashes and missing fixture preparation verification;
+fixed by hashing the original persisted record and using the actual mandatory
+fixture verifier during preparation. Negative tests and full validation are pending.
+Next: freeze the dedicated protocol, implement independent audit, run pilot/main,
+then all quality checks. No PR or merge has occurred for this change.
+
+### Verified multi-candidate — implementation checkpoint (2026-10-11)
+
+- 承認されたflat-root opt-in selector、全提案集合の完了証明、独立Gate分類、qualified内の
+  価値選択、選択後/intent後の完全State・source・Health fencingを実装した。
+- 新しい投入許可fixtureでsubmit(3)を独立Verifierが拒否し、submit(1)を正式実行して
+  complete receiptを取得する。別の正式学習分布による同じStateでの実Action差もテストした。
+- Python全回帰668件pass。追加の改ざん監査・selector/取消/偽outcomeテストを含む
+  新機能33件pass。最終コードで全回帰を再実行中。
+- Ruff pass、frontend契約再生成差分なし、build pass、Chromium E2E 6件pass、
+  wheel/sdist integrity pass。Coreデフォルト・過去テスト・過去protocol/resultsを変更しない。
+- 新規v1 pilotは回復評価4組が既存の必須8組に満たず昇格拒否で停止。失敗出力を保持した。
+  v2では回復用比較seedを既存PR #12の4seedへ分離する。閾値・重み・環境・判断seedは変更しない。
+- selectorコピーの通常のPython equalityで同値になる型変更も拒否するため、内容hashを照合する。
+  計測中のsource変更を避けるため、中間pilotを保存して最終コードで新しい出力先へ再実行する。
+- 正式Model B昇格後の小規模3判断/3実行は独立監査pass。学習選択1回、horizon不足fallback2回。
+  これは回復後の新episodeでの利用であり、同一episodeでの回復・一般的優位性の実証ではない。
+- 次の作業: 最終pilot監査、本評価120episode、専用auditor、費用/反例を含む結果文書、
+  最終配布監査、独立PRとCI確認。mainへのmerge/auto-mergeは行わない。
