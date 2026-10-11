@@ -158,3 +158,13 @@ Bayes filter、ニューラルWorld Model、厳密なPOMDP最適化ではない�
 公開mainを基点に、この認知拡張のみPRへ追加する。数値要約とsource/evidence hashesを
 公開し、raw events/SQLite/artifactsは開発環境に保持する。既存の公開sourceは実測manifestと
 byte一致。新しいoutputで再実行すれば、同じ指標・監査を再現できる。
+
+### 監視付き世界モデルからの一候補選択
+
+`QueueModelPlanner`は正式Guard/Recoveryの3tick比較を固定Goal効用へ接続するopt-in。
+`QueueSelectionWorld`を通し、CognitiveAgentの同期round contextで判断とRuntime runを
+関連付ける。width=1/max_nodes=1/search=False以外は拒否する。Coreの探索utilityを
+上書きせず、候補を一つにすることで独立Gateの可否と認知選択を分離する。
+Gate拒否はABSTAINとし、その判断で別Actionを実行しない。Prediction/Health/順位は
+実行許可や実経験ではない。利用例・鮮度・費用・manifest制約はlearned-dynamics.mdを参照。
+新Plannerは状態を持つためBelief Reuseにopt-inせず、毎回実observeとMemory確認を維持する。

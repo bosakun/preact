@@ -234,3 +234,16 @@ Keep AGENTS.md synchronized with the actual repository.
 If statements about the repository state become outdated as implementation progresses, update them.
 
 Do not remove these autonomous-development rules unless explicitly instructed by the user.
+
+### Opt-in world-model action selection
+
+QueueModelPlanner can rank monitored H3 predictions and propose exactly one action
+through QueueSelectionWorld and CognitiveAgent. Keep width=1/max_nodes=1/search=False;
+Core still independently verifies and gates execution. Selection traces, local
+prediction usage, health and actual complete receipts have separate meanings.
+Receipt corruption, source updates, cancellation or inference errors must not become
+ordinary model-unavailable fallback. No raw learned score certifies safety.
+Frozen selection protocol/results are separate from temporal, drift and recovery
+benchmarks. Count formal warmup actions and distinguish fallback-only episodes.
+Do not reinterpret environment-only forecasts as closed-loop outcome labels.
+Keep the long-term purpose, design approval and functional completion rules above.

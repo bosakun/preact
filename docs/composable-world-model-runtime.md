@@ -197,3 +197,13 @@ Core/Gate/Authorizationを変更せず、Action比較は読取専用のままで
 Authorizationへの権限変更はない。詳細・固定受入条件はlearned-dynamics.mdを参照。
 これはepisodeをまたぐ回復であり、同一Worldの連続回復・自動昇格・rollbackは未実装。
 機能的完成を通常の計算性能最適化より優先し、正確性・安全性と計算費用を測定する。
+
+### 世界モデルとAction選択の接続（Queue opt-in）
+
+監視付き学習モデルがavailableのとき、認知Plannerが各Actionのenvironment-only H3
+期待Goal効用を比較し、一候補を通常Runtimeへ渡す。モデルの選択価値とCoreの
+実行承認を分離する。Core/Registry/Verifier/Gateの責務は維持し、selected proposal、
+Gate、durable intent、complete receiptをrunで関連付ける。Queue専用効用は認知/domain側。
+この最小実装は世界モデル全体の定義や汎用的な最適計画ではない。
+モデルが未利用のfallback-only episodeを成功実証に数えず、実Actionと実Outcomeを
+比較する。詳細と次の複数安全候補への拡張境界はlearned-dynamics.mdに記録する。

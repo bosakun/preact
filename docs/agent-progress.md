@@ -794,3 +794,76 @@ Core/Gate/Engine/Trainer/Memory・既存APIへの追加差分なし。raw DB/mod
   全Python615、frontend契約byte一致/build、Chromium6、pilot/本評価2独立監査が完了。
 - PR #11へ通常pushと本文更新を行い、最新commitのGitHub push/PR CIを確認する。
   main/auto-mergeは操作しない。元作業ツリーの未commit変更は保持。
+
+### World Model-Grounded Action Selection — implementation started
+
+承認済みの一候補方式（width=1 / max_nodes=1 / search=False）を公開main
+c49c686から独立ブランチで実装中。Core/Gate/Registry/学習契約は変更しない。
+認知層のround記録hook、監視付き比較、固定H3期待効用、実行直前の実観測と
+source token fenceを追加。新protocol `benchmarks/queue-model-selection-v1.json`
+をpilot/本評価の前に固定した。旧protocol/resultsは保持する。
+初期テストではJSON正規化の不一致を修正。probeなしの通常行動だけでは
+有効能力観測が8件に達せず、fallbackだけで終了するケースも確認した。
+このケースを成功扱いせず、正式な準備probeの費用・tickを明示して別に評価する。
+次は閉ループ、昇格済みModel B、独立監査、全品質検証。
+
+検証途中記録：Python全642件、Ruff、frontend contracts一致/build、Chromium E2E 6件、
+distribution integrity（85 Python source一致）が成功。回復準備費用の新しい集計で、
+異なる実episodeを一つにまとめたmanifestをDatasetが拒否したため、source/evaluation
+branchの実episode別に修正する。既存の連続性チェックを緩めない。
+初期pilotの結果は機能成立の診断用で、最終コード・固定protocolの再実行/監査待ち。
+旧ベンチマーク結果は変更していない。本評価・PR・CIは未完了。
+
+予算監査で、昇格済みRecoveryの独立評価再実行（8組×3分布×3候補=72予測）が
+選択用3予測と別に実行されることを確認。既存予約/実績channelへ両方を計上する。
+Core/Recoveryの意味は変更しない。v1は診断履歴として残し、全方式のcall上限128の
+v2を本評価前に固定する。効用・閾値・seedは無変更。v1の不完全な計上を最終成功
+として扱わない。予算32で昇格後比較が開始されずABSTAINする否定テストを追加。
+新しい準備Health履歴も実際のRuntime最終observeを使い、改時刻Stateを作らない。
+
+新コードの全回帰は642pass/1fail。新しい予算否定テストで同じjournalへ2回目の昇格を
+試み、既存one-promotion規則により拒否された。規則は維持し、正式に昇格した
+Sourceの75-call予約を実WorldのRuntime予算判定へ渡す否定テストへ分離する。
+2つの小規模正式再実行と各独立監査はpass、意味的hash aca9ba64…32cbが一致。
+
+回復後pilotは、統計的Health不足でRecoveryがactive handleを閉じた後に
+有効観測が戻るケースで停止した。破損/取消と区別できるよう、最初の正式な
+統計的deactivation理由を認知判断へ記録し、handleがない間はfallbackを維持する。
+自動restore・再昇格は追加しない。両方向の48tick統合テストを追加し、正当な
+不足による停止と利用経路不明の喪失を分離する。昇格setup/回復事前評価のローカル
+呼出しとCPU/wallも別計上。過去Stateをintent後の実観測として返す否定テストがpass。
+Core/Gate/Registry/既存Guard/Recovery/Trainerのコードは無変更。
+
+最終コード全回帰645 passed in1019.62s（pilot/再現試験と並行）。Ruff188 files、
+frontend contracts一致/build、Chromium6（13.1s）、CPU bridge16がpass。
+固定v2 pilot45episode/全独立監査pass。昇格済みBが両方向の新episodeで
+26/17回選択し、全て正式Runtime/complete receiptへ到達。unsafe/Gate拒否/ABSTAIN0。
+小規模同条件2実行と各独立監査もpass、意味的hash bac93c31…6c05一致。
+pilot CPU765.385s/wall816.843s/peak151.735MiBは並行検証の影響を含む参考値。
+本評価320episodeを単独で開始し、意思決定改善/悪化/同値とcoverageを監査する。
+
+固定v2本評価320episodeが正常終了。source hash 3b23324a…5b8cb2、semantic hash
+198cb50f…b47684。CPU4690.226s/wall5038.857s/peak172.813MiB。全Goal達成/unsafe0、
+Gate拒否/ABSTAIN0はfixtureの結果であり一般保証ではない。学習方式64episode中55で
+1,214回のモデル選択が成立、失効8/noise1はfallback-only。回復後Bは両方向4seedで
+各26/17回の選択が実行へ到達。低能力の固定事前比Reward−3.4→20.1/holding30→11、
+既存Plannerとは同値。noiseは学習24.5875/固定事前17.99375/既存24.66875/固定33.25で、
+既存・固定より悪化する。結果や閾値を変更しない。全判断の独立監査を開始した。
+残り: 監査完了、公開aggregate/結果文書、最終distribution、commit/PR/CI。mainへmergeしない。
+
+本評価の独立監査が完了: 320 episode/11,400判断・11,400実行、unsafe0。
+State/Action fingerprint/run/intent/receipt/時系列/モデル出所/Health/順位/費用と
+実Fixture再生を照合し、semantic hash 198cb50f…b47684が一致した。
+監査の外側time計測はreal5168.36s/user3450.97s/sys1455.46s（benchmark費用と別）。
+macOS timeのkern.clockrate照会は権限制限で警告したが、監査本体は成功しaudit.jsonを保存。
+専用の公開aggregateと日本語結果文書を作成。raw DB/receipt/model/cacheは非公開のまま。
+partialのモデル開始がGoal後、noise seed108のsuspected、Bの統計的deactivationと
+自動復帰なしも記録した。旧benchmarkと結果は無変更。
+残り: 最終distribution integrity、commit/PRと最終headのCI確認。mainへmergeしない。
+
+最終wheel/sdistを新しいprivate出力先でbuildし、85 Python sources、assets/license、
+private-path除外のdistribution integrityがpass。公開集計はaggregateのみで、
+source/auditor/semantic hash、readiness、指標scopeと独立監査結果を含む。
+旧Core/学習/Guard/Recovery・凍結protocol/resultsは無変更。元作業ツリーも保持。
+ローカル検証完了後にfeature branchをcommit/pushし、独立PRと最終head CIへ進む。
+main/auto-mergeは操作しない。
