@@ -130,6 +130,7 @@ class CognitiveAgent:
         use_memory: bool = True,
         reuse_beliefs: bool = False,
         episode_budget: bool = False,
+        candidate_selector=None,
     ):
         self.store, self.artifacts, self.registry = store, artifacts, registry
         self.planner, self.goals = planner, sorted(goals, key=lambda g: -g.priority)
@@ -138,6 +139,7 @@ class CognitiveAgent:
             raise ValueError("Search requires explicit hypothetical proposal support")
         self.use_memory = use_memory
         self._episode_budget = episode_budget
+        self.candidate_selector = candidate_selector
         self.reuse_beliefs = reuse_beliefs
         self.belief_estimator = BeliefEstimator(enabled=reuse_beliefs)
         self.memory = EpisodicMemory(store)
@@ -197,7 +199,13 @@ class CognitiveAgent:
                         )
                     break
                 policy = Policy.model_validate({**policy.model_dump(), **remaining})
-            runtime = Runtime(self.store, self.artifacts, self.registry, policy)
+            runtime = Runtime(
+                self.store,
+                self.artifacts,
+                self.registry,
+                policy,
+                candidate_selector=self.candidate_selector,
+            )
             run_id = uid()
             await self.store.call(
                 "create_run",

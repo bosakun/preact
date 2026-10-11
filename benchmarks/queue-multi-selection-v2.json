@@ -1,0 +1,165 @@
+{
+  "schema_version": "1",
+  "pilot_seeds": [
+    201
+  ],
+  "evaluation_seeds": [
+    101,
+    102
+  ],
+  "training_seeds": [
+    11,
+    12
+  ],
+  "training_ticks": 16,
+  "episode_ticks": 48,
+  "target": 30,
+  "capacity": 12,
+  "horizon": 3,
+  "fixed_prior": 0.5,
+  "holding_cost": 0.25,
+  "submission_cost": 0.1,
+  "probe_cost": 0.05,
+  "modes": [
+    "multi_learned",
+    "single_learned",
+    "multi_prior",
+    "existing",
+    "fixed",
+    "core_utility_control"
+  ],
+  "policy": {
+    "search": false,
+    "calibration": false,
+    "width": 3,
+    "max_nodes": 3,
+    "max_calls": 128,
+    "max_seconds": 120
+  },
+  "warmup": [
+    "probe",
+    "probe",
+    "probe",
+    "probe",
+    "probe",
+    "probe",
+    "probe",
+    "probe",
+    3,
+    3,
+    0,
+    0,
+    0
+  ],
+  "detector": {
+    "window": 16,
+    "min_recent": 8,
+    "min_training": 16,
+    "min_effect": 0.1,
+    "alpha": 0.05,
+    "max_gap_ticks": 16
+  },
+  "environments": {
+    "stable_low": {
+      "high_first": false,
+      "shift_tick": 48,
+      "noise": 0
+    },
+    "stable_high": {
+      "high_first": true,
+      "shift_tick": 48,
+      "noise": 0
+    },
+    "low_to_high": {
+      "high_first": false,
+      "shift_tick": 24,
+      "noise": 0
+    },
+    "high_to_low": {
+      "high_first": true,
+      "shift_tick": 24,
+      "noise": 0
+    },
+    "noise": {
+      "high_first": false,
+      "shift_tick": 24,
+      "noise": 0.2
+    },
+    "partial": {
+      "high_first": false,
+      "shift_tick": 48,
+      "noise": 0,
+      "warmup": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "invalidated": {
+      "high_first": false,
+      "shift_tick": 48,
+      "noise": 0,
+      "training_high": true
+    },
+    "admission_veto": {
+      "high_first": true,
+      "shift_tick": 48,
+      "noise": 0,
+      "warmup": [
+        "probe",
+        "probe",
+        "probe",
+        "probe",
+        "probe",
+        "probe",
+        "probe",
+        "probe"
+      ],
+      "fixture": "owned-submission-permit/v1",
+      "submission_limit": 1
+    }
+  },
+  "recovery_directions": [
+    "low_to_high",
+    "high_to_low"
+  ],
+  "recovery_seeds": [
+    101,
+    102
+  ],
+  "diagnostic_seeds": [
+    301,
+    302
+  ],
+  "diagnostic_prefix": [
+    3,
+    3,
+    0,
+    0,
+    0
+  ],
+  "evaluation_function": "Expected min(remaining goal, delivered at tick 3 minus current delivered) minus 0.25 * sum(queue ticks 1..3) minus 0.1 * root amount; tie lower amount",
+  "freeze": "v2 corrects pilot v1 configuration: recovery needs the unchanged minimum eight independent action-comparison groups (four preselected PR12 comparison seeds x two workloads). No threshold, weight, environment or decision seed tuned after pilot; v1 failed pilot retained.",
+  "limits": [
+    "Strict full qualification: unexpanded/unresolved candidates force ABSTAIN",
+    "Default Runtime/Core utility and PR12 single-candidate behavior unchanged",
+    "One-candidate baseline uses width=1/max_nodes=1; common call/time limits",
+    "No initial public-bound filter in multi mode; all proposed candidates independently assessed",
+    "Preparation and recovery costs reported separately; no fabricated outcomes",
+    "H3 environment-only forecast diagnostics separate from executed closed-loop one-tick scoring",
+    "Small paired CPU fixture study; noiseless seed replication is not generalization",
+    "Unknown compute dollar cost is not zero"
+  ],
+  "protocol_revision": "verified-multi-candidate-v2",
+  "recovery_comparison_seeds": [
+    301,
+    302,
+    303,
+    304
+  ]
+}

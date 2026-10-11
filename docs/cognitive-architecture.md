@@ -168,3 +168,13 @@ byte一致。新しいoutputで再実行すれば、同じ指標・監査を再�
 Gate拒否はABSTAINとし、その判断で別Actionを実行しない。Prediction/Health/順位は
 実行許可や実経験ではない。利用例・鮮度・費用・manifest制約はlearned-dynamics.mdを参照。
 新Plannerは状態を持つためBelief Reuseにopt-inせず、毎回実observeとMemory確認を維持する。
+
+## Verified multi-candidate selection extension
+
+`QueueMultiPlanner`は、実観測に結び付く全候補のH3予測・価値を先に記録する。
+Runtimeが全候補の独立Verifier/Gateを評価し、完了したqualified集合内でのみ
+Plannerのpure selectorが選ぶ。予測上の第一候補を、最終選択や実行済み経験として扱わない。
+`QueueMultiSelectionWorld`は選択後とintent後に完全State/source/Healthを照合する。
+記憶へ入るのは従来どおりcomplete receiptに裏付けられたActual Outcomeだけである。
+PR #12の一候補方式とCoreの標準選択は保持する。
+[設計と利用例](queue-multi-selection.md)、[固定評価の結果](queue-multi-selection-results.md)を参照。

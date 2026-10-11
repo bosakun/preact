@@ -247,3 +247,19 @@ Frozen selection protocol/results are separate from temporal, drift and recovery
 benchmarks. Count formal warmup actions and distinguish fallback-only episodes.
 Do not reinterpret environment-only forecasts as closed-loop outcome labels.
 Keep the long-term purpose, design approval and functional completion rules above.
+
+### Opt-in verified multi-candidate root selection
+
+Runtime may accept an explicit candidate_selector only for flat root comparison.
+With None, preserve default Core utility/search behavior. Runtime owns the frozen
+proposal set, independent verification, structured Gate qualification and completion
+proof. Unexpanded/unresolved candidates forbid selection; hard vetoes remain vetoes.
+The synchronous selector receives defensive copies and returns one qualified node
+ID only. It must not predict, call APIs, execute, write Store or alter safety data;
+failure never falls back to utility. This is a trusted in-process contract, not an
+OS sandbox. Fresh observation, final Gate, authorization, intent and receipt stay
+in Runtime. Keep prediction ranking, qualification, final choice and actual outcome
+separate. QueueMultiSelectionWorld fences complete State/source/model dependencies
+after selection and again after intent. The owned submission-permit fixture is not
+normal Queue v2. Preserve all historical protocols/results; measure extra verification
+cost and report failed, adverse, tied and fallback-only conditions.

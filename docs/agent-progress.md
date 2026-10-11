@@ -879,3 +879,88 @@ PRはレビュー待ちに残し、merge/auto-mergeは行わない。
 ローカル645passと本評価/監査の結果は維持するが、CI成功とは扱わない。
 正式な回復/選択の履歴再検証を省略せず、CI job上限45分と終了時durations表示を追加。
 テスト・実装・固定protocol・安全Policyは変更しない。新しい最終headの全CIを再確認する。
+
+# Verified Multi-Candidate Decision — implementation started
+
+2026-10-11: User approved an opt-in flat-root selector. Work starts from public main
+151d99ca54b0dd64cd379ce29fafb60097b5652c in a separate worktree; original dirty
+workspace is untouched. Runtime owns proposal completeness and Gate qualification;
+the pure synchronous selector chooses only an admitted node ID. Defaults retain Core
+utility. Prediction, qualification, selection and execution records are separate.
+
+Initial integration tests demonstrate a genuine independent permit veto followed by
+submit(1) execution/complete receipt, and two receipt-trained models choosing 1/3
+at the same complete State with equal Core utility. Initial failures exposed numeric
+rehydration changing record hashes and missing fixture preparation verification;
+fixed by hashing the original persisted record and using the actual mandatory
+fixture verifier during preparation. Negative tests and full validation are pending.
+Next: freeze the dedicated protocol, implement independent audit, run pilot/main,
+then all quality checks. No PR or merge has occurred for this change.
+
+### Verified multi-candidate — implementation checkpoint (2026-10-11)
+
+- 承認されたflat-root opt-in selector、全提案集合の完了証明、独立Gate分類、qualified内の
+  価値選択、選択後/intent後の完全State・source・Health fencingを実装した。
+- 新しい投入許可fixtureでsubmit(3)を独立Verifierが拒否し、submit(1)を正式実行して
+  complete receiptを取得する。別の正式学習分布による同じStateでの実Action差もテストした。
+- Python全回帰668件pass。追加の改ざん監査・selector/取消/偽outcomeテストを含む
+  新機能33件pass。最終コードで全回帰を再実行中。
+- Ruff pass、frontend契約再生成差分なし、build pass、Chromium E2E 6件pass、
+  wheel/sdist integrity pass。Coreデフォルト・過去テスト・過去protocol/resultsを変更しない。
+- 新規v1 pilotは回復評価4組が既存の必須8組に満たず昇格拒否で停止。失敗出力を保持した。
+  v2では回復用比較seedを既存PR #12の4seedへ分離する。閾値・重み・環境・判断seedは変更しない。
+- selectorコピーの通常のPython equalityで同値になる型変更も拒否するため、内容hashを照合する。
+  計測中のsource変更を避けるため、中間pilotを保存して最終コードで新しい出力先へ再実行する。
+- 正式Model B昇格後の小規模3判断/3実行は独立監査pass。学習選択1回、horizon不足fallback2回。
+  これは回復後の新episodeでの利用であり、同一episodeでの回復・一般的優位性の実証ではない。
+- 次の作業: 最終pilot監査、本評価120episode、専用auditor、費用/反例を含む結果文書、
+  最終配布監査、独立PRとCI確認。mainへのmerge/auto-mergeは行わない。
+
+### Verified multi-candidate — final evaluation in progress (2026-10-11)
+
+- 最終actorコードでPython全回帰678件pass後、intent後の否定ケース9件を追加。
+  新機能/独立監査42件pass、最終全回帰を再実行中。
+- frontend契約差分なし、build pass、最終Chromium E2E 6件pass (12.7s)。
+- v2最終pilot 60 episode / 2121判断 / 2120実行を独立監査pass。
+  本評価120 episodeを実行中。通常ケースの計測は完了し、回復ケースを実行中。
+- 新旧モデルの実Action差、独立permit veto後の代替実行、全拒否・未解決・予算不足、
+  selector例外/変更/取消、選択後およびintent後のState/source/Health/Auth失効を検証した。
+- 専用16 tickの再現確認を2つの独立したStore/Worldで実行。各8判断/8実行、
+  7件の代替実行、Action列と時間以外の集計hashが一致し、両方を独立監査pass。
+  これは本評価全体の再実行や、一般化性能の証明ではない。
+- auditorのPromotion commit順序照合で、RunHead.next_seqが最大確定seqを保持する
+  既存契約を確認。境界を含む比較へ修正し、実際のModel B回復3判断/3実行を再監査pass。
+  Actor・Core契約・昇格条件は変更していない。
+- 次: 本評価と最終auditor完了、結果文書/公開集計、最終配布監査、PR/CI。
+
+### Verified multi-candidate — local regression and main measurement complete
+
+- 最終Python全回帰687件pass (1206.04s)。新規42件を含み、過去テストは変更していない。
+- v2本評価120 episodeの計測完了: 4242判断、unsafe 0、ABSTAIN 2、
+  全候補検証完了4242、代替qualifiedあり260/代替実行260。最終auditorで再検証中。
+- permit fixtureの新方式では第一候補拒否68件を別qualified候補の正式実行へ接続。
+  一候補方式は同条件で2件ABSTAINしGoal未達。通常環境では新旧方式の結果は一致。
+- 固定事前より良い条件はあるが、noise/partialでは固定方策のGoal-capped Utilityが高い。
+  標準条件のVerifierは210対70と新方式が3倍。全方式への優位性を主張しない。
+- 結果文書と公開集計JSONを作成。raw Ledger/manifest/artifactはprivate cacheに保持する。
+- 次: 120 episodeの最終独立監査、最終配布監査、公開用監査JSON、PR/CI。
+
+### Verified multi-candidate — completed local evidence (2026-10-11)
+
+- 最終独立auditor: 120 episode / 4242判断 / 4240実行を再計算してpass。
+  2未実行は一候補対照のGate拒否。120件の公開集計と監査件数を専用JSONに記録した。
+- Model Bの新監視episodeでも実モデル選択を確認（low→high 26回/high→low 17回/episode）。
+  partialはtick42から4回、invalidatedはモデル利用0回/fallback35回であり、別々に報告する。
+- 正式学習した2分布の同じStateでの実Action差、最高価値候補拒否後の代替実行、
+  全候補未解決/取消/変更時のfail closed、source/Healthのintent後fencingを含む687テストpass。
+- Ruff/format、契約再生成一致、frontend build、Chromium6件、最終wheel/sdist監査pass。
+  配布buildはsandbox DNS失敗後、既存build依存を許可ネットワークで取得して再実行pass。
+- CPU2754.361s/wall2954.581s/peakRSS163250176bytes。計算性能の最適化は行っていない。
+  通常条件は一候補方式と同結果、Verifier calls増。noise/partialの固定方策優位も報告した。
+- Core変更はflat rootの明示的selector契約のみ。None時の選択規則、Gate/Verifier/Utility/
+  Authorization/Intent/Receipt意味は維持し、Software/Physicalへ強制適用しない。
+- 残る能力: 低予算の部分qualified集合の契約、時間相関を含むモデル、同一episodeでの回復。
+  同一episode昇格、自動昇格、深い探索、一般的優位性は今回未実装/未実証。
+- このcheckpoint後は専用branchをpushして独立PRを作成し、最終headのCIを確認する。
+  CIの実行結果はPR本文/Checksと最終報告へ記録する。mainへmerge/auto-mergeは行わない。
+  元の未コミット変更と過去protocol/resultsは保護した。
