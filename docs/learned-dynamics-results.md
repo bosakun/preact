@@ -659,3 +659,20 @@ wheel/sdistは83 Python sourcesとassets/license/private pathのintegrity監査p
 保存観測の真正性は既存の所有者・manifest・append-only Store前提に従う。
 暗号学的な外部観測認証や独立なlive環境の検証を新たに証明したわけではない。
 GitHub CIは更新commitで別途確認し、結果をPRへ記録する。mainにはmergeしない。
+
+### World Model-Grounded Action Selectionの独立評価
+
+既存のPR #8〜#11のprotocolと結果を維持し、閉ループ選択は新しい
+`benchmarks/queue-model-selection-v2.json`と
+[専用結果文書](queue-model-selection-results.md)へ分離した。
+320 episode/11,400判断・実行の独立監査がpass。学習方式64 episode中55で
+1,214回のモデル選択が正式Runtime/complete receiptまで到達した。
+同じ完全Stateでreceiptから学習した分布がsubmit(1)/submit(3)の実選択を変える
+統合テストもpass。昇格済みModel Bは実際の新監視episodeで選択に寄与する。
+
+stable lowの固定事前比Rewardは−3.4→20.1、holdingは30→11だが、既存Plannerとは同値。
+noiseは固定事前より改善する一方、既存PlannerよりRewardが0.08125、固定ルールより
+8.6625悪化した。全方式Goal達成率100%で、Goal達成率の改善は実証していない。
+部分観測はモデル利用開始がGoal達成後で、失効とnoiseの一部はfallbackのみ。
+予測精度、実Actionの変化、実Reward、coverageを分けて報告する。
+決定論的条件の複数seed一致は再現性であり、一般化性能・因果理解・安全証明ではない。

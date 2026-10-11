@@ -172,3 +172,17 @@ PR #10の失効機構を再利用し、失効後suffixの学習、episode/run/re
 候補/評価/昇格記録と実行receiptを混同せず、Core・Trainer・Registryの意味を変更しない。
 固定条件と独立監査で成功・拒否・中断復元を評価する。旧protocol/結果を保持する。
 今回の計算性能最適化・自動昇格・rollback・Actionランキングは非目標。
+
+## World-model action selection vertical slice
+
+承認済みのQueue v2一候補方式をopt-inで接続する。監視付きH3予測は認知Plannerの
+Goal価値比較へ入り、選択した一候補を従来のRuntime/Verifier/Gateへ渡す。Coreの
+utility/探索/実行権限を変更しない。設計・使用例・境界は
+[既存Dynamics文書](learned-dynamics.md#world-model-grounded-action-selection承認済み最小経路)へ記録する。
+固定v2 protocolの本評価320 episodeと11,400判断・実行の独立監査が完了した。
+学習方式64 episode中55でモデル選択が成立し、昇格済みBも実際の新episodeで選択する。
+固定事前より改善する条件と既存Planner/固定ルールより悪化する条件があり、全方式の
+Goal達成率は100%で改善を示さない。[結果と制約](queue-model-selection-results.md)を参照。
+Goal改善、Reward改善、Actionの変化は別指標とする。
+後続設計は複数の安全候補からの価値選択、同一episode回復の明示契約、相関/長期/
+不確実性を考慮した評価を優先する。自動昇格・Core書換え・性能最適化はこのsliceに含めない。

@@ -209,7 +209,24 @@ class CognitiveAgent:
                 run_id=run_id,
             )
             run_ids.append(run_id)
-            result = await runtime.run(adapter, run_id=run_id)
+            # Optional cognition-only trace lifecycle. Hooks confer no execution authority.
+            begin = getattr(self.planner, "begin_round", None)
+            end = getattr(self.planner, "end_round", None)
+            try:
+                if callable(begin):
+                    value = begin(run_id, policy.model_copy(deep=True), tuple(run_ids[:-1]))
+                    if inspect.isawaitable(value):
+                        if inspect.iscoroutine(value):
+                            value.close()
+                        raise ValueError("Round trace hooks must be synchronous context setup")
+                result = await runtime.run(adapter, run_id=run_id)
+            finally:
+                if callable(end):
+                    value = end()
+                    if inspect.isawaitable(value):
+                        if inspect.iscoroutine(value):
+                            value.close()
+                        raise ValueError("Round trace cleanup must be synchronous")
             calls += result["calls"] + result["agent_calls"]
             cost += result["cost_usd"]
             await self.memory.remember(run_id)

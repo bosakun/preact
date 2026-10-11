@@ -538,3 +538,131 @@ Artifactの内容hashと既存receipt検証を併用するが、任意の呼出�
 旧の公開結果は上書きしない。通常条件はnoise=0の決定論的fixtureで、同じ条件のseedを
 変えて同じ結果になることは、実装の再現性の確認である。未知環境への一般化性能を
 示す独立な環境サンプルとは扱わない。noise条件の短い標本に関する限界も維持する。
+
+### World Model-Grounded Action Selection（承認済み最小経路）
+
+既存のtemporal Engine/Guard/Recoveryは分析と監視の責務を維持する。
+新しい`cognition.queue_model.QueueModelPlanner`がGoalに対する選択だけを担い、
+`domains.queue_model_selection.QueueSelectionWorld`が実観測とsource更新の照合を行う。
+Coreのutilityや探索・Evidence・Gate・Authorization契約は変更しない。
+
+```mermaid
+flowchart TD
+  O[今回のauthoritative World.observe] --> M[receipt-backed Memory / Belief]
+  M --> H[Guardまたは明示的に昇格したRecovery / Health]
+  H -->|available| P[同じState・iid外生serviceで3候補のH3予測]
+  P --> V[固定した期待Goal進捗 − 滞留費用 − root投入費用]
+  V --> S[一候補を選択・runに認知判断を記録]
+  H -->|正当な不足・失効・unknown| F[既存no_probe Planner fallback]
+  F --> S
+  H -->|破損・更新競合・例外・取消| X[停止 / 必要なら未確定実行を照合]
+  S --> R[通常Runtime: width1 / max_nodes1 / searchFalse]
+  R --> E[独立した即時・future Bound Verifier]
+  E --> G[Gate]
+  G -->|拒否| A[ABSTAIN / 同じ判断で代替を試さない]
+  G -->|許可| B[fresh observation / Authorization / durable intent]
+  B --> C[追加の実World.observe・full State/source token/Action/intent照合]
+  C --> U[一手実行]
+  U --> Q[Actual Observation / complete receipt]
+  Q --> M
+```
+
+固定評価関数は各branchでGoal残量を先にcapし、期待値を取る。
+`Σ weight × (min(残Goal, D3−D0) − holding_cost × Σ queue1..3 − submission_cost × amount)`。
+同値なら少ない投入を選ぶ。未来の継続はenvironment-only（投入0）で、閉ループの
+後続Action列を予測したものではない。処理能力のiid/定常性は仮定であり、未来の
+隠れscheduleへのアクセス、能力測定や安全証明ではない。全3候補の予測が成立し、
+Healthが厳密にavailableの場合だけモデル値を採用する。suspectedもfallbackする。
+公開service下限による候補除外は全baselineへ共通に適用し、Evidenceにはしない。
+
+**接続と予算。** `CognitiveAgent`はoptionalな同期`begin_round(run_id, policy_copy,
+previous_run_ids)` / `end_round()`を呼ぶ。軽量なcontext設定・取消時cleanup専用で、
+新しい実行権限はない。Policyはcopyで渡し、PlannerがRuntimeのPolicyを緩和できない。
+通常のproposeと同じRuntime期限内で比較する。通常モデルでは最大3を予約する。昇格済みモデルでは既存Recoveryの独立評価再実行
+（8組 × 3分布 × 3候補 = 72予測）も含めて75を予約する。正常完了した再実行は
+既存Recoveryが保存forecastとの完全一致を確認するため、その対応envelopeから
+ローカルusageを記録し、選択用3予測と区別する。完了前の例外は成功実績にしない。
+実績0の場合のrefundも既存channelの契約に従う。外部API呼出し0、
+ローカルAPIドル費用0と、CPU/wall・未換算の計算ドル費用を区別する。
+外部サービスReceiptやAPI使用量を作らない。例外時は予約を成功実績へ書き換えず停止。
+Queue Taskは従来どおり一roundを表すため、総round数は呼出側が制限し、ここでは
+固定48tickと各roundの時間/call上限を併記する。Softwareのepisode_budgetを変更しない。
+
+**Authorityと鮮度。** selection eventに完全な実State、Goal、各fingerprint、予測、
+価値/順位、Health/model/dataset/view、既知source run tokensを記録する。
+実行前のfresh観測はtimestamp以外の全State情報を照合し、実際のaware timestampが
+判断観測より前や未来にならないことを確認する。timestampを加工しない。
+実行直前も追加の実observeを行い、source tokens、判断記録の内容hash/単一event、
+選択Action、Runtimeのpending intentとauthorizationを照合する。dispatch bindingは
+実行済み証明ではない。完了receiptとoutcomeがそろって初めて実経験となる。
+エラー/取消はpending選択を破棄し、Coreの既存interrupted/reconciliationを尊重する。
+新Registryを使うGuard/Recoveryを再利用し、旧Engine/cacheを差し替えない。
+
+**限界。** Source/Worldのownerが完全な実episode manifestを提供する必要がある。
+既知sourceのappend/receipt更新は検出するが、最後の照合後の別writer更新を止める
+分散transactionや、任意Worldの暗号学的認証は実装しない。既存Storeのappend-only
+契約、単一World ownerを前提とする。Guardの直接呼出し全般を実行経路と主張しない。
+Policyを外したraw World/Engineは従来の別APIで、このwrapperの保証対象ではない。
+Gate拒否で安全な代替候補を失う可能性があり、複数安全候補の価値選択は次の設計段階。
+
+使用例（`training`、`model`、`initial`は既存の正式収集・Trainer出力）：
+
+```python
+from preact.cognition import CognitiveAgent, Goal
+from preact.cognition.queue_model import MonitoredQueueSource, QueueModelPlanner
+from preact.domains.queue_model_selection import QueueSelectionWorld
+from preact.core.models import Policy
+from preact.core.registry import Registry
+from preact.engines.information_queue import InformationBoundVerifier
+from preact.engines.queue_temporal_guard import QueueTemporalGuard
+
+guard = QueueTemporalGuard(store, world.task, model, training,
+                           episode_id=episode_id, initial=initial)
+planner = QueueModelPlanner(MonitoredQueueSource(store, guard, training),
+                            prefix_runs=completed_preparation_runs)
+selected_world = QueueSelectionWorld(world, planner)
+agent = CognitiveAgent(store, artifacts,
+    Registry([InformationBoundVerifier(world.task),
+              InformationBoundVerifier(world.task, future=True)]),
+    planner, [Goal(name="Deliver", metric="delivered", target=world.target)],
+    Policy(width=1, max_nodes=1, search=False, calibration=False))
+agent.memory.run_ids.extend(completed_preparation_runs)
+result = await agent.run(selected_world, remaining_rounds)
+```
+
+昇格済みモデルでは`MonitoredQueueSource.promoted(recovery, promotion_artifact)`を使う。
+呼出側が正式な新監視episodeで観測を蓄積し、既存`recovery.promote()`または明示的
+`restore()`を完了させる。wrapperはWorldのresetやepisode付替え、再学習・自動昇格をしない。
+
+本評価protocol: `benchmarks/queue-model-selection-v2.json`。v1も削除・上書きせず残す。
+初期v1はRecoveryの評価再実行72件を計上していなかった診断用protocolで、
+最終受入結果として使わない。v2ではその処理を実際に予約・精算するため、
+全方式のcall上限を同じ128にする。効用・閾値・seedは変更しない。32上限では
+昇格済みモデルの比較前にABSTAINすることをテストする。raw DB・Artifact・判断記録は
+新しいprivate outputへ保存し、公開成果は集約結果と独立監査の結果に限定する。
+
+```sh
+uv run python -m scripts.benchmark_queue_model_selection --pilot --output NEW_PILOT
+uv run python -m scripts.audit_queue_model_selection --output NEW_PILOT
+uv run python -m scripts.benchmark_queue_model_selection --output NEW_MAIN
+uv run python -m scripts.audit_queue_model_selection --output NEW_MAIN
+```
+
+通常の決定論的条件でseedが変わって同じ結果になることは再現性の検査であり、
+未知環境への一般化の証明ではない。H3誤差・Action差分誤差は別の正式3branch実行で採点し、
+閉ループでは実行した一手の予測誤差だけを採点する。準備probe・回復収集/評価の
+tickと費用を別記し、実RewardとGoal cap付きUtilityも分ける。過去の結果は上書きしない。
+
+Recoveryが正当な統計的Health不足でactive handleを閉じた場合、理由を判断履歴へ
+記録する。その後のfallback実績でHealthがavailableへ戻っても、選択器はhandleを
+自動restoreせず、未利用のままfallbackする。再bindingはownerによる明示的な
+restoreが必要。破損・取消・推論例外によるhandle喪失はこの扱いに含めず停止する。
+現在のHealthと、activeな昇格済み予測経路の有無は別の項目である。
+
+資源の単位も分離する。ローカル予測のusage 1件はpredictの1回で、H3の8通りの
+決定論的service pathはPrediction.sample_count/branchesに残る内部計算である。
+8つの外部API呼出しや独立した安全証拠として数えない。既存RuntimeのVerifier
+rollout sample countは従来のchannelで計上する。準備RuntimeのVerifier calls、
+回復用の事前forecast/独立評価再実行（8組で144ローカル予測）、昇格setupの
+再検証（72予測）、選択roundの75予測を別記する。CPU/wallは全処理を含め、
+ローカルAPI費用0と、未換算の計算ドル費用を区別する。
