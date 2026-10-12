@@ -33,7 +33,7 @@ from preact.learning.recovery import (
     RecoveryRejected,
     recovery_code_hash,
 )
-from preact.learning.transitions import require_disjoint
+from preact.learning.transitions import require_continuous_split, require_disjoint
 
 
 def comparison_data(result: dict) -> dict:
@@ -110,6 +110,8 @@ class QueueModelRecovery:
             episode_id=origin.episode_id,
             initial=origin.initial,
             config=DriftConfig(**origin.config),
+            monitoring_epoch=origin.monitoring_epoch or origin.episode_id,
+            allow_same_episode=origin.continuous_episode,
         )
 
     async def begin(
@@ -123,6 +125,8 @@ class QueueModelRecovery:
         cutoff: State,
         runs: list[str],
         config: DriftConfig = DriftConfig(),
+        continuous_episode: bool = False,
+        monitoring_epoch: str | None = None,
     ) -> str:
         """Capture the first invalidation observation, BEFORE collecting recovery data."""
         async with self._lock:
@@ -141,6 +145,15 @@ class QueueModelRecovery:
                 runs=runs,
                 health_version="",
                 config=asdict(config),
+                monitoring_epoch=monitoring_epoch
+                or identity(
+                    {
+                        "model": parent.version,
+                        "episode": episode_id,
+                        "anchor": initial.model_dump(),
+                    }
+                ),
+                continuous_episode=continuous_episode,
             )
             origin = RecoveryOrigin.model_validate(origin.model_dump())
             health = await self._guard(origin).health(cutoff, runs)
@@ -428,14 +441,27 @@ class QueueModelRecovery:
         ):
             raise ValueError("Promotion model versions mismatch")
         monitoring = await TransitionDataset(self.store, {promotion.episode_id: runs}).snapshot()
-        for other in (training, evaluation):
-            require_disjoint(other, monitoring)
+        if promotion.continuous_episode:
+            require_continuous_split(training, monitoring, continuous_episode=promotion.episode_id)
+            require_disjoint(evaluation, monitoring)
+        else:
+            for other in (training, evaluation):
+                require_disjoint(other, monitoring)
         source = await TransitionDataset(
             self.store, {origin.episode_id: candidate.source_runs}
         ).snapshot()
         parent = await TransitionDataset(self.store, origin.training).snapshot()
-        for other in (source, parent):
-            require_disjoint(other, monitoring)
+        if promotion.continuous_episode:
+            require_continuous_split(source, monitoring, continuous_episode=promotion.episode_id)
+            if promotion.episode_id in parent.episodes:
+                require_continuous_split(
+                    parent, monitoring, continuous_episode=promotion.episode_id
+                )
+            else:
+                require_disjoint(parent, monitoring)
+        else:
+            for other in (source, parent):
+                require_disjoint(other, monitoring)
         guard = QueueTemporalGuard(
             self.store,
             promotion.task,
@@ -444,6 +470,8 @@ class QueueModelRecovery:
             episode_id=promotion.episode_id,
             initial=promotion.initial,
             config=DriftConfig(**promotion.config),
+            monitoring_epoch=promotion.monitoring_epoch or promotion.episode_id,
+            allow_same_episode=promotion.continuous_episode,
         )
         # Validate the exact recorded promotion prefix too; it cannot be replaced at restart.
         recorded = await guard.health(promotion.cutoff, promotion.runs)
@@ -463,6 +491,8 @@ class QueueModelRecovery:
         initial: State,
         state: State,
         runs: list[str],
+        continuous_episode: bool = False,
+        monitoring_epoch: str | None = None,
     ) -> str:
         """Explicit activation. Clear availability before any potentially durable operation."""
         async with self._lock:
@@ -477,6 +507,10 @@ class QueueModelRecovery:
                 if not report.passed:
                     raise RecoveryRejected("evaluation_rejected:" + ",".join(report.reasons))
                 candidate, origin, model, _ = await self._candidate(report.candidate_artifact)
+                if continuous_episode != origin.continuous_episode:
+                    raise ValueError("Promotion continuity contract differs from recovery origin")
+                if continuous_episode and monitoring_epoch == origin.monitoring_epoch:
+                    raise ValueError("Promotion must create a new monitoring epoch")
                 promotion = ModelPromotion(
                     candidate_artifact=report.candidate_artifact,
                     evaluation_artifact=evaluation_artifact,
@@ -490,6 +524,8 @@ class QueueModelRecovery:
                     health_version="",
                     config=origin.config,
                     code_hash=recovery_code_hash(),
+                    monitoring_epoch=monitoring_epoch or episode_id,
+                    continuous_episode=continuous_episode,
                 )
                 promotion = ModelPromotion.model_validate(promotion.model_dump())
                 state, runs = promotion.cutoff, list(promotion.runs)

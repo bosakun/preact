@@ -40,6 +40,8 @@ class RecoveryOrigin(RecoveryRecord):
     runs: list[str]
     health_version: str
     config: dict = Field(default_factory=lambda: DriftConfig().__dict__.copy())
+    monitoring_epoch: str = ""
+    continuous_episode: bool = False
 
 
 class CandidateModel(RecoveryRecord):
@@ -100,6 +102,8 @@ class ModelPromotion(RecoveryRecord):
     health_version: str
     config: dict
     code_hash: str
+    monitoring_epoch: str = ""
+    continuous_episode: bool = False
 
 
 def recovery_code_hash() -> str:
@@ -108,5 +112,9 @@ def recovery_code_hash() -> str:
         Path(__file__),
         root / "domains/queue_recovery.py",
         root / "engines/queue_temporal_recovery.py",
+        root / "engines/queue_temporal_guard.py",
+        root / "engines/queue_continuous.py",
+        root / "learning/transitions.py",
+        root / "learning/continuous.py",
     ]
     return identity({p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in paths})

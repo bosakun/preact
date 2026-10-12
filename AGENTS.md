@@ -26,6 +26,12 @@ See docs/learned-dynamics.md and the separate queue-drift protocol/results.
 Explicit Queue recovery reuses receipt-backed training, independent evaluation and a
 separate actual monitoring episode before promotion. Restart revalidates all sources;
 neither promotion records nor learned forecasts grant execution authority.
+The opt-in Queue continuous lifecycle can additionally anchor a new monitoring epoch
+to a fresh mid-episode observation and recover repeatedly inside one real World episode.
+It retains receipt/store/health fences and creates a fresh epoch per model; it does not
+create a second execution path or treat unexecuted actions as experience. See
+`docs/continuous-adaptation.md`; its deterministic Queue fixture does not establish
+general task-performance improvement.
 Native World proposals also support Software cognitive rounds and explicit hypothetical
 search, with optional episode-wide budgets. See `docs/software-cognition.md`; Core
 verification and execution authority remain unchanged. The Software CLI uses trusted local fixtures.

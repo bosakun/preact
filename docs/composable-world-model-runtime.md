@@ -217,3 +217,15 @@ Gate、Authorization、durable intent、Receiptを経る。未解決候補・不
 停止し、Core utilityへ黙ってfallbackしない。opt-inしていないWorldは従来の選択を使う。
 QueueのH3価値とsource/Health fencingは認知・domain側へ置き、Coreには埋め込まない。
 詳細は[複数候補選択の設計](queue-multi-selection.md)を参照する。
+
+## Continuous Queue adaptation
+
+Queue限定のopt-in `ContinuousQueueAdaptation`は、同一episode途中の実Observationを
+新モデルの監視anchorとして使い、既存Guard/Recoveryのreceipt・cutoff検証を保ったまま
+複数世代の失効・学習・独立評価・明示昇格を接続する。新モデルのHealthは、その世代の
+fresh anchor以後に実行されたcomplete receiptから再構築する。各世代は別のmonitoring
+epochを持ち、再起動時にepoch lineage、artifact、promotion、Healthを再検証する。
+LifecycleはWorldをresetせず、RuntimeやLedgerを複製せず、実行権限も持たない。
+同一Worldで観測できない未実行Actionの結果は推定せず、3 tick評価は別の独立Worldで
+行う。このQueue実験の性能・一般化主張と限界は[Continuous Adaptation](continuous-adaptation.md)
+に記録する。

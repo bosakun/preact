@@ -964,3 +964,43 @@ then all quality checks. No PR or merge has occurred for this change.
 - このcheckpoint後は専用branchをpushして独立PRを作成し、最終headのCIを確認する。
   CIの実行結果はPR本文/Checksと最終報告へ記録する。mainへmerge/auto-mergeは行わない。
   元の未コミット変更と過去protocol/resultsは保護した。
+
+### Continuous World Model Adaptation (2026-10-11)
+
+- 最新公開main `d2d43d5df14fe9e40962c1b2e3289966f29cec09`を確認し、元作業ツリーの変更を
+  保護して独立clone/branchで作業。Core/Gate意味を変更せず、Guard/RecoveryのQueue契約を
+  opt-inのmid-episode monitoring epochへ拡張した。
+- `ContinuousQueueAdaptation`は既存Store/Artifacts、TransitionDataset、Trainer、Drift、
+  Recovery/Promotionを再利用し、Worldの実Observation anchor、post-cutoff経験、独立H3評価、
+  新Epochのmonitor receipt、明示昇格、再起動後の履歴検証をつなぐ。
+- v1 pilot (seed409, submission cost .10) はA/B/Cの評価通過・連続100receipt・unsafe0を
+  得たが、A/B/Cで実Actionが同じsubmit(3)となり意思決定差を示せなかった。結果を保持し、
+  固定評価関数は変更せず、事前理由を記録したv2独立protocol (cost .15) で再評価した。
+- v2はLow→High→Low、tick36/75でModel A/Bを失効。B/Cを各16 post-cutoff有効receiptで
+  学習し、固定H3評価8/8・coverage1・candidate state/difference MAE 0で評価、各8 fresh
+  monitoring receipt後に明示昇格。single Worldはresetせず100連続transition。A/B/Cの
+  実Actionはsubmit(1)/submit(3)/submit(1)。監査で全100 complete receipt、全3 Decisionの
+  Model/Health/Prediction/Runtime候補選択/Authorization/intent/receipt/Observation結合、
+  unsafe0を再計算した。これは決定論的なQueue fixtureで、タスク性能改善ではない。
+- v2の実Reward -1.6、delivered 4、holding 0に対し、同seed/初期条件/100tickの別World固定
+  submit(1)はReward84、delivered99、holding0。probe・recoveryの観測コストで大幅に悪化。
+  H3のcandidate MAE0は独立決定論評価上の値で、noise/stochastic generalizationは未実証。
+- B/C promotion後にLifecycle restoreを実行し、再構築したinstanceから次の実判断を行う。
+  追加したepoch lineage・invalidation cutoff再検証とrestoreテストは対象テストで確認中。
+- v2最終実行と強化後auditor再実行はpass。v3高→低→高も連続100receipt・2昇格・実Action
+  変化をauditorがpass。stable-low/noisy-low/情報非識別Actionを含む新規単体5件pass。
+- frontend contracts再生成差分なし、build pass、Chromium E2E 6件pass、wheel/sdist integrity
+  pass（91 Python sources一致）。Ruff check/format pass。
+- 初回全Python実行は674 passed/1 skippedだが、開発extras未導入でmujoco/contree_client
+  による既存physical/cohort 5 fail/12 error。dev+physical+sandbox extrasを導入して再実行し、
+  Python全回帰692 passed (902.42s)。先行失敗は依存不足の環境起因で、実装変更起因ではない。
+- 実測は改悪を示す。v2 Reward -1.6/delivered4、v3 -1.9/delivered4に対し同条件固定
+  submit(1) baseline Reward84/delivered99。H3 deterministic eval MAE0でもタスク改善はない。
+  v1 action差失敗は別pilot JSONへ保持。stochastic、多seed、continuous evaluation rejection、
+  全write境界でのprocess kill/restoreは未検証。
+- 最終Ruff check/format pass、frontend contract再生成差分なし、Vite build pass、Chromium E2E
+  6件pass、distribution integrity wheel/sdist pass (91 Python sources一致)。
+- 最終Python全回帰692 passed、drift/continuous feature suiteを含む。Continuous benchmark v2/v3
+  の独立auditor pass。結果JSONにprotocol/auditor hashと測定値を固定した。
+- 次: これらの成果をfeature branchのcommitへまとめ、PR作成後CIを確認する。mainへmerge/
+  auto-mergeは禁止。

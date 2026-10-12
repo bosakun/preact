@@ -1,0 +1,156 @@
+{
+  "schema_version": "1",
+  "protocol_id": "queue-continuous-adaptation-v2",
+  "protocol_sha256": "56f11109ab89b91d7a634bb7accb2391023a30c0631044f1420cafd7ad9cb402",
+  "audit_status": "passed",
+  "auditor_code_hash": "92d9e6cd957aff3680fb9a1c309a986c1211573032cf3413a39c40fc59e9ca20",
+  "world_episode_id": "continuous-world-409",
+  "single_world_instance": true,
+  "world_was_reset": false,
+  "continuous_transitions": 100,
+  "invalidation_ticks": [
+    36,
+    75
+  ],
+  "decisions": [
+    {
+      "generation": "model-A",
+      "model_version": "d03079d77cfed4d43ed25275beecb20b71ea1ae321615a24d84282f62c3a09e1",
+      "action": {
+        "amount": 1
+      },
+      "receipt_complete": true,
+      "qualified_count": 3
+    },
+    {
+      "generation": "model-B",
+      "model_version": "4ccc148e64ff9863475389c394efd9eadc2cc15163e6a80ceb0e6e093ff605fa",
+      "action": {
+        "amount": 3
+      },
+      "receipt_complete": true,
+      "qualified_count": 3
+    },
+    {
+      "generation": "model-C",
+      "model_version": "00193a5df6cd9eae9d2f2424767eb29ac799a0a0462e5294155ec89f7a28e2c2",
+      "action": {
+        "amount": 1
+      },
+      "receipt_complete": true,
+      "qualified_count": 3
+    }
+  ],
+  "promotions": [
+    {
+      "generation": "B",
+      "model_version": "4ccc148e64ff9863475389c394efd9eadc2cc15163e6a80ceb0e6e093ff605fa",
+      "dataset_hash": "d128aad1d230708864a14b5a47a405b4d919f90535059b737936d729337a1d62",
+      "effective_training": 16,
+      "independent_h3": {
+        "candidate": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.0,
+          "state_mae": 0.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "parent": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 1.1111111111111112,
+          "state_mae": 2.4444444444444446,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "prior": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.5694444444444444,
+          "state_mae": 1.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        }
+      },
+      "explicit_promotion": true,
+      "restart_restore_verified": true
+    },
+    {
+      "generation": "C",
+      "model_version": "00193a5df6cd9eae9d2f2424767eb29ac799a0a0462e5294155ec89f7a28e2c2",
+      "dataset_hash": "ad6b2055fc22777991660ce42e6d89f9300bf7f6362141b929b30d9c9b10f1c3",
+      "effective_training": 16,
+      "independent_h3": {
+        "candidate": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.0,
+          "state_mae": 0.0,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "parent": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 1.1111111111111112,
+          "state_mae": 2.4444444444444446,
+          "supported": 8,
+          "unknown_rate": 0.0
+        },
+        "prior": {
+          "comparisons": 8,
+          "coverage": 1.0,
+          "difference_mae": 0.5416666666666666,
+          "state_mae": 1.4444444444444444,
+          "supported": 8,
+          "unknown_rate": 0.0
+        }
+      },
+      "explicit_promotion": true,
+      "restart_restore_verified": true
+    }
+  ],
+  "adaptation_outcome": {
+    "reward": -1.6,
+    "delivered": 4,
+    "holding_loss": 0.0,
+    "unsafe_executions": 0,
+    "final_tick": 100
+  },
+  "fixed_baseline": {
+    "policy": "always-submit-1/v1",
+    "seed": 409,
+    "matched_ticks": 100,
+    "run_count": 100,
+    "delivered": 99,
+    "reward": 84.0,
+    "holding_loss": 0.0,
+    "unsafe_executions": 0,
+    "cpu_seconds": null,
+    "wall_seconds": 3.291231832932681
+  },
+  "cost": {
+    "cpu_seconds": 44.868308,
+    "wall_seconds": 50.44546424993314,
+    "max_rss_platform_units": 139722752,
+    "known_external_api_calls": 0,
+    "known_external_api_cost_usd": 0,
+    "compute_dollar_cost": null
+  },
+  "independent_audit": {
+    "status": "passed",
+    "complete_receipts": 100,
+    "unsafe": 0,
+    "executed_world_model_decisions": 3
+  },
+  "limits": [
+    "Only executed receipt-backed actions have actual outcomes.",
+    "Three-tick predictions for unexecuted actions are inference, not counterfactual labels.",
+    "Candidate H3 evaluation uses separately declared independent evaluation episodes from queue-recovery-v1.",
+    "Continuous-world monitoring and recovery samples share one episode identifier but use disjoint runs/receipts and ordered tick ranges.",
+    "The fixed deterministic schedule is an owned fixture, not evidence of generalization to stochastic or real environments.",
+    "The v2 environment cost is frozen before the confirmatory run; planner scoring and promotion thresholds are unchanged.",
+    "This protocol measures capability and cost, not a learned-policy reward advantage."
+  ]
+}
