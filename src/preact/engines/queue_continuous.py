@@ -153,9 +153,14 @@ class ContinuousQueueAdaptation:
 
         if self._epoch is None or self._guard is None:
             raise RecoveryRejected("continuous_lifecycle_not_started")
-        if self._recovery is not None and self._recovery._active is not None:
-            assert self._epoch.promotion_artifact is not None
+        if self._epoch.promotion_artifact is not None:
+            if self._recovery is None or self._recovery._active is None:
+                raise RecoveryRejected("promoted_epoch_recovery_unavailable")
             return MonitoredQueueSource.promoted(self._recovery, self._epoch.promotion_artifact)
+        if self._recovery is not None and self._recovery._active is not None:
+            # An active recovery model without a committed lifecycle epoch must
+            # not become selectable through a partially completed promotion.
+            raise RecoveryRejected("active_recovery_has_no_committed_epoch")
         return MonitoredQueueSource(self.store, self._guard, self._epoch.training)
 
     async def health(self, state: State, monitor_runs: list[str]):
@@ -168,8 +173,23 @@ class ContinuousQueueAdaptation:
     async def compare(self, state: State, actions: list[Action], monitor_runs: list[str]) -> dict:
         if self._epoch is None or self._guard is None or self._model is None:
             return {"status": "unknown", "reason": "not_started", "predictions": []}
+        if self._epoch.promotion_artifact is not None:
+            if self._recovery is None or self._recovery._active is None:
+                return {
+                    "status": "unknown",
+                    "reason": "promoted_epoch_recovery_unavailable",
+                    "predictions": [],
+                }
+            # Bind comparison to the durable promotion and active model before
+            # prediction. MonitoredQueueSource also fences source runs/artifacts.
+            source = self.selection_source()
+            return await source.compare(state, actions, monitor_runs)
         if self._recovery is not None and self._recovery._active is not None:
-            return await self._recovery.compare(state, actions, monitor_runs)
+            return {
+                "status": "unknown",
+                "reason": "active_recovery_has_no_committed_epoch",
+                "predictions": [],
+            }
         return await self._guard.compare(state, actions, monitor_runs)
 
     async def begin_recovery(self, state: State, monitor_runs: list[str]) -> str:

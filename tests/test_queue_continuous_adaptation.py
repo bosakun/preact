@@ -1,3 +1,5 @@
+from types import SimpleNamespace
+
 import pytest
 
 from preact.core.store import Artifacts, Store
@@ -180,3 +182,44 @@ async def test_noninformative_interaction_does_not_count_as_learning_evidence(tm
     health = await lifecycle.health(await world.observe(), monitor)
     assert health.status == "insufficient_data"
     assert health.effective_count == 0
+
+
+async def test_promoted_epoch_never_falls_back_to_unpromoted_guard_when_active_is_lost(tmp_path):
+    """A lost Recovery handle must not make a promoted model selectable via Guard."""
+    store = Store("sqlite:///" + str(tmp_path / "ledger.db"))
+    artifacts = Artifacts(str(tmp_path / "artifacts"))
+    world = InformationQueueWorld(ticks=32, target=999, capacity=12, noise=0)
+    world._service = [1] * 32
+    training_runs = await execute_sequence(world, ["probe"] * 8, store, artifacts, POLICY)
+    model = await TabularDynamicsTrainer().fit(
+        TransitionDataset(store, {"promoted-episode": training_runs}), QueueServiceAdapter()
+    )
+    anchor = await world.observe()
+    lifecycle = await ContinuousQueueAdaptation.create(store, artifacts, "promoted-episode")
+    await lifecycle.start(
+        model,
+        {"promoted-episode": training_runs},
+        world_episode_id="promoted-episode",
+        task=world.task,
+        anchor=anchor,
+        config=DriftConfig(min_training=4, min_recent=2, window=4, max_gap_ticks=8),
+    )
+    runs = await execute_sequence(world, ["probe"] * 2, store, artifacts, POLICY)
+    state = await world.observe()
+
+    # Model a committed promoted epoch whose in-memory Recovery active state has
+    # been lost (e.g. after an exception/cancellation before reconstruction).
+    lifecycle._epoch = lifecycle.epoch.model_copy(
+        update={"promotion_artifact": "committed-promotion"}
+    )
+    lifecycle._recovery = SimpleNamespace(_active=None)
+
+    with pytest.raises(RecoveryRejected, match="promoted_epoch_recovery_unavailable"):
+        lifecycle.selection_source()
+
+    direct = await lifecycle.compare(
+        state, [world.action(state, amount) for amount in (3, 1, 0)], runs
+    )
+    assert direct["status"] == "unknown"
+    assert direct["reason"] == "promoted_epoch_recovery_unavailable"
+    assert direct["predictions"] == []
