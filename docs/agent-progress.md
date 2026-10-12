@@ -1046,3 +1046,29 @@ freeze evaluation protocol, implement independent receipt-to-schedule audit, run
 - 主ケース独立監査と残り本評価を実行中。監査source hashは開始時に固定し、実行中の
   監査コード変更があれば集約監査結果を確定しない。最終監査は凍結コードで再実行する。
 - 現時点でPR未作成。次: 全比較/診断、独立監査、最終配布物検証、結果文書、PRとCI。
+
+### Task-aware全15ケース完走・集約監査中
+
+- 固定queue-task-v1の15ケース／3150実transitionを完走。全ケースunsafe0、Gate拒否0、
+  ABSTAIN0。LHLは通常204/Probe16・B昇格1・delivered305。HLHは通常160/Probe60・Goal達成だが、
+  候補もparentも独立MAE0でparent改善条件不成立、昇格0。条件は緩和していない。
+- stable lowはProbe61・delivered161で過剰測定の失敗。stable highはProbe0・通常教師100・
+  Goal達成前モデルAction92。noiseはB昇格1、第二候補は評価合格でもGoal後未昇格。
+- 仕事量不足は教師0・モデル利用0・Fallbackのdelivered219。高Probe費用では正式Probe1／
+  通常有効89でB昇格1。意図したquality拒否は昇格0、70tick診断はGoal未達／昇格0。
+- 最終Python全回帰715 pass (1342.63s)、追加22 pass、Ruff check/format、contracts差分なし、
+  frontend build、隔離Chromium6 pass。凍結auditorによるpilot v3再監査pass、評価有効36件。
+- 本評価JSON保存済み。全Store/Receiptと公開結果を照合する集約auditorは実行中。
+  source/code/protocolを途中変更しない。最終distribution再構築・PR・CIは未完了。
+
+### 2026-10-13 — Task-aware固定本評価・独立監査完了
+
+- 凍結auditorで全15ケース・3150 source Receiptを再構成し全pass。公開結果との照合と
+  主ケースの固定機能受入条件6項目もpass。pilot v3も同じ最終auditorで再監査pass。
+- B学習の有効通常16件／独立評価36件、元失効cutoff、新監視、明示Promotion、各候補予測・
+  Scheduler VOI・Runtime qualified集合・実Action・Authorization・Intent・Receiptを再検証。
+- 失敗を保持: HLH parent比較拒否、stable-low過剰Probe、仕事量不足による教師0、
+  第2回回復標本不足、Goal達成後の未昇格、再学習なしFallbackより低いUtility。
+- ローカル全回帰715 pass・新規22 pass・Ruff・contracts/build・Chromium6 pass。
+  最新結果文書を含む配布物を再構築し、独立PRを作成してGitHub CIを確認する。
+  raw DB/cache/Artifactを公開せず、main merge/auto-mergeは行わない。

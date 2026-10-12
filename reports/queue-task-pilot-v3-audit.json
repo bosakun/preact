@@ -1,0 +1,41 @@
+{
+  "protocol_id": "task-aware-pilot-v3",
+  "protocol_hash": "357d0f7ae33effabca63676298e04f9f1f29fd34c976922dc8a6c6ce5fd7aa41",
+  "auditor_hash": "590918a99752ddf4e33df4265df7061936848abb506393054e7336af36830806",
+  "audits": [
+    {
+      "condition": "low-high-low",
+      "strategy": "task_aware",
+      "receipt_count": 220,
+      "task_actions": 204,
+      "probe_actions": 16,
+      "unsafe": 0,
+      "recoveries": [
+        {
+          "invalidation_tick": 61,
+          "training_effective": 16,
+          "evaluation_effective": 36,
+          "evaluation_passed": true,
+          "model_version": "e548e4abfe07b2b290243688f3cb7554c01ada1fe87c98b1611cba8fbe6344f9",
+          "dataset_hash": "01a749a20dae2856d7f0f9bc7bd204c67b301cf65b5c69501fc58b9a20bac4ed"
+        },
+        {
+          "invalidation_tick": 150,
+          "training_effective": null,
+          "evaluation_effective": null,
+          "evaluation_passed": null
+        }
+      ],
+      "lifecycle_compute": [
+        {
+          "kind": "training_evaluation",
+          "cpu_seconds": 43.68994099999999,
+          "wall_seconds": 45.18975158408284
+        }
+      ],
+      "status": "passed"
+    }
+  ],
+  "acceptance": null,
+  "status": "passed"
+}
