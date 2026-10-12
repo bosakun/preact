@@ -269,3 +269,20 @@ separate. QueueMultiSelectionWorld fences complete State/source/model dependenci
 after selection and again after intent. The owned submission-permit fixture is not
 normal Queue v2. Preserve all historical protocols/results; measure extra verification
 cost and report failed, adverse, tied and fallback-only conditions.
+
+### Blender visual representation
+
+`src/preact/visual/` and `workers/blender.py` translate physical State and retained
+MuJoCo position traces into synthetic RGB, axial metric depth and object IDs.
+The opt-in adapter and VisualRuntime observer advertise no safety claims; keep Core,
+Verifier, Gate and receipt authority unchanged. State does not retain cube rotation
+or gripper mocap position; preserve the documented visual approximations.
+Use PREACT_BLENDER=/path/to/blender with `uv run pytest -q tests/test_blender_integration.py`
+for actual Blender processes. Contract/process-stub tests alone are not real rendering.
+Run `uv run python -m scripts.bench_blender_visual --output NEW_DIR` and the separate
+`uv run python -m scripts.audit_blender_visual NEW_DIR`. Keep frozen v1/v2 protocols
+and historical failures; retain raw bundles in excluded output paths.
+
+Post-execution visual work belongs to VisualPostprocessor after Core finishes.
+Its failure/cancellation/retry must never rewrite run results, receipts, observations
+or calibration. Preserve independent failure records and saved-source/receipt fences.

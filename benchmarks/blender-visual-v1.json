@@ -1,0 +1,16 @@
+{
+  "version": "1",
+  "name": "blender-visual-v1",
+  "frozen_before_evaluation": true,
+  "seed": 2,
+  "settings": {"width": 192, "height": 144, "samples": 8, "threads": 2, "seed": 7},
+  "scene_samples": {"development": [0, 1, 2, 3, 4, 5], "calibration": [0, 4, 8], "held_out": [0, 8, 16]},
+  "intermediate_frames": 3,
+  "runtime_steps": 3,
+  "runtime_policy": {"width": 3, "max_depth": 1, "max_nodes": 4, "search": false, "max_seconds": 600},
+  "timeout_seconds": 120,
+  "reproducibility": "two separate Blender processes; exact RGB/depth/ID bytes on same binary/platform",
+  "tolerances": {"geometry_m": 0.0000002, "camera_matrix": 0.000002, "box_depth_m": 0.00002, "sphere_depth_m": 0.002, "sphere_silhouette_fraction": 0.001},
+  "failures": ["nonzero_exit", "timeout", "cancellation", "incomplete_output", "artifact_tamper"],
+  "scope": "Position representation of retained MuJoCo states, all three scene families; synthetic images; no real-camera/rotation/hardware accuracy or independent physics authority"
+}
