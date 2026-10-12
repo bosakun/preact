@@ -1063,3 +1063,23 @@ then all quality checks. No PR or merge has occurred for this change.
 - Source is now fixed. Fresh whole regression runs in .cache/python-regression-final.log;
   hosted shared-runtime checks are pending at this checkpoint. Keep Python source
   unchanged until both complete. Remaining work is validation/reporting only.
+
+### Blender final local verification — 2026-10-12 08:16 UTC
+
+Implementation and all three milestones are complete. Fixed-source full Python
+regression: `UV_CACHE_DIR=/private/tmp/preact-blender-uv uv run --frozen --no-sync
+pytest -q --durations=20` passed 753 tests, with only the 3 opt-in Blender tests
+skipped, in 1013.58 seconds. Those 3 tests passed separately on actual macOS Blender
+and in the Ubuntu Blender CI job. Final targeted suite: 63 passed.
+
+Ruff check/format, unchanged generated contracts, frontend build, 6 real API/Chromium
+E2E tests and current-head wheel/sdist integrity audit passed. The fixed protocol's
+independent source/geometry/camera/dense/complete-receipt replay passed. Current
+source is identical to 749e837; later commits contain documentation only.
+
+At this verification checkpoint, the current-head official Linux Blender jobs are
+green and the shared-runtime hosted checks are still running. PR description/final
+report will carry their final status; no Python changes or further implementation
+are required. No external integration remains blocked, apart from documented macOS
+sandbox startup access. Keep raw evidence in .cache/blender-final-evidence and preserve
+all failed/earlier evaluations. No merge or auto-merge.

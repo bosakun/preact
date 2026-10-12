@@ -120,3 +120,9 @@ Future Tree input states are outside this adapter's audited scope. Renderer memo
 is recorded as peak RSS; Linux also enforces a 4GiB address-space ceiling. CPU time
 is bounded to 4800 seconds and host wall time to 600 seconds at most. Process startup
 and shutdown are reported together as measured overhead, separately from render time.
+
+Full fixed-source Python regression passed 753 tests (3 opt-in Blender cases skipped,
+then passed with actual Blender separately). The targeted contract + real-Blender
+suite passed 63 tests; Frontend E2E passed 6. Ruff check/format, frontend contracts/
+build and current-source wheel/sdist integrity audit passed. The checksum-pinned
+Ubuntu Blender CI job also passed actual rendering and the independent replay audit.
