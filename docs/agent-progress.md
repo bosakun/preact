@@ -1083,3 +1083,37 @@ report will carry their final status; no Python changes or further implementatio
 are required. No external integration remains blocked, apart from documented macOS
 sandbox startup access. Keep raw evidence in .cache/blender-final-evidence and preserve
 all failed/earlier evaluations. No merge or auto-merge.
+
+### PR #15 post-execution isolation repair — 2026-10-12
+
+- Reproduced the original bug with a failing real-MuJoCo lifecycle test: complete
+  receipt existed, but post-render failure aborted Core observation evidence,
+  comparison/calibration/trust updates and finish. Log: .cache/blender-postprocessing/before-repair.log.
+- Moved actual-outcome rendering from emit(outcome) into VisualPostprocessor after
+  normal Core Runtime completion. It cannot execute World actions or change Core
+  status/result, receipts or calibration. Pre-execution opt-in remains unchanged.
+- Added receipt/source/camera fences, detailed failure events, cancellation propagation
+  outside Core, serial idempotent retries, partial render reuse and cancellation-after-
+  commit reconciliation. Separate audit checks Core completion and failure bindings;
+  normal rendering audit still rejects missing comparisons. Gallery shows failures.
+- Targeted suite: 73 passed, including 8 actual Blender tests. Real process error,
+  timeout/cancel, comparison I/O failure, retry, conflicting receipt and image tamper
+  preserve Core results; source authority and safety Gate remain unchanged.
+- New fixed-v2 evidence: .cache/blender-postprocessing/final-v2. 12/12 scenes,
+  57 frames, 182 verified artifacts; 7 candidates/4 executed, safe task completion;
+  all executed position/projection/depth/ID differences zero. Measured summary in
+  reports/blender-postprocessing-v1-results.json. Previous protocols/results untouched.
+- Preserved first postfix trial with 186 artifacts; reused original saved visual
+  Prediction digest to remove four redundant normalized JSON envelopes in final run.
+- Python source is now frozen during whole regression (.cache/blender-postprocessing/python-full.log).
+  Frontend contracts/build/E2E and distribution validation are running; final head
+  must pass both shared-runtime and blender-visual CI before review completion.
+- Known limits remain rotation/mocap proxies, fixed-camera/flat-root acceptance,
+  synthetic images and unknown real-world model error. Cross-process postprocessors
+  require external serialization. No Task-Aware/Queue/Core changes; no merge/auto-merge.
+
+Repair validation checkpoint: Ruff check/format passed (215 Python files), generated
+frontend contracts are unchanged, frontend build passed, Chromium E2E 6 passed, and
+wheel/sdist integrity audit passed with all 100 packaged Python sources. The complete
+fixed-source Python run and latest-head hosted CI are the remaining validation steps;
+PR description/final report will record their results without changing this source.

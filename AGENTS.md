@@ -282,3 +282,7 @@ for actual Blender processes. Contract/process-stub tests alone are not real ren
 Run `uv run python -m scripts.bench_blender_visual --output NEW_DIR` and the separate
 `uv run python -m scripts.audit_blender_visual NEW_DIR`. Keep frozen v1/v2 protocols
 and historical failures; retain raw bundles in excluded output paths.
+
+Post-execution visual work belongs to VisualPostprocessor after Core finishes.
+Its failure/cancellation/retry must never rewrite run results, receipts, observations
+or calibration. Preserve independent failure records and saved-source/receipt fences.

@@ -3,8 +3,9 @@
 Blender is an opt-in, non-authoritative representation adapter above the existing
 MuJoCo LocalVerifier. It advertises no safety claims and does not enter Registry
 verification planning. VisualRuntime instruments the ordinary Runtime event stream:
-it saves source predictions, renders before selection/dispatch, and joins only the
-actually executed candidate to a complete durable receipt. Core is unchanged.
+it saves source predictions and renders before selection/dispatch. After the ordinary
+Core Runtime returns its durable finished result, VisualPostprocessor reads saved
+Outcome/Prediction/Receipt records and renders only executed candidates. Core is unchanged.
 
 ## Installation and use
 
@@ -75,8 +76,9 @@ host timeout (<=600s). Autoexec is disabled. Private job directories are removed
 on completion/failure/cancellation; the process group is killed and drained before
 return. No successful manifest is published for incomplete/error/timeout output.
 This is a process boundary for owned Blender binaries, not an OS sandbox for a
-malicious executable. A Blender failure interrupts the instrumented run before
-execution or leaves already committed outcomes intact; it is never physics success.
+malicious executable. An opt-in prerequisite render may prevent execution. Post-execution visual errors
+are recorded independently after Core finishes, without changing the run result,
+receipt, observation, calibration or trust; they are never physics success.
 
 ## Audit and evaluation scope
 
@@ -126,3 +128,49 @@ then passed with actual Blender separately). The targeted contract + real-Blende
 suite passed 63 tests; Frontend E2E passed 6. Ruff check/format, frontend contracts/
 build and current-source wheel/sdist integrity audit passed. The checksum-pinned
 Ubuntu Blender CI job also passed actual rendering and the independent replay audit.
+
+
+## Post-execution isolation and retries
+
+Postprocessing runs after the Core episode finishes, outside Core's episode timeout
+and exception handlers. Observation evidence, physical prediction comparison,
+calibration rows, trust updates, final observation, run result and `finished` are
+already durable before any post-execution Blender process starts. No Core, Gate,
+Registry, World or execution-store contract changes were needed.
+
+Each attempt binds run, node, receipt, outcome sequence and original visual Prediction
+artifact to a deterministic job key and a unique attempt ID. The processor revalidates
+complete receipts, source artifacts, State/Action fingerprints, prediction event and
+camera/render settings before rendering. `visual_postprocess_failed` records operation,
+exception/cause type, message, artifact references, missing modalities/comparison,
+retryability and process cleanup. No successful artifact is invented on failure.
+Ordinary errors are reported per receipt; other receipts can continue. Cancellation
+is recorded and re-raised to the caller **outside Core**, so the saved Core result
+remains complete. Diagnostic persistence failures also propagate without rewriting Core.
+
+Retry with `await runtime.postprocessor.run(runtime.run_id)`, or construct
+`VisualPostprocessor(store, artifacts, adapter)` against the original saved Store.
+Keep the original camera/settings and serialize external writers; reuse one processor
+for concurrent callers. Cross-process coordination is outside this adapter's scope.
+Valid existing renders are reused, missing comparisons are resumed, complete jobs
+are revalidated without adding duplicate success events. Corruption, conflicting
+bindings or duplicate records fail closed. No World action, calibration update or
+receipt transition is performed by retry. Cancellation after a durable comparison
+commit records `comparison_committed=true` and reconciles on retry.
+
+`audit_postprocessing` independently checks Core completion and diagnostic bindings;
+it does not certify missing visual output. Normal `audit_run` still requires every
+executed comparison and rejects incomplete rendering. The gallery displays failed
+attempts separately from authoritative Core outcomes and synthesized result images.
+
+The repair regression first failed on the original implementation: a safe MuJoCo
+release completed its receipt, then the injected post-render exception prevented
+all following Core evidence/comparison/calibration/trust/finish events. The same
+regression now passes. Actual Blender tests also cover post-render timeout/cancel,
+partial-comparison retry, cancellation after commit, wrong receipt and artifact tamper.
+The targeted suite passed 73 cases (8 use real Blender). Re-evaluation with unchanged
+frozen v2 again rendered 57 frames in 12 scenes, selected/executed 4 of 7 candidates,
+completed safely and independently audited 182 artifacts. All four aligned position,
+projection/depth/segmentation differences remain zero in the same MuJoCo model.
+See [new measured report](../reports/blender-postprocessing-v1-results.json).
+Earlier frozen reports and the initial reproduction/trial bundles remain preserved.

@@ -118,7 +118,11 @@ def comparison(
     visual: Prediction,
     observation: Observation,
     actual_manifest,
+    *,
+    visual_artifact=None,
 ):
+    if visual_artifact is not None and manifest(artifacts, visual_artifact) != visual.model_dump():
+        raise ValueError("Visual source artifact differs from the saved prediction")
     predicted = manifest(artifacts, visual.artifacts["manifest"])
     source = Prediction.model_validate(
         manifest(artifacts, predicted["provenance"]["mujoco_prediction"])
@@ -157,7 +161,7 @@ def comparison(
         "receipt": observation.receipt,
         "execution": execution,
         "observation": artifacts.json(observation.model_dump()),
-        "visual_prediction": artifacts.json(visual.model_dump()),
+        "visual_prediction": visual_artifact or artifacts.json(visual.model_dump()),
         "predicted_manifest": visual.artifacts["manifest"],
         "actual_manifest": actual_manifest,
         "action_fingerprint": action.fingerprint,

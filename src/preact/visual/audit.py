@@ -242,6 +242,8 @@ def audit_manifest(artifacts, digest):
 
 def audit_run(store, artifacts, run_id):
     events = store.read_events(run_id)
+    if any("job_key" in e["data"] for e in events if e["kind"] == "visual_comparison"):
+        audit_postprocessing(store, artifacts, run_id)
     nodes, sources, visuals, outcomes = {}, {}, {}, {}
     intents, decisions, authorizations = {}, {}, []
     current_observation = None
@@ -409,4 +411,106 @@ def audit_run(store, artifacts, run_id):
         "executed_candidates": len(outcomes),
         "rendered_candidates": len(visuals),
         "unexecuted_candidates": len(set(visuals) - set(outcomes)),
+    }
+
+
+def audit_postprocessing(store, artifacts, run_id):
+    """Audit isolation and diagnostic bindings; does not certify missing visual outputs."""
+    events = store.read_events(run_id)
+    run = store.get_run(run_id)
+    finished = [e for e in events if e["kind"] == "finished"]
+    if (
+        len(finished) != 1
+        or not run
+        or finished[0]["data"] != run["result"]
+        or run["status"] != run["result"]["status"]
+    ):
+        raise ValueError("Postprocessing changed or lacks a finished Core result")
+    boundary = finished[0]["seq"]
+    by_seq = {e["seq"]: e for e in events}
+    visuals = {
+        e["data"]["node_id"]: e["data"]["artifact"]
+        for e in events
+        if e["kind"] == "visual_prediction"
+    }
+    outcomes = {e["data"]["node_id"]: e for e in events if e["kind"] == "outcome"}
+    rows = {r["prediction_id"]: r for r in store.error_rows()}
+    for node_id, outcome in outcomes.items():
+        obs = Observation.model_validate(outcome["data"]["observation"])
+        record = store.execution_record(obs.receipt)
+        if (
+            record["status"] != "complete"
+            or record["run_id"] != run_id
+            or record["receipt"] != obs.model_dump()
+        ):
+            raise ValueError("Postprocessing receipt or observation changed")
+        for kind in ["observation_evidence", "comparison", "prediction_error"]:
+            if not any(
+                e["kind"] == kind
+                and e["data"]["node_id"] == node_id
+                and outcome["seq"] < e["seq"] < boundary
+                for e in events
+            ):
+                raise ValueError("Core outcome processing did not complete before visual work")
+        errors = [
+            e for e in events if e["kind"] == "prediction_error" and e["data"]["node_id"] == node_id
+        ]
+        if not all(e["data"]["prediction_id"] in rows for e in errors):
+            raise ValueError("Calibration row missing after visual processing")
+        if not any(
+            e["kind"] == "trust_updated" and outcome["seq"] < e["seq"] < boundary for e in events
+        ):
+            raise ValueError("Core trust update missing")
+    failures = []
+    seen = set()
+    for event in events:
+        if event["kind"] not in {
+            "visual_postprocess_failed",
+            "visual_observed_result",
+            "visual_comparison",
+        }:
+            continue
+        data = event["data"]
+        # Historical synchronous records have no job_key; normal audit_run retains their contract.
+        if "job_key" not in data:
+            continue
+        if event["seq"] <= boundary:
+            raise ValueError("Postprocessing ran before Core finished")
+        outcome = by_seq[data["outcome_seq"]]
+        if (
+            outcome["kind"] != "outcome"
+            or outcome["data"]["node_id"] != data["node_id"]
+            or outcome["data"]["observation"]["receipt"] != data["receipt"]
+            or data["run_id"] != run_id
+            or data["visual_prediction_artifact"] != visuals[data["node_id"]]
+        ):
+            raise ValueError("Postprocessing record belongs to another outcome/candidate")
+        binding = {
+            k: data[k]
+            for k in ["run_id", "node_id", "receipt", "outcome_seq", "visual_prediction_artifact"]
+        }
+        if identity(binding) != data["job_key"]:
+            raise ValueError("Postprocessing job identity mismatch")
+        if event["kind"] == "visual_postprocess_failed":
+            if (
+                not data["exception_type"]
+                or not isinstance(data["retryable"], bool)
+                or not isinstance(data["missing_artifacts"], list)
+            ):
+                raise ValueError("Incomplete visual failure diagnostics")
+            failures.append(data)
+        else:
+            key = (event["kind"], data["receipt"])
+            if key in seen:
+                raise ValueError("Duplicate successful postprocessing record")
+            seen.add(key)
+            artifacts.read(
+                data["manifest"] if event["kind"] == "visual_observed_result" else data["artifact"]
+            )
+    return {
+        "run_id": run_id,
+        "core_preserved": True,
+        "failures": failures,
+        "successful_records": len(seen),
+        "executed_candidates": len(outcomes),
     }

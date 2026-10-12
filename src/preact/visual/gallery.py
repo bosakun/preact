@@ -139,5 +139,26 @@ def build_gallery(store, artifacts, run_id, target):
                 + html.escape(str(shown))
                 + "</pre></section>"
             )
+        elif event["kind"] == "visual_postprocess_failed":
+            parts.append(
+                "<section><h2>Visual postprocessing attempt failed</h2>"
+                "<p>Core receipt and result remain unchanged. A later retry may complete.</p><pre>"
+                + html.escape(
+                    str(
+                        {
+                            k: d[k]
+                            for k in (
+                                "receipt",
+                                "stage",
+                                "exception_type",
+                                "message",
+                                "missing_artifacts",
+                                "retryable",
+                            )
+                        }
+                    )
+                )
+                + "</pre></section>"
+            )
     parts.append("</html>")
     target.write_text("".join(parts))

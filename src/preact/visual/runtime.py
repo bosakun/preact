@@ -1,8 +1,8 @@
 """Optional observation-only Runtime instrumentation; Core authority stays unchanged."""
 
-from preact.core.models import Observation, Prediction, State, TreeNode
+from preact.core.models import Prediction, State, TreeNode
 from preact.core.runtime import Runtime
-from preact.visual.adapter import comparison
+from preact.visual.postprocess import VisualPostprocessor
 
 
 class VisualRuntime(Runtime):
@@ -11,6 +11,12 @@ class VisualRuntime(Runtime):
         self.visual_adapter = visual_adapter
         self.visual_nodes = {}
         self.visual_predictions = {}
+        self.postprocessor = VisualPostprocessor(self.store, self.artifacts, visual_adapter)
+
+    async def run(self, world, run_id=None, direct=False, forecast_selected=False):
+        result = await super().run(world, run_id, direct, forecast_selected)
+        await self.postprocessor.run(self.run_id)
+        return result
 
     async def emit(self, kind, data):
         if kind == "decision" and data.get("decision") == "execute":
@@ -41,20 +47,4 @@ class VisualRuntime(Runtime):
                     "source_event_seq": event.seq,
                 },
             )
-        elif kind == "outcome":
-            observation = Observation.model_validate(data["observation"])
-            digest = await adapter.current(observation.state, receipt=observation.receipt)
-            await super().emit(
-                "visual_observed_result",
-                {"node_id": data["node_id"], "manifest": digest, "receipt": observation.receipt},
-            )
-            visual = self.visual_predictions.get(data["node_id"])
-            if visual:
-                result = comparison(
-                    self.artifacts, self.store, self.run_id, visual, observation, digest
-                )
-                await super().emit(
-                    "visual_comparison",
-                    {"node_id": data["node_id"], "artifact": self.artifacts.json(result)},
-                )
         return event
