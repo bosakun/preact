@@ -1004,3 +1004,45 @@ then all quality checks. No PR or merge has occurred for this change.
   の独立auditor pass。結果JSONにprotocol/auditor hashと測定値を固定した。
 - 次: これらの成果をfeature branchのcommitへまとめ、PR作成後CIを確認する。mainへmerge/
   auto-mergeは禁止。
+
+## 2026-10-12 — Task-aware continuous adaptation: audit and pilot
+
+Started from public main d792758 in an isolated worktree; original workspace changes are untouched.
+Reused ContinuousQueueAdaptation/Guard/Recovery and the unchanged promotion thresholds.
+Added a non-authoritative scheduling record and Queue-specific task/information arbitration,
+with six declared local reference forecasts accounted through proposal reservation/usage.
+Ordinary informative outcomes use the existing adapter; censored outcomes remain unlabelled.
+Initial integration caught and repaired a real observation-cutoff ordering error and JSON
+canonicalization mismatch. Pilot and new behavioral/negative tests are running. Historical
+benchmarks/results are untouched. Next: inspect pilot task/probe and recovery feasibility,
+freeze evaluation protocol, implement independent receipt-to-schedule audit, run all regressions.
+
+### 2026-10-12 — Task-aware pilot・固定本評価開始
+
+- pilot v1/v2/v3のprotocol・集約結果を別ファイルに保持。v3は220 tick中通常Action204 /
+  Probe16、モデルによるタスクAction A31/B40、delivered305、Reward223.95、unsafe0。
+  Bの訓練は通常Action有効16件。第2回回復は通常4＋Probe1件で不足し、Cは昇格していない。
+- 初期観測cutoff、JSON正規化、Health readiness、実行後の自分の確定run manifestを修正。
+  Core/Guard/Recovery/Adapter/PromotionPolicyの意味・閾値は変更していない。
+- 新規22テストpass。Scheduler根拠・source変更・予算・取消・Receipt pending/aborted/forged・
+  Recovery喪失、独立auditorによる判断/State/Authorization/Outcome改ざん拒否を確認。
+- 先行全Python709 pass、隔離ポートで既存Chromium E2E6 pass、frontend contracts差分なし／
+  build pass。最新全回帰を再実行中。Ruff check/format pass、wheel/sdist integrity pass。
+- pilot後にqueue-task-v1.jsonを固定し、本評価を実行中。比較2環境×4方式と診断7条件。
+  評価結果・独立監査・受入判定は未確定。元DB・Artifactは/private/tmp配下に保持し公開しない。
+- 次: 本評価を完走し、全Receiptから独立監査、改善/悪化/回復不足を結果文書へ反映。
+  PRはまだ作成していない。mainへのmerge/auto-mergeは禁止。
+
+### Task-aware本評価・主ケースcheckpoint
+
+- 主ケースLow→High→Lowの220 tickを完走。通常204 / Probe16、有効通常86 / Probe16、
+  A/BのGoal達成前タスクAction31/40、Bは通常有効16件で学習・評価・明示昇格。Goal tick183、
+  delivered305、Reward223.95、Utility218.95、unsafe0。第2回は有効5件でC未昇格。
+- 同条件のProbe中心は通常3 / Probe217、delivered5、Reward-6.6。固定submit(1)はdelivered219 /
+  Reward186。再学習なしはモデル未利用のFallbackでdelivered305 / Reward232.25。
+  新方式はFallbackのみよりRewardが低く、モデル利用と利益改善を区別する。
+- 追加前の全回帰712 pass (1131.43s)、新規22 pass、frontend contracts/build pass、最終隔離
+  Chromium E2E6 pass (11.5s)。新規3監査ケースを含む最終715回帰は実行中。
+- 主ケース独立監査と残り本評価を実行中。監査source hashは開始時に固定し、実行中の
+  監査コード変更があれば集約監査結果を確定しない。最終監査は凍結コードで再実行する。
+- 現時点でPR未作成。次: 全比較/診断、独立監査、最終配布物検証、結果文書、PRとCI。

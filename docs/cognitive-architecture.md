@@ -178,3 +178,13 @@ Plannerのpure selectorが選ぶ。予測上の第一候補を、最終選択や
 記憶へ入るのは従来どおりcomplete receiptに裏付けられたActual Outcomeだけである。
 PR #12の一候補方式とCoreの標準選択は保持する。
 [設計と利用例](queue-multi-selection.md)、[固定評価の結果](queue-multi-selection-results.md)を参照。
+
+## Task-Aware Scheduler（Queue opt-in）
+
+`QueueTaskPlanner`はタスクActionの監視付き予測を先に記録し、その後に
+`ScheduleDecision`で情報取得とタスク遂行を比較する。Probeを選ぶ場合も、それは
+一つの正式Action提案であり、Runtimeの独立検証を通過する必要がある。
+Schedulerは学習・評価開始や昇格待ちを推奨できるが、モデルの昇格を許可しない。
+Memoryは実Worldの宣言run manifestに限定し、receipt検証は従来どおり行う。
+最終選択・実行・Outcomeは予測記録から別途Runtimeが確定する。
+[設計・監査境界](task-aware-continuous-adaptation.md)を参照する。

@@ -208,3 +208,12 @@ evaluation Worlds. This is an experimental Queue contract, not a general lifecyc
 API or proof of task-performance improvement. See
 [`docs/continuous-adaptation.md`](continuous-adaptation.md) for architecture, commands,
 results and limits.
+
+## Task-Aware継続適応の責務追加
+
+既存のContinuous lifecycleを変更せず、認知層にタスク／情報取得の調停を追加する。
+Queue固有のVOI近似は`cognition/queue_task.py`、非権威的な判断記録は
+`cognition/scheduler.py`に置く。Coreの既定選択・Safety Authorityは変更しない。
+訓練16件・独立評価・新監視Health・明示Promotionの条件は緩和しない。
+凍結後の評価が不足・悪化・回復未達となっても条件を後から変えない。
+認知能力の完成と正しさを通常の速度最適化より優先する。

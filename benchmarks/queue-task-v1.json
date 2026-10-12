@@ -1,0 +1,247 @@
+{
+  "protocol_id": "task-aware-continuous-v1",
+  "episode_ticks": 220,
+  "execution_ticks": 220,
+  "goal": 300,
+  "capacity": 12,
+  "submission_cost": 0.15,
+  "probe_cost": 0.05,
+  "seeds": [
+    409
+  ],
+  "strategies": [
+    "probe_centric",
+    "fixed_task",
+    "no_recovery",
+    "task_aware"
+  ],
+  "information_model": {
+    "persistence": 0.95,
+    "monitoring_samples": 8,
+    "training_samples": 16
+  },
+  "policy": {
+    "search": false,
+    "calibration": false,
+    "width": 3,
+    "max_nodes": 3,
+    "max_calls": 128
+  },
+  "collection_policy": {
+    "search": false,
+    "calibration": false,
+    "width": 1,
+    "max_nodes": 1,
+    "max_calls": 128
+  },
+  "detection": {
+    "window": 16,
+    "min_recent": 8,
+    "min_training": 16,
+    "min_effect": 0.1,
+    "alpha": 0.05,
+    "max_gap_ticks": 16
+  },
+  "conditions": {
+    "low-high-low": {
+      "regimes": [
+        {
+          "start": 0,
+          "end": 48,
+          "service": 1
+        },
+        {
+          "start": 48,
+          "end": 120,
+          "service": 3
+        },
+        {
+          "start": 120,
+          "end": 220,
+          "service": 1
+        }
+      ]
+    },
+    "high-low-high": {
+      "regimes": [
+        {
+          "start": 0,
+          "end": 48,
+          "service": 3
+        },
+        {
+          "start": 48,
+          "end": 120,
+          "service": 1
+        },
+        {
+          "start": 120,
+          "end": 220,
+          "service": 3
+        }
+      ]
+    },
+    "stable-low": {
+      "regimes": [
+        {
+          "start": 0,
+          "end": 220,
+          "service": 1
+        }
+      ],
+      "strategies": [
+        "task_aware"
+      ]
+    },
+    "stable-high": {
+      "regimes": [
+        {
+          "start": 0,
+          "end": 220,
+          "service": 3
+        }
+      ],
+      "strategies": [
+        "task_aware"
+      ]
+    },
+    "noise": {
+      "regimes": [
+        {
+          "start": 0,
+          "end": 48,
+          "service": 1
+        },
+        {
+          "start": 48,
+          "end": 120,
+          "service": 3
+        },
+        {
+          "start": 120,
+          "end": 220,
+          "service": 1
+        }
+      ],
+      "noise": 0.05,
+      "strategies": [
+        "task_aware"
+      ]
+    },
+    "sparse-costly-work": {
+      "regimes": [
+        {
+          "start": 0,
+          "end": 48,
+          "service": 1
+        },
+        {
+          "start": 48,
+          "end": 120,
+          "service": 3
+        },
+        {
+          "start": 120,
+          "end": 220,
+          "service": 1
+        }
+      ],
+      "submission_cost": 1.0,
+      "strategies": [
+        "task_aware"
+      ]
+    },
+    "expensive-measurement": {
+      "regimes": [
+        {
+          "start": 0,
+          "end": 48,
+          "service": 1
+        },
+        {
+          "start": 48,
+          "end": 120,
+          "service": 3
+        },
+        {
+          "start": 120,
+          "end": 220,
+          "service": 1
+        }
+      ],
+      "probe_cost": 2.0,
+      "strategies": [
+        "task_aware"
+      ]
+    },
+    "quality-rejected": {
+      "regimes": [
+        {
+          "start": 0,
+          "end": 48,
+          "service": 1
+        },
+        {
+          "start": 48,
+          "end": 120,
+          "service": 3
+        },
+        {
+          "start": 120,
+          "end": 220,
+          "service": 1
+        }
+      ],
+      "evaluation_high": false,
+      "strategies": [
+        "task_aware"
+      ]
+    },
+    "short-observation-budget": {
+      "regimes": [
+        {
+          "start": 0,
+          "end": 48,
+          "service": 1
+        },
+        {
+          "start": 48,
+          "end": 120,
+          "service": 3
+        },
+        {
+          "start": 120,
+          "end": 220,
+          "service": 1
+        }
+      ],
+      "execution_ticks": 70,
+      "strategies": [
+        "task_aware"
+      ]
+    }
+  },
+  "freeze_stage": "After exploratory pilots v1-v3; promotion policy, objective, seed and scheduler information assumptions fixed before confirmatory evaluation.",
+  "acceptance": {
+    "primary_condition": "low-high-low",
+    "minimum_task_actions": 100,
+    "maximum_probe_rate": 0.4,
+    "minimum_goal_active_actions_per_activated_model": 8,
+    "minimum_promotions": 1,
+    "minimum_ordinary_training_samples": 16,
+    "zero_unsafe_required": true,
+    "reward_advantage_required": false
+  },
+  "limits": [
+    "One fixed seed; diagnostics are not paired policy comparisons.",
+    "Known piecewise schedule is visible to the experiment operator only, not the scheduler.",
+    "Independent evaluation worlds are declared separately and are not source-world outcomes.",
+    "Source World never resets; all actions including probe use the existing Runtime.",
+    "Existing QueueServiceAdapter conservatively masks ordinary available_work<3, even when the separate Bayesian belief can infer binary compatibility.",
+    "Uncalibrated information persistence/readiness credit is a model assumption.",
+    "Incomplete second recovery, quality rejection and zero-information conditions are retained.",
+    "Goal threshold attainment and end-of-episode task completion differ.",
+    "No automatic promotion; the harness explicitly requests each promotion.",
+    "No claims about unseen seeds, LLMs or physical systems."
+  ]
+}

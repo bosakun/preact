@@ -229,3 +229,18 @@ LifecycleはWorldをresetせず、RuntimeやLedgerを複製せず、実行権限
 同一Worldで観測できない未実行Actionの結果は推定せず、3 tick評価は別の独立Worldで
 行う。このQueue実験の性能・一般化主張と限界は[Continuous Adaptation](continuous-adaptation.md)
 に記録する。
+
+## タスク遂行と情報取得の調停（opt-in）
+
+`QueueTaskPlanner`は既存の複数候補選択に、`ScheduleDecision`による非権威的な
+認知判断を追加する。公開到着規則、verified MemoryのBelief、Model Health、
+Goalと残りtickから、通常Actionが得る識別可能な情報とProbeの追加価値・費用を
+比較する。Queue固有の持続性・標本予算はモデル仮定であり、PreAct全体の標準
+アルゴリズムにはしない。通常ActionにもProbeにも同じ既存Runtime・Gate・Receipt
+契約を適用する。失効後も安全なFallbackで仕事を続けられるが、改ざん・取消・
+Recovery根拠喪失を情報不足として隠さない。
+
+学習は既存TransitionDatasetとAdapter、候補評価・明示昇格は既存Recoveryを使う。
+独立評価WorldでのH3比較と、連続Worldの実行済みActionの一手実測は別々に扱う。
+詳細は[Task-Aware設計](task-aware-continuous-adaptation.md)。タスク利益の改善や
+二度目の回復は、実測の成立範囲を結果文書で確認する。
