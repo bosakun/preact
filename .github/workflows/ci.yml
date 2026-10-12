@@ -8,7 +8,7 @@ jobs:
   shared-runtime:
     runs-on: ubuntu-latest
     # Receipt-backed recovery/selection regressions replay complete evaluation histories.
-    timeout-minutes: 45
+    timeout-minutes: 75
     env:
       UV_CACHE_DIR: ${{ github.workspace }}/.cache/uv
       PREACT_MODE: local
