@@ -5,6 +5,7 @@ import asyncio
 import hashlib
 import json
 import math
+import random
 from dataclasses import asdict
 from datetime import datetime
 from pathlib import Path
@@ -142,6 +143,35 @@ def independently_schedule(schedule, candidate_values, task_amount, protocol):
 
 async def audit_case(bundle, protocol):
     record = json.loads((bundle / "task-result.json").read_text())
+    require(
+        record["condition"] in protocol["conditions"] and record["seed"] in protocol["seeds"],
+        "Undeclared source case",
+    )
+    spec = protocol["conditions"][record["condition"]]
+    require(
+        record["strategy"] in spec.get("strategies", protocol["strategies"]), "Undeclared strategy"
+    )
+    fixture = InformationQueueWorld(
+        seed=record["seed"],
+        ticks=protocol["episode_ticks"],
+        target=protocol["goal"],
+        capacity=protocol["capacity"],
+        noise=0,
+        submission_cost=spec.get("submission_cost", protocol["submission_cost"]),
+        probe_cost=spec.get("probe_cost", protocol["probe_cost"]),
+    )
+    require(
+        State.model_validate(record["initial"]).payload == fixture.payload,
+        "Paired initial public conditions changed",
+    )
+    rng = random.Random(record["seed"])
+    declared_services = []
+    for tick in range(protocol["episode_ticks"]):
+        regime = next(r for r in spec["regimes"] if r["start"] <= tick < r["end"])
+        high = regime["service"] == 3
+        if rng.random() < spec.get("noise", 0):
+            high = not high
+        declared_services.append(3 if high else 1)
     store, artifacts = (
         Store("sqlite:///" + str(bundle / "ledger.db")),
         Artifacts(str(bundle / "artifacts")),
@@ -257,6 +287,11 @@ async def audit_case(bundle, protocol):
                 and epoch.parent_epoch == (epochs[i - 1].epoch_id if i else None),
                 "Epoch lineage changed",
             )
+            if i == 0:
+                require(
+                    epoch.anchor.model_dump() == record["initial"],
+                    "Initial epoch lost its fresh observation binding",
+                )
             model = DynamicsModel.load(artifacts, epoch.model_artifact, QueueServiceAdapter())
             refit = await TabularDynamicsTrainer().fit(
                 TransitionDataset(store, epoch.training),
@@ -333,7 +368,15 @@ async def audit_case(bundle, protocol):
         processed = payload["delivered"] - row.before.payload["delivered"]
         holding = payload["holding_cost"] * payload["queue"]
         probe_cost = payload["probe_cost"] if probe else 0
+        service = declared_services[row.before.payload["tick"]]
         possible_services = [row.after.metrics["measured_service"]] if probe else [1, 3]
+        # Fixture-only conformance check after execution; censored service is
+        # still not labelled as a teacher or exposed to the scheduler.
+        require(
+            transition(row.before.payload, amount, service)[0] == payload
+            and (not probe or row.after.metrics["measured_service"] == service),
+            "Actual outcome differs from the declared exogenous fixture",
+        )
         require(
             any(
                 transition(row.before.payload, amount, service)[0] == payload
@@ -371,18 +414,21 @@ async def audit_case(bundle, protocol):
         events = await store.call("read_events", row.run_id)
         run = await store.call("get_run", row.run_id)
         # Preserve the owned Task's numeric representation in its claim hash.
-        task = InformationQueueWorld(
-            seed=record["seed"],
-            ticks=protocol["episode_ticks"],
-            target=protocol["goal"],
-            capacity=protocol["capacity"],
-            noise=0,
-        ).task
+        task = fixture.task
         require(
             identity(task.model_dump()) == identity(run["config"]["task"]),
             "Runtime Task representation changed",
         )
         policy = Policy.model_validate(run["config"]["policy"])
+        expected_policy = (
+            protocol["collection_policy"]
+            if (
+                record["strategy"] == "fixed_task"
+                or (record["strategy"] == "probe_centric" and probe)
+            )
+            else protocol["policy"]
+        )
+        require(policy == Policy(**expected_policy), "Paired verification budget changed")
         trusts = next(e["data"]["engines"] for e in events if e["kind"] == "trust_snapshot")
         outcome = one_event(events, "outcome")
         predictions = await verified_predictions(
@@ -854,6 +900,12 @@ async def audit(output, protocol_path, report_path, results_path=None):
                 bundle = output / f"{label}-{seed}-{strategy}"
                 audits.append(await audit_case(bundle, protocol))
                 record = json.loads((bundle / "task-result.json").read_text())
+                require(
+                    record["condition"] == label
+                    and record["strategy"] == strategy
+                    and record["seed"] == seed,
+                    "Case directory/manifest binding changed",
+                )
                 records.append(record)
                 if public:
                     matches = [
