@@ -1004,3 +1004,44 @@ then all quality checks. No PR or merge has occurred for this change.
   の独立auditor pass。結果JSONにprotocol/auditor hashと測定値を固定した。
 - 次: これらの成果をfeature branchのcommitへまとめ、PR作成後CIを確認する。mainへmerge/
   auto-mergeは禁止。
+
+## Blender visual world integration (2026-10-12)
+
+- Isolated worktree: /private/tmp/preact-blender, branch codex/blender-visual-world;
+  fetched main d7927581c3bb8419c7fd2e4564f9e5ef253578ca. Original worktree untouched.
+- Read Core contracts, PhysicalWorld/SceneWorld, LocalVerifier, scene splits and
+  architecture. Selected a non-authoritative adapter; no Registry/safety changes.
+- Official Blender 4.5.9 LTS Apple Silicon download verified against SHA256
+  e3a3d7aac381fb4e4d05197f99cd8899484d7e8bc4497c134066e6733f372238.
+- Added bounded scene translation, CPU worker, cancellation/output validation,
+  content-addressed source/output manifests, visual adapter and Runtime observer.
+- Locked Python dependencies installed in this worktree. macOS sandbox Metal
+  detection crashes before Python even for CPU; real render is being retried with
+  permitted local process access. No successful render claimed yet.
+- Next: execute M1, audit geometry/depth/IDs, add fixed benchmark/gallery/tests,
+  complete Runtime/receipt comparison and run all regressions/distribution checks.
+
+### Blender acceptance milestones
+
+- M1 complete: real Blender 4.5.9 LTS CPU RGB/depth/segmentation with geometry/camera
+  manifests. macOS requires permitted process access for startup Metal detection.
+- M2 complete: retained MuJoCo trajectories for distinct candidates, source hashes,
+  hypothetical labeling; no safety claims or Registry admission added.
+- M3 complete: ordinary gated Runtime selected/executed four actions and completed
+  transfer safely. Seven rendered candidates; three unexecuted alternatives unlabeled.
+- Final fixed-v2 bundle: .cache/blender-final-evidence. 12/12 scene translation,
+  render and independent analytic audits; 57 frames, 182 verified artifacts, 7.4MB.
+  Exact same-binary RGB/depth/ID reproduction; box depth max error 1.8051e-6m;
+  four complete Receipt comparisons have position/projection/depth/ID errors zero.
+- Contract + actual Blender tests: 63 passed. Real malformed input/timeout/cancellation,
+  spawn cancellation, stub-only incomplete output and tamper rejection are distinct.
+- Frontend contracts unchanged; build passed; actual local API/Chromium E2E 6 passed.
+  Ruff check/format passed. Distribution build/audit passed (final rebuild pending).
+- Initial v1 failure retained: variable PNG Date/RenderTime metadata made byte hashes
+  differ despite identical pixels; removed text chunks without changing RGB pixels.
+  Three-step v1 Runtime ended incomplete; separate frozen v2 allowed five steps.
+- Whole Python regression is still running. One existing Queue test failed during
+  concurrent evaluation; isolated Queue audit/deadline rerun passed (2/2, 99.58s).
+  No Queue or Core code changed. Await full failure details and revalidate as needed.
+- Next: finish regression/distribution validation, create the requested single PR,
+  inspect hosted checks; no merge or auto-merge authorized.

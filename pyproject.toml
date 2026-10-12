@@ -33,6 +33,7 @@ exclude = ["/.cache/**", "/.preact/**", "**/.terraform/**", "**/__pycache__/**",
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 testpaths = ["tests"]
+markers = ["blender: opt-in integration tests requiring an actual Blender subprocess"]
 
 [tool.ruff]
 line-length = 100
