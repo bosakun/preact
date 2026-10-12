@@ -1072,3 +1072,12 @@ freeze evaluation protocol, implement independent receipt-to-schedule audit, run
 - ローカル全回帰715 pass・新規22 pass・Ruff・contracts/build・Chromium6 pass。
   最新結果文書を含む配布物を再構築し、独立PRを作成してGitHub CIを確認する。
   raw DB/cache/Artifactを公開せず、main merge/auto-mergeは行わない。
+
+### Task-aware PR作成・最終CI待ち
+
+- GitHub採番はPR #16（#15は別のBlender機能PR）。今回の統合PR:
+  https://github.com/bosakun/preact/pull/16 。専用branch以外をpush/mergeしていない。
+- 最新wheel/sdist再構築・93 Python sourcesの整合性監査pass。公開変更にraw DB、cache、
+  モデルArtifact、秘密情報や研究原文を含めない。元workspaceの未コミット変更は維持。
+- GitHub CIは開始済み、Ruff成功／全Python実行中。headを固定してCIを確認し、
+  成否と最終SHAはPR本文・最終報告に記録する。現時点でCI成功とは主張しない。
