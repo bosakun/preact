@@ -1,0 +1,101 @@
+{
+  "artifact_bytes": 7395911,
+  "artifact_count": 182,
+  "comparisons": [
+    {
+      "depth_mae_m": 0.0,
+      "position_error_m": 0.0,
+      "projection_error_px": 0.0,
+      "receipt": "1b2d4616c0623e31921796e460fd16564edb8d6cb11012d67e8a6252cb4f6026",
+      "rgb_equal": true,
+      "segmentation_changed_pixels": 0
+    },
+    {
+      "depth_mae_m": 0.0,
+      "position_error_m": 0.0,
+      "projection_error_px": 0.0,
+      "receipt": "be41cb4babad03408a583d52bb546d9c7d6fd6b6695e5cf1138ed238c631f5aa",
+      "rgb_equal": true,
+      "segmentation_changed_pixels": 0
+    },
+    {
+      "depth_mae_m": 0.0,
+      "position_error_m": 0.0,
+      "projection_error_px": 0.0,
+      "receipt": "f1c099413287740860581721df78809ab2698f817fc37d281541064e25616087",
+      "rgb_equal": true,
+      "segmentation_changed_pixels": 0
+    },
+    {
+      "depth_mae_m": 0.0,
+      "position_error_m": 0.0,
+      "projection_error_px": 0.0,
+      "receipt": "9f5779fe992ae83e8d793c6586db4998071697aca2e4651ca7f9204a8885a8c2",
+      "rgb_equal": true,
+      "segmentation_changed_pixels": 0
+    }
+  ],
+  "core_isolation_audit": {
+    "core_preserved": true,
+    "executed_candidates": 4,
+    "failures": [],
+    "run_id": "11733f186b21472b9aab20caf637229c",
+    "successful_records": 8
+  },
+  "failure_counts": {
+    "expected_artifact_tamper": 1,
+    "expected_cancellation": 1,
+    "expected_nonzero_exit": 1,
+    "expected_timeout": 1,
+    "incomplete_outputs": 0,
+    "render_errors": 0,
+    "unexpected": 0
+  },
+  "first_postfix_trial": {
+    "artifact_count": 186,
+    "cause": "JSON model validation normalized visual default integers into floats, creating four redundant source envelopes. Final comparison retains the original saved Prediction artifact digest; final corpus has 182 artifacts. Earlier trial retained separately."
+  },
+  "independent_audit": {
+    "box_depth_max_error_m": 1.8050460885987718e-06,
+    "passed": true,
+    "scenes": 12
+  },
+  "performance_scope": "Same renderer/binary/settings; timing differs with host load. Core latency now excludes postprocessing; outer benchmark wall time includes it.",
+  "protocol_hash": "465b7e8be063a453bde283bcde8e5e15ac5eb6e188273495d1707f7caefe6ec1",
+  "regression": {
+    "before_repair": "Complete MuJoCo receipt persisted; injected post-render error propagated; observation_evidence/comparison/prediction_error/trust_updated/finished absent. Failing test log retained in excluded before-repair.log.",
+    "core_preserved_cases": [
+      "render_error",
+      "process_timeout",
+      "process_cancel",
+      "partial_comparison_retry",
+      "cancel_after_comparison_commit"
+    ],
+    "real_blender_tests": 8,
+    "retry": "Successful outputs reused; no duplicate success events; conflicting receipt and image corruption rejected.",
+    "targeted_tests": 73
+  },
+  "resources": {
+    "cpu_seconds": 32.383822,
+    "max_peak_rss_bytes": 247971840,
+    "mean_startup_shutdown_seconds": 0.5589893274250087,
+    "render_frames": 57,
+    "render_jobs": 29,
+    "render_seconds": 9.009939755080268
+  },
+  "runtime": {
+    "rendered_candidates": 7,
+    "status": "complete",
+    "steps": 4,
+    "success": true,
+    "unexecuted_candidates": 3,
+    "unsafe": false
+  },
+  "source_changes": "Visual postprocessing and audit only. Core/Queue/physical dynamics and renderer unchanged. No changes to frozen v1/v2 protocols or prior results.",
+  "success_rates": {
+    "audit_success": 1.0,
+    "render_success": 1.0,
+    "translation_success": 1.0
+  },
+  "wall_seconds": 32.4810747919837
+}

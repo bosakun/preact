@@ -1,0 +1,60 @@
+{
+  "version": "1",
+  "name": "blender-visual-v2",
+  "frozen_before_evaluation": true,
+  "seed": 2,
+  "settings": {
+    "width": 192,
+    "height": 144,
+    "samples": 8,
+    "threads": 2,
+    "seed": 7
+  },
+  "scene_samples": {
+    "development": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "calibration": [
+      0,
+      4,
+      8
+    ],
+    "held_out": [
+      0,
+      8,
+      16
+    ]
+  },
+  "intermediate_frames": 3,
+  "runtime_steps": 5,
+  "runtime_policy": {
+    "width": 3,
+    "max_depth": 1,
+    "max_nodes": 4,
+    "search": false,
+    "max_seconds": 600
+  },
+  "timeout_seconds": 120,
+  "reproducibility": "two separate Blender processes; exact RGB/depth/ID bytes on same binary/platform",
+  "tolerances": {
+    "geometry_m": 2e-07,
+    "camera_matrix": 2e-06,
+    "box_depth_m": 2e-05,
+    "sphere_depth_m": 0.002,
+    "sphere_silhouette_fraction": 0.001
+  },
+  "failures": [
+    "nonzero_exit",
+    "timeout",
+    "cancellation",
+    "incomplete_output",
+    "artifact_tamper"
+  ],
+  "scope": "Position representation of retained MuJoCo states, all three scene families; synthetic images; no real-camera/rotation/hardware accuracy or independent physics authority",
+  "baseline_protocol_hash": "b6f9d4658048177aa7331f835194d687b07f6bb3d8e279be3496fefa6c05eadc"
+}

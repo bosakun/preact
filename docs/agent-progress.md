@@ -1081,3 +1081,140 @@ freeze evaluation protocol, implement independent receipt-to-schedule audit, run
   モデルArtifact、秘密情報や研究原文を含めない。元workspaceの未コミット変更は維持。
 - GitHub CIは開始済み、Ruff成功／全Python実行中。headを固定してCIを確認し、
   成否と最終SHAはPR本文・最終報告に記録する。現時点でCI成功とは主張しない。
+
+## Blender visual world integration (2026-10-12)
+
+- Isolated worktree: /private/tmp/preact-blender, branch codex/blender-visual-world;
+  fetched main d7927581c3bb8419c7fd2e4564f9e5ef253578ca. Original worktree untouched.
+- Read Core contracts, PhysicalWorld/SceneWorld, LocalVerifier, scene splits and
+  architecture. Selected a non-authoritative adapter; no Registry/safety changes.
+- Official Blender 4.5.9 LTS Apple Silicon download verified against SHA256
+  e3a3d7aac381fb4e4d05197f99cd8899484d7e8bc4497c134066e6733f372238.
+- Added bounded scene translation, CPU worker, cancellation/output validation,
+  content-addressed source/output manifests, visual adapter and Runtime observer.
+- Locked Python dependencies installed in this worktree. macOS sandbox Metal
+  detection crashes before Python even for CPU; real render is being retried with
+  permitted local process access. No successful render claimed yet.
+- Next: execute M1, audit geometry/depth/IDs, add fixed benchmark/gallery/tests,
+  complete Runtime/receipt comparison and run all regressions/distribution checks.
+
+### Blender acceptance milestones
+
+- M1 complete: real Blender 4.5.9 LTS CPU RGB/depth/segmentation with geometry/camera
+  manifests. macOS requires permitted process access for startup Metal detection.
+- M2 complete: retained MuJoCo trajectories for distinct candidates, source hashes,
+  hypothetical labeling; no safety claims or Registry admission added.
+- M3 complete: ordinary gated Runtime selected/executed four actions and completed
+  transfer safely. Seven rendered candidates; three unexecuted alternatives unlabeled.
+- Final fixed-v2 bundle: .cache/blender-final-evidence. 12/12 scene translation,
+  render and independent analytic audits; 57 frames, 182 verified artifacts, 7.4MB.
+  Exact same-binary RGB/depth/ID reproduction; box depth max error 1.8051e-6m;
+  four complete Receipt comparisons have position/projection/depth/ID errors zero.
+- Contract + actual Blender tests: 63 passed. Real malformed input/timeout/cancellation,
+  spawn cancellation, stub-only incomplete output and tamper rejection are distinct.
+- Frontend contracts unchanged; build passed; actual local API/Chromium E2E 6 passed.
+  Ruff check/format passed. Distribution build/audit passed (final rebuild pending).
+- Initial v1 failure retained: variable PNG Date/RenderTime metadata made byte hashes
+  differ despite identical pixels; removed text chunks without changing RGB pixels.
+  Three-step v1 Runtime ended incomplete; separate frozen v2 allowed five steps.
+- Whole Python regression is still running. One existing Queue test failed during
+  concurrent evaluation; isolated Queue audit/deadline rerun passed (2/2, 99.58s).
+  No Queue or Core code changed. Await full failure details and revalidate as needed.
+- Next: finish regression/distribution validation, create the requested single PR,
+  inspect hosted checks; no merge or auto-merge authorized.
+
+### Blender PR checkpoint — 2026-10-12 08:06 UTC
+
+- PR https://github.com/bosakun/preact/pull/15 (draft); source head 749e837.
+  No merge/auto-merge. This number was assigned to the Blender PR; the separate
+  uncommitted Queue work in the original workspace was never touched.
+- Final wheel/sdist rebuild and integrity audit passed. Worker and all seven
+  visual package modules are packaged; frontend contracts and existing Core/domain/
+  engine code have no changes.
+- Ubuntu CI's real Blender job passed: 3 actual integration tests, frozen v2
+  benchmark, seven candidate/four executed receipt replay, all 182 artifacts audited.
+- First whole regression was interrupted after diagnosis (530 passed, 3 skipped,
+  1 failure). The existing Queue benchmark correctly rejected a production source
+  hash changed by concurrent Blender edits. This was validation orchestration error,
+  not a Queue behavior defect. Its isolated audit/deadline rerun passed.
+- Source is now fixed. Fresh whole regression runs in .cache/python-regression-final.log;
+  hosted shared-runtime checks are pending at this checkpoint. Keep Python source
+  unchanged until both complete. Remaining work is validation/reporting only.
+
+### Blender final local verification — 2026-10-12 08:16 UTC
+
+Implementation and all three milestones are complete. Fixed-source full Python
+regression: `UV_CACHE_DIR=/private/tmp/preact-blender-uv uv run --frozen --no-sync
+pytest -q --durations=20` passed 753 tests, with only the 3 opt-in Blender tests
+skipped, in 1013.58 seconds. Those 3 tests passed separately on actual macOS Blender
+and in the Ubuntu Blender CI job. Final targeted suite: 63 passed.
+
+Ruff check/format, unchanged generated contracts, frontend build, 6 real API/Chromium
+E2E tests and current-head wheel/sdist integrity audit passed. The fixed protocol's
+independent source/geometry/camera/dense/complete-receipt replay passed. Current
+source is identical to 749e837; later commits contain documentation only.
+
+At this verification checkpoint, the current-head official Linux Blender jobs are
+green and the shared-runtime hosted checks are still running. PR description/final
+report will carry their final status; no Python changes or further implementation
+are required. No external integration remains blocked, apart from documented macOS
+sandbox startup access. Keep raw evidence in .cache/blender-final-evidence and preserve
+all failed/earlier evaluations. No merge or auto-merge.
+
+### PR #15 post-execution isolation repair — 2026-10-12
+
+- Reproduced the original bug with a failing real-MuJoCo lifecycle test: complete
+  receipt existed, but post-render failure aborted Core observation evidence,
+  comparison/calibration/trust updates and finish. Log: .cache/blender-postprocessing/before-repair.log.
+- Moved actual-outcome rendering from emit(outcome) into VisualPostprocessor after
+  normal Core Runtime completion. It cannot execute World actions or change Core
+  status/result, receipts or calibration. Pre-execution opt-in remains unchanged.
+- Added receipt/source/camera fences, detailed failure events, cancellation propagation
+  outside Core, serial idempotent retries, partial render reuse and cancellation-after-
+  commit reconciliation. Separate audit checks Core completion and failure bindings;
+  normal rendering audit still rejects missing comparisons. Gallery shows failures.
+- Targeted suite: 73 passed, including 8 actual Blender tests. Real process error,
+  timeout/cancel, comparison I/O failure, retry, conflicting receipt and image tamper
+  preserve Core results; source authority and safety Gate remain unchanged.
+- New fixed-v2 evidence: .cache/blender-postprocessing/final-v2. 12/12 scenes,
+  57 frames, 182 verified artifacts; 7 candidates/4 executed, safe task completion;
+  all executed position/projection/depth/ID differences zero. Measured summary in
+  reports/blender-postprocessing-v1-results.json. Previous protocols/results untouched.
+- Preserved first postfix trial with 186 artifacts; reused original saved visual
+  Prediction digest to remove four redundant normalized JSON envelopes in final run.
+- Python source is now frozen during whole regression (.cache/blender-postprocessing/python-full.log).
+  Frontend contracts/build/E2E and distribution validation are running; final head
+  must pass both shared-runtime and blender-visual CI before review completion.
+- Known limits remain rotation/mocap proxies, fixed-camera/flat-root acceptance,
+  synthetic images and unknown real-world model error. Cross-process postprocessors
+  require external serialization. No Task-Aware/Queue/Core changes; no merge/auto-merge.
+
+Repair validation checkpoint: Ruff check/format passed (215 Python files), generated
+frontend contracts are unchanged, frontend build passed, Chromium E2E 6 passed, and
+wheel/sdist integrity audit passed with all 100 packaged Python sources. The complete
+fixed-source Python run and latest-head hosted CI are the remaining validation steps;
+PR description/final report will record their results without changing this source.
+
+## 2026-10-13 — PR #16 main integration validation
+
+- Explicit merge authorization received. Latest main 2af71898063ddfbd0debac3357fd9f429986d7ac
+  contains merged Blender PR #15; PR #16 head was d459f59f8041d3db75de252f7dbb0673e78a3d98.
+- Used a separate clone; original dirty workspace and other development directories untouched.
+- Resolved only additive tail conflicts in AGENTS.md and this progress log. Task/information
+  arbitration and non-authoritative visual/postprocessing rules retain separate responsibilities.
+  Both branch histories remain preserved; old checkpoints describe their original execution time.
+- Blender code/workflow/tests and Task-Aware code/protocol/results retained unchanged.
+  Core/Gate/Promotion contracts not modified. Integrated regression, real Blender, frontend,
+  distributions and fresh audit replay are being checked before push/CI/merge.
+- Fixed reports will not be overwritten. Final validation and merge identities are recorded
+  in PR #16 and the completion report. No force push, auto-merge or protection bypass.
+
+Integration local checkpoint: all 788 Python regressions passed (972.42s), including
+22 Task-Aware cases and 8 actual Blender cases; no tests skipped. Ruff lint/format,
+frontend contracts/build, Chromium E2E 6 cases, and wheel/sdist integrity passed
+(102 Python sources). Frozen Blender v2 rerun independently audited 12 scenes,
+7 predicted candidates, 4 executed candidates and 182 artifacts. Queue fixed
+protocol/results/audit/pilots (10 files) are byte-identical to the original PR head.
+The unchanged Queue auditor is replaying all 3150 original receipts to a new private
+output while the integrated head is submitted for hosted CI. Neither verification
+is assumed successful in advance; both must finish before the authorized merge.

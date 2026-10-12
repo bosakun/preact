@@ -45,3 +45,30 @@ jobs:
           printf '%s\n' 'excluded-build-sentinel' > .cache/archive-regression/.env.example
           uv build --out-dir .cache/distributions
       - run: uv run python scripts/audit_distributions.py .cache/distributions --output .cache/distribution-audit.json
+  blender-visual:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      UV_CACHE_DIR: ${{ github.workspace }}/.cache/uv
+      PREACT_BLENDER: /tmp/blender-4.5.9-linux-x64/blender
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+      - run: python -m pip install uv==0.11.29
+      - run: uv sync --frozen --extra dev --extra physical
+      - name: Install checksum-pinned official Blender CPU binary
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libx11-6 libxi6 libxfixes3 libxrender1 libxxf86vm1 libgl1 libegl1 libsm6
+          curl --fail --location https://download.blender.org/release/Blender4.5/blender-4.5.9-linux-x64.tar.xz -o /tmp/blender.tar.xz
+          echo 'dcdc3eca6c9825bb35a8033b689c053f3cb5a9b0cd2a61b2eac2a49436b4ad3d  /tmp/blender.tar.xz' | sha256sum --check
+          tar -xJf /tmp/blender.tar.xz -C /tmp
+          "$PREACT_BLENDER" --version
+      - name: Real Blender integration tests
+        run: uv run pytest -q tests/test_blender_integration.py
+      - name: Frozen integration benchmark and independent replay audit
+        run: |
+          uv run python -m scripts.bench_blender_visual --protocol benchmarks/blender-visual-v2.json --output .cache/blender-evidence
+          uv run python -m scripts.audit_blender_visual .cache/blender-evidence --output .cache/blender-evidence/audit.json

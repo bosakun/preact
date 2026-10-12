@@ -1,0 +1,226 @@
+{
+  "artifact_bytes": 7395868,
+  "artifact_count": 182,
+  "cases": [
+    {
+      "audit_success": true,
+      "family": "clearance",
+      "manifest": "41558f353d7134cec7315885f98efd05d2abd7ff5326708e012c0084d7d0b04e",
+      "render_success": true,
+      "scene": "clearance-00",
+      "split": "development",
+      "translation_success": true
+    },
+    {
+      "audit_success": true,
+      "family": "clearance",
+      "manifest": "1281477641e9b8eefcbeb3278f378a0206cc3446a358a099864a1477940a6d61",
+      "render_success": true,
+      "scene": "clearance-01",
+      "split": "development",
+      "translation_success": true
+    },
+    {
+      "audit_success": true,
+      "family": "grasp-place",
+      "manifest": "086f8747cf181b8ce69b9787de51a62e42f4236acc8004cd83df1aa3b7a54022",
+      "render_success": true,
+      "scene": "grasp-place-00",
+      "split": "development",
+      "translation_success": true
+    },
+    {
+      "audit_success": true,
+      "family": "grasp-place",
+      "manifest": "b2430b3e5304db7206e2db63fc0ce0ca1132312258d5f00b4151b64e78f4bd3f",
+      "render_success": true,
+      "scene": "grasp-place-01",
+      "split": "development",
+      "translation_success": true
+    },
+    {
+      "audit_success": true,
+      "family": "perception-dynamics",
+      "manifest": "dd6b5392feb59dcd5fa571ff29c6729097406f9ac1fc938ad33adddb90a85aba",
+      "render_success": true,
+      "scene": "perception-dynamics-00",
+      "split": "development",
+      "translation_success": true
+    },
+    {
+      "audit_success": true,
+      "family": "perception-dynamics",
+      "manifest": "5c5a2158c086dcb0b3a952e5f161bf94bc15c348a10eb4f9a9f6829edcc8e54b",
+      "render_success": true,
+      "scene": "perception-dynamics-01",
+      "split": "development",
+      "translation_success": true
+    },
+    {
+      "audit_success": true,
+      "family": "clearance",
+      "manifest": "bd3d23c94ca1bb0591547a8d5c33d0af8fac1c4b6e2a3ea55ec6bae07d794ed9",
+      "render_success": true,
+      "scene": "clearance-02",
+      "split": "calibration",
+      "translation_success": true
+    },
+    {
+      "audit_success": true,
+      "family": "grasp-place",
+      "manifest": "e578a0c08d2632621c18253b14d64613bb37be813f27606413b2ed8c7b66c1c2",
+      "render_success": true,
+      "scene": "grasp-place-02",
+      "split": "calibration",
+      "translation_success": true
+    },
+    {
+      "audit_success": true,
+      "family": "perception-dynamics",
+      "manifest": "ba1cf103c6025f58626fd27ed8df4e6003e414a5c59556e15408490b820c2ef6",
+      "render_success": true,
+      "scene": "perception-dynamics-02",
+      "split": "calibration",
+      "translation_success": true
+    },
+    {
+      "audit_success": true,
+      "family": "clearance",
+      "manifest": "f0a21f937e758f5a162e8361969e0f11c0f40931599fe0f52f46932c8fa218fa",
+      "render_success": true,
+      "scene": "clearance-06",
+      "split": "held_out",
+      "translation_success": true
+    },
+    {
+      "audit_success": true,
+      "family": "grasp-place",
+      "manifest": "4984c6ab26cf57a4ff602b8c5b4b21cfa5d41a60c645d75ef20303eba1a29051",
+      "render_success": true,
+      "scene": "grasp-place-06",
+      "split": "held_out",
+      "translation_success": true
+    },
+    {
+      "audit_success": true,
+      "family": "perception-dynamics",
+      "manifest": "0229740ef5fafd9b280fcf60190df228b9601c8deedda90b0c55bf384773b652",
+      "render_success": true,
+      "scene": "perception-dynamics-06",
+      "split": "held_out",
+      "translation_success": true
+    }
+  ],
+  "comparisons": [
+    {
+      "action_fingerprint": "f27bad2387a0d19b03702e837002f8add20896a583937b63dd31c65fa941f585",
+      "actual_manifest": "343db78128cb47328d1f8da11229d0527db7cdc7043845ff049192769a347814",
+      "depth_mae_m": 0.0,
+      "position_error_m": 0.0,
+      "predicted_manifest": "ac93979c44b38a38da0165c0b9a5dae5d386a948fa505795ea56c9a31a48cc7c",
+      "projection_error_px": 0.0,
+      "receipt": "875fc833c5e8522a13b2e7823844a6c6702d726194e620b006cce5bca8dfce4f",
+      "rgb_equal": true,
+      "segmentation_changed_pixels": 0
+    },
+    {
+      "action_fingerprint": "d1002ecbecda580816855609d6ff28da88510440eb05cee9d782460dd4d1bccb",
+      "actual_manifest": "8a98fc595331ad983071366ae974b4f25c11f6351495b5633716d828e4d563ab",
+      "depth_mae_m": 0.0,
+      "position_error_m": 0.0,
+      "predicted_manifest": "1eb83604086717c120561481edfbf8497213bdf5676acf3eca3df055c477dc37",
+      "projection_error_px": 0.0,
+      "receipt": "c87faf0970db6040ff86a15c65b2e512e8a25021b6bd466ce75b3c0aa2e1442e",
+      "rgb_equal": true,
+      "segmentation_changed_pixels": 0
+    },
+    {
+      "action_fingerprint": "81c2fb5b7fc3ea0de93e9e5e0ccfd1b333ea244a04b17bb59883baf89532ad7a",
+      "actual_manifest": "4f5b17595028cb11a0f790e644d03dc107e212a4ed1b2c5128ee0fab274cf143",
+      "depth_mae_m": 0.0,
+      "position_error_m": 0.0,
+      "predicted_manifest": "f24a01c0357e060c5f07eb480757c5b7b213df6b19776056e16b58d602794453",
+      "projection_error_px": 0.0,
+      "receipt": "1b6b516f84505e8c12c6f1984650a03188b29315d03e918d5f372b1fef7fecb4",
+      "rgb_equal": true,
+      "segmentation_changed_pixels": 0
+    },
+    {
+      "action_fingerprint": "fcd223161258621f9aefd6a3637d7e17fc0475e5182efd22a5c95e98218c21fa",
+      "actual_manifest": "d7a73e40a299786b26ca8bcf66e81f07131e67adc2468419c05d3252d766f7eb",
+      "depth_mae_m": 0.0,
+      "position_error_m": 0.0,
+      "predicted_manifest": "ad9bf2cd77ebf86c36de2672a0038c1cd8f39c91001f3b24b9b110cd475eda55",
+      "projection_error_px": 0.0,
+      "receipt": "40b5729ed2774eb63df047b34e7d3a3aa57a30d328633df3697f1409a2f0f8da",
+      "rgb_equal": true,
+      "segmentation_changed_pixels": 0
+    }
+  ],
+  "environment": {
+    "platform": "macOS-27.0.1-arm64-arm-64bit",
+    "python": "3.12.13"
+  },
+  "failure_counts": {
+    "expected_artifact_tamper": 1,
+    "expected_cancellation": 1,
+    "expected_nonzero_exit": 1,
+    "expected_timeout": 1,
+    "incomplete_outputs": 0,
+    "render_errors": 0,
+    "unexpected": 0
+  },
+  "independent_audit": {
+    "artifact_count": 182,
+    "box_depth_max_error_m": 1.8050460885987718e-06,
+    "passed": true,
+    "projection_bbox_excess_px": 0.0,
+    "protocol_hash": "465b7e8be063a453bde283bcde8e5e15ac5eb6e188273495d1707f7caefe6ec1"
+  },
+  "initial_v1_failure": {
+    "cause": "PNG Date/RenderTime text chunks differed; decoded RGB pixels were identical. Variable PNG text metadata removed without editing pixels.",
+    "runtime_status": "failed_task",
+    "runtime_steps": 3,
+    "unexpected_failures": [
+      "reproducibility"
+    ]
+  },
+  "protocol_hash": "465b7e8be063a453bde283bcde8e5e15ac5eb6e188273495d1707f7caefe6ec1",
+  "renderer": {
+    "blender_version": "4.5.9 LTS",
+    "build_hash": "8bf95cbd38d1",
+    "depth": "camera axial Z metres; background 0; pixel centers; evaluated Blender ray_cast",
+    "rgb": "Cycles CPU PNG Standard color transform; antialiased; no denoising",
+    "segmentation": "uint16 object pass_index; background 0; unfiltered pixel centers"
+  },
+  "reproducibility": {
+    "exact_modalities_equal": true,
+    "manifests": [
+      "ead2bfafdac5ee02275115c4f4912b1c08e4acbc1f84d744c14f14a9cdd486f1",
+      "138a7c2ee2e5a4c27008c4b3c4955107ffcd64a7849dd49e4d0c4c59ed74acbc"
+    ]
+  },
+  "resources": {
+    "cpu_seconds": 50.064837,
+    "max_peak_rss_bytes": 247087104,
+    "mean_startup_shutdown_seconds": 0.8538323693651835,
+    "render_frames": 57,
+    "render_jobs": 29,
+    "render_seconds": 14.053790670470335
+  },
+  "runtime": {
+    "rendered_candidates": 7,
+    "status": "complete",
+    "steps": 4,
+    "success": true,
+    "unexecuted_candidates": 3,
+    "unsafe": false
+  },
+  "scope": "Owned synthetic fixtures only. Raw states, predictions, receipts, images and ledger retained in excluded .cache/blender-final-evidence. Reproduce with frozen v2 protocol. Rotation/mocap proxies and real-world model error are not validated.",
+  "success_rates": {
+    "audit_success": 1.0,
+    "render_success": 1.0,
+    "translation_success": 1.0
+  },
+  "wall_seconds": 50.17181458300911
+}
