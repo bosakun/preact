@@ -114,3 +114,9 @@ See [measured summary](../reports/blender-visual-v2-results.json) and
 ledger, receipts, modality arrays, manifests and complete gallery remain in the
 excluded `.cache/blender-final-evidence/` bundle; use the commands above to reproduce.
 The independent auditor requires those original inputs, not the abbreviated summary.
+
+Acceptance uses flat root comparison (`Policy(search=False)`). Deeper hypothetical
+Future Tree input states are outside this adapter's audited scope. Renderer memory
+is recorded as peak RSS; Linux also enforces a 4GiB address-space ceiling. CPU time
+is bounded to 4800 seconds and host wall time to 600 seconds at most. Process startup
+and shutdown are reported together as measured overhead, separately from render time.

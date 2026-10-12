@@ -1045,3 +1045,21 @@ then all quality checks. No PR or merge has occurred for this change.
   No Queue or Core code changed. Await full failure details and revalidate as needed.
 - Next: finish regression/distribution validation, create the requested single PR,
   inspect hosted checks; no merge or auto-merge authorized.
+
+### Blender PR checkpoint — 2026-10-12 08:06 UTC
+
+- PR https://github.com/bosakun/preact/pull/15 (draft); source head 749e837.
+  No merge/auto-merge. This number was assigned to the Blender PR; the separate
+  uncommitted Queue work in the original workspace was never touched.
+- Final wheel/sdist rebuild and integrity audit passed. Worker and all seven
+  visual package modules are packaged; frontend contracts and existing Core/domain/
+  engine code have no changes.
+- Ubuntu CI's real Blender job passed: 3 actual integration tests, frozen v2
+  benchmark, seven candidate/four executed receipt replay, all 182 artifacts audited.
+- First whole regression was interrupted after diagnosis (530 passed, 3 skipped,
+  1 failure). The existing Queue benchmark correctly rejected a production source
+  hash changed by concurrent Blender edits. This was validation orchestration error,
+  not a Queue behavior defect. Its isolated audit/deadline rerun passed.
+- Source is now fixed. Fresh whole regression runs in .cache/python-regression-final.log;
+  hosted shared-runtime checks are pending at this checkpoint. Keep Python source
+  unchanged until both complete. Remaining work is validation/reporting only.
