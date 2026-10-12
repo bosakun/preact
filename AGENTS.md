@@ -270,6 +270,21 @@ after selection and again after intent. The owned submission-permit fixture is n
 normal Queue v2. Preserve all historical protocols/results; measure extra verification
 cost and report failed, adverse, tied and fallback-only conditions.
 
+### Opt-in task/information scheduling
+
+QueueTaskPlanner adds non-authoritative task/probe arbitration above the existing
+multi-candidate planner. Normal task forecasts, scheduler assumptions/VOI and
+Runtime qualification remain separate records. Credit only receipt-identifiable
+ordinary observations; never convert censored samples to low service labels.
+Local reference calls must use proposal reservation/usage accounting. Runtime
+still owns verifier, Gate, authorization, intent and one-action execution.
+Continuous recovery keeps the original post-cutoff training, independent H3
+assessment and disjoint fresh monitoring requirements. Promotion is an explicit
+operator/harness instruction, not scheduler authority. A lost/invalid Recovery
+must not become ordinary guard fallback. Preserve all pilot/confirmatory results,
+including incomplete recovery, adverse costs and Goal-active model usage.
+See docs/task-aware-continuous-adaptation.md and its separate protocol/results.
+
 ### Blender visual representation
 
 `src/preact/visual/` and `workers/blender.py` translate physical State and retained

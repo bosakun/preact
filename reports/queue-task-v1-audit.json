@@ -1,0 +1,347 @@
+{
+  "protocol_id": "task-aware-continuous-v1",
+  "protocol_hash": "4d90e5fc5f16b5529eb257ad15d277209eae81fc933e676b15488118b9148e2a",
+  "auditor_hash": "590918a99752ddf4e33df4265df7061936848abb506393054e7336af36830806",
+  "audits": [
+    {
+      "condition": "low-high-low",
+      "strategy": "probe_centric",
+      "receipt_count": 220,
+      "task_actions": 3,
+      "probe_actions": 217,
+      "unsafe": 0,
+      "recoveries": [
+        {
+          "invalidation_tick": 60,
+          "training_effective": 16,
+          "evaluation_effective": 36,
+          "evaluation_passed": true,
+          "model_version": "9c9b3826cbc1e7c9a6a872670c326fbfbd9065bfde9ee6f6480fc70ffc8fd0f4",
+          "dataset_hash": "8488da2b52bf1e1ce1ae390c023287c90ef56541d0e1568736c494b9a5ada19e"
+        },
+        {
+          "invalidation_tick": 132,
+          "training_effective": 16,
+          "evaluation_effective": 60,
+          "evaluation_passed": true,
+          "model_version": "868a85336974e2fb45ebe89225d74f2ed756c64b62d84c9cb24ed0e56cf653a0",
+          "dataset_hash": "d3dbcbc20c154f7401c15603074eae32b779be342131018437be75b756c93aa9"
+        }
+      ],
+      "lifecycle_compute": [
+        {
+          "kind": "training_evaluation",
+          "cpu_seconds": 9.814071,
+          "wall_seconds": 11.079297916963696
+        },
+        {
+          "kind": "training_evaluation",
+          "cpu_seconds": 10.518001000000005,
+          "wall_seconds": 11.796160500030965
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "condition": "low-high-low",
+      "strategy": "fixed_task",
+      "receipt_count": 220,
+      "task_actions": 220,
+      "probe_actions": 0,
+      "unsafe": 0,
+      "recoveries": [],
+      "lifecycle_compute": [],
+      "status": "passed"
+    },
+    {
+      "condition": "low-high-low",
+      "strategy": "no_recovery",
+      "receipt_count": 220,
+      "task_actions": 220,
+      "probe_actions": 0,
+      "unsafe": 0,
+      "recoveries": [],
+      "lifecycle_compute": [],
+      "status": "passed"
+    },
+    {
+      "condition": "low-high-low",
+      "strategy": "task_aware",
+      "receipt_count": 220,
+      "task_actions": 204,
+      "probe_actions": 16,
+      "unsafe": 0,
+      "recoveries": [
+        {
+          "invalidation_tick": 61,
+          "training_effective": 16,
+          "evaluation_effective": 36,
+          "evaluation_passed": true,
+          "model_version": "c69f7023fc47d48274a12b2532a74727967d1433876c3931ef7f8da3b090e439",
+          "dataset_hash": "03d0da006e0ab85a1b2025ebf29262c2f12fb0990c7a53e30eac15851f36236f"
+        },
+        {
+          "invalidation_tick": 150,
+          "training_effective": null,
+          "evaluation_effective": null,
+          "evaluation_passed": null
+        }
+      ],
+      "lifecycle_compute": [
+        {
+          "kind": "training_evaluation",
+          "cpu_seconds": 26.293073999999933,
+          "wall_seconds": 27.560108458041213
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "condition": "high-low-high",
+      "strategy": "probe_centric",
+      "receipt_count": 220,
+      "task_actions": 3,
+      "probe_actions": 217,
+      "unsafe": 0,
+      "recoveries": [
+        {
+          "invalidation_tick": 60,
+          "training_effective": 16,
+          "evaluation_effective": 60,
+          "evaluation_passed": true,
+          "model_version": "4d65e07e2656a1e83c1d6ea000e21e2232c01769a8b0fab31de051f7a691c7e1",
+          "dataset_hash": "d867ab6be2def9caa01d5d302717ee5c6fbb21c01a1de4bc4f15513e17949631"
+        },
+        {
+          "invalidation_tick": 132,
+          "training_effective": 16,
+          "evaluation_effective": 36,
+          "evaluation_passed": true,
+          "model_version": "480791fec3c6626bfe73bf5521e64904c8b63698c7c2a2df6bc5a2b29fee6627",
+          "dataset_hash": "15d97eedcc540cf9770dfaabd4ddbb8a1fff011c93c9593cd4c542579fcbcc5b"
+        }
+      ],
+      "lifecycle_compute": [
+        {
+          "kind": "training_evaluation",
+          "cpu_seconds": 14.981327000000192,
+          "wall_seconds": 16.371618082979694
+        },
+        {
+          "kind": "training_evaluation",
+          "cpu_seconds": 14.765545999999858,
+          "wall_seconds": 16.00544854195323
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "condition": "high-low-high",
+      "strategy": "fixed_task",
+      "receipt_count": 220,
+      "task_actions": 220,
+      "probe_actions": 0,
+      "unsafe": 0,
+      "recoveries": [],
+      "lifecycle_compute": [],
+      "status": "passed"
+    },
+    {
+      "condition": "high-low-high",
+      "strategy": "no_recovery",
+      "receipt_count": 220,
+      "task_actions": 220,
+      "probe_actions": 0,
+      "unsafe": 0,
+      "recoveries": [],
+      "lifecycle_compute": [],
+      "status": "passed"
+    },
+    {
+      "condition": "high-low-high",
+      "strategy": "task_aware",
+      "receipt_count": 220,
+      "task_actions": 160,
+      "probe_actions": 60,
+      "unsafe": 0,
+      "recoveries": [
+        {
+          "invalidation_tick": 78,
+          "training_effective": 16,
+          "evaluation_effective": 36,
+          "evaluation_passed": false,
+          "model_version": "c402ea643484e18d015d99c75e049b0b4c6e1acf59da16088710e27b8c077ba1",
+          "dataset_hash": "e49c44180b824697d8c9898f9f1ac700ab7f3cbf20b438abd742364fb1e7e470"
+        }
+      ],
+      "lifecycle_compute": [
+        {
+          "kind": "training_evaluation",
+          "cpu_seconds": 70.67316399999982,
+          "wall_seconds": 72.71411050006282
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "condition": "stable-low",
+      "strategy": "task_aware",
+      "receipt_count": 220,
+      "task_actions": 159,
+      "probe_actions": 61,
+      "unsafe": 0,
+      "recoveries": [],
+      "lifecycle_compute": [],
+      "status": "passed"
+    },
+    {
+      "condition": "stable-high",
+      "strategy": "task_aware",
+      "receipt_count": 220,
+      "task_actions": 220,
+      "probe_actions": 0,
+      "unsafe": 0,
+      "recoveries": [],
+      "lifecycle_compute": [],
+      "status": "passed"
+    },
+    {
+      "condition": "noise",
+      "strategy": "task_aware",
+      "receipt_count": 220,
+      "task_actions": 203,
+      "probe_actions": 17,
+      "unsafe": 0,
+      "recoveries": [
+        {
+          "invalidation_tick": 64,
+          "training_effective": 16,
+          "evaluation_effective": 36,
+          "evaluation_passed": true,
+          "model_version": "190402915966ea07f8035dca3e570384914776399a639fbad7397c3b6c04f0af",
+          "dataset_hash": "df10223f92cef489b3ce10e1d5ae1e60931d25fbe7bef10099b93518b141368a"
+        },
+        {
+          "invalidation_tick": 141,
+          "training_effective": 16,
+          "evaluation_effective": 60,
+          "evaluation_passed": true,
+          "model_version": "796a039baae7769d389960749bed29374290fbacc861c62d869d7cb0e04f20db",
+          "dataset_hash": "1e1adb074f72d74fd8bc4c6617e44ef734c7b8e23767bdffe88853004e797691"
+        }
+      ],
+      "lifecycle_compute": [
+        {
+          "kind": "training_evaluation",
+          "cpu_seconds": 42.567425000000185,
+          "wall_seconds": 43.97817254194524
+        },
+        {
+          "kind": "training_evaluation",
+          "cpu_seconds": 37.28997900000013,
+          "wall_seconds": 38.784394415910356
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "condition": "sparse-costly-work",
+      "strategy": "task_aware",
+      "receipt_count": 220,
+      "task_actions": 220,
+      "probe_actions": 0,
+      "unsafe": 0,
+      "recoveries": [],
+      "lifecycle_compute": [],
+      "status": "passed"
+    },
+    {
+      "condition": "expensive-measurement",
+      "strategy": "task_aware",
+      "receipt_count": 220,
+      "task_actions": 219,
+      "probe_actions": 1,
+      "unsafe": 0,
+      "recoveries": [
+        {
+          "invalidation_tick": 54,
+          "training_effective": 16,
+          "evaluation_effective": 36,
+          "evaluation_passed": true,
+          "model_version": "d1ec16d4116ce52d76d6e1fa96f2146c0d87ea92517db079c9bcbb23949a5710",
+          "dataset_hash": "279a2c56c79aaf1dd53902de587246bdeb605aee85e1c021e15ab089e557566a"
+        },
+        {
+          "invalidation_tick": 150,
+          "training_effective": null,
+          "evaluation_effective": null,
+          "evaluation_passed": null
+        }
+      ],
+      "lifecycle_compute": [
+        {
+          "kind": "training_evaluation",
+          "cpu_seconds": 20.76455199999964,
+          "wall_seconds": 22.016818374977447
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "condition": "quality-rejected",
+      "strategy": "task_aware",
+      "receipt_count": 220,
+      "task_actions": 205,
+      "probe_actions": 15,
+      "unsafe": 0,
+      "recoveries": [
+        {
+          "invalidation_tick": 61,
+          "training_effective": 16,
+          "evaluation_effective": 60,
+          "evaluation_passed": false,
+          "model_version": "979f8516cfae0621bb34201b0875296850a33d5e1e3a040296600923a4340fd4",
+          "dataset_hash": "6140491bcc583cd387e71904549933b30533bc287e08af3ecfd631ef8e40fdba"
+        }
+      ],
+      "lifecycle_compute": [
+        {
+          "kind": "training_evaluation",
+          "cpu_seconds": 19.544698000000608,
+          "wall_seconds": 20.88014041702263
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "condition": "short-observation-budget",
+      "strategy": "task_aware",
+      "receipt_count": 70,
+      "task_actions": 56,
+      "probe_actions": 14,
+      "unsafe": 0,
+      "recoveries": [
+        {
+          "invalidation_tick": 61,
+          "training_effective": null,
+          "evaluation_effective": null,
+          "evaluation_passed": null
+        }
+      ],
+      "lifecycle_compute": [],
+      "status": "passed"
+    }
+  ],
+  "acceptance": {
+    "checks": {
+      "task_actions": true,
+      "probe_rate": true,
+      "promotions": true,
+      "ordinary_training": true,
+      "goal_active_model_actions": true,
+      "unsafe": true
+    },
+    "passed": true
+  },
+  "status": "passed"
+}

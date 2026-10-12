@@ -1,0 +1,64 @@
+{
+  "protocol_id": "task-aware-pilot-v2",
+  "episode_ticks": 220,
+  "execution_ticks": 200,
+  "goal": 300,
+  "capacity": 12,
+  "submission_cost": 0.15,
+  "probe_cost": 0.05,
+  "seeds": [
+    409
+  ],
+  "strategies": [
+    "task_aware"
+  ],
+  "information_model": {
+    "persistence": 0.95,
+    "monitoring_samples": 8,
+    "training_samples": 16
+  },
+  "policy": {
+    "search": false,
+    "calibration": false,
+    "width": 3,
+    "max_nodes": 3,
+    "max_calls": 128
+  },
+  "collection_policy": {
+    "search": false,
+    "calibration": false,
+    "width": 1,
+    "max_nodes": 1,
+    "max_calls": 128
+  },
+  "detection": {
+    "window": 16,
+    "min_recent": 8,
+    "min_training": 16,
+    "min_effect": 0.1,
+    "alpha": 0.05,
+    "max_gap_ticks": 16
+  },
+  "conditions": {
+    "low-high-low": {
+      "regimes": [
+        {
+          "start": 0,
+          "end": 48,
+          "service": 1
+        },
+        {
+          "start": 48,
+          "end": 120,
+          "service": 3
+        },
+        {
+          "start": 120,
+          "end": 220,
+          "service": 1
+        }
+      ]
+    }
+  },
+  "revision_reason": "Pilot v1 overvalued persistent information and had a goal above the declared 200-tick schedule theoretical throughput. v2 uses a conservative 20-decision retention assumption and a reachable goal before confirmatory evaluation. Scoring and promotion thresholds are unchanged."
+}

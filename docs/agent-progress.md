@@ -1005,6 +1005,83 @@ then all quality checks. No PR or merge has occurred for this change.
 - 次: これらの成果をfeature branchのcommitへまとめ、PR作成後CIを確認する。mainへmerge/
   auto-mergeは禁止。
 
+## 2026-10-12 — Task-aware continuous adaptation: audit and pilot
+
+Started from public main d792758 in an isolated worktree; original workspace changes are untouched.
+Reused ContinuousQueueAdaptation/Guard/Recovery and the unchanged promotion thresholds.
+Added a non-authoritative scheduling record and Queue-specific task/information arbitration,
+with six declared local reference forecasts accounted through proposal reservation/usage.
+Ordinary informative outcomes use the existing adapter; censored outcomes remain unlabelled.
+Initial integration caught and repaired a real observation-cutoff ordering error and JSON
+canonicalization mismatch. Pilot and new behavioral/negative tests are running. Historical
+benchmarks/results are untouched. Next: inspect pilot task/probe and recovery feasibility,
+freeze evaluation protocol, implement independent receipt-to-schedule audit, run all regressions.
+
+### 2026-10-12 — Task-aware pilot・固定本評価開始
+
+- pilot v1/v2/v3のprotocol・集約結果を別ファイルに保持。v3は220 tick中通常Action204 /
+  Probe16、モデルによるタスクAction A31/B40、delivered305、Reward223.95、unsafe0。
+  Bの訓練は通常Action有効16件。第2回回復は通常4＋Probe1件で不足し、Cは昇格していない。
+- 初期観測cutoff、JSON正規化、Health readiness、実行後の自分の確定run manifestを修正。
+  Core/Guard/Recovery/Adapter/PromotionPolicyの意味・閾値は変更していない。
+- 新規22テストpass。Scheduler根拠・source変更・予算・取消・Receipt pending/aborted/forged・
+  Recovery喪失、独立auditorによる判断/State/Authorization/Outcome改ざん拒否を確認。
+- 先行全Python709 pass、隔離ポートで既存Chromium E2E6 pass、frontend contracts差分なし／
+  build pass。最新全回帰を再実行中。Ruff check/format pass、wheel/sdist integrity pass。
+- pilot後にqueue-task-v1.jsonを固定し、本評価を実行中。比較2環境×4方式と診断7条件。
+  評価結果・独立監査・受入判定は未確定。元DB・Artifactは/private/tmp配下に保持し公開しない。
+- 次: 本評価を完走し、全Receiptから独立監査、改善/悪化/回復不足を結果文書へ反映。
+  PRはまだ作成していない。mainへのmerge/auto-mergeは禁止。
+
+### Task-aware本評価・主ケースcheckpoint
+
+- 主ケースLow→High→Lowの220 tickを完走。通常204 / Probe16、有効通常86 / Probe16、
+  A/BのGoal達成前タスクAction31/40、Bは通常有効16件で学習・評価・明示昇格。Goal tick183、
+  delivered305、Reward223.95、Utility218.95、unsafe0。第2回は有効5件でC未昇格。
+- 同条件のProbe中心は通常3 / Probe217、delivered5、Reward-6.6。固定submit(1)はdelivered219 /
+  Reward186。再学習なしはモデル未利用のFallbackでdelivered305 / Reward232.25。
+  新方式はFallbackのみよりRewardが低く、モデル利用と利益改善を区別する。
+- 追加前の全回帰712 pass (1131.43s)、新規22 pass、frontend contracts/build pass、最終隔離
+  Chromium E2E6 pass (11.5s)。新規3監査ケースを含む最終715回帰は実行中。
+- 主ケース独立監査と残り本評価を実行中。監査source hashは開始時に固定し、実行中の
+  監査コード変更があれば集約監査結果を確定しない。最終監査は凍結コードで再実行する。
+- 現時点でPR未作成。次: 全比較/診断、独立監査、最終配布物検証、結果文書、PRとCI。
+
+### Task-aware全15ケース完走・集約監査中
+
+- 固定queue-task-v1の15ケース／3150実transitionを完走。全ケースunsafe0、Gate拒否0、
+  ABSTAIN0。LHLは通常204/Probe16・B昇格1・delivered305。HLHは通常160/Probe60・Goal達成だが、
+  候補もparentも独立MAE0でparent改善条件不成立、昇格0。条件は緩和していない。
+- stable lowはProbe61・delivered161で過剰測定の失敗。stable highはProbe0・通常教師100・
+  Goal達成前モデルAction92。noiseはB昇格1、第二候補は評価合格でもGoal後未昇格。
+- 仕事量不足は教師0・モデル利用0・Fallbackのdelivered219。高Probe費用では正式Probe1／
+  通常有効89でB昇格1。意図したquality拒否は昇格0、70tick診断はGoal未達／昇格0。
+- 最終Python全回帰715 pass (1342.63s)、追加22 pass、Ruff check/format、contracts差分なし、
+  frontend build、隔離Chromium6 pass。凍結auditorによるpilot v3再監査pass、評価有効36件。
+- 本評価JSON保存済み。全Store/Receiptと公開結果を照合する集約auditorは実行中。
+  source/code/protocolを途中変更しない。最終distribution再構築・PR・CIは未完了。
+
+### 2026-10-13 — Task-aware固定本評価・独立監査完了
+
+- 凍結auditorで全15ケース・3150 source Receiptを再構成し全pass。公開結果との照合と
+  主ケースの固定機能受入条件6項目もpass。pilot v3も同じ最終auditorで再監査pass。
+- B学習の有効通常16件／独立評価36件、元失効cutoff、新監視、明示Promotion、各候補予測・
+  Scheduler VOI・Runtime qualified集合・実Action・Authorization・Intent・Receiptを再検証。
+- 失敗を保持: HLH parent比較拒否、stable-low過剰Probe、仕事量不足による教師0、
+  第2回回復標本不足、Goal達成後の未昇格、再学習なしFallbackより低いUtility。
+- ローカル全回帰715 pass・新規22 pass・Ruff・contracts/build・Chromium6 pass。
+  最新結果文書を含む配布物を再構築し、独立PRを作成してGitHub CIを確認する。
+  raw DB/cache/Artifactを公開せず、main merge/auto-mergeは行わない。
+
+### Task-aware PR作成・最終CI待ち
+
+- GitHub採番はPR #16（#15は別のBlender機能PR）。今回の統合PR:
+  https://github.com/bosakun/preact/pull/16 。専用branch以外をpush/mergeしていない。
+- 最新wheel/sdist再構築・93 Python sourcesの整合性監査pass。公開変更にraw DB、cache、
+  モデルArtifact、秘密情報や研究原文を含めない。元workspaceの未コミット変更は維持。
+- GitHub CIは開始済み、Ruff成功／全Python実行中。headを固定してCIを確認し、
+  成否と最終SHAはPR本文・最終報告に記録する。現時点でCI成功とは主張しない。
+
 ## Blender visual world integration (2026-10-12)
 
 - Isolated worktree: /private/tmp/preact-blender, branch codex/blender-visual-world;
@@ -1117,3 +1194,27 @@ frontend contracts are unchanged, frontend build passed, Chromium E2E 6 passed, 
 wheel/sdist integrity audit passed with all 100 packaged Python sources. The complete
 fixed-source Python run and latest-head hosted CI are the remaining validation steps;
 PR description/final report will record their results without changing this source.
+
+## 2026-10-13 — PR #16 main integration validation
+
+- Explicit merge authorization received. Latest main 2af71898063ddfbd0debac3357fd9f429986d7ac
+  contains merged Blender PR #15; PR #16 head was d459f59f8041d3db75de252f7dbb0673e78a3d98.
+- Used a separate clone; original dirty workspace and other development directories untouched.
+- Resolved only additive tail conflicts in AGENTS.md and this progress log. Task/information
+  arbitration and non-authoritative visual/postprocessing rules retain separate responsibilities.
+  Both branch histories remain preserved; old checkpoints describe their original execution time.
+- Blender code/workflow/tests and Task-Aware code/protocol/results retained unchanged.
+  Core/Gate/Promotion contracts not modified. Integrated regression, real Blender, frontend,
+  distributions and fresh audit replay are being checked before push/CI/merge.
+- Fixed reports will not be overwritten. Final validation and merge identities are recorded
+  in PR #16 and the completion report. No force push, auto-merge or protection bypass.
+
+Integration local checkpoint: all 788 Python regressions passed (972.42s), including
+22 Task-Aware cases and 8 actual Blender cases; no tests skipped. Ruff lint/format,
+frontend contracts/build, Chromium E2E 6 cases, and wheel/sdist integrity passed
+(102 Python sources). Frozen Blender v2 rerun independently audited 12 scenes,
+7 predicted candidates, 4 executed candidates and 182 artifacts. Queue fixed
+protocol/results/audit/pilots (10 files) are byte-identical to the original PR head.
+The unchanged Queue auditor is replaying all 3150 original receipts to a new private
+output while the integrated head is submitted for hosted CI. Neither verification
+is assumed successful in advance; both must finish before the authorized merge.
