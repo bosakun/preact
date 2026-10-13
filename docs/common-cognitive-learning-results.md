@@ -100,6 +100,12 @@ v2は全seed/World/候補順/昇格閾値を維持し、侵襲的tracemallocか�
 
 ## 次の課題
 
+初回CIはPython836 passed/8 skipped、Ruff、既存44ケース監査、Blender実プロセス検証に
+成功したが、shared-runtimeの120分上限で停止した。push側は今回の32ケース監査、
+frontend/E2E、配布物監査まで全ステップ成功後にcancelled、PR側は今回の評価・監査中に
+cancelledとなった。ジョブ全体の成功とは扱わない。チェック・protocol・昇格条件を
+維持し、CI実行枠のみ180分へ延長して最新headで再検証する。
+
 1. readinessの情報取得費用を減らす判断を、既存TaskAware/VOIとの共通接続で検証する。
 2. Softwareの未観測候補、別タスク、変化した結果分布への学習・Health契約を拡張する。
 3. Queue以外の独立評価方式と連続episode適応を追加Worldで検証する。

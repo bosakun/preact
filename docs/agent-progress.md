@@ -1337,3 +1337,15 @@ wheel/sdist107Python source integrityが成功。CIには固定44case+独立audi
 - Final Ruff lint/format, frontend contracts unchanged/build, distribution audit112 Python sources
   pass. Core source files unchanged; historical benchmark/report bytes remain unchanged.
 - Next: focused commit, normal feature push, independent PR, latest-head CI. No merge/auto-merge.
+
+- PR #18 created at head0af6484f55e1632f8cc53daab22cefca4dd51be9. First remote CI
+  replay confirmed836 passed/8 optional skips, Ruff and frozen Deliberation44/486 receipts.
+  Both Blender jobs passed their real-process tests and fixed replay audit.
+- The120-minute shared-runtime limit was insufficient. Push run38397665999 completed
+  every validation step (including common-learning audit, frontend/E2E and112-source
+  distribution integrity) but reached the limit during job finalization; conclusion cancelled.
+  PR run38397863582 reached the same limit during common-learning replay/audit; its remaining
+  steps were not completed. Neither cancelled run is represented as a successful CI run.
+- Extended only the CI job budget120→180 minutes, preserving all checks, benchmark cases,
+  promotion thresholds, frozen outputs and runtime limits. No model/performance optimization.
+  Next: normal push and complete latest-head remote CI before reporting validation complete.
