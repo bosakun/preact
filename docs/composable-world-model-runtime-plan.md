@@ -227,3 +227,11 @@ qualified selector、既存Runtimeを再利用する。Core Searchが既に持�
 [責務・API](modular-deliberation.md)と[凍結評価・反例](modular-deliberation-results.md)を参照。
 今後は実測に基づく異種モデルのcoverage契約と不確実性評価を検討する。
 Physical/Blenderへの強制適用、長期探索全面変更、Safety Authority変更は行っていない。
+
+## 共通認知・学習パイプラインの縦切り
+
+Queue/Software共通のCognitiveAgent・Deliberationと任意LearningCoordinatorを接続する。
+Receipt教師、独立評価、明示昇格、整合した次roundの構成を検証する。
+Queueは既存継続Recoveryを委譲、Softwareは許可済みProgramWorldのH1実結果を学習する。
+未知候補/別タスク汎化、Physical学習統合、自動Promotionは後続課題。
+実装・計測・監査完了の状態はdocs/agent-progress.mdと専用結果文書を参照する。

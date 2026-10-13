@@ -314,3 +314,20 @@ All costly proposal work must reserve/account calls before Runtime qualification
 selector does no IO or prediction. Reuse the existing selection dispatch fences and
 complete receipts. Retain historical protocols and report ties, adverse reward,
 uncalibrated uncertainty and unsupported forecasts. See docs/modular-deliberation.md.
+
+### Opt-in common cognitive learning
+
+CognitiveAgent may use a LearningCoordinator at quiescent round boundaries.
+Coordinator owns lifecycle control and receipt manifests only; domain LearningBackend
+owns features, health, eligibility, evaluation conditions and prediction adapters.
+Queue delegates to the existing continuous lifecycle and retains its promotion policy.
+Software ProgramWorld learning is closed-vocabulary H1 outcome memory; do not claim
+unseen-candidate/task generalization. Protected evaluator/oracle data is not a predictor
+input. Numeric outcome forecasts never synthesize successor State or safety evidence.
+Explicit promotion reconstructs a coherent planner/adapter/private prediction registry/
+selector binding for the next round. Core verification Registry and execution authority
+remain independent. None preserves the existing Agent path. Restart must revalidate
+receipts, artifacts, held-out evaluation and explicit promotion; cancellation/corruption
+must not revive old or unapproved models. Operator round observers may explicitly call
+promotion after complete receipts; production defaults never auto-promote. Preserve
+all frozen protocols/results and count preparation/evaluation costs separately.

@@ -1,0 +1,73 @@
+{
+  "version": "2",
+  "stage": "confirmatory",
+  "seeds": [
+    11,
+    12
+  ],
+  "program": {
+    "task": "ceil_batches",
+    "orders": [
+      "native",
+      "reverse"
+    ],
+    "max_preparation_actions": 16,
+    "evaluation_tasks": 4,
+    "strategies": [
+      "learned",
+      "fixed_prior",
+      "existing",
+      "no_promotion"
+    ],
+    "promotion": {
+      "samples_per_candidate": 4,
+      "evaluation_per_candidate": 4,
+      "max_goal_mae": 0.25,
+      "coverage": 1,
+      "prior": 0.5
+    }
+  },
+  "queue": {
+    "ticks": 56,
+    "target": 999,
+    "strategies": [
+      "learned",
+      "no_recovery"
+    ],
+    "conditions": {
+      "stable_high": {
+        "before": 3,
+        "after": 3,
+        "shift": 0
+      },
+      "stable_low": {
+        "before": 1,
+        "after": 1,
+        "shift": 0
+      },
+      "low_to_high": {
+        "before": 1,
+        "after": 3,
+        "shift": 8
+      },
+      "high_to_low": {
+        "before": 3,
+        "after": 1,
+        "shift": 8
+      }
+    }
+  },
+  "acceptance": "Both domains use actual Agent/Deliberation/Runtime/receipts; explicit promotion and actual model-dependent action. Baseline superiority is not required.",
+  "freeze": "Same seeds, worlds, proposal orders, sample counts and promotion thresholds as v1. v1 interrupted before completion for explicit source-world/temporal validation hardening; v2 uses non-intrusive RSS to avoid tracemalloc distorting long validation. No score-based condition selection.",
+  "limits": [
+    "Software known candidate outcome memory, no unseen code/task generalization",
+    "Reverse native proposal order is a declared owned fixture with unchanged State/candidate/Gate conditions",
+    "Queue Goal999 intentionally keeps the continuous fixture running; task_goal_rate is native task completion and may remain zero",
+    "No counterfactual actual labels, no automatic promotion, no safety authority change",
+    "Process RSS is a process-lifetime high-water mark, not attributable per-case allocation; functional capability remains the priority"
+  ],
+  "measurement": {
+    "memory": "process-lifetime peak RSS; bytes normalized by platform",
+    "time": "process CPU and monotonic wall; all preparation/evaluation included"
+  }
+}

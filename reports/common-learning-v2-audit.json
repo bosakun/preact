@@ -1,0 +1,298 @@
+{
+  "status": "passed",
+  "cases": [
+    {
+      "case": "program-native-existing-11",
+      "status": "passed",
+      "task_receipts": 4,
+      "value_selected_executions": 0,
+      "qualified_candidates": 0,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "program-native-existing-12",
+      "status": "passed",
+      "task_receipts": 4,
+      "value_selected_executions": 0,
+      "qualified_candidates": 0,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "program-native-fixed_prior-11",
+      "status": "passed",
+      "task_receipts": 4,
+      "value_selected_executions": 4,
+      "qualified_candidates": 8,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "program-native-fixed_prior-12",
+      "status": "passed",
+      "task_receipts": 4,
+      "value_selected_executions": 4,
+      "qualified_candidates": 8,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "program-native-learned-11",
+      "status": "passed",
+      "task_receipts": 4,
+      "value_selected_executions": 4,
+      "qualified_candidates": 8,
+      "unsafe": 0,
+      "executed_h1_mae": 0.0
+    },
+    {
+      "case": "program-native-learned-12",
+      "status": "passed",
+      "task_receipts": 4,
+      "value_selected_executions": 4,
+      "qualified_candidates": 8,
+      "unsafe": 0,
+      "executed_h1_mae": 0.0
+    },
+    {
+      "case": "program-native-no_promotion-11",
+      "status": "passed",
+      "task_receipts": 4,
+      "value_selected_executions": 4,
+      "qualified_candidates": 8,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "program-native-no_promotion-12",
+      "status": "passed",
+      "task_receipts": 4,
+      "value_selected_executions": 4,
+      "qualified_candidates": 8,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "program-reverse-existing-11",
+      "status": "passed",
+      "task_receipts": 4,
+      "value_selected_executions": 0,
+      "qualified_candidates": 0,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "program-reverse-existing-12",
+      "status": "passed",
+      "task_receipts": 4,
+      "value_selected_executions": 0,
+      "qualified_candidates": 0,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "program-reverse-fixed_prior-11",
+      "status": "passed",
+      "task_receipts": 4,
+      "value_selected_executions": 4,
+      "qualified_candidates": 8,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "program-reverse-fixed_prior-12",
+      "status": "passed",
+      "task_receipts": 4,
+      "value_selected_executions": 4,
+      "qualified_candidates": 8,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "program-reverse-learned-11",
+      "status": "passed",
+      "task_receipts": 4,
+      "value_selected_executions": 4,
+      "qualified_candidates": 8,
+      "unsafe": 0,
+      "executed_h1_mae": 0.0
+    },
+    {
+      "case": "program-reverse-learned-12",
+      "status": "passed",
+      "task_receipts": 4,
+      "value_selected_executions": 4,
+      "qualified_candidates": 8,
+      "unsafe": 0,
+      "executed_h1_mae": 0.0
+    },
+    {
+      "case": "program-reverse-no_promotion-11",
+      "status": "passed",
+      "task_receipts": 4,
+      "value_selected_executions": 4,
+      "qualified_candidates": 8,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "program-reverse-no_promotion-12",
+      "status": "passed",
+      "task_receipts": 4,
+      "value_selected_executions": 4,
+      "qualified_candidates": 8,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "queue-high_to_low-learned-11",
+      "status": "passed",
+      "task_receipts": 56,
+      "value_selected_executions": 56,
+      "qualified_candidates": 91,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "queue-high_to_low-learned-12",
+      "status": "passed",
+      "task_receipts": 56,
+      "value_selected_executions": 56,
+      "qualified_candidates": 91,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "queue-high_to_low-no_recovery-11",
+      "status": "passed",
+      "task_receipts": 56,
+      "value_selected_executions": 56,
+      "qualified_candidates": 150,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "queue-high_to_low-no_recovery-12",
+      "status": "passed",
+      "task_receipts": 56,
+      "value_selected_executions": 56,
+      "qualified_candidates": 150,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "queue-low_to_high-learned-11",
+      "status": "passed",
+      "task_receipts": 56,
+      "value_selected_executions": 56,
+      "qualified_candidates": 92,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "queue-low_to_high-learned-12",
+      "status": "passed",
+      "task_receipts": 56,
+      "value_selected_executions": 56,
+      "qualified_candidates": 92,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "queue-low_to_high-no_recovery-11",
+      "status": "passed",
+      "task_receipts": 56,
+      "value_selected_executions": 56,
+      "qualified_candidates": 152,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "queue-low_to_high-no_recovery-12",
+      "status": "passed",
+      "task_receipts": 56,
+      "value_selected_executions": 56,
+      "qualified_candidates": 152,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "queue-stable_high-learned-11",
+      "status": "passed",
+      "task_receipts": 56,
+      "value_selected_executions": 56,
+      "qualified_candidates": 152,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "queue-stable_high-learned-12",
+      "status": "passed",
+      "task_receipts": 56,
+      "value_selected_executions": 56,
+      "qualified_candidates": 152,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "queue-stable_high-no_recovery-11",
+      "status": "passed",
+      "task_receipts": 56,
+      "value_selected_executions": 56,
+      "qualified_candidates": 152,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "queue-stable_high-no_recovery-12",
+      "status": "passed",
+      "task_receipts": 56,
+      "value_selected_executions": 56,
+      "qualified_candidates": 152,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "queue-stable_low-learned-11",
+      "status": "passed",
+      "task_receipts": 56,
+      "value_selected_executions": 56,
+      "qualified_candidates": 148,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "queue-stable_low-learned-12",
+      "status": "passed",
+      "task_receipts": 56,
+      "value_selected_executions": 56,
+      "qualified_candidates": 148,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "queue-stable_low-no_recovery-11",
+      "status": "passed",
+      "task_receipts": 56,
+      "value_selected_executions": 56,
+      "qualified_candidates": 148,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "queue-stable_low-no_recovery-12",
+      "status": "passed",
+      "task_receipts": 56,
+      "value_selected_executions": 56,
+      "qualified_candidates": 148,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    }
+  ],
+  "limits": [
+    "Append-only Store, single owner",
+    "Known-candidate deterministic fixtures do not establish generalization",
+    "Core checks recomputed from retained evidence; no real side effect replayed"
+  ]
+}

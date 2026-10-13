@@ -205,7 +205,6 @@ class DeliberationPlanner:
         if [e["data"] for e in events if e["kind"] == "deliberation"] != [record]:
             raise ValueError("Durable deliberation changed")
         if action is not None:
-            # Existing method contains no Queue-specific value or safety logic.
-            from .queue_multi import QueueMultiPlanner
+            from .selection import check_final_selection
 
-            QueueMultiPlanner.check_final_selection(self, events, action)
+            check_final_selection(self, events, action)

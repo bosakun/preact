@@ -8,7 +8,7 @@ jobs:
   shared-runtime:
     runs-on: ubuntu-latest
     # Receipt-backed recovery/selection regressions replay complete evaluation histories.
-    timeout-minutes: 75
+    timeout-minutes: 120
     env:
       UV_CACHE_DIR: ${{ github.workspace }}/.cache/uv
       PREACT_MODE: local
@@ -31,6 +31,11 @@ jobs:
         run: |
           uv run python -m scripts.bench_deliberation --protocol benchmarks/deliberation-v1.json --output .cache/deliberation-v1 --report .cache/deliberation-v1-results.json
           uv run python -m scripts.audit_deliberation --bundle .cache/deliberation-v1 --protocol benchmarks/deliberation-v1.json --results .cache/deliberation-v1-results.json --output .cache/deliberation-v1-audit.json
+      - name: Fixed common cognitive learning and independent receipt audit
+        run: |
+          uv run python -m scripts.bench_common_learning --protocol benchmarks/common-learning-v2.json --output .cache/common-learning-v2 --report .cache/common-learning-v2-results.json
+          uv run python -m scripts.audit_common_learning --bundle .cache/common-learning-v2 --output .cache/common-learning-v2-audit.json
+          uv run python -m scripts.summarize_common_learning --bundle .cache/common-learning-v2 --output .cache/common-learning-v2-metrics.json
       - name: CPU source bridge across API Python 3.12 and SDK Python 3.11
         run: |
           uv venv --python 3.11 .cache/isaac-import-env
