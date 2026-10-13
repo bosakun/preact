@@ -217,3 +217,13 @@ Queue固有のVOI近似は`cognition/queue_task.py`、非権威的な判断記�
 訓練16件・独立評価・新監視Health・明示Promotionの条件は緩和しない。
 凍結後の評価が不足・悪化・回復未達となっても条件を後から変えない。
 認知能力の完成と正しさを通常の速度最適化より優先する。
+
+## Modular deliberation vertical slice
+
+Queueの監視付きH3分布とSoftwareのaccepted explicit sequenceを共通認知比較器へ
+接続する。Prediction adapterとGoal adapterをdomainに置き、Registry、Memory、
+qualified selector、既存Runtimeを再利用する。Core Searchが既に持つlookaheadと、
+認知評価式の追加価値を分けて比較する。短期/H3/明示介入の意味を変換して隠さない。
+[責務・API](modular-deliberation.md)と[凍結評価・反例](modular-deliberation-results.md)を参照。
+今後は実測に基づく異種モデルのcoverage契約と不確実性評価を検討する。
+Physical/Blenderへの強制適用、長期探索全面変更、Safety Authority変更は行っていない。

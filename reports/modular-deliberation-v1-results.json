@@ -1,0 +1,3017 @@
+{
+  "protocol_id": "modular-deliberation-v1",
+  "protocol_hash": "19ee94391703357ca9d59a357da57293c2dc84f7920822021eba26e3a5ce2634",
+  "source_hash": "ead249ebce96c607e3c70fdf0a7db2a1e3c112703ce9d47692c344b19e0383cb",
+  "cases": [
+    {
+      "domain": "software",
+      "condition": "workflow",
+      "strategy": "core_search",
+      "seed": 11,
+      "summary": {
+        "goal_achieved": true,
+        "world_complete": true,
+        "actions": [
+          {
+            "name": "Immediate repair",
+            "kind": "patch",
+            "fingerprint": "c316b30609a1a2f07a11922d262255b8f2559e9f3450a884a713b7b82a889aba",
+            "amount": null
+          },
+          {
+            "name": "Prepare validator",
+            "kind": "patch",
+            "fingerprint": "6d1b8165c2a43d202e90f9ef8ca79be252f85480bb3f217952d90f56dc27a32a",
+            "amount": null
+          },
+          {
+            "name": "Integrate validator",
+            "kind": "patch",
+            "fingerprint": "3c938b494f29839b2635c8ab059560088b415413ff8a35fcb9b79bb05ad698ca",
+            "amount": null
+          }
+        ],
+        "actual_steps": 3,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": 0.85,
+        "goal_capped_utility": 0.85,
+        "goal_progress": 1.0,
+        "holding_cost": 0,
+        "mae_first_executed_step": null,
+        "coverage_decision_rounds": 0.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 0,
+        "runtime_engine_calls": 22,
+        "verifier_calls": 11,
+        "runtime_inference_calls": 11,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 0,
+        "training_actions": 0,
+        "training_probe_cost": 0
+      },
+      "cpu_seconds": 0.24899700000000002,
+      "wall_seconds": 0.4942449589725584,
+      "max_rss_platform_units": 127827968
+    },
+    {
+      "domain": "software",
+      "condition": "workflow",
+      "strategy": "short",
+      "seed": 11,
+      "summary": {
+        "goal_achieved": true,
+        "world_complete": true,
+        "actions": [
+          {
+            "name": "Immediate repair",
+            "kind": "patch",
+            "fingerprint": "c316b30609a1a2f07a11922d262255b8f2559e9f3450a884a713b7b82a889aba",
+            "amount": null
+          },
+          {
+            "name": "Prepare validator",
+            "kind": "patch",
+            "fingerprint": "6d1b8165c2a43d202e90f9ef8ca79be252f85480bb3f217952d90f56dc27a32a",
+            "amount": null
+          },
+          {
+            "name": "Integrate validator",
+            "kind": "patch",
+            "fingerprint": "3c938b494f29839b2635c8ab059560088b415413ff8a35fcb9b79bb05ad698ca",
+            "amount": null
+          }
+        ],
+        "actual_steps": 3,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": 0.85,
+        "goal_capped_utility": 0.85,
+        "goal_progress": 1.0,
+        "holding_cost": 0,
+        "mae_first_executed_step": 0.0,
+        "coverage_decision_rounds": 1.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 5,
+        "runtime_engine_calls": 10,
+        "verifier_calls": 5,
+        "runtime_inference_calls": 5,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 0,
+        "training_actions": 0,
+        "training_probe_cost": 0
+      },
+      "cpu_seconds": 0.184214,
+      "wall_seconds": 0.3241435419768095,
+      "max_rss_platform_units": 128794624
+    },
+    {
+      "domain": "software",
+      "condition": "workflow",
+      "strategy": "sequence",
+      "seed": 11,
+      "summary": {
+        "goal_achieved": true,
+        "world_complete": true,
+        "actions": [
+          {
+            "name": "Prepare validator",
+            "kind": "patch",
+            "fingerprint": "bcd22f71568ee12a21add5b561d2b684bf317ce599d5f44439d3c6bdbf18849e",
+            "amount": null
+          },
+          {
+            "name": "Integrate validator",
+            "kind": "patch",
+            "fingerprint": "3c938b494f29839b2635c8ab059560088b415413ff8a35fcb9b79bb05ad698ca",
+            "amount": null
+          }
+        ],
+        "actual_steps": 2,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": 0.9,
+        "goal_capped_utility": 0.9,
+        "goal_progress": 1.0,
+        "holding_cost": 0,
+        "mae_first_executed_step": 0.0,
+        "coverage_decision_rounds": 1.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 14,
+        "runtime_engine_calls": 8,
+        "verifier_calls": 4,
+        "runtime_inference_calls": 4,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 0,
+        "training_actions": 0,
+        "training_probe_cost": 0
+      },
+      "cpu_seconds": 0.16863899999999998,
+      "wall_seconds": 0.27593920892104506,
+      "max_rss_platform_units": 129269760
+    },
+    {
+      "domain": "software",
+      "condition": "native_checkout",
+      "strategy": "core_search",
+      "seed": 11,
+      "summary": {
+        "goal_achieved": true,
+        "world_complete": true,
+        "actions": [
+          {
+            "name": "Prepare a reusable validator",
+            "kind": "patch",
+            "fingerprint": "99a7d0712534144fa9ea0dc9fa278a8b1171a2a48b8178d399b29714c91aef6d",
+            "amount": null
+          },
+          {
+            "name": "Integrate validation and cap discounts",
+            "kind": "patch",
+            "fingerprint": "b2242d831594a9b2e6cd6b562cf4acb83c2ddc177b89662b985c8ffa4d1271ed",
+            "amount": null
+          }
+        ],
+        "actual_steps": 2,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": 0.9,
+        "goal_capped_utility": 0.9,
+        "goal_progress": 1.0,
+        "holding_cost": 0,
+        "mae_first_executed_step": null,
+        "coverage_decision_rounds": 0.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 0,
+        "runtime_engine_calls": 12,
+        "verifier_calls": 6,
+        "runtime_inference_calls": 6,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 0,
+        "training_actions": 0,
+        "training_probe_cost": 0
+      },
+      "cpu_seconds": 0.14181500000000002,
+      "wall_seconds": 0.28721712494734675,
+      "max_rss_platform_units": 129286144
+    },
+    {
+      "domain": "software",
+      "condition": "native_checkout",
+      "strategy": "short",
+      "seed": 11,
+      "summary": {
+        "goal_achieved": true,
+        "world_complete": true,
+        "actions": [
+          {
+            "name": "Prepare a reusable validator",
+            "kind": "patch",
+            "fingerprint": "99a7d0712534144fa9ea0dc9fa278a8b1171a2a48b8178d399b29714c91aef6d",
+            "amount": null
+          },
+          {
+            "name": "Integrate validation and cap discounts",
+            "kind": "patch",
+            "fingerprint": "b2242d831594a9b2e6cd6b562cf4acb83c2ddc177b89662b985c8ffa4d1271ed",
+            "amount": null
+          }
+        ],
+        "actual_steps": 2,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 2,
+        "unresolved": 0,
+        "reward": 0.9,
+        "goal_capped_utility": 0.9,
+        "goal_progress": 1.0,
+        "holding_cost": 0,
+        "mae_first_executed_step": 0.0,
+        "coverage_decision_rounds": 1.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 4,
+        "runtime_engine_calls": 8,
+        "verifier_calls": 4,
+        "runtime_inference_calls": 4,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 0,
+        "training_actions": 0,
+        "training_probe_cost": 0
+      },
+      "cpu_seconds": 0.14141000000000004,
+      "wall_seconds": 0.2476982909720391,
+      "max_rss_platform_units": 129466368
+    },
+    {
+      "domain": "software",
+      "condition": "native_checkout",
+      "strategy": "sequence",
+      "seed": 11,
+      "summary": {
+        "goal_achieved": true,
+        "world_complete": true,
+        "actions": [
+          {
+            "name": "Prepare a reusable validator",
+            "kind": "patch",
+            "fingerprint": "99a7d0712534144fa9ea0dc9fa278a8b1171a2a48b8178d399b29714c91aef6d",
+            "amount": null
+          },
+          {
+            "name": "Integrate validation and cap discounts",
+            "kind": "patch",
+            "fingerprint": "b2242d831594a9b2e6cd6b562cf4acb83c2ddc177b89662b985c8ffa4d1271ed",
+            "amount": null
+          }
+        ],
+        "actual_steps": 2,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 2,
+        "unresolved": 0,
+        "reward": 0.9,
+        "goal_capped_utility": 0.9,
+        "goal_progress": 1.0,
+        "holding_cost": 0,
+        "mae_first_executed_step": 0.0,
+        "coverage_decision_rounds": 1.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 16,
+        "runtime_engine_calls": 8,
+        "verifier_calls": 4,
+        "runtime_inference_calls": 4,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 0,
+        "training_actions": 0,
+        "training_probe_cost": 0
+      },
+      "cpu_seconds": 0.16954899999999995,
+      "wall_seconds": 0.27791879198048264,
+      "max_rss_platform_units": 129597440
+    },
+    {
+      "domain": "queue",
+      "condition": "stable_high",
+      "strategy": "existing",
+      "seed": 11,
+      "summary": {
+        "goal_achieved": true,
+        "world_complete": false,
+        "actions": [
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "ae1b4e69b2f2e53948faf6d0c2cf60759f24086a1eadf2bf16da676b34505e7f",
+            "amount": 3
+          },
+          {
+            "name": "Submit 1 jobs",
+            "kind": "submit",
+            "fingerprint": "c3e2bfc081d994e13ac328b01b6c16e414e4f01d19dd235e3fde57f53b4d1a1b",
+            "amount": 1
+          },
+          {
+            "name": "Submit 1 jobs",
+            "kind": "submit",
+            "fingerprint": "41dff32606f66d34cc41ac06c3cb74134253b49a9bbc4fa513bf15e1a8ea5a1c",
+            "amount": 1
+          },
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "94328179ba71c7fae859c2b6c831fc8b405fa99dc37d7755a8c7cf038aa8bcac",
+            "amount": 3
+          },
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "a53b555781c6c58dfd3d0df1f52c47256afb33e7676c1fd87fab055ce63c2220",
+            "amount": 3
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "9e7548623be14e730d5f24e26783aae4c4d96b1e784daca44fca545b6b3d4729",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "0cff3cecc21b97965082da75555916c586f27f276ed221f3de8f978a55920733",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "d888918fd6581dd44780ea73723baec2be1bb4d3fd2bff26e6914d2a896d5955",
+            "amount": 0
+          }
+        ],
+        "actual_steps": 8,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": 9.5,
+        "goal_capped_utility": 4.5,
+        "goal_progress": 11.0,
+        "holding_cost": 0.0,
+        "mae_first_executed_step": null,
+        "coverage_decision_rounds": 0.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 0,
+        "runtime_engine_calls": 48,
+        "verifier_calls": 48,
+        "runtime_inference_calls": 0,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 8,
+        "training_actions": 16,
+        "training_probe_cost": 0.8000000000000002
+      },
+      "cpu_seconds": 1.032968,
+      "wall_seconds": 1.1951897500548512,
+      "max_rss_platform_units": 131170304
+    },
+    {
+      "domain": "queue",
+      "condition": "stable_high",
+      "strategy": "short",
+      "seed": 11,
+      "summary": {
+        "goal_achieved": false,
+        "world_complete": false,
+        "actions": [
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "8f63e24b0b2d77ccffa027f3c78d00fbf633879c50133903aa46e27e09884253",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "6e032929959e23b30956d8e9cff60fef38b7593c11904ddb2c4d45efa30c066b",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "8b4aacfbc7478a77ac9cd012904e0d9fab0dce058187c280f82b666f3c2d5aef",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "43196860aba609679b519419387e03a8e4366c71dbed893c6b4e5d1fca6fb429",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "dc758bdc26894aac2274b2c43f4432c6da9b4eece20e4ce883bcc79c33a0f3e3",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "9ca1eb49be9d513f6cba8afeda3d3550e052e595cc4fba3521dcff8219d6dfd9",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "c8942ed24c7bf5c7b3140429e930fa7e2b94592e31123860202b1543ad04cdbb",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "7c22db3545d4074ab2d877899d4e71e06dff35f985bd518f6bd1e581bc2f201e",
+            "amount": 0
+          }
+        ],
+        "actual_steps": 8,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": -0.39999999999999997,
+        "goal_capped_utility": -0.39999999999999997,
+        "goal_progress": 0.0,
+        "holding_cost": 0.0,
+        "mae_first_executed_step": 0.0,
+        "coverage_decision_rounds": 1.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 24,
+        "runtime_engine_calls": 48,
+        "verifier_calls": 48,
+        "runtime_inference_calls": 0,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 8,
+        "training_actions": 16,
+        "training_probe_cost": 0.8000000000000002
+      },
+      "cpu_seconds": 2.64244,
+      "wall_seconds": 2.932459791074507,
+      "max_rss_platform_units": 135118848
+    },
+    {
+      "domain": "queue",
+      "condition": "stable_high",
+      "strategy": "h3",
+      "seed": 11,
+      "summary": {
+        "goal_achieved": true,
+        "world_complete": false,
+        "actions": [
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "ae1b4e69b2f2e53948faf6d0c2cf60759f24086a1eadf2bf16da676b34505e7f",
+            "amount": 3
+          },
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "055aeba00a04c7bc0a2f414d08dfb40bfaf302fb3d37791139a612791b06af09",
+            "amount": 3
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "d0edfd9e64c407230255481e3b117c62331b0c3df100098040d63d96d07e2d5e",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "4fb8907cca7655bf2ad9efaf36d579f9f3ff7e33b31f3ed5ddc14e348faad980",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "d594619ce4cc5d8325bd82f0c4bdd5cf3012d2e6e5c9e0172def05cc829ca7c6",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "28c2736c083e6a27969b3fa20f559bb6a691db0f003da91b94a2f2a8a6d2fad1",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "a8f508e8c2f0bae9cad9d5e89b9c2a4dba37f3a5d2aec55b666da4a1cf447bda",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "9e3c5c60cb0c89845967e62493db13273d62448ca4f178d9f8f5b0aadda97e7a",
+            "amount": 0
+          }
+        ],
+        "actual_steps": 8,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": 5.0,
+        "goal_capped_utility": 5.0,
+        "goal_progress": 6.0,
+        "holding_cost": 0.0,
+        "mae_first_executed_step": 0.0,
+        "coverage_decision_rounds": 1.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 24,
+        "runtime_engine_calls": 48,
+        "verifier_calls": 48,
+        "runtime_inference_calls": 0,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 8,
+        "training_actions": 16,
+        "training_probe_cost": 0.8000000000000002
+      },
+      "cpu_seconds": 2.679946,
+      "wall_seconds": 3.061231042025611,
+      "max_rss_platform_units": 135233536
+    },
+    {
+      "domain": "queue",
+      "condition": "stable_high",
+      "strategy": "fixed_prior",
+      "seed": 11,
+      "summary": {
+        "goal_achieved": true,
+        "world_complete": false,
+        "actions": [
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "ae1b4e69b2f2e53948faf6d0c2cf60759f24086a1eadf2bf16da676b34505e7f",
+            "amount": 3
+          },
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "055aeba00a04c7bc0a2f414d08dfb40bfaf302fb3d37791139a612791b06af09",
+            "amount": 3
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "d0edfd9e64c407230255481e3b117c62331b0c3df100098040d63d96d07e2d5e",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "4fb8907cca7655bf2ad9efaf36d579f9f3ff7e33b31f3ed5ddc14e348faad980",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "d594619ce4cc5d8325bd82f0c4bdd5cf3012d2e6e5c9e0172def05cc829ca7c6",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "28c2736c083e6a27969b3fa20f559bb6a691db0f003da91b94a2f2a8a6d2fad1",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "a8f508e8c2f0bae9cad9d5e89b9c2a4dba37f3a5d2aec55b666da4a1cf447bda",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "9e3c5c60cb0c89845967e62493db13273d62448ca4f178d9f8f5b0aadda97e7a",
+            "amount": 0
+          }
+        ],
+        "actual_steps": 8,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": 5.0,
+        "goal_capped_utility": 5.0,
+        "goal_progress": 6.0,
+        "holding_cost": 0.0,
+        "mae_first_executed_step": 0.25,
+        "coverage_decision_rounds": 1.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 24,
+        "runtime_engine_calls": 48,
+        "verifier_calls": 48,
+        "runtime_inference_calls": 0,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 8,
+        "training_actions": 16,
+        "training_probe_cost": 0.8000000000000002
+      },
+      "cpu_seconds": 1.9451390000000002,
+      "wall_seconds": 2.174254500074312,
+      "max_rss_platform_units": 136904704
+    },
+    {
+      "domain": "queue",
+      "condition": "stable_low",
+      "strategy": "existing",
+      "seed": 11,
+      "summary": {
+        "goal_achieved": false,
+        "world_complete": false,
+        "actions": [
+          {
+            "name": "Submit 1 jobs",
+            "kind": "submit",
+            "fingerprint": "be47d90d5568baac4966d415380078d2e2e7e1bbdd3e6b57d5111dbfd06a044c",
+            "amount": 1
+          },
+          {
+            "name": "Submit 1 jobs",
+            "kind": "submit",
+            "fingerprint": "c92cc2aeff4a7796584a6be09806f692d162e275c59f8e31fc6f71fa05f6c1cc",
+            "amount": 1
+          },
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "49d80417db0313305db835debbbc5bf9fb771a7451dd1f07141c99988571b0f1",
+            "amount": 3
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "9e0b51f1e3f9ac53adff02dfffe480a7558177a7965c5a1f3513a1ab6ae53fff",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "3a09f727690520c9f172cdf44c379160ffcc09056400370ab3cda4f269d90130",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "d8e102932e35736cf1fdc0364006d71dec1dfafedd3832f057147ba407b230c5",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "81b2711824819e53d01bdd45dc701307d7c1b8bae649e5e22c9f8adda645937b",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "9567b9f87854a2c1f0679eda281fe573a356eefefcfd8b433b2cecf5be3a4621",
+            "amount": 0
+          }
+        ],
+        "actual_steps": 8,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": 3.35,
+        "goal_capped_utility": 3.35,
+        "goal_progress": 5.0,
+        "holding_cost": 0.75,
+        "mae_first_executed_step": null,
+        "coverage_decision_rounds": 0.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 0,
+        "runtime_engine_calls": 48,
+        "verifier_calls": 48,
+        "runtime_inference_calls": 0,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 8,
+        "training_actions": 16,
+        "training_probe_cost": 0.8000000000000002
+      },
+      "cpu_seconds": 1.0466940000000005,
+      "wall_seconds": 1.2051305419299752,
+      "max_rss_platform_units": 136970240
+    },
+    {
+      "domain": "queue",
+      "condition": "stable_low",
+      "strategy": "short",
+      "seed": 11,
+      "summary": {
+        "goal_achieved": false,
+        "world_complete": false,
+        "actions": [
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "8f63e24b0b2d77ccffa027f3c78d00fbf633879c50133903aa46e27e09884253",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "6e032929959e23b30956d8e9cff60fef38b7593c11904ddb2c4d45efa30c066b",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "8b4aacfbc7478a77ac9cd012904e0d9fab0dce058187c280f82b666f3c2d5aef",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "43196860aba609679b519419387e03a8e4366c71dbed893c6b4e5d1fca6fb429",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "dc758bdc26894aac2274b2c43f4432c6da9b4eece20e4ce883bcc79c33a0f3e3",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "9ca1eb49be9d513f6cba8afeda3d3550e052e595cc4fba3521dcff8219d6dfd9",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "c8942ed24c7bf5c7b3140429e930fa7e2b94592e31123860202b1543ad04cdbb",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "7c22db3545d4074ab2d877899d4e71e06dff35f985bd518f6bd1e581bc2f201e",
+            "amount": 0
+          }
+        ],
+        "actual_steps": 8,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": -0.39999999999999997,
+        "goal_capped_utility": -0.39999999999999997,
+        "goal_progress": 0.0,
+        "holding_cost": 0.0,
+        "mae_first_executed_step": 0.0,
+        "coverage_decision_rounds": 1.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 24,
+        "runtime_engine_calls": 48,
+        "verifier_calls": 48,
+        "runtime_inference_calls": 0,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 8,
+        "training_actions": 16,
+        "training_probe_cost": 0.8000000000000002
+      },
+      "cpu_seconds": 2.7073599999999995,
+      "wall_seconds": 2.9940888750134036,
+      "max_rss_platform_units": 136986624
+    },
+    {
+      "domain": "queue",
+      "condition": "stable_low",
+      "strategy": "h3",
+      "seed": 11,
+      "summary": {
+        "goal_achieved": true,
+        "world_complete": false,
+        "actions": [
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "ae1b4e69b2f2e53948faf6d0c2cf60759f24086a1eadf2bf16da676b34505e7f",
+            "amount": 3
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "d765110c94e085bf33e3e0ab296b22a406f4c1c0e9eaf4ce548d1d1f1a3d8338",
+            "amount": 0
+          },
+          {
+            "name": "Submit 1 jobs",
+            "kind": "submit",
+            "fingerprint": "508ba067d3e02451931aaffa3ffa74b28a67644eb351f296cd0a24757d300f74",
+            "amount": 1
+          },
+          {
+            "name": "Submit 1 jobs",
+            "kind": "submit",
+            "fingerprint": "dbf418b43de79da95d5d3f11d678f7acd064961c5bb1cd04a8e18db1276fbfb4",
+            "amount": 1
+          },
+          {
+            "name": "Submit 1 jobs",
+            "kind": "submit",
+            "fingerprint": "c9dde313c2098532c0f6de1be8af166c6670d598716a33dbaeef2b9321e58350",
+            "amount": 1
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "2f6464d326bd053825103ef8913fdf239603efab81d99cbc4c468b004b64c02f",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "732ad5f91df60bfb8ac2816c76fe7fd2954629685fce2e3595ba889fc7799d1f",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "9e3c5c60cb0c89845967e62493db13273d62448ca4f178d9f8f5b0aadda97e7a",
+            "amount": 0
+          }
+        ],
+        "actual_steps": 8,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": 3.5,
+        "goal_capped_utility": 3.5,
+        "goal_progress": 6.0,
+        "holding_cost": 1.5,
+        "mae_first_executed_step": 0.0,
+        "coverage_decision_rounds": 1.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 24,
+        "runtime_engine_calls": 48,
+        "verifier_calls": 48,
+        "runtime_inference_calls": 0,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 8,
+        "training_actions": 16,
+        "training_probe_cost": 0.8000000000000002
+      },
+      "cpu_seconds": 2.661772000000001,
+      "wall_seconds": 2.971415292005986,
+      "max_rss_platform_units": 136986624
+    },
+    {
+      "domain": "queue",
+      "condition": "stable_low",
+      "strategy": "fixed_prior",
+      "seed": 11,
+      "summary": {
+        "goal_achieved": true,
+        "world_complete": false,
+        "actions": [
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "ae1b4e69b2f2e53948faf6d0c2cf60759f24086a1eadf2bf16da676b34505e7f",
+            "amount": 3
+          },
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "055aeba00a04c7bc0a2f414d08dfb40bfaf302fb3d37791139a612791b06af09",
+            "amount": 3
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "3d0e2d97699b53fa6410a458a858aaab78a3d72b18c2e90031f4c30cfcca2d52",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "7d561fe0da3916fb54cbe5119ed0f557bad2a966a4209ca6fc40b589f772d5fc",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "29950a1926ceff6b5308b7d2a41b466a541379cca5fdbc12b0213559422b121b",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "2379de85a932bb914fc98fbfae90f2ef2a197f07a231c71fa4217e3599b3144f",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "732ad5f91df60bfb8ac2816c76fe7fd2954629685fce2e3595ba889fc7799d1f",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "9e3c5c60cb0c89845967e62493db13273d62448ca4f178d9f8f5b0aadda97e7a",
+            "amount": 0
+          }
+        ],
+        "actual_steps": 8,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": 2.0,
+        "goal_capped_utility": 2.0,
+        "goal_progress": 6.0,
+        "holding_cost": 3.0,
+        "mae_first_executed_step": 0.5625,
+        "coverage_decision_rounds": 1.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 24,
+        "runtime_engine_calls": 48,
+        "verifier_calls": 48,
+        "runtime_inference_calls": 0,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 8,
+        "training_actions": 16,
+        "training_probe_cost": 0.8000000000000002
+      },
+      "cpu_seconds": 1.9580160000000006,
+      "wall_seconds": 2.191923125064932,
+      "max_rss_platform_units": 136986624
+    },
+    {
+      "domain": "queue",
+      "condition": "shift_after_warmup",
+      "strategy": "h3",
+      "seed": 11,
+      "summary": {
+        "goal_achieved": false,
+        "world_complete": false,
+        "actions": [
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "ae1b4e69b2f2e53948faf6d0c2cf60759f24086a1eadf2bf16da676b34505e7f",
+            "amount": 3
+          },
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "055aeba00a04c7bc0a2f414d08dfb40bfaf302fb3d37791139a612791b06af09",
+            "amount": 3
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "3d0e2d97699b53fa6410a458a858aaab78a3d72b18c2e90031f4c30cfcca2d52",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "7d561fe0da3916fb54cbe5119ed0f557bad2a966a4209ca6fc40b589f772d5fc",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "29950a1926ceff6b5308b7d2a41b466a541379cca5fdbc12b0213559422b121b",
+            "amount": 0
+          }
+        ],
+        "actual_steps": 5,
+        "unsafe": 0,
+        "abstain": 1,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": 0.25,
+        "goal_capped_utility": 0.25,
+        "goal_progress": 4.0,
+        "holding_cost": 2.75,
+        "mae_first_executed_step": 1.6,
+        "coverage_decision_rounds": 0.8333333333333334,
+        "unknown_rounds": 1,
+        "local_prediction_calls": 15,
+        "runtime_engine_calls": 30,
+        "verifier_calls": 30,
+        "runtime_inference_calls": 0,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 8,
+        "training_actions": 16,
+        "training_probe_cost": 0.8000000000000002
+      },
+      "cpu_seconds": 1.9833759999999998,
+      "wall_seconds": 2.2161155419889838,
+      "max_rss_platform_units": 137019392
+    },
+    {
+      "domain": "queue",
+      "condition": "invalidated",
+      "strategy": "h3",
+      "seed": 11,
+      "summary": {
+        "goal_achieved": false,
+        "world_complete": false,
+        "actions": [],
+        "actual_steps": 0,
+        "unsafe": 0,
+        "abstain": 1,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": -0.39999999999999997,
+        "goal_capped_utility": -0.39999999999999997,
+        "goal_progress": 0.0,
+        "holding_cost": 0,
+        "mae_first_executed_step": null,
+        "coverage_decision_rounds": 0.0,
+        "unknown_rounds": 1,
+        "local_prediction_calls": 0,
+        "runtime_engine_calls": 0,
+        "verifier_calls": 0,
+        "runtime_inference_calls": 0,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 8,
+        "training_actions": 16,
+        "training_probe_cost": 0.8000000000000002
+      },
+      "cpu_seconds": 0.7230150000000002,
+      "wall_seconds": 0.8298727920046076,
+      "max_rss_platform_units": 137052160
+    },
+    {
+      "domain": "queue",
+      "condition": "partial",
+      "strategy": "h3",
+      "seed": 11,
+      "summary": {
+        "goal_achieved": false,
+        "world_complete": false,
+        "actions": [],
+        "actual_steps": 0,
+        "unsafe": 0,
+        "abstain": 1,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": 0.0,
+        "goal_capped_utility": 0.0,
+        "goal_progress": 0.0,
+        "holding_cost": 0,
+        "mae_first_executed_step": null,
+        "coverage_decision_rounds": 0.0,
+        "unknown_rounds": 1,
+        "local_prediction_calls": 0,
+        "runtime_engine_calls": 0,
+        "verifier_calls": 0,
+        "runtime_inference_calls": 0,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 8,
+        "training_actions": 16,
+        "training_probe_cost": 0.8000000000000002
+      },
+      "cpu_seconds": 0.7524359999999994,
+      "wall_seconds": 0.8590230830013752,
+      "max_rss_platform_units": 137052160
+    },
+    {
+      "domain": "queue",
+      "condition": "unsupported",
+      "strategy": "h3",
+      "seed": 11,
+      "summary": {
+        "goal_achieved": false,
+        "world_complete": false,
+        "actions": [],
+        "actual_steps": 0,
+        "unsafe": 0,
+        "abstain": 1,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": -0.39999999999999997,
+        "goal_capped_utility": -0.39999999999999997,
+        "goal_progress": 0.0,
+        "holding_cost": 0,
+        "mae_first_executed_step": null,
+        "coverage_decision_rounds": 0.0,
+        "unknown_rounds": 1,
+        "local_prediction_calls": 0,
+        "runtime_engine_calls": 0,
+        "verifier_calls": 0,
+        "runtime_inference_calls": 0,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 8,
+        "training_actions": 16,
+        "training_probe_cost": 0.8000000000000002
+      },
+      "cpu_seconds": 0.693087000000002,
+      "wall_seconds": 0.7964613750809804,
+      "max_rss_platform_units": 137052160
+    },
+    {
+      "domain": "queue",
+      "condition": "noise",
+      "strategy": "h3",
+      "seed": 11,
+      "summary": {
+        "goal_achieved": true,
+        "world_complete": false,
+        "actions": [
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "ae1b4e69b2f2e53948faf6d0c2cf60759f24086a1eadf2bf16da676b34505e7f",
+            "amount": 3
+          },
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "055aeba00a04c7bc0a2f414d08dfb40bfaf302fb3d37791139a612791b06af09",
+            "amount": 3
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "d0edfd9e64c407230255481e3b117c62331b0c3df100098040d63d96d07e2d5e",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "4fb8907cca7655bf2ad9efaf36d579f9f3ff7e33b31f3ed5ddc14e348faad980",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "d594619ce4cc5d8325bd82f0c4bdd5cf3012d2e6e5c9e0172def05cc829ca7c6",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "28c2736c083e6a27969b3fa20f559bb6a691db0f003da91b94a2f2a8a6d2fad1",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "a8f508e8c2f0bae9cad9d5e89b9c2a4dba37f3a5d2aec55b666da4a1cf447bda",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "9e3c5c60cb0c89845967e62493db13273d62448ca4f178d9f8f5b0aadda97e7a",
+            "amount": 0
+          }
+        ],
+        "actual_steps": 8,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": 5.0,
+        "goal_capped_utility": 5.0,
+        "goal_progress": 6.0,
+        "holding_cost": 0.0,
+        "mae_first_executed_step": 0.25,
+        "coverage_decision_rounds": 1.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 24,
+        "runtime_engine_calls": 48,
+        "verifier_calls": 48,
+        "runtime_inference_calls": 0,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 8,
+        "training_actions": 16,
+        "training_probe_cost": 0.8000000000000002
+      },
+      "cpu_seconds": 2.7247179999999993,
+      "wall_seconds": 3.071321125025861,
+      "max_rss_platform_units": 137052160
+    },
+    {
+      "domain": "queue",
+      "condition": "noise",
+      "strategy": "conservative",
+      "seed": 11,
+      "summary": {
+        "goal_achieved": true,
+        "world_complete": false,
+        "actions": [
+          {
+            "name": "Submit 1 jobs",
+            "kind": "submit",
+            "fingerprint": "be47d90d5568baac4966d415380078d2e2e7e1bbdd3e6b57d5111dbfd06a044c",
+            "amount": 1
+          },
+          {
+            "name": "Submit 1 jobs",
+            "kind": "submit",
+            "fingerprint": "c92cc2aeff4a7796584a6be09806f692d162e275c59f8e31fc6f71fa05f6c1cc",
+            "amount": 1
+          },
+          {
+            "name": "Submit 1 jobs",
+            "kind": "submit",
+            "fingerprint": "28ee56d1cc1cf76cf3171276f61a089183d898bd7e3c6d02f0c39131e5c222c8",
+            "amount": 1
+          },
+          {
+            "name": "Submit 1 jobs",
+            "kind": "submit",
+            "fingerprint": "a3fc57c8218ac00057bc9b49132b783666442616f786b5326d63aa710749806d",
+            "amount": 1
+          },
+          {
+            "name": "Submit 1 jobs",
+            "kind": "submit",
+            "fingerprint": "f2c0ab277db2b23b3e53bef96b54ba826cf41bf76d652cc699e973aa3c345f64",
+            "amount": 1
+          },
+          {
+            "name": "Submit 1 jobs",
+            "kind": "submit",
+            "fingerprint": "67ecf93619dd616b22c94786296252bf20ea1fabe9796da6c172d0981dff79c0",
+            "amount": 1
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "3eb6b9df9cbdd386b083c51f73313fcf5cace5a63302b1aedc2ca2312ef2e72e",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "9e3c5c60cb0c89845967e62493db13273d62448ca4f178d9f8f5b0aadda97e7a",
+            "amount": 0
+          }
+        ],
+        "actual_steps": 8,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": 5.0,
+        "goal_capped_utility": 5.0,
+        "goal_progress": 6.0,
+        "holding_cost": 0.0,
+        "mae_first_executed_step": 0.0,
+        "coverage_decision_rounds": 1.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 24,
+        "runtime_engine_calls": 48,
+        "verifier_calls": 48,
+        "runtime_inference_calls": 0,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 8,
+        "training_actions": 16,
+        "training_probe_cost": 0.8000000000000002
+      },
+      "cpu_seconds": 2.7466420000000014,
+      "wall_seconds": 3.0783577089896426,
+      "max_rss_platform_units": 137084928
+    },
+    {
+      "domain": "queue",
+      "condition": "noise",
+      "strategy": "fixed_prior",
+      "seed": 11,
+      "summary": {
+        "goal_achieved": true,
+        "world_complete": false,
+        "actions": [
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "ae1b4e69b2f2e53948faf6d0c2cf60759f24086a1eadf2bf16da676b34505e7f",
+            "amount": 3
+          },
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "055aeba00a04c7bc0a2f414d08dfb40bfaf302fb3d37791139a612791b06af09",
+            "amount": 3
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "d0edfd9e64c407230255481e3b117c62331b0c3df100098040d63d96d07e2d5e",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "4fb8907cca7655bf2ad9efaf36d579f9f3ff7e33b31f3ed5ddc14e348faad980",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "d594619ce4cc5d8325bd82f0c4bdd5cf3012d2e6e5c9e0172def05cc829ca7c6",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "28c2736c083e6a27969b3fa20f559bb6a691db0f003da91b94a2f2a8a6d2fad1",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "a8f508e8c2f0bae9cad9d5e89b9c2a4dba37f3a5d2aec55b666da4a1cf447bda",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "9e3c5c60cb0c89845967e62493db13273d62448ca4f178d9f8f5b0aadda97e7a",
+            "amount": 0
+          }
+        ],
+        "actual_steps": 8,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": 5.0,
+        "goal_capped_utility": 5.0,
+        "goal_progress": 6.0,
+        "holding_cost": 0.0,
+        "mae_first_executed_step": 0.25,
+        "coverage_decision_rounds": 1.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 24,
+        "runtime_engine_calls": 48,
+        "verifier_calls": 48,
+        "runtime_inference_calls": 0,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 8,
+        "training_actions": 16,
+        "training_probe_cost": 0.8000000000000002
+      },
+      "cpu_seconds": 2.0058700000000016,
+      "wall_seconds": 2.241292457911186,
+      "max_rss_platform_units": 137084928
+    },
+    {
+      "domain": "queue",
+      "condition": "noise",
+      "strategy": "existing",
+      "seed": 11,
+      "summary": {
+        "goal_achieved": true,
+        "world_complete": false,
+        "actions": [
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "ae1b4e69b2f2e53948faf6d0c2cf60759f24086a1eadf2bf16da676b34505e7f",
+            "amount": 3
+          },
+          {
+            "name": "Submit 1 jobs",
+            "kind": "submit",
+            "fingerprint": "c3e2bfc081d994e13ac328b01b6c16e414e4f01d19dd235e3fde57f53b4d1a1b",
+            "amount": 1
+          },
+          {
+            "name": "Submit 1 jobs",
+            "kind": "submit",
+            "fingerprint": "41dff32606f66d34cc41ac06c3cb74134253b49a9bbc4fa513bf15e1a8ea5a1c",
+            "amount": 1
+          },
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "94328179ba71c7fae859c2b6c831fc8b405fa99dc37d7755a8c7cf038aa8bcac",
+            "amount": 3
+          },
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "a53b555781c6c58dfd3d0df1f52c47256afb33e7676c1fd87fab055ce63c2220",
+            "amount": 3
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "9e7548623be14e730d5f24e26783aae4c4d96b1e784daca44fca545b6b3d4729",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "0cff3cecc21b97965082da75555916c586f27f276ed221f3de8f978a55920733",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "d888918fd6581dd44780ea73723baec2be1bb4d3fd2bff26e6914d2a896d5955",
+            "amount": 0
+          }
+        ],
+        "actual_steps": 8,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": 9.5,
+        "goal_capped_utility": 4.5,
+        "goal_progress": 11.0,
+        "holding_cost": 0.0,
+        "mae_first_executed_step": null,
+        "coverage_decision_rounds": 0.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 0,
+        "runtime_engine_calls": 48,
+        "verifier_calls": 48,
+        "runtime_inference_calls": 0,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 8,
+        "training_actions": 16,
+        "training_probe_cost": 0.8000000000000002
+      },
+      "cpu_seconds": 1.0585440000000013,
+      "wall_seconds": 1.2161399580072612,
+      "max_rss_platform_units": 137084928
+    },
+    {
+      "domain": "software",
+      "condition": "workflow",
+      "strategy": "core_search",
+      "seed": 23,
+      "summary": {
+        "goal_achieved": true,
+        "world_complete": true,
+        "actions": [
+          {
+            "name": "Immediate repair",
+            "kind": "patch",
+            "fingerprint": "c316b30609a1a2f07a11922d262255b8f2559e9f3450a884a713b7b82a889aba",
+            "amount": null
+          },
+          {
+            "name": "Prepare validator",
+            "kind": "patch",
+            "fingerprint": "6d1b8165c2a43d202e90f9ef8ca79be252f85480bb3f217952d90f56dc27a32a",
+            "amount": null
+          },
+          {
+            "name": "Integrate validator",
+            "kind": "patch",
+            "fingerprint": "3c938b494f29839b2635c8ab059560088b415413ff8a35fcb9b79bb05ad698ca",
+            "amount": null
+          }
+        ],
+        "actual_steps": 3,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": 0.85,
+        "goal_capped_utility": 0.85,
+        "goal_progress": 1.0,
+        "holding_cost": 0,
+        "mae_first_executed_step": null,
+        "coverage_decision_rounds": 0.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 0,
+        "runtime_engine_calls": 22,
+        "verifier_calls": 11,
+        "runtime_inference_calls": 11,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 0,
+        "training_actions": 0,
+        "training_probe_cost": 0
+      },
+      "cpu_seconds": 0.2422879999999985,
+      "wall_seconds": 0.5009589589899406,
+      "max_rss_platform_units": 137117696
+    },
+    {
+      "domain": "software",
+      "condition": "workflow",
+      "strategy": "short",
+      "seed": 23,
+      "summary": {
+        "goal_achieved": true,
+        "world_complete": true,
+        "actions": [
+          {
+            "name": "Immediate repair",
+            "kind": "patch",
+            "fingerprint": "c316b30609a1a2f07a11922d262255b8f2559e9f3450a884a713b7b82a889aba",
+            "amount": null
+          },
+          {
+            "name": "Prepare validator",
+            "kind": "patch",
+            "fingerprint": "6d1b8165c2a43d202e90f9ef8ca79be252f85480bb3f217952d90f56dc27a32a",
+            "amount": null
+          },
+          {
+            "name": "Integrate validator",
+            "kind": "patch",
+            "fingerprint": "3c938b494f29839b2635c8ab059560088b415413ff8a35fcb9b79bb05ad698ca",
+            "amount": null
+          }
+        ],
+        "actual_steps": 3,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": 0.85,
+        "goal_capped_utility": 0.85,
+        "goal_progress": 1.0,
+        "holding_cost": 0,
+        "mae_first_executed_step": 0.0,
+        "coverage_decision_rounds": 1.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 5,
+        "runtime_engine_calls": 10,
+        "verifier_calls": 5,
+        "runtime_inference_calls": 5,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 0,
+        "training_actions": 0,
+        "training_probe_cost": 0
+      },
+      "cpu_seconds": 0.20791800000000293,
+      "wall_seconds": 0.3550209579989314,
+      "max_rss_platform_units": 137117696
+    },
+    {
+      "domain": "software",
+      "condition": "workflow",
+      "strategy": "sequence",
+      "seed": 23,
+      "summary": {
+        "goal_achieved": true,
+        "world_complete": true,
+        "actions": [
+          {
+            "name": "Prepare validator",
+            "kind": "patch",
+            "fingerprint": "bcd22f71568ee12a21add5b561d2b684bf317ce599d5f44439d3c6bdbf18849e",
+            "amount": null
+          },
+          {
+            "name": "Integrate validator",
+            "kind": "patch",
+            "fingerprint": "3c938b494f29839b2635c8ab059560088b415413ff8a35fcb9b79bb05ad698ca",
+            "amount": null
+          }
+        ],
+        "actual_steps": 2,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": 0.9,
+        "goal_capped_utility": 0.9,
+        "goal_progress": 1.0,
+        "holding_cost": 0,
+        "mae_first_executed_step": 0.0,
+        "coverage_decision_rounds": 1.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 14,
+        "runtime_engine_calls": 8,
+        "verifier_calls": 4,
+        "runtime_inference_calls": 4,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 0,
+        "training_actions": 0,
+        "training_probe_cost": 0
+      },
+      "cpu_seconds": 0.16111399999999776,
+      "wall_seconds": 0.2698379160137847,
+      "max_rss_platform_units": 137117696
+    },
+    {
+      "domain": "software",
+      "condition": "native_checkout",
+      "strategy": "core_search",
+      "seed": 23,
+      "summary": {
+        "goal_achieved": true,
+        "world_complete": true,
+        "actions": [
+          {
+            "name": "Prepare a reusable validator",
+            "kind": "patch",
+            "fingerprint": "99a7d0712534144fa9ea0dc9fa278a8b1171a2a48b8178d399b29714c91aef6d",
+            "amount": null
+          },
+          {
+            "name": "Integrate validation and cap discounts",
+            "kind": "patch",
+            "fingerprint": "b2242d831594a9b2e6cd6b562cf4acb83c2ddc177b89662b985c8ffa4d1271ed",
+            "amount": null
+          }
+        ],
+        "actual_steps": 2,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": 0.9,
+        "goal_capped_utility": 0.9,
+        "goal_progress": 1.0,
+        "holding_cost": 0,
+        "mae_first_executed_step": null,
+        "coverage_decision_rounds": 0.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 0,
+        "runtime_engine_calls": 12,
+        "verifier_calls": 6,
+        "runtime_inference_calls": 6,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 0,
+        "training_actions": 0,
+        "training_probe_cost": 0
+      },
+      "cpu_seconds": 0.13585099999999883,
+      "wall_seconds": 0.2759945410070941,
+      "max_rss_platform_units": 137117696
+    },
+    {
+      "domain": "software",
+      "condition": "native_checkout",
+      "strategy": "short",
+      "seed": 23,
+      "summary": {
+        "goal_achieved": true,
+        "world_complete": true,
+        "actions": [
+          {
+            "name": "Prepare a reusable validator",
+            "kind": "patch",
+            "fingerprint": "99a7d0712534144fa9ea0dc9fa278a8b1171a2a48b8178d399b29714c91aef6d",
+            "amount": null
+          },
+          {
+            "name": "Integrate validation and cap discounts",
+            "kind": "patch",
+            "fingerprint": "b2242d831594a9b2e6cd6b562cf4acb83c2ddc177b89662b985c8ffa4d1271ed",
+            "amount": null
+          }
+        ],
+        "actual_steps": 2,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 2,
+        "unresolved": 0,
+        "reward": 0.9,
+        "goal_capped_utility": 0.9,
+        "goal_progress": 1.0,
+        "holding_cost": 0,
+        "mae_first_executed_step": 0.0,
+        "coverage_decision_rounds": 1.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 4,
+        "runtime_engine_calls": 8,
+        "verifier_calls": 4,
+        "runtime_inference_calls": 4,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 0,
+        "training_actions": 0,
+        "training_probe_cost": 0
+      },
+      "cpu_seconds": 0.15839699999999723,
+      "wall_seconds": 0.26749620807822794,
+      "max_rss_platform_units": 137117696
+    },
+    {
+      "domain": "software",
+      "condition": "native_checkout",
+      "strategy": "sequence",
+      "seed": 23,
+      "summary": {
+        "goal_achieved": true,
+        "world_complete": true,
+        "actions": [
+          {
+            "name": "Prepare a reusable validator",
+            "kind": "patch",
+            "fingerprint": "99a7d0712534144fa9ea0dc9fa278a8b1171a2a48b8178d399b29714c91aef6d",
+            "amount": null
+          },
+          {
+            "name": "Integrate validation and cap discounts",
+            "kind": "patch",
+            "fingerprint": "b2242d831594a9b2e6cd6b562cf4acb83c2ddc177b89662b985c8ffa4d1271ed",
+            "amount": null
+          }
+        ],
+        "actual_steps": 2,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 2,
+        "unresolved": 0,
+        "reward": 0.9,
+        "goal_capped_utility": 0.9,
+        "goal_progress": 1.0,
+        "holding_cost": 0,
+        "mae_first_executed_step": 0.0,
+        "coverage_decision_rounds": 1.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 16,
+        "runtime_engine_calls": 8,
+        "verifier_calls": 4,
+        "runtime_inference_calls": 4,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 0,
+        "training_actions": 0,
+        "training_probe_cost": 0
+      },
+      "cpu_seconds": 0.16143300000000238,
+      "wall_seconds": 0.2703610829776153,
+      "max_rss_platform_units": 137117696
+    },
+    {
+      "domain": "queue",
+      "condition": "stable_high",
+      "strategy": "existing",
+      "seed": 23,
+      "summary": {
+        "goal_achieved": true,
+        "world_complete": false,
+        "actions": [
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "ae1b4e69b2f2e53948faf6d0c2cf60759f24086a1eadf2bf16da676b34505e7f",
+            "amount": 3
+          },
+          {
+            "name": "Submit 1 jobs",
+            "kind": "submit",
+            "fingerprint": "c3e2bfc081d994e13ac328b01b6c16e414e4f01d19dd235e3fde57f53b4d1a1b",
+            "amount": 1
+          },
+          {
+            "name": "Submit 1 jobs",
+            "kind": "submit",
+            "fingerprint": "41dff32606f66d34cc41ac06c3cb74134253b49a9bbc4fa513bf15e1a8ea5a1c",
+            "amount": 1
+          },
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "94328179ba71c7fae859c2b6c831fc8b405fa99dc37d7755a8c7cf038aa8bcac",
+            "amount": 3
+          },
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "a53b555781c6c58dfd3d0df1f52c47256afb33e7676c1fd87fab055ce63c2220",
+            "amount": 3
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "9e7548623be14e730d5f24e26783aae4c4d96b1e784daca44fca545b6b3d4729",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "0cff3cecc21b97965082da75555916c586f27f276ed221f3de8f978a55920733",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "d888918fd6581dd44780ea73723baec2be1bb4d3fd2bff26e6914d2a896d5955",
+            "amount": 0
+          }
+        ],
+        "actual_steps": 8,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": 9.5,
+        "goal_capped_utility": 4.5,
+        "goal_progress": 11.0,
+        "holding_cost": 0.0,
+        "mae_first_executed_step": null,
+        "coverage_decision_rounds": 0.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 0,
+        "runtime_engine_calls": 48,
+        "verifier_calls": 48,
+        "runtime_inference_calls": 0,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 8,
+        "training_actions": 16,
+        "training_probe_cost": 0.8000000000000002
+      },
+      "cpu_seconds": 1.0698330000000027,
+      "wall_seconds": 1.245785209001042,
+      "max_rss_platform_units": 137117696
+    },
+    {
+      "domain": "queue",
+      "condition": "stable_high",
+      "strategy": "short",
+      "seed": 23,
+      "summary": {
+        "goal_achieved": false,
+        "world_complete": false,
+        "actions": [
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "8f63e24b0b2d77ccffa027f3c78d00fbf633879c50133903aa46e27e09884253",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "6e032929959e23b30956d8e9cff60fef38b7593c11904ddb2c4d45efa30c066b",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "8b4aacfbc7478a77ac9cd012904e0d9fab0dce058187c280f82b666f3c2d5aef",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "43196860aba609679b519419387e03a8e4366c71dbed893c6b4e5d1fca6fb429",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "dc758bdc26894aac2274b2c43f4432c6da9b4eece20e4ce883bcc79c33a0f3e3",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "9ca1eb49be9d513f6cba8afeda3d3550e052e595cc4fba3521dcff8219d6dfd9",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "c8942ed24c7bf5c7b3140429e930fa7e2b94592e31123860202b1543ad04cdbb",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "7c22db3545d4074ab2d877899d4e71e06dff35f985bd518f6bd1e581bc2f201e",
+            "amount": 0
+          }
+        ],
+        "actual_steps": 8,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": -0.39999999999999997,
+        "goal_capped_utility": -0.39999999999999997,
+        "goal_progress": 0.0,
+        "holding_cost": 0.0,
+        "mae_first_executed_step": 0.0,
+        "coverage_decision_rounds": 1.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 24,
+        "runtime_engine_calls": 48,
+        "verifier_calls": 48,
+        "runtime_inference_calls": 0,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 8,
+        "training_actions": 16,
+        "training_probe_cost": 0.8000000000000002
+      },
+      "cpu_seconds": 2.711185999999998,
+      "wall_seconds": 3.0671815000241622,
+      "max_rss_platform_units": 137117696
+    },
+    {
+      "domain": "queue",
+      "condition": "stable_high",
+      "strategy": "h3",
+      "seed": 23,
+      "summary": {
+        "goal_achieved": true,
+        "world_complete": false,
+        "actions": [
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "ae1b4e69b2f2e53948faf6d0c2cf60759f24086a1eadf2bf16da676b34505e7f",
+            "amount": 3
+          },
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "055aeba00a04c7bc0a2f414d08dfb40bfaf302fb3d37791139a612791b06af09",
+            "amount": 3
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "d0edfd9e64c407230255481e3b117c62331b0c3df100098040d63d96d07e2d5e",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "4fb8907cca7655bf2ad9efaf36d579f9f3ff7e33b31f3ed5ddc14e348faad980",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "d594619ce4cc5d8325bd82f0c4bdd5cf3012d2e6e5c9e0172def05cc829ca7c6",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "28c2736c083e6a27969b3fa20f559bb6a691db0f003da91b94a2f2a8a6d2fad1",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "a8f508e8c2f0bae9cad9d5e89b9c2a4dba37f3a5d2aec55b666da4a1cf447bda",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "9e3c5c60cb0c89845967e62493db13273d62448ca4f178d9f8f5b0aadda97e7a",
+            "amount": 0
+          }
+        ],
+        "actual_steps": 8,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": 5.0,
+        "goal_capped_utility": 5.0,
+        "goal_progress": 6.0,
+        "holding_cost": 0.0,
+        "mae_first_executed_step": 0.0,
+        "coverage_decision_rounds": 1.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 24,
+        "runtime_engine_calls": 48,
+        "verifier_calls": 48,
+        "runtime_inference_calls": 0,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 8,
+        "training_actions": 16,
+        "training_probe_cost": 0.8000000000000002
+      },
+      "cpu_seconds": 2.703527000000001,
+      "wall_seconds": 3.0004914170131087,
+      "max_rss_platform_units": 137117696
+    },
+    {
+      "domain": "queue",
+      "condition": "stable_high",
+      "strategy": "fixed_prior",
+      "seed": 23,
+      "summary": {
+        "goal_achieved": true,
+        "world_complete": false,
+        "actions": [
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "ae1b4e69b2f2e53948faf6d0c2cf60759f24086a1eadf2bf16da676b34505e7f",
+            "amount": 3
+          },
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "055aeba00a04c7bc0a2f414d08dfb40bfaf302fb3d37791139a612791b06af09",
+            "amount": 3
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "d0edfd9e64c407230255481e3b117c62331b0c3df100098040d63d96d07e2d5e",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "4fb8907cca7655bf2ad9efaf36d579f9f3ff7e33b31f3ed5ddc14e348faad980",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "d594619ce4cc5d8325bd82f0c4bdd5cf3012d2e6e5c9e0172def05cc829ca7c6",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "28c2736c083e6a27969b3fa20f559bb6a691db0f003da91b94a2f2a8a6d2fad1",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "a8f508e8c2f0bae9cad9d5e89b9c2a4dba37f3a5d2aec55b666da4a1cf447bda",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "9e3c5c60cb0c89845967e62493db13273d62448ca4f178d9f8f5b0aadda97e7a",
+            "amount": 0
+          }
+        ],
+        "actual_steps": 8,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": 5.0,
+        "goal_capped_utility": 5.0,
+        "goal_progress": 6.0,
+        "holding_cost": 0.0,
+        "mae_first_executed_step": 0.25,
+        "coverage_decision_rounds": 1.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 24,
+        "runtime_engine_calls": 48,
+        "verifier_calls": 48,
+        "runtime_inference_calls": 0,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 8,
+        "training_actions": 16,
+        "training_probe_cost": 0.8000000000000002
+      },
+      "cpu_seconds": 2.0106889999999993,
+      "wall_seconds": 2.2435492500662804,
+      "max_rss_platform_units": 137117696
+    },
+    {
+      "domain": "queue",
+      "condition": "stable_low",
+      "strategy": "existing",
+      "seed": 23,
+      "summary": {
+        "goal_achieved": false,
+        "world_complete": false,
+        "actions": [
+          {
+            "name": "Submit 1 jobs",
+            "kind": "submit",
+            "fingerprint": "be47d90d5568baac4966d415380078d2e2e7e1bbdd3e6b57d5111dbfd06a044c",
+            "amount": 1
+          },
+          {
+            "name": "Submit 1 jobs",
+            "kind": "submit",
+            "fingerprint": "c92cc2aeff4a7796584a6be09806f692d162e275c59f8e31fc6f71fa05f6c1cc",
+            "amount": 1
+          },
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "49d80417db0313305db835debbbc5bf9fb771a7451dd1f07141c99988571b0f1",
+            "amount": 3
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "9e0b51f1e3f9ac53adff02dfffe480a7558177a7965c5a1f3513a1ab6ae53fff",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "3a09f727690520c9f172cdf44c379160ffcc09056400370ab3cda4f269d90130",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "d8e102932e35736cf1fdc0364006d71dec1dfafedd3832f057147ba407b230c5",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "81b2711824819e53d01bdd45dc701307d7c1b8bae649e5e22c9f8adda645937b",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "9567b9f87854a2c1f0679eda281fe573a356eefefcfd8b433b2cecf5be3a4621",
+            "amount": 0
+          }
+        ],
+        "actual_steps": 8,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": 3.35,
+        "goal_capped_utility": 3.35,
+        "goal_progress": 5.0,
+        "holding_cost": 0.75,
+        "mae_first_executed_step": null,
+        "coverage_decision_rounds": 0.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 0,
+        "runtime_engine_calls": 48,
+        "verifier_calls": 48,
+        "runtime_inference_calls": 0,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 8,
+        "training_actions": 16,
+        "training_probe_cost": 0.8000000000000002
+      },
+      "cpu_seconds": 1.0806249999999977,
+      "wall_seconds": 1.236151208053343,
+      "max_rss_platform_units": 137117696
+    },
+    {
+      "domain": "queue",
+      "condition": "stable_low",
+      "strategy": "short",
+      "seed": 23,
+      "summary": {
+        "goal_achieved": false,
+        "world_complete": false,
+        "actions": [
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "8f63e24b0b2d77ccffa027f3c78d00fbf633879c50133903aa46e27e09884253",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "6e032929959e23b30956d8e9cff60fef38b7593c11904ddb2c4d45efa30c066b",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "8b4aacfbc7478a77ac9cd012904e0d9fab0dce058187c280f82b666f3c2d5aef",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "43196860aba609679b519419387e03a8e4366c71dbed893c6b4e5d1fca6fb429",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "dc758bdc26894aac2274b2c43f4432c6da9b4eece20e4ce883bcc79c33a0f3e3",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "9ca1eb49be9d513f6cba8afeda3d3550e052e595cc4fba3521dcff8219d6dfd9",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "c8942ed24c7bf5c7b3140429e930fa7e2b94592e31123860202b1543ad04cdbb",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "7c22db3545d4074ab2d877899d4e71e06dff35f985bd518f6bd1e581bc2f201e",
+            "amount": 0
+          }
+        ],
+        "actual_steps": 8,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": -0.39999999999999997,
+        "goal_capped_utility": -0.39999999999999997,
+        "goal_progress": 0.0,
+        "holding_cost": 0.0,
+        "mae_first_executed_step": 0.0,
+        "coverage_decision_rounds": 1.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 24,
+        "runtime_engine_calls": 48,
+        "verifier_calls": 48,
+        "runtime_inference_calls": 0,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 8,
+        "training_actions": 16,
+        "training_probe_cost": 0.8000000000000002
+      },
+      "cpu_seconds": 2.7826420000000027,
+      "wall_seconds": 3.100226625101641,
+      "max_rss_platform_units": 137117696
+    },
+    {
+      "domain": "queue",
+      "condition": "stable_low",
+      "strategy": "h3",
+      "seed": 23,
+      "summary": {
+        "goal_achieved": true,
+        "world_complete": false,
+        "actions": [
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "ae1b4e69b2f2e53948faf6d0c2cf60759f24086a1eadf2bf16da676b34505e7f",
+            "amount": 3
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "d765110c94e085bf33e3e0ab296b22a406f4c1c0e9eaf4ce548d1d1f1a3d8338",
+            "amount": 0
+          },
+          {
+            "name": "Submit 1 jobs",
+            "kind": "submit",
+            "fingerprint": "508ba067d3e02451931aaffa3ffa74b28a67644eb351f296cd0a24757d300f74",
+            "amount": 1
+          },
+          {
+            "name": "Submit 1 jobs",
+            "kind": "submit",
+            "fingerprint": "dbf418b43de79da95d5d3f11d678f7acd064961c5bb1cd04a8e18db1276fbfb4",
+            "amount": 1
+          },
+          {
+            "name": "Submit 1 jobs",
+            "kind": "submit",
+            "fingerprint": "c9dde313c2098532c0f6de1be8af166c6670d598716a33dbaeef2b9321e58350",
+            "amount": 1
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "2f6464d326bd053825103ef8913fdf239603efab81d99cbc4c468b004b64c02f",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "732ad5f91df60bfb8ac2816c76fe7fd2954629685fce2e3595ba889fc7799d1f",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "9e3c5c60cb0c89845967e62493db13273d62448ca4f178d9f8f5b0aadda97e7a",
+            "amount": 0
+          }
+        ],
+        "actual_steps": 8,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": 3.5,
+        "goal_capped_utility": 3.5,
+        "goal_progress": 6.0,
+        "holding_cost": 1.5,
+        "mae_first_executed_step": 0.0,
+        "coverage_decision_rounds": 1.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 24,
+        "runtime_engine_calls": 48,
+        "verifier_calls": 48,
+        "runtime_inference_calls": 0,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 8,
+        "training_actions": 16,
+        "training_probe_cost": 0.8000000000000002
+      },
+      "cpu_seconds": 2.812168,
+      "wall_seconds": 3.125608416972682,
+      "max_rss_platform_units": 137117696
+    },
+    {
+      "domain": "queue",
+      "condition": "stable_low",
+      "strategy": "fixed_prior",
+      "seed": 23,
+      "summary": {
+        "goal_achieved": true,
+        "world_complete": false,
+        "actions": [
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "ae1b4e69b2f2e53948faf6d0c2cf60759f24086a1eadf2bf16da676b34505e7f",
+            "amount": 3
+          },
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "055aeba00a04c7bc0a2f414d08dfb40bfaf302fb3d37791139a612791b06af09",
+            "amount": 3
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "3d0e2d97699b53fa6410a458a858aaab78a3d72b18c2e90031f4c30cfcca2d52",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "7d561fe0da3916fb54cbe5119ed0f557bad2a966a4209ca6fc40b589f772d5fc",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "29950a1926ceff6b5308b7d2a41b466a541379cca5fdbc12b0213559422b121b",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "2379de85a932bb914fc98fbfae90f2ef2a197f07a231c71fa4217e3599b3144f",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "732ad5f91df60bfb8ac2816c76fe7fd2954629685fce2e3595ba889fc7799d1f",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "9e3c5c60cb0c89845967e62493db13273d62448ca4f178d9f8f5b0aadda97e7a",
+            "amount": 0
+          }
+        ],
+        "actual_steps": 8,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": 2.0,
+        "goal_capped_utility": 2.0,
+        "goal_progress": 6.0,
+        "holding_cost": 3.0,
+        "mae_first_executed_step": 0.5625,
+        "coverage_decision_rounds": 1.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 24,
+        "runtime_engine_calls": 48,
+        "verifier_calls": 48,
+        "runtime_inference_calls": 0,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 8,
+        "training_actions": 16,
+        "training_probe_cost": 0.8000000000000002
+      },
+      "cpu_seconds": 2.0522300000000016,
+      "wall_seconds": 2.2856214590137824,
+      "max_rss_platform_units": 137166848
+    },
+    {
+      "domain": "queue",
+      "condition": "shift_after_warmup",
+      "strategy": "h3",
+      "seed": 23,
+      "summary": {
+        "goal_achieved": false,
+        "world_complete": false,
+        "actions": [
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "ae1b4e69b2f2e53948faf6d0c2cf60759f24086a1eadf2bf16da676b34505e7f",
+            "amount": 3
+          },
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "055aeba00a04c7bc0a2f414d08dfb40bfaf302fb3d37791139a612791b06af09",
+            "amount": 3
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "3d0e2d97699b53fa6410a458a858aaab78a3d72b18c2e90031f4c30cfcca2d52",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "7d561fe0da3916fb54cbe5119ed0f557bad2a966a4209ca6fc40b589f772d5fc",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "29950a1926ceff6b5308b7d2a41b466a541379cca5fdbc12b0213559422b121b",
+            "amount": 0
+          }
+        ],
+        "actual_steps": 5,
+        "unsafe": 0,
+        "abstain": 1,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": 0.25,
+        "goal_capped_utility": 0.25,
+        "goal_progress": 4.0,
+        "holding_cost": 2.75,
+        "mae_first_executed_step": 1.6,
+        "coverage_decision_rounds": 0.8333333333333334,
+        "unknown_rounds": 1,
+        "local_prediction_calls": 15,
+        "runtime_engine_calls": 30,
+        "verifier_calls": 30,
+        "runtime_inference_calls": 0,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 8,
+        "training_actions": 16,
+        "training_probe_cost": 0.8000000000000002
+      },
+      "cpu_seconds": 2.0583560000000034,
+      "wall_seconds": 2.3121658329619095,
+      "max_rss_platform_units": 137166848
+    },
+    {
+      "domain": "queue",
+      "condition": "invalidated",
+      "strategy": "h3",
+      "seed": 23,
+      "summary": {
+        "goal_achieved": false,
+        "world_complete": false,
+        "actions": [],
+        "actual_steps": 0,
+        "unsafe": 0,
+        "abstain": 1,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": -0.39999999999999997,
+        "goal_capped_utility": -0.39999999999999997,
+        "goal_progress": 0.0,
+        "holding_cost": 0,
+        "mae_first_executed_step": null,
+        "coverage_decision_rounds": 0.0,
+        "unknown_rounds": 1,
+        "local_prediction_calls": 0,
+        "runtime_engine_calls": 0,
+        "verifier_calls": 0,
+        "runtime_inference_calls": 0,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 8,
+        "training_actions": 16,
+        "training_probe_cost": 0.8000000000000002
+      },
+      "cpu_seconds": 0.7626630000000034,
+      "wall_seconds": 0.917607165989466,
+      "max_rss_platform_units": 137166848
+    },
+    {
+      "domain": "queue",
+      "condition": "partial",
+      "strategy": "h3",
+      "seed": 23,
+      "summary": {
+        "goal_achieved": false,
+        "world_complete": false,
+        "actions": [],
+        "actual_steps": 0,
+        "unsafe": 0,
+        "abstain": 1,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": 0.0,
+        "goal_capped_utility": 0.0,
+        "goal_progress": 0.0,
+        "holding_cost": 0,
+        "mae_first_executed_step": null,
+        "coverage_decision_rounds": 0.0,
+        "unknown_rounds": 1,
+        "local_prediction_calls": 0,
+        "runtime_engine_calls": 0,
+        "verifier_calls": 0,
+        "runtime_inference_calls": 0,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 8,
+        "training_actions": 16,
+        "training_probe_cost": 0.8000000000000002
+      },
+      "cpu_seconds": 0.8039879999999968,
+      "wall_seconds": 0.9986956670181826,
+      "max_rss_platform_units": 137166848
+    },
+    {
+      "domain": "queue",
+      "condition": "unsupported",
+      "strategy": "h3",
+      "seed": 23,
+      "summary": {
+        "goal_achieved": false,
+        "world_complete": false,
+        "actions": [],
+        "actual_steps": 0,
+        "unsafe": 0,
+        "abstain": 1,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": -0.39999999999999997,
+        "goal_capped_utility": -0.39999999999999997,
+        "goal_progress": 0.0,
+        "holding_cost": 0,
+        "mae_first_executed_step": null,
+        "coverage_decision_rounds": 0.0,
+        "unknown_rounds": 1,
+        "local_prediction_calls": 0,
+        "runtime_engine_calls": 0,
+        "verifier_calls": 0,
+        "runtime_inference_calls": 0,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 8,
+        "training_actions": 16,
+        "training_probe_cost": 0.8000000000000002
+      },
+      "cpu_seconds": 0.7902580000000015,
+      "wall_seconds": 1.071637916029431,
+      "max_rss_platform_units": 137166848
+    },
+    {
+      "domain": "queue",
+      "condition": "noise",
+      "strategy": "h3",
+      "seed": 23,
+      "summary": {
+        "goal_achieved": true,
+        "world_complete": false,
+        "actions": [
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "ae1b4e69b2f2e53948faf6d0c2cf60759f24086a1eadf2bf16da676b34505e7f",
+            "amount": 3
+          },
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "055aeba00a04c7bc0a2f414d08dfb40bfaf302fb3d37791139a612791b06af09",
+            "amount": 3
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "d0edfd9e64c407230255481e3b117c62331b0c3df100098040d63d96d07e2d5e",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "4fb8907cca7655bf2ad9efaf36d579f9f3ff7e33b31f3ed5ddc14e348faad980",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "d594619ce4cc5d8325bd82f0c4bdd5cf3012d2e6e5c9e0172def05cc829ca7c6",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "28c2736c083e6a27969b3fa20f559bb6a691db0f003da91b94a2f2a8a6d2fad1",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "a8f508e8c2f0bae9cad9d5e89b9c2a4dba37f3a5d2aec55b666da4a1cf447bda",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "9e3c5c60cb0c89845967e62493db13273d62448ca4f178d9f8f5b0aadda97e7a",
+            "amount": 0
+          }
+        ],
+        "actual_steps": 8,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": 5.0,
+        "goal_capped_utility": 5.0,
+        "goal_progress": 6.0,
+        "holding_cost": 0.0,
+        "mae_first_executed_step": 0.25,
+        "coverage_decision_rounds": 1.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 24,
+        "runtime_engine_calls": 48,
+        "verifier_calls": 48,
+        "runtime_inference_calls": 0,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 8,
+        "training_actions": 16,
+        "training_probe_cost": 0.8000000000000002
+      },
+      "cpu_seconds": 2.9342539999999957,
+      "wall_seconds": 3.2308406670344993,
+      "max_rss_platform_units": 137166848
+    },
+    {
+      "domain": "queue",
+      "condition": "noise",
+      "strategy": "conservative",
+      "seed": 23,
+      "summary": {
+        "goal_achieved": true,
+        "world_complete": false,
+        "actions": [
+          {
+            "name": "Submit 1 jobs",
+            "kind": "submit",
+            "fingerprint": "be47d90d5568baac4966d415380078d2e2e7e1bbdd3e6b57d5111dbfd06a044c",
+            "amount": 1
+          },
+          {
+            "name": "Submit 1 jobs",
+            "kind": "submit",
+            "fingerprint": "c92cc2aeff4a7796584a6be09806f692d162e275c59f8e31fc6f71fa05f6c1cc",
+            "amount": 1
+          },
+          {
+            "name": "Submit 1 jobs",
+            "kind": "submit",
+            "fingerprint": "28ee56d1cc1cf76cf3171276f61a089183d898bd7e3c6d02f0c39131e5c222c8",
+            "amount": 1
+          },
+          {
+            "name": "Submit 1 jobs",
+            "kind": "submit",
+            "fingerprint": "a3fc57c8218ac00057bc9b49132b783666442616f786b5326d63aa710749806d",
+            "amount": 1
+          },
+          {
+            "name": "Submit 1 jobs",
+            "kind": "submit",
+            "fingerprint": "f2c0ab277db2b23b3e53bef96b54ba826cf41bf76d652cc699e973aa3c345f64",
+            "amount": 1
+          },
+          {
+            "name": "Submit 1 jobs",
+            "kind": "submit",
+            "fingerprint": "67ecf93619dd616b22c94786296252bf20ea1fabe9796da6c172d0981dff79c0",
+            "amount": 1
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "3eb6b9df9cbdd386b083c51f73313fcf5cace5a63302b1aedc2ca2312ef2e72e",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "9e3c5c60cb0c89845967e62493db13273d62448ca4f178d9f8f5b0aadda97e7a",
+            "amount": 0
+          }
+        ],
+        "actual_steps": 8,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": 5.0,
+        "goal_capped_utility": 5.0,
+        "goal_progress": 6.0,
+        "holding_cost": 0.0,
+        "mae_first_executed_step": 0.0,
+        "coverage_decision_rounds": 1.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 24,
+        "runtime_engine_calls": 48,
+        "verifier_calls": 48,
+        "runtime_inference_calls": 0,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 8,
+        "training_actions": 16,
+        "training_probe_cost": 0.8000000000000002
+      },
+      "cpu_seconds": 3.025027999999999,
+      "wall_seconds": 3.3247004160657525,
+      "max_rss_platform_units": 137183232
+    },
+    {
+      "domain": "queue",
+      "condition": "noise",
+      "strategy": "fixed_prior",
+      "seed": 23,
+      "summary": {
+        "goal_achieved": true,
+        "world_complete": false,
+        "actions": [
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "ae1b4e69b2f2e53948faf6d0c2cf60759f24086a1eadf2bf16da676b34505e7f",
+            "amount": 3
+          },
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "055aeba00a04c7bc0a2f414d08dfb40bfaf302fb3d37791139a612791b06af09",
+            "amount": 3
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "d0edfd9e64c407230255481e3b117c62331b0c3df100098040d63d96d07e2d5e",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "4fb8907cca7655bf2ad9efaf36d579f9f3ff7e33b31f3ed5ddc14e348faad980",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "d594619ce4cc5d8325bd82f0c4bdd5cf3012d2e6e5c9e0172def05cc829ca7c6",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "28c2736c083e6a27969b3fa20f559bb6a691db0f003da91b94a2f2a8a6d2fad1",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "a8f508e8c2f0bae9cad9d5e89b9c2a4dba37f3a5d2aec55b666da4a1cf447bda",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "9e3c5c60cb0c89845967e62493db13273d62448ca4f178d9f8f5b0aadda97e7a",
+            "amount": 0
+          }
+        ],
+        "actual_steps": 8,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": 5.0,
+        "goal_capped_utility": 5.0,
+        "goal_progress": 6.0,
+        "holding_cost": 0.0,
+        "mae_first_executed_step": 0.25,
+        "coverage_decision_rounds": 1.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 24,
+        "runtime_engine_calls": 48,
+        "verifier_calls": 48,
+        "runtime_inference_calls": 0,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 8,
+        "training_actions": 16,
+        "training_probe_cost": 0.8000000000000002
+      },
+      "cpu_seconds": 2.1799430000000015,
+      "wall_seconds": 2.411188416997902,
+      "max_rss_platform_units": 137183232
+    },
+    {
+      "domain": "queue",
+      "condition": "noise",
+      "strategy": "existing",
+      "seed": 23,
+      "summary": {
+        "goal_achieved": true,
+        "world_complete": false,
+        "actions": [
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "ae1b4e69b2f2e53948faf6d0c2cf60759f24086a1eadf2bf16da676b34505e7f",
+            "amount": 3
+          },
+          {
+            "name": "Submit 1 jobs",
+            "kind": "submit",
+            "fingerprint": "c3e2bfc081d994e13ac328b01b6c16e414e4f01d19dd235e3fde57f53b4d1a1b",
+            "amount": 1
+          },
+          {
+            "name": "Submit 1 jobs",
+            "kind": "submit",
+            "fingerprint": "41dff32606f66d34cc41ac06c3cb74134253b49a9bbc4fa513bf15e1a8ea5a1c",
+            "amount": 1
+          },
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "94328179ba71c7fae859c2b6c831fc8b405fa99dc37d7755a8c7cf038aa8bcac",
+            "amount": 3
+          },
+          {
+            "name": "Submit 3 jobs",
+            "kind": "submit",
+            "fingerprint": "a53b555781c6c58dfd3d0df1f52c47256afb33e7676c1fd87fab055ce63c2220",
+            "amount": 3
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "9e7548623be14e730d5f24e26783aae4c4d96b1e784daca44fca545b6b3d4729",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "9954ad43a9e184604c9210bae04d1591c37ffef6058580e283df3d3eec58baed",
+            "amount": 0
+          },
+          {
+            "name": "Drain queue",
+            "kind": "submit",
+            "fingerprint": "d888918fd6581dd44780ea73723baec2be1bb4d3fd2bff26e6914d2a896d5955",
+            "amount": 0
+          }
+        ],
+        "actual_steps": 8,
+        "unsafe": 0,
+        "abstain": 0,
+        "gate_rejections": 0,
+        "unresolved": 0,
+        "reward": 9.0,
+        "goal_capped_utility": 4.0,
+        "goal_progress": 11.0,
+        "holding_cost": 0.5,
+        "mae_first_executed_step": null,
+        "coverage_decision_rounds": 0.0,
+        "unknown_rounds": 0,
+        "local_prediction_calls": 0,
+        "runtime_engine_calls": 48,
+        "verifier_calls": 48,
+        "runtime_inference_calls": 0,
+        "external_api_calls": 0,
+        "api_cost_usd": 0.0,
+        "compute_dollar_cost": null,
+        "preparation_actions": 8,
+        "training_actions": 16,
+        "training_probe_cost": 0.8000000000000002
+      },
+      "cpu_seconds": 1.1894690000000026,
+      "wall_seconds": 1.360738959047012,
+      "max_rss_platform_units": 137183232
+    }
+  ],
+  "limits": [
+    "Owned deterministic Software workflow; known rules, not causal learning",
+    "Queue short scoring projects H3 at tick1; no fabricated H1 request",
+    "All Queue policies share real 16 training + 8 warmup receipt costs",
+    "H3 environment-only is not the subsequent closed-loop trajectory",
+    "Only the actually executed first step receives an Outcome label",
+    "Single process cumulative RSS; timings are observational, not speed benchmarks"
+  ]
+}

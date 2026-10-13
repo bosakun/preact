@@ -1,0 +1,22 @@
+{
+ "protocol_id":"modular-deliberation-pilot-v1",
+ "seeds":[11],
+ "software_strategies":["core_search","short","sequence"],
+ "queue_strategies":["existing","short","h3","fixed_prior"],
+ "queue_goal":6,
+ "queue_rounds":8,
+ "queue_conditions":{
+   "stable_high":{"training_service":3,"actual_service":3},
+   "stable_low":{"training_service":1,"actual_service":1},
+   "shift_after_warmup":{"training_service":3,"actual_service":1,"strategies":["h3"]},
+   "invalidated":{"training_service":1,"actual_service":3,"strategies":["h3"]},
+   "partial":{"training_service":3,"actual_service":3,"strategies":["h3"]},
+   "unsupported":{"training_service":3,"actual_service":3,"strategies":["h3"]}
+ },
+ "fixed_scoring":{"software_action_cost":0.05,"software_uncertainty_cost":0.1,
+                  "queue_spread_cost":0.0,"fixed_prior_high_probability":0.5},
+ "notes":["Exploratory pilot only; scoring follows declared adapter defaults",
+          "Same native candidates/Verifier, call ceiling64; Core Search allows12 nodes vs flat2",
+          "Queue learning and warmup use formal probe actions in separate declared episodes",
+          "Goal achievement and bounded World task completion are separately reported"]
+}

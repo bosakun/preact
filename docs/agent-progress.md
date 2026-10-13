@@ -1218,3 +1218,49 @@ protocol/results/audit/pilots (10 files) are byte-identical to the original PR h
 The unchanged Queue auditor is replaying all 3150 original receipts to a new private
 output while the integrated head is submitted for hosted CI. Neither verification
 is assumed successful in advance; both must finish before the authorized merge.
+
+## 2026-10-13 — Modular Counterfactual Deliberation audit/design
+
+Started from fetched main d7d4547 in isolated worktree feat/modular-counterfactual-deliberation.
+Existing Core Search already supplies hypothetical exploration; Registry supplies explicit
+sequence lineage. LocalHeuristic remains H1 and Queue temporal remains environment-only.
+Selected a common cognition comparator with domain Prediction/Goal adapters, existing
+CandidateSelector and structurally reusable QueueMultiSelectionWorld dispatch fences.
+No Core/Gate/Runtime/Promotion semantics change; no new authority or Ledger. New owned
+Software fixture uses only existing trusted patches. Next: implement bounded adapters,
+behavior/negative tests, pilot and freeze evaluation, independent audit, full validation and PR.
+No merge/auto-merge authorized for this new PR. Existing frozen results and dirty workspace stay intact.
+
+## 2026-10-13 — Modular deliberation implementation/pilot checkpoint
+
+共通Planner、Software Registry explicit sequence、Queue guarded H3、domain Goal adapterを
+接続し、Core変更なしで実Action/Receiptまで動作。28新規テスト（binding/lineage/version、
+Store/Health/anchor変更、取消、予算不足、独立auditの改ざん否定を含む）が成功。
+Pilot v1のreward owner誤参照、prefix list共有によるmanifest汚染を修正し、失敗bundleは
+private new outputに保持。修復後v1cは15cases/173source receipts、v2は22cases/243source
+receiptsを独立監査。通常Software checkoutはCore Searchと同じ2手、owned workflowは
+短期/Core Search3手とsequence2手。Queueの生rewardで既存Plannerに負ける条件も確認。
+固定v1をseeds11/23・44ケースで実行し監査成功（486 source receipts）。報告項目の
+Runtime inference/Verifier混同を分離し、同じprotocol/重み/seedでnew r2 outputへ再実行中。
+前結果を上書きせず、新結果を独立監査してから公開要約を保存する。
+frontend contracts一致/build、Chromium E2E6成功、wheel/sdist107source integrity成功。
+Blenderはsandbox内SIGSEGVで失敗し、OS権限で実8tests成功。全Python回帰は進行中。
+次: 固定結果・制約を文書化、回帰完了、最新source配布物監査、feature commit/PR/CI。
+
+## 2026-10-13 — Modular deliberation fixed evaluation/validation
+
+r2固定44cases: Actual230+準備256+訓練512の998complete receipts。独立auditorは
+486意思決定/準備Receipt、512教師Receipt、モデル再学習、native全leaf、Goal、
+Verifier/Gate Previewと実行bindingを再計算し成功。追加監査でGate Preview拒否14件
+（root qualification8件）を区別。unsafe0。r1/r2実Action列とRewardは44casesすべて一致。
+公開はaggregate results/auditのみ。通常checkoutは既存Core Searchと同じ結果で、
+sequenceの追加費用がある。high/noiseでは新方式の生Rewardが既存Plannerより低い。
+既存queue-temporal-v1を新出力へ再実行・監査: 訓練96/評価504、24paired比較、
+既存semantic hashとscoresが完全一致。source/model hashesは追加source/新Receiptで変化し、
+過去の固定ファイルは未変更。新protocolの重み/seedは本評価後に変更していない。
+全Python実行は808passed/8failed（925.09s）で、8失敗はsandbox内Blender SIGSEGVのみ。
+同じ8実Blender testsをOS権限で再実行し8passed（17.59s）。テスト削除/skip追加なし。
+新規28件の最終再検証、Ruff、frontend契約再生成一致/build、Chromium6、
+wheel/sdist107Python source integrityが成功。CIには固定44case+独立auditも追加。
+最新mainはd7d4547のまま。元のdirty作業環境は未変更。次: commit/push、独立PR、
+最新headのGitHub Actions確認（現時点では未実行）。merge/auto-mergeは禁止のまま。
