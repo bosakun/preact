@@ -244,3 +244,12 @@ Recovery根拠喪失を情報不足として隠さない。
 独立評価WorldでのH3比較と、連続Worldの実行済みActionの一手実測は別々に扱う。
 詳細は[Task-Aware設計](task-aware-continuous-adaptation.md)。タスク利益の改善や
 二度目の回復は、実測の成立範囲を結果文書で確認する。
+
+## Modular Counterfactual Deliberation v1（opt-in）
+
+共通`DeliberationPlanner`にdomain Prediction/Goal adapterを接続し、既存Registryの
+有限予測から候補価値を比較する。Queueのenvironment-only分布とSoftwareの明示介入
+sequenceは別の形式で、後者はaccepted H1 lineageとClaimを検証する。
+Core Searchの再実装ではなく、交換可能な認知評価と既存qualified selectorの接続である。
+実行は既存Runtimeと選択Worldのfresh State/source/Health fenceへ完全に委譲する。
+[設計・API例・安全境界](modular-deliberation.md)、[実測と限界](modular-deliberation-results.md)。

@@ -301,3 +301,16 @@ and historical failures; retain raw bundles in excluded output paths.
 Post-execution visual work belongs to VisualPostprocessor after Core finishes.
 Its failure/cancellation/retry must never rewrite run results, receipts, observations
 or calibration. Preserve independent failure records and saved-source/receipt fences.
+
+### Opt-in modular deliberation
+
+DeliberationPlanner composes verified Memory/Belief, bounded domain Prediction and
+Goal adapters and the existing pure root selector. Core utility/search/defaults and
+execution authority stay unchanged. Software explicit paths require Registry-accepted
+H1 lineage and declared sequence claims; Queue v1 uses monitored environment-only H3
+branches and refuses explicit intervention sequences. Never feed a mean State into
+rollout, promote inference to safety evidence, or learn from unexecuted branches.
+All costly proposal work must reserve/account calls before Runtime qualification;
+selector does no IO or prediction. Reuse the existing selection dispatch fences and
+complete receipts. Retain historical protocols and report ties, adverse reward,
+uncalibrated uncertainty and unsupported forecasts. See docs/modular-deliberation.md.

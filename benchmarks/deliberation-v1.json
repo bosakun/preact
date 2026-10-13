@@ -1,0 +1,112 @@
+{
+  "protocol_id": "modular-deliberation-v1",
+  "seeds": [
+    11,
+    23
+  ],
+  "software_strategies": [
+    "core_search",
+    "short",
+    "sequence"
+  ],
+  "queue_strategies": [
+    "existing",
+    "short",
+    "h3",
+    "fixed_prior"
+  ],
+  "queue_goal": 6,
+  "queue_rounds": 8,
+  "queue_conditions": {
+    "stable_high": {
+      "training_service": 3,
+      "actual_service": 3
+    },
+    "stable_low": {
+      "training_service": 1,
+      "actual_service": 1
+    },
+    "shift_after_warmup": {
+      "training_service": 3,
+      "actual_service": 1,
+      "strategies": [
+        "h3"
+      ]
+    },
+    "invalidated": {
+      "training_service": 1,
+      "actual_service": 3,
+      "strategies": [
+        "h3"
+      ]
+    },
+    "partial": {
+      "training_service": 3,
+      "actual_service": 3,
+      "strategies": [
+        "h3"
+      ]
+    },
+    "unsupported": {
+      "training_service": 3,
+      "actual_service": 3,
+      "strategies": [
+        "h3"
+      ]
+    },
+    "noise": {
+      "training_service": 3,
+      "actual_service": 3,
+      "training_pattern": [
+        1,
+        3
+      ],
+      "warmup_pattern": [
+        1,
+        3
+      ],
+      "noise": 0.5,
+      "strategies": [
+        "h3",
+        "conservative",
+        "fixed_prior",
+        "existing"
+      ]
+    }
+  },
+  "fixed_scoring": {
+    "software_action_cost": 0.05,
+    "software_uncertainty_cost": 0.1,
+    "queue_spread_cost": 0.0,
+    "fixed_prior_high_probability": 0.5
+  },
+  "notes": [
+    "Same native candidates/Verifier, call ceiling64; Core Search allows12 nodes vs flat2",
+    "Queue learning and warmup use formal probe actions in separate declared episodes",
+    "Goal achievement and bounded World task completion are separately reported",
+    "Native checkout is an equivalence control; noise includes exact balanced real warmup before random service",
+    "Fixed after pilot-v2; no weights or seed selection based on confirmatory outcomes",
+    "The conservative noise adapter uses support spread cost1.0; other Queue modes0",
+    "Each case has an independent World; interventions diverge after first selected action",
+    "Software H2 paths are optional interventions, not a closed-loop commitment",
+    "Queue service uses balanced real warmup then iid Bernoulli noise with Python Random(seed)",
+    "All prepared Queue receipt costs are disclosed; training is separate from scoring horizon"
+  ],
+  "software_conditions": [
+    "workflow",
+    "native_checkout"
+  ],
+  "phase": "confirmatory",
+  "acceptance": {
+    "domains": [
+      "queue",
+      "software"
+    ],
+    "owned_workflow_sequence_steps": 2,
+    "owned_workflow_short_steps": 3,
+    "native_checkout_steps_all": 2,
+    "unsafe_executions": 0,
+    "unknown_policy": "abstain; no utility fallback",
+    "only_actual_first_step_labelled": true
+  }
+}

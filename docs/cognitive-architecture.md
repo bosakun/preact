@@ -188,3 +188,12 @@ Schedulerは学習・評価開始や昇格待ちを推奨できるが、モデ�
 Memoryは実Worldの宣言run manifestに限定し、receipt検証は従来どおり行う。
 最終選択・実行・Outcomeは予測記録から別途Runtimeが確定する。
 [設計・監査境界](task-aware-continuous-adaptation.md)を参照する。
+
+## Modular deliberation（opt-in）
+
+`cognition/deliberation.py`はWorldPlannerのContextと既存EpisodicMemoryを再利用し、
+`domains/software_deliberation.py`と`domains/queue_deliberation.py`の予測・Goal adapterを
+同じ比較器へ接続する。予測は提案段階で完了し、同期selectorはqualified集合内で選ぶ。
+実行後のActualを次roundのMemory/Beliefへ取り込み、仮想枝は取り込まない。
+State/source/version/Healthの変化、予算不足・取消で古い順位へfallbackしない。
+Coreの探索や実行権限は変えない。[設計と使用例](modular-deliberation.md)を参照。
