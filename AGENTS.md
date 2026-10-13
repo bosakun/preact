@@ -331,3 +331,8 @@ receipts, artifacts, held-out evaluation and explicit promotion; cancellation/co
 must not revive old or unapproved models. Operator round observers may explicitly call
 promotion after complete receipts; production defaults never auto-promote. Preserve
 all frozen protocols/results and count preparation/evaluation costs separately.
+Backend restart returns a receipt-verified continuing episode or None for a new World;
+restore Queue ownership and committed run prefixes before the next decision. Never
+relabel a restored World. Missing Program cells inside the trusted vocabulary use
+labelled native proposal-order fallback for the whole comparison; retain unknown
+model predictions and stop on inference/validation corruption instead of falling back.

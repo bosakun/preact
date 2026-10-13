@@ -52,7 +52,12 @@ Softwareは既存ProgramWorldの許可された候補コードのみを実行す
 ProgramOutcomeAdapterは公開コードの語彙を入力にし、complete Receiptの
 Goal達成・test_pass_fractionのみを教師にする。TabularDynamicsTrainerと
 LearnedDynamicsEngineを再利用する。既知候補の条件付き実績平均であり、未知のコードや
-別タスクへの汎化ではない。未知feature cellはunknown、H3/sequenceは未対応。
+別タスクへの汎化ではない。未知feature cellの学習Predictionはunknown、H3/sequenceは未対応。
+公開された信頼済みコード語彙内で未学習cellがある場合、比較全体を明示的な
+`native_unknown_input_fallback`へ切り替える。価値は公開候補順の`-index`であり、
+学習済み確率と混ぜない。元のunknown Predictionを保存し、候補は通常のVerifier/Gateで
+独立検証する。これは当初予定した非学習fallbackであり、汎化やGoal成功予測ではない。
+語彙・Task・State/Action契約の不一致、推論例外、破損、取消はこのfallbackで隠さず停止する。
 
 Softwareの固定初期条件: 各候補4学習標本、各候補4独立評価標本、準備最大16実行。
 昇格条件: coverage 100%、Goal予測MAE ≤ 0.25、固定事前0.5より悪化しない、全根拠検証成功。
@@ -67,6 +72,11 @@ Softwareへ一般化したものではない。
 評価合格だけではactiveにしない。Backendの再検証とdurable記録後に次roundへ接続する。
 テストハーネスのround_observerは明示APIを呼ぶoperatorであり、本番の自動昇格ではない。
 再起動は既存Store/Artifactsを読み直し、未確定実行は照合まで拒否する。
+Backendのrestoreは実Worldと継続manifestを検証し、継続するepisode IDまたは新実Worldを
+表すNoneを返す。Queueは検証した同じepisodeのWorld所有権をCoordinatorへ戻し、
+新Agentも旧run prefixをMemory・判断・学習manifestへ引き継ぐ。返却result.run_idsは
+今回の呼出しで作成したrunのみ。別episodeへの付け替えやWorld交換は復元後も拒否する。
+Softwareの新実episodeはNoneで区別し、過去episodeを継続したことにしない。
 失敗・取消はCoordinatorを利用不可にし、旧モデル/未承認候補へ暗黙にfallbackしない。
 
 Runtimeの提案・検証呼出しは既存usage/reservation契約を維持する。学習・独立評価は

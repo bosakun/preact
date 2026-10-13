@@ -87,7 +87,13 @@ def summarize(rows, store, runs):
         "local_prediction_calls": sum(t["local_calls"] for t in traces),
         "runtime_prediction_events": len(node_predictions),
         "learned_decisions": sum(
-            bool(t["simulation"].get("model_version"))
+            (
+                bool(t["simulation"].get("model_version"))
+                and not any(
+                    f.get("basis") == "native_unknown_input_fallback"
+                    for f in t["simulation"]["candidates"]
+                )
+            )
             or (
                 isinstance(t["simulation"].get("health"), dict)
                 and t["simulation"]["health"].get("status") == "available"

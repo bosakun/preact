@@ -1349,3 +1349,25 @@ wheel/sdist107Python source integrityが成功。CIには固定44case+独立audi
 - Extended only the CI job budget120→180 minutes, preserving all checks, benchmark cases,
   promotion thresholds, frozen outputs and runtime limits. No model/performance optimization.
   Next: normal push and complete latest-head remote CI before reporting validation complete.
+
+- PR #18 review: reproduced the restart ownership defect with three failing cases:
+  same-World Queue continuation rejected, alias episode accepted, replacement classified
+  as an old episode rather than the restored World owner. Backend restoration now returns
+  its receipt-verified continuing episode; Coordinator restores ownership and fresh Agents
+  retain the existing run prefix without changing per-invocation result.run_ids.
+- Added real Runtime/Receipt continuation after stable monitoring and promoted Model B,
+  restored alias/replacement rejection, and fresh Software-episode restoration regressions.
+- Clarified and implemented the originally intended Software fallback: a missing learned
+  cell within trusted public vocabulary switches the whole comparison to labelled native
+  proposal order. Unknown model Predictions remain unknown; no successor State or safety
+  evidence is synthesized. Inference/validation failures still stop and never fall back.
+- Unknown-input integration uses a formally executed preparation patch, then Gate-backed
+  fallback execution. Its independent auditor recomputes cell support, native values and
+  receipt binding and rejects forged learned-status labels. Frozen protocols/results unchanged.
+- Validating focused regressions, full Python regression and a new-path32-case independent
+  replay audit before normal push and latest-head CI. No merge/auto-merge.
+- Test harness repairs: bare Runtime correctly performed two task rounds, so the unknown-input
+  preparation now uses the ordinary one-round CognitiveAgent; no Core limit was changed.
+  The Model B assertion follows activated epoch→promotion artifact rather than comparing
+  a promotion record to an epoch digest. The induced inference-failure Prediction clears
+  metric intervals along with metrics, preserving its contract before testing fail-closed behavior.

@@ -182,6 +182,13 @@ class CognitiveAgent:
         self, world: World, max_rounds: int, adapter: _CognitiveWorld
     ) -> CognitiveResult:
         rounds, run_ids = [], []
+        episode_prefix = (
+            list(self.learning_coordinator.episodes.get(self.episode_id, []))
+            if self.learning_coordinator is not None
+            else []
+        )
+        for previous_run in episode_prefix:
+            await self.memory.remember(previous_run)
         unsafe = False
         status = "round_limit"
         started = time.monotonic()
@@ -214,7 +221,9 @@ class CognitiveAgent:
                 policy = Policy.model_validate({**policy.model_dump(), **remaining})
             binding = None
             if self.learning_coordinator is not None:
-                binding = await self.learning_coordinator.prepare(world, self.episode_id, run_ids)
+                binding = await self.learning_coordinator.prepare(
+                    world, self.episode_id, episode_prefix + run_ids
+                )
                 if binding.world.task != adapter.source_task:
                     self.learning_coordinator.finish_round(failed=True)
                     raise ValueError("Learning binding cannot change the World Task")
@@ -263,7 +272,9 @@ class CognitiveAgent:
                 if binding is not None:
                     await self.learning_coordinator.bind_run(run_id, binding)
                 if callable(begin):
-                    value = begin(run_id, policy.model_copy(deep=True), tuple(run_ids[:-1]))
+                    value = begin(
+                        run_id, policy.model_copy(deep=True), tuple(episode_prefix + run_ids[:-1])
+                    )
                     if inspect.isawaitable(value):
                         if inspect.iscoroutine(value):
                             value.close()
@@ -298,7 +309,7 @@ class CognitiveAgent:
                     },
                 )
             if self.learning_coordinator is not None:
-                await self.learning_coordinator.remember(self.episode_id, run_ids)
+                await self.learning_coordinator.remember(self.episode_id, episode_prefix + run_ids)
             if self.round_observer is not None:
                 observed = self.round_observer(run_id, self.belief.model_copy(deep=True))
                 if inspect.isawaitable(observed):

@@ -221,6 +221,7 @@ class QueueLearningBackend:
             )
         await self.advance(world, await world.observe(), snapshot)
         await self.validate()
+        return epoch.world_episode_id
 
     async def validate(self):
         # Lost promoted Recovery is corruption, never ordinary insufficient-data fallback.

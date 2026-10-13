@@ -93,6 +93,8 @@ class ProgramPredictionAdapter:
                 self.usage.append(usage_record(p))
                 records = [{"request": request.model_dump(), "prediction": p.model_dump()}]
                 estimated = p.raw.get("status") == "estimated"
+                if not estimated and p.raw.get("reason") != "unsupported_cell":
+                    raise ValueError("Program inference failed; native fallback is not permitted")
                 value = p.metrics.get("goal_complete")
                 basis = "learned_observed_goal"
             else:
@@ -114,6 +116,17 @@ class ProgramPredictionAdapter:
                     "paths": [],
                 }
             )
+        if engine and any(future["status"] == "unknown" for future in futures):
+            # Fall back as a whole comparison; learned probabilities and proposal
+            # order have incompatible scales. Retain the original unknown records.
+            for index, future in enumerate(futures):
+                future.update(
+                    status="estimated",
+                    reason="unsupported_cell",
+                    basis="native_unknown_input_fallback",
+                    value=-index,
+                    learned_status=future["status"],
+                )
         return {
             "adapter": "program-h1/v1",
             "horizon": 1,

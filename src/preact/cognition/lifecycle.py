@@ -52,7 +52,9 @@ class LearningBackend(Protocol):
     def binding(self, world: World, checkpoint: dict) -> RoundBinding: ...
     async def promote(self, candidate: str, world: World, state: State) -> str: ...
     def state(self) -> dict: ...
-    async def restore(self, checkpoint: dict, world, episodes: dict) -> None: ...
+    async def restore(self, checkpoint: dict, world, episodes: dict) -> str | None:
+        """Return the verified continuing episode, or None for a new actual World."""
+        ...
 
 
 class LearningCoordinator:
@@ -281,7 +283,12 @@ class LearningCoordinator:
         if state is None:
             raise ValueError("No validated lifecycle checkpoint to restore")
         try:
-            await backend.restore(state, world, coordinator.episodes)
+            continuing_episode = await backend.restore(state, world, coordinator.episodes)
+            if continuing_episode is not None:
+                if continuing_episode not in coordinator.episodes:
+                    raise ValueError("Restored World has no verified episode manifest")
+                coordinator._episode, coordinator._world = continuing_episode, world
+                coordinator._world_episodes[id(world)] = (world, continuing_episode)
             restored_state = backend.state()
             if (
                 state.get("status") in {"rejected", "insufficient_data", "unavailable"}

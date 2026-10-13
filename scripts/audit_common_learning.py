@@ -211,6 +211,42 @@ async def audit_case(folder):
                             value = -binding[0]["provenance"]["candidate_counts"][
                                 identity(action.payload["files"]["program.py"])
                             ]
+                        elif future["basis"] == "native_unknown_input_fallback":
+                            model, training, adapter = model_sources[digest]
+                            require(
+                                any(
+                                    model.lookup(
+                                        adapter.features(state, Action.model_validate(f["action"]))
+                                    )
+                                    is None
+                                    for f in trace["simulation"]["candidates"]
+                                )
+                                and all(
+                                    f["basis"] == "native_unknown_input_fallback"
+                                    for f in trace["simulation"]["candidates"]
+                                ),
+                                "Unknown-input fallback must cover the entire comparison",
+                            )
+                            pred = Prediction.model_validate(future["records"][0]["prediction"])
+                            features = adapter.features(state, action)
+                            supported = model.lookup(features) is not None
+                            require(
+                                pred.engine_version == model.version
+                                and pred.state_id == state.id
+                                and pred.action_ids == [action.id]
+                                and not pred.mandatory_checks
+                                and pred.successor is None
+                                and pred.raw["status"] == ("estimated" if supported else "unknown")
+                                and future["learned_status"] == pred.raw["status"]
+                                and (
+                                    pred.metrics == metrics_from_actual(training, adapter, features)
+                                    if supported
+                                    else not pred.metrics
+                                    and pred.raw["reason"] == "unsupported_cell"
+                                ),
+                                "Fallback changed the original prediction binding",
+                            )
+                            value = -index
                         else:
                             require(
                                 future["basis"] == "native_proposal_fallback", "Undeclared fallback"

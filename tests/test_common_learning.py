@@ -138,7 +138,10 @@ async def test_round_boundary_forbids_promotion_and_episode_relabelling(tmp_path
         await coordinator.prepare(world, "pretend-new", [])
 
 
-async def test_queue_and_software_use_same_agent_deliberation_and_learning_control(tmp_path):
+@pytest.mark.parametrize("restart", ["continue", "relabel", "replace"])
+async def test_queue_and_software_use_same_agent_deliberation_and_learning_control(
+    tmp_path, restart
+):
     from preact.cognition.deliberation import DeliberationPlanner
     from preact.domains.information_queue import InformationQueueWorld
     from preact.domains.queue_learning import QueueLearningBackend
@@ -199,6 +202,34 @@ async def test_queue_and_software_use_same_agent_deliberation_and_learning_contr
     ]
     assert any(t["simulation"].get("health", {}).get("status") == "available" for t in traces)
     assert all(store.execution_record(r.receipt)["status"] == "complete" for r in rows)
+
+    restored_backend = QueueLearningBackend(lifecycle, evaluate)
+    restored = await LearningCoordinator.restore(restored_backend, coordinator.journal_run, world)
+    if restart != "continue":
+        replacement = world if restart == "relabel" else InformationQueueWorld()
+        episode = "pretend-new" if restart == "relabel" else "queue"
+        with pytest.raises(ValueError, match=restart):
+            await restored.prepare(replacement, episode, restored.episodes.get(episode, []))
+        assert world.payload["tick"] == 12
+        return
+    resumed_agent = CognitiveAgent(
+        store,
+        artifacts,
+        Registry([InformationBoundVerifier(world.task)]),
+        WorldPlanner(world),
+        [Goal(name="Deliver", metric="delivered", target=999)],
+        Policy(search=False, width=3, max_nodes=3, max_calls=128, calibration=False),
+        learning_coordinator=restored,
+        episode_id="queue",
+    )
+    resumed = await resumed_agent.run(world, 1)
+    assert len(resumed.run_ids) == 1 and resumed.rounds[0]["steps"] == 1
+    assert world.payload["tick"] == 13
+    assert restored.episodes["queue"] == result.run_ids + resumed.run_ids
+    resumed_rows = (await TransitionDataset(store, restored.episodes).snapshot()).transitions
+    assert len(resumed_rows) == 13
+    assert resumed_rows[-1].before.payload["tick"] == 12
+    assert store.execution_record(resumed_rows[-1].receipt)["status"] == "complete"
 
 
 async def test_queue_recovery_promotes_at_round_boundary_and_resumes_actual_selection(tmp_path):
@@ -285,6 +316,31 @@ async def test_queue_recovery_promotes_at_round_boundary_and_resumes_actual_sele
         for t in traces
     )
     assert world.payload["tick"] == 40 and not result.unsafe
+    restored_backend = QueueLearningBackend(lifecycle, evaluate)
+    restored = await LearningCoordinator.restore(restored_backend, coordinator.journal_run, world)
+    resumed_agent = CognitiveAgent(
+        store,
+        artifacts,
+        Registry([InformationBoundVerifier(world.task)]),
+        WorldPlanner(world),
+        [Goal(name="Deliver", metric="delivered", target=999)],
+        agent.policy,
+        learning_coordinator=restored,
+        episode_id="queue-recovery",
+    )
+    resumed = await resumed_agent.run(world, 1)
+    assert world.payload["tick"] == 41 and resumed.rounds[0]["steps"] == 1
+    assert restored.episodes["queue-recovery"] == result.run_ids + resumed.run_ids
+    resumed_trace = next(
+        e["data"] for e in store.read_events(resumed.run_ids[0]) if e["kind"] == "deliberation"
+    )
+    activated_epoch = json.loads(artifacts.read(promotions[-1]))
+    assert activated_epoch["epoch_id"] == restored_backend.lifecycle.epoch.epoch_id
+    assert resumed_trace["simulation"]["promotion"] == json.loads(
+        artifacts.read(activated_epoch["promotion_artifact"])
+    )
+    assert resumed_trace["simulation"]["health"]["model_version"] == lifecycle.epoch.model_version
+    assert resumed_trace["simulation"]["health"]["status"] == "available"
 
 
 @pytest.mark.parametrize("fault", ["receipt", "artifact", "evaluation", "cancel"])
@@ -338,6 +394,104 @@ async def test_unseen_program_cell_unknown_without_fake_successor(tmp_path):
     prediction = await engine.predict(PredictionRequest(state=state, actions=[action]))
     assert prediction.raw["status"] == "unknown"
     assert prediction.successor is None and not prediction.mandatory_checks
+
+
+async def test_unseen_program_input_uses_explicit_native_fallback_through_gate(tmp_path):
+    from preact.core.models import Action
+
+    store, artifacts, backend, coordinator, _ = await train(tmp_path)
+    world = ProgramWorld(LOGIC[0], evaluation_seed=77)
+    original = world.propose
+
+    async def prepare_unseen_input(state, width):
+        return [
+            Action(
+                kind="patch",
+                name="Owned preparation",
+                state_id=state.id,
+                payload={"files": {"program.py": world.spec.candidates[1]}},
+            )
+        ]
+
+    world.propose = prepare_unseen_input
+    preparation = await agent_for(store, artifacts, None, world, "owned-preparation").run(world, 1)
+    assert preparation.rounds[0]["steps"] == 1
+    world.propose = original
+    await coordinator.promote(backend.candidate, world)
+    result = await agent_for(store, artifacts, coordinator, world, "unknown-input").run(world, 1)
+    assert result.rounds[0]["steps"] == 1 and not result.unsafe
+    events = store.read_events(result.run_ids[0])
+    trace = next(e["data"] for e in events if e["kind"] == "deliberation")
+    futures = trace["simulation"]["candidates"]
+    assert all(f["basis"] == "native_unknown_input_fallback" for f in futures)
+    assert all(f["learned_status"] == "unknown" and f["value"] == -i for i, f in enumerate(futures))
+    assert all(f["records"][0]["prediction"]["successor"] is None for f in futures)
+    row = (await TransitionDataset(store, coordinator.episodes).snapshot()).transitions[-1]
+    assert row.action.fingerprint == futures[0]["fingerprint"]
+    assert store.execution_record(row.receipt)["status"] == "complete"
+    import copy
+    import json
+
+    from sqlalchemy import update
+
+    from scripts.audit_common_learning import audit_case
+
+    (tmp_path / "case.json").write_text(
+        json.dumps(
+            {
+                "domain": "program",
+                "episodes": {"unknown-input": result.run_ids},
+                "journal": coordinator.journal_run,
+                "backend_state": backend.state(),
+            }
+        )
+    )
+    assert (await audit_case(tmp_path))["task_receipts"] == 1
+    event = next(e for e in events if e["kind"] == "deliberation")
+    forged = copy.deepcopy(trace)
+    forged["simulation"]["candidates"][0]["learned_status"] = "estimated"
+    with store.db.begin() as connection:
+        connection.execute(
+            update(store.events)
+            .where(store.events.c.run_id == result.run_ids[0], store.events.c.seq == event["seq"])
+            .values(data=forged)
+        )
+    with pytest.raises(ValueError, match="Fallback"):
+        await audit_case(tmp_path)
+
+
+@pytest.mark.parametrize("failure", ["decoder", "engine"])
+async def test_program_inference_failure_is_not_unknown_input_fallback(
+    tmp_path, monkeypatch, failure
+):
+    store, artifacts, backend, coordinator, _ = await train(tmp_path)
+    world = ProgramWorld(LOGIC[0])
+    await coordinator.promote(backend.candidate, world)
+
+    def broken(*args):
+        raise ValueError("Invalid decoder")
+
+    if failure == "decoder":
+        monkeypatch.setattr(backend.adapter, "decode", broken)
+    else:
+        from preact.engines.learned_dynamics import LearnedDynamicsEngine
+
+        original = LearnedDynamicsEngine.predict
+
+        async def unavailable(engine, request):
+            prediction = await original(engine, request)
+            return prediction.model_copy(
+                update={
+                    "metrics": {},
+                    "metric_intervals": {},
+                    "raw": {"status": "unknown", "reason": "inference_failed"},
+                }
+            )
+
+        monkeypatch.setattr(LearnedDynamicsEngine, "predict", unavailable)
+    with pytest.raises(ValueError, match="decoder|inference failed"):
+        await agent_for(store, artifacts, coordinator, world, "decoder-failure").run(world, 1)
+    assert not world.receipts
 
 
 async def test_prediction_has_no_access_to_protected_oracle(tmp_path, monkeypatch):
