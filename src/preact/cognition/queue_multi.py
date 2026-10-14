@@ -56,22 +56,6 @@ class QueueMultiPlanner(QueueModelPlanner):
                 raise ValueError("Promoted model ceased to be active")
 
     def check_final_selection(self, events, action: Action):
-        batches = [e["data"] for e in events if e["kind"] == "candidate_qualification"]
-        selections = [e["data"] for e in events if e["kind"] == "candidate_selection"]
-        if len(batches) != 1 or len(selections) != 1:
-            raise ValueError("Missing or duplicate Runtime selection binding")
-        batch = CandidateBatch.model_validate(batches[0]["batch"])
-        chosen = self.select(batch)
-        entry = next(c for c in batch.candidates if c.node_id == chosen)
-        selection = selections[0]
-        if (
-            selection.get("batch_hash") != identity(batches[0]["batch"])
-            or batches[0]["batch_hash"] != identity(batches[0]["batch"])
-            or selection.get("node_id") != chosen
-            or entry.action != action
-            or selection.get("state_id") != batch.state.id
-            or selection.get("action_fingerprint") != action.fingerprint
-            or selection.get("evidence_hash") != entry.gate.evidence_hash
-            or selection.get("policy_hash") != entry.gate.policy_hash
-        ):
-            raise ValueError("Runtime final selection binding changed")
+        from .selection import check_final_selection
+
+        check_final_selection(self, events, action)

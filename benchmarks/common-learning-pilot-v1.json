@@ -1,0 +1,10 @@
+{
+  "version": "1", "stage": "pilot", "seeds": [11],
+  "program": {"task": "ceil_batches", "max_preparation_actions": 16, "evaluation_tasks": 2, "strategies": ["learned", "fixed_prior", "existing", "no_promotion"],
+    "promotion": {"samples_per_candidate": 4, "evaluation_per_candidate": 4, "max_goal_mae": 0.25, "coverage": 1, "prior": 0.5}},
+  "queue": {"ticks": 40, "strategies": ["learned", "no_recovery"], "conditions": {
+    "stable_high": {"before": 3, "after": 3, "shift": 0},
+    "low_to_high": {"before": 1, "after": 3, "shift": 8}
+  }},
+  "acceptance": "Both domains use actual Agent/Deliberation/Runtime/receipts; explicit promotion and actual model-dependent action. Baseline superiority is not required."
+}

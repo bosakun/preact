@@ -1,0 +1,82 @@
+{
+  "status": "passed",
+  "cases": [
+    {
+      "case": "program-known_candidates-existing-11",
+      "status": "passed",
+      "task_receipts": 2,
+      "value_selected_executions": 0,
+      "qualified_candidates": 0,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "program-known_candidates-fixed_prior-11",
+      "status": "passed",
+      "task_receipts": 2,
+      "value_selected_executions": 2,
+      "qualified_candidates": 4,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "program-known_candidates-learned-11",
+      "status": "passed",
+      "task_receipts": 2,
+      "value_selected_executions": 2,
+      "qualified_candidates": 4,
+      "unsafe": 0,
+      "executed_h1_mae": 0.0
+    },
+    {
+      "case": "program-known_candidates-no_promotion-11",
+      "status": "passed",
+      "task_receipts": 2,
+      "value_selected_executions": 2,
+      "qualified_candidates": 4,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "queue-low_to_high-learned-11",
+      "status": "passed",
+      "task_receipts": 40,
+      "value_selected_executions": 40,
+      "qualified_candidates": 56,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "queue-low_to_high-no_recovery-11",
+      "status": "passed",
+      "task_receipts": 40,
+      "value_selected_executions": 40,
+      "qualified_candidates": 56,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "queue-stable_high-learned-11",
+      "status": "passed",
+      "task_receipts": 40,
+      "value_selected_executions": 40,
+      "qualified_candidates": 104,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    },
+    {
+      "case": "queue-stable_high-no_recovery-11",
+      "status": "passed",
+      "task_receipts": 40,
+      "value_selected_executions": 40,
+      "qualified_candidates": 104,
+      "unsafe": 0,
+      "executed_h1_mae": null
+    }
+  ],
+  "limits": [
+    "Append-only Store, single owner",
+    "Known-candidate deterministic fixtures do not establish generalization",
+    "Core checks recomputed from retained evidence; no real side effect replayed"
+  ]
+}

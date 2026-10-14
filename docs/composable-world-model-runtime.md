@@ -253,3 +253,12 @@ sequenceは別の形式で、後者はaccepted H1 lineageとClaimを検証する
 Core Searchの再実装ではなく、交換可能な認知評価と既存qualified selectorの接続である。
 実行は既存Runtimeと選択Worldのfresh State/source/Health fenceへ完全に委譲する。
 [設計・API例・安全境界](modular-deliberation.md)、[実測と限界](modular-deliberation-results.md)。
+
+## 共通認知制御への学習の接続
+
+観測・Memory・Deliberation・Runtimeは共通制御とし、LearningCoordinatorをopt-inで
+round境界へ接続する。LearningBackendがDomain Feature、モデル適用範囲、Health、
+独立評価と明示昇格を提供する。既存TransitionDataset/Trainer/Model/Artifactsを再利用し、
+QueueのH3とSoftwareのH1指標予測を同じState表現へ無理に変換しない。
+実証範囲は[共通学習設計](common-cognitive-learning.md)に記録する。Queue専用の
+昇格閾値やSoftwareの既知候補記憶を、PreAct全体の世界理解の定義としない。

@@ -197,3 +197,12 @@ Memoryは実Worldの宣言run manifestに限定し、receipt検証は従来ど�
 実行後のActualを次roundのMemory/Beliefへ取り込み、仮想枝は取り込まない。
 State/source/version/Healthの変化、予算不足・取消で古い順位へfallbackしない。
 Coreの探索や実行権限は変えない。[設計と使用例](modular-deliberation.md)を参照。
+
+## 共通パイプラインと経験学習
+
+任意指定の`LearningCoordinator`は、`CognitiveAgent`の判断前とReceipt確定後に、
+ドメインBackendへ学習・評価・Healthの更新を委譲する。明示昇格はround境界だけで
+実施し、次のPlanner/Adapter/Registry/selectorを再構成する。未指定経路は従来どおり。
+Queueの継続WorldとSoftwareの独立した実タスクを同じ認知制御で扱う。
+Softwareは既知候補のH1実結果学習であり、指標から仮想Stateを生成しない。
+詳細・固定条件・未実証の境界は[共通学習設計](common-cognitive-learning.md)を参照。

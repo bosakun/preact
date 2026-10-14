@@ -1264,3 +1264,110 @@ sequenceの追加費用がある。high/noiseでは新方式の生Rewardが既�
 wheel/sdist107Python source integrityが成功。CIには固定44case+独立auditも追加。
 最新mainはd7d4547のまま。元のdirty作業環境は未変更。次: commit/push、独立PR、
 最新headのGitHub Actions確認（現時点では未実行）。merge/auto-mergeは禁止のまま。
+
+## 2026-10-13 — Common cognitive learning implementation in progress
+
+- Latest public main verified: f75444fc56ff9a08d4452173993af0e5573282b0.
+- Isolated worktree/branch: feat/common-cognitive-learning; original dirty workspace preserved.
+- Added optional round-boundary learning coordination, generic selection dispatch binding,
+  Program H1 observed-outcome learning/evaluation and Queue lifecycle backend reuse.
+- Software bootstrap, explicit promotion, new-Agent restoration and cancellation/source
+  integrity negatives executed. Common Queue/Software Agent+Deliberation execution tested.
+- Corrected artifact JSON ordering in evaluation episode manifests; no frozen reports changed.
+- Current work: continuous Queue recovery test, stronger independent audits, fixed comparison,
+  full regression/frontend/E2E/distribution checks. Completion and performance are not claimed yet.
+- Scope: known Software candidate outcome learning; unknown-code/task generalization unproven.
+
+- Common targeted run: 61 passed; independent-auditor mutation tests: 5 passed.
+- Frontend contract generation identical, build passed, Chromium E2E 6 passed.
+- Actual Blender integration 8 passed. Wheel/sdist audit passed with 111 Python sources.
+- First full run started before fixes: 6 common-learning failures, 812 passed, 8 optional
+  Blender skips; corrected artifact normalization/restoration and rerunning final source.
+- Completed pilot v3: Software all four policies solved both tasks; learned held-out MAE0,
+  prior MAE0.5, no generic superiority. Queue stable-high learned/no-recovery tied (93 delivered,
+  83 reward, 32 task actions/8 probes); low→high 40tick recovery incomplete and both tied
+  (12 delivered, 9.2 reward, 8 task actions/32 probes). Do not hide this insufficiency.
+- Confirmatory protocol frozen separately: 56tick Queue budget, all stable/directional shifts,
+  seeds11/12, native and explicitly reversed public Software proposal order. Existing pilot
+  results retained; promotion thresholds unchanged. Reverse order is an owned selection
+  fixture, not a claim of generalization. Goal999 is a continued-execution Queue fixture.
+
+- Confirmatory v1 replay was interrupted before completion during final hardening.
+  All completed private bundles remain at the original paths; no historical result overwritten.
+- Added source-World exclusion for independent Program evaluation and receipt/outcome
+  completion-time checks before prequential forecasts/evaluation cutoff. Pure Program feature
+  code now has its own versioned source so unrelated lifecycle edits do not alter model compatibility.
+- New confirmatory v2 retains every v1 seed/condition/order/threshold. Memory measurement is
+  normalized process-lifetime peak RSS rather than intrusive tracemalloc; this is measurement
+  instrumentation, not algorithm/cache optimization. No decision results were used to retune policy.
+- Existing frozen modular-deliberation replay/audit: 44 cases, 486 receipts, unsafe0; unchanged
+  historical files. Public reverse-order fixture proves actual learned choice; existing Core still
+  succeeds, so no general advantage is claimed.
+
+- Final import-order audit found a cognition/learning cycle not visible under pytest's
+  initial import order. Moved TransitionDataset resolution to operation time; fresh-process
+  learning-first and cognition-first imports both pass. Public API import tests added.
+- Source temporal helper initially referenced a nonexistent Store updated_at field.
+  Corrected to complete receipt equality plus the post-completion Outcome event timestamp;
+  no new Store/Core contract introduced. Common24 tests plus2 temporal/world-exclusion
+  negatives pass on corrected implementation.
+- Independent Queue restore audit initially passed the receipt's earlier State timestamp.
+  Corrected auditor to use the actual fresh cognitive_update Observation retained after the
+  complete receipt, verifying full content equality. Never rewrote a State timestamp.
+- Interim seed11 v2 outcomes: Low→High recovery uses A8/B10 task actions (38 readiness probes),
+  reward32.9 vs no-recovery fallback115.4 (adverse); High→Low recovery A5/B13, reward4.25 vs
+  fallback-18.2. H1 MAE0.444 with coverage0.321 vs fallback0.979/1.063 with coverage0.857.
+  These conditional errors do not establish overall predictive/decision superiority.
+
+- CI now runs the fixed32-case common-learning v2 benchmark, receipt auditor and
+  outcome-aligned supplementary metrics alongside all existing checks. Shared CI timeout
+  increased75→120 minutes to permit added validation (runtime/promotion thresholds unchanged).
+- Local partial/full duplicate auditors were stopped after checking progression, to avoid
+  redundant CPU load while the single final benchmark/regression run finishes. Final independent
+  audit will cover every completed case at a new path; incomplete runs are never reported passed.
+
+- Final v2 confirmatory run completed32 cases/960 task receipts/unsafe0. Supplementary metrics
+  retain64 Software preparation actions,496 independent evaluation actions (432 Queue H3,
+  64 Program H1), plus256 initial Queue teacher actions. Total1776 formal completed receipts.
+- Final independent auditor completed all32 cases, rederived models/values/qualification/actual
+  selection and final Gate/Intent/Receipt, unsafe0. Raw evidence remains in excluded .cache.
+- Final local Python regression:834 passed/8 optional skips;2 fresh-process import tests passed
+  separately after collection. Current common tests28 include world/time/import and mutation
+  negatives. Existing dispatch/deliberation64 tests pass. Actual Blender8/E2E6 pass.
+- Final Ruff lint/format, frontend contracts unchanged/build, distribution audit112 Python sources
+  pass. Core source files unchanged; historical benchmark/report bytes remain unchanged.
+- Next: focused commit, normal feature push, independent PR, latest-head CI. No merge/auto-merge.
+
+- PR #18 created at head0af6484f55e1632f8cc53daab22cefca4dd51be9. First remote CI
+  replay confirmed836 passed/8 optional skips, Ruff and frozen Deliberation44/486 receipts.
+  Both Blender jobs passed their real-process tests and fixed replay audit.
+- The120-minute shared-runtime limit was insufficient. Push run38397665999 completed
+  every validation step (including common-learning audit, frontend/E2E and112-source
+  distribution integrity) but reached the limit during job finalization; conclusion cancelled.
+  PR run38397863582 reached the same limit during common-learning replay/audit; its remaining
+  steps were not completed. Neither cancelled run is represented as a successful CI run.
+- Extended only the CI job budget120→180 minutes, preserving all checks, benchmark cases,
+  promotion thresholds, frozen outputs and runtime limits. No model/performance optimization.
+  Next: normal push and complete latest-head remote CI before reporting validation complete.
+
+- PR #18 review: reproduced the restart ownership defect with three failing cases:
+  same-World Queue continuation rejected, alias episode accepted, replacement classified
+  as an old episode rather than the restored World owner. Backend restoration now returns
+  its receipt-verified continuing episode; Coordinator restores ownership and fresh Agents
+  retain the existing run prefix without changing per-invocation result.run_ids.
+- Added real Runtime/Receipt continuation after stable monitoring and promoted Model B,
+  restored alias/replacement rejection, and fresh Software-episode restoration regressions.
+- Clarified and implemented the originally intended Software fallback: a missing learned
+  cell within trusted public vocabulary switches the whole comparison to labelled native
+  proposal order. Unknown model Predictions remain unknown; no successor State or safety
+  evidence is synthesized. Inference/validation failures still stop and never fall back.
+- Unknown-input integration uses a formally executed preparation patch, then Gate-backed
+  fallback execution. Its independent auditor recomputes cell support, native values and
+  receipt binding and rejects forged learned-status labels. Frozen protocols/results unchanged.
+- Validating focused regressions, full Python regression and a new-path32-case independent
+  replay audit before normal push and latest-head CI. No merge/auto-merge.
+- Test harness repairs: bare Runtime correctly performed two task rounds, so the unknown-input
+  preparation now uses the ordinary one-round CognitiveAgent; no Core limit was changed.
+  The Model B assertion follows activated epoch→promotion artifact rather than comparing
+  a promotion record to an epoch digest. The induced inference-failure Prediction clears
+  metric intervals along with metrics, preserving its contract before testing fail-closed behavior.

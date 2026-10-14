@@ -8,6 +8,7 @@ from preact.core.runtime import Runtime
 from preact.core.store import Artifacts, Store
 
 from .belief import BeliefEstimator
+from .lifecycle import LearningCoordinator
 from .memory import EpisodicMemory
 from .models import Belief, CognitivePlanner, CognitiveResult, Goal
 
@@ -131,6 +132,9 @@ class CognitiveAgent:
         reuse_beliefs: bool = False,
         episode_budget: bool = False,
         candidate_selector=None,
+        learning_coordinator: LearningCoordinator | None = None,
+        episode_id: str | None = None,
+        round_observer=None,
     ):
         self.store, self.artifacts, self.registry = store, artifacts, registry
         self.planner, self.goals = planner, sorted(goals, key=lambda g: -g.priority)
@@ -144,6 +148,11 @@ class CognitiveAgent:
         self.belief_estimator = BeliefEstimator(enabled=reuse_beliefs)
         self.memory = EpisodicMemory(store)
         self.belief: Belief | None = None
+        self.learning_coordinator = learning_coordinator
+        self.episode_id = episode_id
+        self.round_observer = round_observer
+        if learning_coordinator is not None and not episode_id:
+            raise ValueError("Learning requires explicit World episode identity")
         self._started = False
 
     @property
@@ -162,6 +171,8 @@ class CognitiveAgent:
         try:
             return await self._run_episode(world, max_rounds, adapter)
         except BaseException:
+            if self.learning_coordinator is not None:
+                self.learning_coordinator.finish_round(failed=True)
             self.belief = None
             raise
         finally:
@@ -171,6 +182,13 @@ class CognitiveAgent:
         self, world: World, max_rounds: int, adapter: _CognitiveWorld
     ) -> CognitiveResult:
         rounds, run_ids = [], []
+        episode_prefix = (
+            list(self.learning_coordinator.episodes.get(self.episode_id, []))
+            if self.learning_coordinator is not None
+            else []
+        )
+        for previous_run in episode_prefix:
+            await self.memory.remember(previous_run)
         unsafe = False
         status = "round_limit"
         started = time.monotonic()
@@ -197,8 +215,37 @@ class CognitiveAgent:
                             "cognitive_budget_exhausted",
                             {"remaining": remaining},
                         )
+                    if self.learning_coordinator is not None:
+                        self.learning_coordinator.finish_round()
                     break
                 policy = Policy.model_validate({**policy.model_dump(), **remaining})
+            binding = None
+            if self.learning_coordinator is not None:
+                binding = await self.learning_coordinator.prepare(
+                    world, self.episode_id, episode_prefix + run_ids
+                )
+                if binding.world.task != adapter.source_task:
+                    self.learning_coordinator.finish_round(failed=True)
+                    raise ValueError("Learning binding cannot change the World Task")
+                self.planner, self.registry = binding.planner, binding.registry
+                self.candidate_selector = binding.selector
+                self.belief_estimator.clear()
+                adapter = _CognitiveWorld(self, binding.world)
+            if self.learning_coordinator is not None and self._episode_budget:
+                remaining_seconds = self._policy.max_seconds - (time.monotonic() - started)
+                if remaining_seconds > 0:
+                    policy = Policy.model_validate(
+                        {**policy.model_dump(), "max_seconds": remaining_seconds}
+                    )
+            if (
+                self.learning_coordinator is not None
+                and self._episode_budget
+                and time.monotonic() - started >= self._policy.max_seconds
+            ):
+                if self.learning_coordinator is not None:
+                    self.learning_coordinator.finish_round()
+                status = "abstained"
+                break
             runtime = Runtime(
                 self.store,
                 self.artifacts,
@@ -220,15 +267,23 @@ class CognitiveAgent:
             # Optional cognition-only trace lifecycle. Hooks confer no execution authority.
             begin = getattr(self.planner, "begin_round", None)
             end = getattr(self.planner, "end_round", None)
+            failed = True
             try:
+                if binding is not None:
+                    await self.learning_coordinator.bind_run(run_id, binding)
                 if callable(begin):
-                    value = begin(run_id, policy.model_copy(deep=True), tuple(run_ids[:-1]))
+                    value = begin(
+                        run_id, policy.model_copy(deep=True), tuple(episode_prefix + run_ids[:-1])
+                    )
                     if inspect.isawaitable(value):
                         if inspect.iscoroutine(value):
                             value.close()
                         raise ValueError("Round trace hooks must be synchronous context setup")
                 result = await runtime.run(adapter, run_id=run_id)
+                failed = False
             finally:
+                if self.learning_coordinator is not None:
+                    self.learning_coordinator.finish_round(failed=failed)
                 if callable(end):
                     value = end()
                     if inspect.isawaitable(value):
@@ -253,6 +308,12 @@ class CognitiveAgent:
                         ],
                     },
                 )
+            if self.learning_coordinator is not None:
+                await self.learning_coordinator.remember(self.episode_id, episode_prefix + run_ids)
+            if self.round_observer is not None:
+                observed = self.round_observer(run_id, self.belief.model_copy(deep=True))
+                if inspect.isawaitable(observed):
+                    await observed
             rounds.append(result)
             unsafe |= result["unsafe"]
             if result["steps"] == 0 or unsafe or result["success"]:
