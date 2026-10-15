@@ -1,8 +1,10 @@
 import React from 'react';
 import { ReactFlow, Background, Handle, Position, type NodeProps, type Node, type Edge } from '@xyflow/react';
-import { ArrowLeft, ArrowRight, Check, ChevronRight, GitBranch, Pause, Play, RotateCcw, SkipForward } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, GitBranch, Pause, Play, RotateCcw, SkipForward } from 'lucide-react';
 import type { PlaygroundSession, PlaygroundSnapshot } from '../playground-contracts';
 import { decisionStart, modules, reconstructEvidence, type ModuleId, type PlaygroundEvent } from './evidence';
+import { cognitiveCycle, cycleStops, firstWorkingCycle } from './cycle';
+import CognitiveLoop, { actionName, moduleSummary } from './CognitiveLoop';
 import './playground.css';
 
 const scenarios = { stable_high: '安定・高能力', stable_low: '安定・低能力', high_to_low: '処理能力低下 High → Low', low_to_high: '処理能力向上 Low → High' } as const;
@@ -96,6 +98,7 @@ export default function Playground() {
   const [candidateId, setCandidateId] = React.useState(''), [error, setError] = React.useState(''), [connected, setConnected] = React.useState(true);
   const [working, setWorking] = React.useState(false), [kiosk, setKiosk] = React.useState(false);
   const firstLoad = React.useRef(true), currentId = React.useRef('');
+  const visitorSelected = React.useRef(false);
   const refresh = React.useCallback(async () => {
     const result = await fetch('/api/playground/catalog').then(jsonResponse);
     setCatalog(result.sessions);
@@ -105,7 +108,7 @@ export default function Playground() {
   function choose(row: PlaygroundSession) { currentId.current = row.id; firstLoad.current = true; setId(row.id); setSession(row); setEvents([]); setCursor(0); setPlaying(false); setMode(row.mode === 'live' ? 'live' : 'replay'); setScenario(row.scenario); setCandidateId(''); setError(''); }
   React.useEffect(() => {
     let disposed = false;
-    refresh().then(rows => { if (disposed) return; const row = rows.find(r => r.mode === 'recorded' && r.scenario === 'stable_high') || rows[0]; if (row) choose(row); else setMode('live'); }).catch(() => setError('APIに接続できません。localhostの起動状態を確認してください。'));
+    refresh().then(rows => { if (disposed || visitorSelected.current) return; const row = rows.find(r => r.mode === 'recorded' && r.scenario === 'stable_high' && r.provenance.audit_status === 'passed') || rows[0]; if (row) choose(row); else setMode('live'); }).catch(() => setError('APIに接続できません。localhostの起動状態を確認してください。'));
     fetch('/api/health').then(jsonResponse).then(h => { if (!disposed) setKiosk(h.kiosk); }).catch(() => {});
     return () => { disposed = true; };
   }, [refresh]);
@@ -120,7 +123,7 @@ export default function Playground() {
         if (disposed || currentId.current !== id) return;
         collected = data.reset ? data.events : [...collected, ...data.events];
         setSession(data.session); setEvents(collected); setArtifacts(data.artifacts); setConnected(true);
-        if (firstLoad.current && collected.length) { setCursor(data.session.mode === 'recorded' ? decisionStart(collected) : collected.length); firstLoad.current = false; }
+        if (firstLoad.current && collected.length) { setCursor(data.session.mode === 'recorded' ? firstWorkingCycle(collected) || decisionStart(collected) : collected.length); firstLoad.current = false; }
         if (data.session.mode === 'recorded' && terminal.has(data.session.status)) void refresh();
       } catch { if (!disposed) { setConnected(false); setPlaying(false); } }
       if (!disposed) timer = setTimeout(poll, 850);
@@ -141,9 +144,14 @@ export default function Playground() {
   }, [session?.mode, session?.status, mode, events.length]);
   const visible = mode === 'live' ? events : events.slice(0, cursor);
   const evidence = React.useMemo(() => reconstructEvidence(visible), [events, mode, cursor]);
+  const cycle = React.useMemo(() => cognitiveCycle(visible), [events, mode, cursor]);
+  const stops = React.useMemo(() => cycleStops(events), [events]);
+  const navigationStages = mode === 'replay' ? cognitiveCycle(events.filter(e => e.event.run_id === cycle.run)).stages : cycle.stages;
   const p = evidence.state?.payload, checkpoint = evidence.checkpoint;
-  const last = visible.at(-1), selectedModule = modules.find(m => m.id === moduleId)!;
-  const moduleSource = evidence.moduleEvidence[moduleId];
+  const selectedModule = modules.find(m => m.id === moduleId)!;
+  const source = moduleId === 'perception' ? cycle.deliberation || cycle.observed : evidence.moduleEvidence[moduleId];
+  const moduleSource = moduleId === 'memory' || source?.event.run_id === cycle.run ? source : undefined;
+  const summary = moduleSummary(cycle, moduleId);
   const candidate = evidence.trace?.simulation.candidates.find((c: any) => c.fingerprint === candidateId)
     || evidence.trace?.simulation.candidates.find((c: any) => c.fingerprint === evidence.selected)
     || evidence.trace?.simulation.candidates[0];
@@ -169,22 +177,31 @@ export default function Playground() {
     finally { setWorking(false); }
   }
   async function newSession() {
+    visitorSelected.current = true;
     setPlaying(false);
     if (live) { await command('stop'); return; }
     currentId.current = ''; setId(''); setSession(null); setEvents([]); setCursor(0); setMode('live'); void refresh();
   }
   function selectLive() {
+    visitorSelected.current = true;
     setPlaying(false);
     if (!live) { currentId.current = ''; setId(''); setSession(null); setEvents([]); setCursor(0); }
     setMode('live');
+  }
+  function changeScenario(value: keyof typeof scenarios) {
+    visitorSelected.current = true;
+    if (mode === 'live') { setScenario(value); return; }
+    const recorded = catalog.find(row => row.scenario === value && row.provenance.audit_status === 'passed' && row.provenance.strategy === 'learned');
+    if (recorded) choose(recorded);
+    else setError('このシナリオの監査済み記録がありません。Liveで新しいWorldを開始できます。');
   }
   const phase = checkpoint?.phase;
   const phaseName = ({ monitor: '経験を監視中', collect: '経験蓄積・再学習準備中', await_promotion: '独立評価合格・明示昇格待ち', rejected: '候補を棄却' } as Record<string, string>)[phase] || '経験蓄積中';
   return <div className="pg">
     <header className="pg-header"><a href="#playground" className="pg-brand"><GitBranch size={27}/><b>PreAct</b><span>INTERACTIVE COGNITIVE PLAYGROUND</span></a><div>{!kiosk && <a href="#"><ArrowLeft size={14}/>Future Tree</a>}<span className={connected ? 'pg-connected' : 'pg-offline'}>{connected ? '● localhost / CPU simulation' : '● 接続断・最後の実記録を表示'}</span></div></header>
-    <main className="pg-main"><section className="pg-intro"><div><p className="pg-eyebrow">OSC 2026 TOKYO / FALL</p><h1>観測から未来へ。実行から次の学びへ。</h1><p>Worldを選び、一手ずつ確かめる。複数の未来と、実際に起きたことをつなぐ。</p></div><div className="pg-mode-label" data-testid="mode-label">{mode === 'live' && live ? 'LIVE · 実際のCPUシミュレーション' : mode === 'live' && !session ? 'LIVE · 開始待ち' : 'RECORDED REPLAY · 保存実行記録'}<small>{mode === 'replay' ? '閲覧操作は実行・学習・昇格を起こしません' : '環境は開始時に設定・実行中の直接編集なし'}</small></div></section>
+    <main className="pg-main"><section className="pg-intro"><div><p className="pg-eyebrow">OSC 2026 TOKYO / FALL · INTERACTIVE WORLD MODEL</p><h1>世界を捉え、未来を試し、一手を選ぶ。</h1><p>PreActは、世界モデルの機能をモジュール化し、認知・予測・シミュレーション・意思決定・実行を統合するアーキテクチャです。</p></div><div className="pg-mode-label" data-testid="mode-label">{mode === 'live' && live ? 'LIVE · 実際のCPUシミュレーション' : mode === 'live' && !session ? 'LIVE · 開始待ち' : 'RECORDED REPLAY · 保存実行記録'}<small>{mode === 'replay' ? '閲覧操作は実行・学習・昇格を起こしません' : '環境は開始時に設定・実行中の直接編集なし'}</small></div></section>
       <section className="pg-controls" aria-label="展示操作"><div className="pg-mode-switch"><button className={mode === 'live' ? 'selected' : ''} onClick={selectLive}>Live</button><button className={mode === 'replay' ? 'selected' : ''} disabled={!events.length} onClick={async () => { if (live) await command('pause'); setMode('replay'); setCursor(events.length); }}>Recorded Replay</button></div>
-        <select aria-label="シナリオ" value={scenario} disabled={!!live} onChange={e => setScenario(e.target.value as keyof typeof scenarios)}>{Object.entries(scenarios).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select>
+        <select aria-label="シナリオ" value={scenario} disabled={!!live || (mode === 'replay' && !catalog.length)} onChange={e => changeScenario(e.target.value as keyof typeof scenarios)}>{Object.entries(scenarios).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select>
         <button className="pg-primary" disabled={working || (mode === 'live' && !!live) || (mode === 'replay' && !events.length)} onClick={() => { if (mode === 'live') void startLive(); else { if (cursor === events.length) setCursor(0); setPlaying(true); } }}><Play size={16}/>Start</button>
         <button disabled={working || (mode === 'live' && !live)} onClick={() => mode === 'live' ? void command('pause') : setPlaying(false)}><Pause size={16}/>Pause</button>
         <button disabled={working || (mode === 'live' ? !live || session?.status !== 'paused' : cursor >= events.length)} onClick={() => { setPlaying(false); if (mode === 'live') void command('step'); else setCursor(c => Math.min(c + 1, events.length)); }}><SkipForward size={16}/>Next Step</button>
@@ -195,15 +212,30 @@ export default function Playground() {
       {error && <p className="pg-error" role="alert">{error}</p>}{session?.error && <p className="pg-error" role="alert">処理を継続できませんでした：{session.error}。保存記録を確認し、New Sessionで新しいWorldを開始してください。</p>}
       {!connected && <p className="pg-error" role="alert">接続を再試行しています。表示は最後に取得した記録です。復帰しても過去のActionは再実行しません。</p>}
       <div className="pg-session-line"><span>{session ? `${session.label} · ${statusNames[session.status] || session.status}` : 'シナリオを選んでStart、または保存記録を選択'}</span><span>{mode === 'live' ? 'Next Step = 1認知round（確定後に停止）' : 'Next Step = 1保存イベント'}</span></div>
-      <section className="pg-stats" aria-label="実測指標">{[['TICK', p?.tick ?? '—'], ['処理済み / GOAL', p ? `${p.delivered} / ${p.target}` : '—'], ['累積 REWARD', evidence.receipts ? evidence.reward.toFixed(2) : '—'], ['OVERFLOW', !evidence.lastOutcome ? '未実行' : evidence.lastOutcome.unsafe ? '検出' : 'なし（直前実測）'], ['確定 RECEIPTS', evidence.receipts], ['学習反映済み', evidence.learned]].map(([label, value]) => <div key={label}><span>{label}</span><b>{value}</b></div>)}</section>
-      <div className="pg-stage"><section className="pg-panel"><div className="pg-panel-title"><h2>Queue World</h2><span>青：流入待ち　黄：待機　緑：実処理・完了</span></div><QueueWorld evidence={evidence}/><div className="pg-world-note">Worldの操作はシナリオ開始時のみ。マーカーは最大12単位を表示。数量は実測値で、個別タスクIDはありません。</div></section>
-        <section className="pg-panel"><div className="pg-panel-title"><h2>Counterfactual Futures</h2><span>{evidence.trace ? `Tick ${evidence.trace.state.payload.tick} の候補比較` : '候補をクリックしてInspectorへ'}</span></div><Futures evidence={evidence} onSelect={value => { setCandidateId(value); setModuleId('decision'); }}/><div className="pg-world-note">数値予測 ≠ 仮想State。未選択候補のActualはありません。</div></section></div>
-      <section className="pg-architecture" aria-label="認知アーキテクチャ"><div className="pg-panel-title"><h2>Interactive Cognitive Architecture</h2><span>{last ? `${last.event.kind} · ${last.reference.slice(0, 8)}:${last.event.seq}` : '実処理記録に対応するモジュールを強調表示'}</span></div><div className="pg-module-row">{modules.map((m, i) => <React.Fragment key={m.id}><button data-testid={`module-${m.id}`} aria-pressed={moduleId === m.id} className={`pg-module ${evidence.active.includes(m.id) ? 'active' : ''} ${moduleId === m.id ? 'inspected' : ''}`} onClick={() => { setModuleId(m.id); setCandidateId(''); }}><span>0{i + 1}</span><strong>{m.title}</strong><small>{m.english}</small><em>{evidence.moduleEvidence[m.id] ? evidence.moduleEvidence[m.id]!.event.kind : 'まだ記録なし'}</em></button>{i < modules.length - 1 && <ChevronRight className={evidence.active.includes(m.id) && evidence.active.includes(modules[i + 1].id) ? 'pg-flow active' : 'pg-flow'}/>}</React.Fragment>)}</div><p className="pg-feedback"><RotateCcw size={13}/>確定経験 → 次roundの観測・予測・判断 {evidence.trace?.memory_references?.length ? `· 今回参照 ${evidence.trace.memory_references.length} 件` : ''}<span>同一deliberation内の処理は同時に強調・個別時刻は推定しません</span></p></section>
+      <section className="pg-stats" aria-label="実測指標">{[['TICK', p?.tick ?? '—'], ['処理済み / GOAL', p ? `${p.delivered} / ${p.target}` : '—'], ['累積 REWARD', evidence.receipts ? evidence.reward.toFixed(2) : '—'], ['OVERFLOW', !evidence.lastOutcome ? '未実行' : evidence.lastOutcome.unsafe ? '検出' : 'なし（直前実測）'], ['確定 RECEIPTS', evidence.receipts], ['経験MANIFEST収録', evidence.learned]].map(([label, value]) => <div key={label}><span>{label}</span><b>{value}</b></div>)}</section>
+      <section className="pg-cycle-nav" aria-label="一手の認知サイクル">
+        <div><b>{cycle.observed ? `Tick ${cycle.observed.event.data.state.payload.tick} → ${cycle.outcome?.event.data.observation.state.payload.tick ?? '実行待ち'}` : '認知サイクル'}</b><small>同じ一手の入力・未来・実行結果をたどる</small></div>
+        <div className="pg-cycle-stages">{navigationStages.map(stage => <button key={stage.id} disabled={!stage.source} aria-pressed={moduleId === stage.id} onClick={() => { setModuleId(stage.id); setCandidateId(''); if (mode === 'replay' && stage.source) { setPlaying(false); setCursor(stage.source.index); } }}>{stage.label}{stage.source && <Check size={11}/>}</button>)}</div>
+        <button disabled={mode === 'live' || !stops.some(e => e.index < (cycle.observed?.index || 0))} onClick={() => { setPlaying(false); setCursor(stops.filter(e => e.index < (cycle.observed?.index || 0)).at(-1)!.index); }}><ArrowLeft size={14}/>前の一手</button>
+        <button disabled={mode === 'live' || !stops.some(e => e.index > cursor)} onClick={() => { setPlaying(false); setCursor(stops.find(e => e.index > cursor)!.index); }}>次の認知サイクル<ArrowRight size={14}/></button>
+      </section>
+      <div className="pg-stage"><section className="pg-panel pg-world-panel"><div className="pg-panel-title"><h2>Queue World</h2><span>実際の環境 · 正式な観測と確定結果</span></div><QueueWorld evidence={evidence}/>
+        <div className="pg-world-cycle" data-testid="world-cycle"><span>この一手で何が起きた？</span><strong>{actionName(cycle.selected?.action)}<ArrowRight size={17}/>{cycle.outcome ? `実処理 ${cycle.outcome.event.data.observation.metrics.processed} 単位` : 'Actual未確定'}</strong>
+          <p>{cycle.observed ? `観測した待機数 ${cycle.observed.event.data.state.payload.queue}` : '観測待ち'} → {cycle.outcome ? `実行後 ${cycle.outcome.event.data.observation.state.payload.queue}` : '実行待ち'} · {cycle.update ? '再観測して次の認知へ' : '経験への反映待ち'}</p>
+          <small>投入には2 tickの遅延があります。いま処理された作業と、いま投入した作業は区別します。</small>
+        </div><div className="pg-world-note">環境操作はシナリオ開始時のみ。青：流入待ち / 黄：待機 / 緑：実処理。最大12単位を表示、個別IDなし。</div></section>
+        <div className="pg-cognition"><CognitiveLoop cycle={cycle} active={evidence.active} selected={moduleId} onSelect={id => { setModuleId(id); setCandidateId(''); }}/>
+          <section className="pg-module-detail" aria-live="polite"><b>{selectedModule.title}</b><p><span>入力</span>{summary.input}</p><p><span>出力</span>{summary.output}</p><small>{summary.detail}</small></section>
+        </div>
+      </div>
+      <div className="pg-future-stage"><section className="pg-panel"><div className="pg-panel-title"><h2>Counterfactual Futures</h2><span>{evidence.trace ? `同じ観測 Tick ${evidence.trace.state.payload.tick} から候補を比較` : '正式な候補記録待ち'}</span></div><Futures evidence={evidence} onSelect={value => { setCandidateId(value); setModuleId('decision'); }}/><div className="pg-world-note">候補は共通の観測・モデルから計算。数値予測 ≠ 仮想State。未選択候補のActualなし。</div></section>
+        <section className="pg-panel pg-comparison" aria-label="予測と実際の対応"><div className="pg-panel-title"><h2>Future → Decision → Actual</h2><span>候補をクリックして比較</span></div><div className="pg-comparison-body"><h3>{actionName(candidate?.action)} <small>{candidateActual ? '選択・実行済み' : '候補 / 実測なし'}</small></h3><ForecastPlot prediction={prediction} actual={candidateActual}/>
+          <table><thead><tr><th>次Tickの指標</th><th>予測 H1</th><th>Actual</th></tr></thead><tbody>{(['queue', 'delivered'] as const).map(key => <tr key={key}><th>{key === 'queue' ? '待機数' : '累積処理数'}</th><td>{prediction?.vectors?.[key]?.[0]?.toFixed(2) ?? '予測なし'}</td><td>{candidateActual?.state.payload[key] ?? '未確定 / 未選択'}</td></tr>)}</tbody></table><p>{candidate?.action.kind === 'probe_service' ? 'Probeの価値は既知の測定費用です。実行前に測定結果や情報利得を補いません。' : '判断の価値 = 予測したGoal進捗 − 待機・投入の費用。価値順位と最終Gateの結果は別々に確認できます。'}</p></div></section></div>
       <section className="pg-timeline" aria-label="イベントReplay"><div><b>{mode === 'replay' ? 'RECORDED REPLAY' : 'LIVE EVENT HISTORY'}</b><span>{mode === 'live' ? events.length : cursor} / {events.length} イベント</span></div><input type="range" aria-label="記録の再生位置" min="0" max={events.length} value={mode === 'live' ? events.length : cursor} disabled={mode === 'live'} onChange={e => { setPlaying(false); setCursor(Number(e.target.value)); }}/><button disabled={mode === 'live'} onClick={() => { setPlaying(false); setCursor(0); }}>先頭</button><button disabled={mode === 'live'} onClick={() => { setPlaying(false); setCursor(decisionStart(events)); }}>候補比較へ</button><select aria-label="記録roundへ移動" disabled={mode === 'live'} value="" onChange={e => { setPlaying(false); setCursor(Number(e.target.value)); }}><option value="">roundへ移動</option>{events.filter(e => e.event.kind === 'observed' && e.scope === 'world').map(e => <option key={e.reference} value={e.index}>Tick {e.event.data.state.payload.tick}</option>)}</select></section>
       <div className="pg-inspection"><section className="pg-panel pg-learning"><p className="pg-eyebrow">EXPERIENCE & LEARNING</p><h2>{phaseName}</h2><div className="pg-learning-status"><span>Health <b>{checkpoint?.status === 'await_checkpoint' ? '新世代の評価待ち' : checkpoint?.status || '未評価'}</b></span><span>世代 <b>{checkpoint?.generation ?? '—'}</b></span><span>回復標本 <b>{checkpoint?.effective_training ?? '—'}</b></span></div><p>Model <code>{checkpoint?.model_version?.slice(0, 16) || 'まだ記録なし'}</code></p><p>選択ActionのH1誤差 {evidence.h1Error == null ? '—' : evidence.h1Error.toFixed(3)} <small>· queue / delivered平均絶対誤差</small></p><p>予測対象 {evidence.matched} / 全実行 {evidence.receipts}（Probeも分母に含む）</p><p className="pg-honest">評価合格だけではモデルは変わりません。公開Liveに昇格操作はありません。Goal999は継続実行fixtureで、完了の実証ではありません。</p>{session?.scenario === 'low_to_high' && <p className="pg-adverse">凍結比較では回復ありReward 32.9、回復なし115.4。能力向上時に悪化した結果も保持しています。</p>}{technical && <details><summary>評価・候補・Promotionの保存証拠</summary><pre>{JSON.stringify(Object.fromEntries(['candidate', 'evaluation', 'promotion'].filter(k => checkpoint?.[k]).map(k => [k, { digest: checkpoint[k], record: artifacts[checkpoint[k]] || 'この記録では詳細なし' }])), null, 2)}</pre></details>}</section>
-        <section className="pg-panel pg-inspector"><p className="pg-eyebrow">MODULE / CANDIDATE INSPECTOR</p><h2>{selectedModule.english}</h2><p>{selectedModule.description}</p><p className="pg-implementation">{selectedModule.implementation}</p>{candidate && (moduleId === 'decision' || moduleId === 'simulation' || moduleId === 'prediction') && <><h3>{candidate.action.name} <small>{candidate.fingerprint === evidence.selected ? '選択済み' : '候補'}</small></h3><p>{candidate.basis === 'fixed_prior_fallback' ? '固定事前によるfallback予測です。失効した経験モデルの予測ではありません。' : candidate.action.kind === 'probe_service' ? '既存の観測準備方策です。値は既知のProbe費用で、測定結果の予測ではありません。' : '保存された予測と価値評価。最終Gate・Actualは別の証拠です。'}</p><ForecastPlot prediction={prediction} actual={candidateActual}/></>}{moduleSource ? <><p className="pg-evidence-ref">出典 <code>{moduleSource.reference}</code> · {moduleSource.event.kind}</p>{technical && <details open><summary>実入力・出力と関連ID</summary><pre>{JSON.stringify({ implementation: selectedModule.implementation, reference: moduleSource.reference, kind: moduleSource.event.kind, recorded_timestamp: moduleSource.event.timestamp, data: moduleSource.event.data }, null, 2)}</pre></details>}</> : <p>この時点には対応する処理記録がありません。</p>}{technical && candidate && <details><summary>Action / Prediction / Gate / Actual</summary><pre>{JSON.stringify({ action: candidate.action, fingerprint: candidate.fingerprint, basis: candidate.basis, value_evaluation: evidence.trace?.scores[evidence.trace.simulation.candidates.indexOf(candidate)], ranked_fingerprints: evidence.trace?.ranked_fingerprints, prediction, qualification: evidence.qualifications.find(q => q.action.id === candidate.action.id), authorization: candidate.fingerprint === evidence.selected ? evidence.authorization : null, actual: candidateActual }, null, 2)}</pre></details>}</section></div>
-      <section className="pg-library"><div className="pg-panel-title"><h2>保存済み実行記録を探索</h2><button onClick={() => void refresh()}><RotateCcw size={13}/>更新</button></div><p>Replayは最初の候補比較付近から開きます。「先頭」で準備後の全roundを探索できます。</p>{catalog.length ? <div className="pg-recordings">{catalog.map(row => <button key={row.id} className={row.id === id ? 'selected' : ''} disabled={working || (!!live && row.id !== id)} onClick={() => choose(row)}><span>{row.mode === 'live' ? 'LIVE SESSION' : row.provenance.audit_status === 'passed' ? 'AUDITED REPLAY' : 'LOCAL RECORDED HISTORY'}</span><strong>{row.label}</strong><small>{String(row.provenance.strategy || statusNames[row.status])} · {row.rounds} rounds</small><ArrowRight size={17}/></button>)}</div> : <p>監査済みReplayが未準備です。運用手順の準備コマンドを実行してください。</p>}</section>
+        <section className="pg-panel pg-inspector"><p className="pg-eyebrow">MODULE / CANDIDATE INSPECTOR</p><h2>{selectedModule.english}</h2><p>{selectedModule.description}</p><p><b>入力</b> · {summary.input}<br/><b>出力</b> · {summary.output}</p><p className="pg-implementation">{selectedModule.implementation}</p>{candidate && (moduleId === 'decision' || moduleId === 'simulation' || moduleId === 'prediction') && <><h3>{candidate.action.name} <small>{candidate.fingerprint === evidence.selected ? '選択済み' : '候補'}</small></h3><p>{candidate.basis === 'fixed_prior_fallback' ? '固定事前によるfallback予測です。失効した経験モデルの予測ではありません。' : candidate.action.kind === 'probe_service' ? '既存の観測準備方策です。値は既知のProbe費用で、測定結果の予測ではありません。' : '保存された予測と価値評価。最終Gate・Actualは別の証拠です。'}</p><ForecastPlot prediction={prediction} actual={candidateActual}/></>}{moduleSource ? <><p className="pg-evidence-ref">出典 <code>{moduleSource.reference}</code> · {moduleSource.event.kind}</p>{technical && <details open><summary>実入力・出力と関連ID</summary><pre>{JSON.stringify({ implementation: selectedModule.implementation, reference: moduleSource.reference, kind: moduleSource.event.kind, recorded_timestamp: moduleSource.event.timestamp, data: moduleSource.event.data }, null, 2)}</pre></details>}</> : <p>この時点には対応する処理記録がありません。</p>}{technical && candidate && <details><summary>Action / Prediction / Gate / Actual</summary><pre>{JSON.stringify({ action: candidate.action, fingerprint: candidate.fingerprint, basis: candidate.basis, value_evaluation: evidence.trace?.scores[evidence.trace.simulation.candidates.indexOf(candidate)], ranked_fingerprints: evidence.trace?.ranked_fingerprints, prediction, qualification: evidence.qualifications.find(q => q.action.id === candidate.action.id), authorization: candidate.fingerprint === evidence.selected ? evidence.authorization : null, actual: candidateActual }, null, 2)}</pre></details>}</section></div>
+      <section className="pg-library"><div className="pg-panel-title"><h2>保存済み実行記録を探索</h2><button onClick={() => void refresh()}><RotateCcw size={13}/>更新</button></div><p>Replayは最初に実処理が起きた認知サイクルから開きます。「前の一手」「次の認知サイクル」で移動し、各段階をたどれます。「先頭」で準備後の全イベントを探索できます。</p>{catalog.length ? <div className="pg-recordings">{catalog.map(row => <button key={row.id} className={row.id === id ? 'selected' : ''} disabled={working || (!!live && row.id !== id)} onClick={() => choose(row)}><span>{row.mode === 'live' ? 'LIVE SESSION' : row.provenance.audit_status === 'passed' ? 'AUDITED REPLAY' : 'LOCAL RECORDED HISTORY'}</span><strong>{row.label}</strong><small>{String(row.provenance.strategy || statusNames[row.status])} · {row.rounds} rounds</small><ArrowRight size={17}/></button>)}</div> : <p>監査済みReplayが未準備です。運用手順の準備コマンドを実行してください。</p>}</section>
       {technical && session && <details className="pg-provenance"><summary>Session provenance / 準備コスト / 監査情報</summary><pre>{JSON.stringify(session.provenance, null, 2)}</pre></details>}
-    </main><footer className="pg-footer"><span>One Core · Observation → Prediction → Decision → Receipt → Experience</span><span>Live / Replayを区別 · 数値経路は非権威的 · 明示Promotionのみ</span></footer>
+    </main><footer className="pg-footer"><span>One Core · World ↔ Cognition → Prediction → Simulation → Decision → Execution → Experience</span><span>Live / Replayを区別 · 数値経路は非権威的 · 明示Promotionのみ</span></footer>
   </div>;
 }

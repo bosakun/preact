@@ -15,3 +15,77 @@
 @media(max-width:620px){.pg .pg-header{padding:0 14px}.pg-header>div{gap:9px;font-size:9px}.pg .pg-main{padding:0 14px}.pg h1{font-size:22px}.pg-mode-label{font-size:10px}.pg-stats b{font-size:18px}.pg-stats>div{padding:10px}.pg-module-row{grid-template-columns:repeat(2,1fr)}.pg-timeline{flex-wrap:wrap}.pg-timeline input{min-width:150px}.pg-recordings{grid-template-columns:1fr}.pg-panel-title>span{font-size:8px}.pg-world,.pg-graph{height:280px}.pg .pg-footer{flex-direction:column;gap:10px}}
 @media(prefers-reduced-motion:reduce){.pg *{animation:none!important;transition:none!important}.pg-processed-motion,.pg-arrival-motion{display:none}}
 .pg .pg-future.chosen:hover{background:#293c2c;border-color:#beec83}
+
+/* The primary workspace follows a single causal round through the real modules. */
+.pg-intro { padding: 22px 0 18px; }
+.pg-intro > div:first-child { max-width: 1050px; }
+.pg-intro p:last-child { max-width: 960px; }
+.pg-stage { grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr); }
+.pg-world { height: 265px; }
+.pg-cognition { min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.pg-world-panel { display: flex; flex-direction: column; }
+.pg-world-panel .pg-world { flex: 1; min-height: 240px; max-height: 310px; }
+.pg-world-cycle { padding: 12px 20px; margin-top: auto; }
+.pg-world-cycle > span { display: block; color: #96acc4; font-size: 11px; }
+.pg-world-cycle strong { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-size: 18px; margin: 5px 0; font-weight: 550; }
+.pg-world-cycle p { margin: 4px 0; color: #c9dbed; font-size: 13px; }
+.pg-world-cycle small { display: block; color: #91a5bd; font-size: 10px; }
+.pg-cycle-nav { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 14px; }
+.pg-cycle-nav > div:first-child { margin-right: auto; }
+.pg-cycle-nav b { font-size: 15px; margin-right: 14px; }
+.pg-cycle-nav small { font-size: 10px; color: #96acc4; }
+.pg-cycle-nav button { padding: 6px 10px; font-size: 11px; }
+.pg-cycle-stages { display: flex; gap: 3px; }
+.pg-cycle-stages button[aria-pressed=true] { border-color: #8eb8eb; color: #bbd9ff; }
+.pg-loop .pg-panel-title h2 { font-size: 15px; }
+.pg-loop-canvas { position: relative; padding: 14px 16px; }
+.pg-loop-wires { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; color: #4b617a; }
+.pg-loop-wires > path { fill: none; stroke: #3f5168; stroke-width: 1.5; }
+.pg-loop-wires > path.recorded { stroke: #9bc9a2; stroke-width: 2; color: #9bc9a2; }
+.pg-loop-modules { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-areas: "perception prediction simulation" "memory execution decision"; gap: 21px 15px; position: relative; }
+.pg .pg-loop .pg-module { min-height: 116px; padding: 9px 12px; gap: 2px; }
+.pg-loop .pg-module strong { font-size: 17px; margin: 0; }
+.pg-loop .pg-module small { font-size: 9px; white-space: normal; }
+.pg-loop .pg-module b { font-size: 12px; font-weight: 400; line-height: 1.5; color: #c2d4e8; }
+.pg-loop .pg-module em { font-size: 9px; margin-top: auto; padding-top: 4px; }
+.pg-internal-model { display: grid; grid-template-columns: 1.2fr 1fr; gap: 15px; padding: 10px 17px; border-top: 1px solid #30445c; background: #19283a; }
+.pg-internal-model span { display: block; font-size: 10px; color: #94b9e2; }
+.pg-internal-model strong { display: block; font-weight: 500; font-size: 12px; margin: 4px 0; }
+.pg-internal-model small { display: block; font-size: 9px; color: #94a9bf; }
+.pg-model-parameter b { font-size: 14px; font-weight: 500; }
+.pg-probability { height: 5px; background: #3d4e69; margin: 4px 0; border-radius: 4px; overflow: hidden; }
+.pg-probability i { display: block; background: #87bafd; height: 100%; }
+.pg-loop .pg-feedback { margin: 0; padding: 9px 17px; flex-wrap: wrap; gap: 6px; color: #a7c9a1; font-size: 10px; }
+.pg-loop .pg-feedback > span { margin: 0; font-size: 10px; color: inherit; }
+.pg-module-detail { border-left: 2px solid #8cb9ec; background: #182536; padding: 9px 14px; min-height: 98px; }
+.pg-module-detail > b { color: #bbd9ff; font-size: 12px; }
+.pg-module-detail p { margin: 1px 0; font-size: 11px; color: #c0d1e5; }
+.pg-module-detail p span { color: #849dbb; margin-right: 10px; }
+.pg-module-detail small { font-size: 10px; color: #8ca6c3; }
+.pg-future-stage { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 16px; margin-top: 16px; }
+.pg-future-stage .pg-graph { height: 290px; }
+.pg-comparison-body { padding: 8px 18px 12px; }
+.pg-comparison h3 { margin: 0 0 5px; font-size: 15px; font-weight: 500; }
+.pg-comparison h3 small { color: #a5c88a; margin-left: 12px; font-size: 10px; }
+.pg-comparison .pg-plot { max-width: none; }
+.pg-comparison .pg-plot svg { height: 110px; }
+.pg-comparison table { width: 100%; border-collapse: collapse; font-size: 11px; }
+.pg-comparison th { color: #9bb4cf; text-align: left; font-weight: 400; }
+.pg-comparison td, .pg-comparison th { padding: 3px 6px; border-bottom: 1px solid #2b3d54; }
+.pg-comparison td:nth-child(2) { color: #90beff; }
+.pg-comparison td:nth-child(3) { color: #c4e8a0; }
+.pg-comparison-body > p { font-size: 10px; color: #8fa7c2; margin: 7px 0 0; }
+@media (max-width: 1250px) {
+  .pg-stage { grid-template-columns: 1fr; }
+  .pg-world-panel .pg-world { max-height: 240px; }
+  .pg-loop .pg-module strong { font-size: 16px; }
+}
+@media (max-width: 700px) {
+  .pg-future-stage { grid-template-columns: 1fr; }
+  .pg-internal-model { grid-template-columns: 1fr; }
+  .pg-loop-modules { grid-template-columns: 1fr 1fr; grid-template-areas: "perception prediction" "simulation decision" "execution memory"; gap: 10px; }
+  .pg-loop-wires { display: none; }
+  .pg-cycle-nav { align-items: stretch; }
+  .pg-cycle-stages { flex-wrap: wrap; }
+  .pg-intro p:last-child { font-size: 11px; }
+}

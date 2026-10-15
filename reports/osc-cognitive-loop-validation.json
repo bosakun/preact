@@ -1,0 +1,124 @@
+{
+  "generated_at": "2026-10-15T10:12:39.752024+00:00",
+  "status": "passed-local-validation",
+  "revision_scope": "Integrated same-round world-model workspace; existing cognition and Core execution reused",
+  "previous_candidate": "30ac132b9101364664d7e18ce9ac0f0047b41cbf",
+  "python_regression": [
+    {
+      "command": ".venv/bin/pytest -q tests/test_playground.py tests/test_playground_replay.py tests/test_api.py",
+      "passed": 26,
+      "wall_seconds": 21.18
+    },
+    {
+      "command": ".venv/bin/pytest -q tests/test_service_limits.py tests/test_durable_io.py tests/test_stream_disconnect.py",
+      "passed": 19,
+      "wall_seconds": 11.76
+    }
+  ],
+  "browser": {
+    "command": "PREACT_E2E_PORT=8017 PREACT_E2E_ARTIFACT_DIR=../.cache/osc-cognitive-loop-browser-final npm --prefix web run test:e2e",
+    "passed": 15,
+    "wall_seconds": 19.8,
+    "scope": [
+      "All six audited scenarios:336 round-level Observation/Belief/Prediction/selection/Intent/Receipt/update joins",
+      "Verified prior receipt references used in subsequent deliberation",
+      "Unknown model parameter before a forecast; no stale prediction/selection/Actual after a new observation",
+      "Exact original-event stage seeking and whole-cycle navigation",
+      "Actual absent before receipt and for unselected candidates",
+      "Historical promotion does not retroactively change prior prediction model",
+      "Scenario menu loads corresponding audited Replay; Live constructor-only presets",
+      "Initial catalog response cannot overwrite visitor Live selection",
+      "Existing Software/Physical Future Tree",
+      "Live step/pause/auto/reset",
+      "Kiosk external-network block and real process restart/no redispatch",
+      "Unknown prediction responses do not become usable numerical model parameters"
+    ]
+  },
+  "projection_audit": {
+    "status": "passed-projection-audit",
+    "cases": [
+      {
+        "case": "queue-high_to_low-learned-11",
+        "events": 992,
+        "complete_receipts": 56,
+        "status": "passed"
+      },
+      {
+        "case": "queue-high_to_low-no_recovery-11",
+        "events": 1049,
+        "complete_receipts": 56,
+        "status": "passed"
+      },
+      {
+        "case": "queue-low_to_high-learned-11",
+        "events": 992,
+        "complete_receipts": 56,
+        "status": "passed"
+      },
+      {
+        "case": "queue-low_to_high-no_recovery-11",
+        "events": 1049,
+        "complete_receipts": 56,
+        "status": "passed"
+      },
+      {
+        "case": "queue-stable_high-learned-11",
+        "events": 1049,
+        "complete_receipts": 56,
+        "status": "passed"
+      },
+      {
+        "case": "queue-stable_low-learned-11",
+        "events": 1045,
+        "complete_receipts": 56,
+        "status": "passed"
+      }
+    ],
+    "scope": "Exact source event/complete receipt projection; source learning audit retained separately"
+  },
+  "screenshots": {
+    "session": "queue-stable_high-learned-11",
+    "cursor": 173,
+    "reference": "03c22cfab4af42c7b35fc059dece1ce2:69",
+    "tick": 10,
+    "mode": "recorded",
+    "screenshots": [
+      {
+        "width": 1920,
+        "height": 1080,
+        "path": "reports/osc-cognitive-loop.png",
+        "overflow": false
+      },
+      {
+        "width": 1440,
+        "height": 1100,
+        "path": ".cache/cognitive-loop-1440.png",
+        "overflow": false
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "path": ".cache/cognitive-loop-mobile.png",
+        "overflow": false
+      }
+    ],
+    "errors": [],
+    "external": []
+  },
+  "integrity": {
+    "python_cognition_core_service": "unchanged from previous candidate",
+    "replay_assets_and_frozen_evidence": "unchanged",
+    "core_generated_contracts": "byte-identical",
+    "ruff": "247 files passed",
+    "typescript_vite_build": "passed"
+  },
+  "prior_validation": "reports/osc-playground-validation.json retains earlier864-test full Python regression, frozen source reproduction and Live soak; those long experiments were not rerun for this UI-only revision",
+  "limits": [
+    "Current Queue Belief.inferred is empty; hidden service remains unknown, learned marginal lives in existing Prediction adapter",
+    "Known arrival/conservation rules are not learned",
+    "Module links describe recorded dependencies, not separately measured phase times",
+    "Memory retrieval/experience accumulation is not model promotion",
+    "First-time visitor comprehension still requires a human booth rehearsal",
+    "Remote CI is not represented as completed by local validation"
+  ]
+}

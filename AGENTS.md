@@ -345,6 +345,11 @@ Queue fixture construction/preparation/evaluation stays in `domains/queue_playgr
 Reuse CognitiveAgent, DeliberationPlanner, LearningCoordinator, QueueLearningBackend
 and the ordinary Runtime. Do not add a second decision/learning/execution path.
 The `#playground` web entry is separate from the default Software/Physical Future Tree.
+Its primary workspace connects one real round across World, observed/Belief input,
+recorded model use, numerical futures, decision, execution and next-round experience.
+`web/src/playground/cycle.ts` is a read-only event adapter; parameter displays must
+come from saved predictions and feedback links from exact prior complete receipts
+referenced by that deliberation. Memory retrieval is not training or promotion.
 Live controls admit one round at a time and pause at the existing observer boundary;
 server Policy limits/calibration still apply. Public presets are constructor-only;
 never edit authoritative payload/private schedule or expose public promotion.

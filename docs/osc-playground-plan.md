@@ -61,12 +61,17 @@ Core sources, Gate rules, authorization, durable intents and receipt semantics s
 ## Visitor experience
 
 The main screen uses large Japanese labels with technical English module names. The 2D World
-occupies the largest area: submitted work in transit, waiting work, processing and delivered
-work. Tick, delivered/goal, cumulative receipt reward and overflow checks remain visible.
-Below it, six clickable modules show cognition/perception, prediction, simulation,
-decision/planning, verification/execution and memory/learning. A compact candidate comparison
-connects forecasts to the selected action and actual outcome. Detailed JSON and provenance live
-in a collapsible inspector instead of the primary visitor flow.
+and the integrated cognitive loop share the primary workspace: submitted work in transit,
+waiting work, processing and delivered work alongside that round's observed/Belief input,
+recorded internal model, prediction, simulation, decision, execution and memory feedback.
+Tick, delivered/goal, cumulative receipt reward and overflow checks remain visible. Six clickable
+modules expose concise input/output beside the loop. Each data-flow link resolves to a real
+source record; feedback uses exact complete receipts referenced in the next deliberation.
+The service distribution is displayed only from predictions that actually used it. Known
+arrival rules, inferred parameters and unknown future service remain distinct.
+A candidate comparison connects numerical forecasts to the selected action and actual outcome.
+Detailed JSON and provenance live in a collapsible inspector instead of the primary visitor flow.
+Replay supports both original-event steps and a whole-cycle navigator with stage seeking.
 
 The existing Queue models fungible work quantities, not task identities. Each animated token
 represents one work unit; it must not imply an observed task ID, per-job priority or completion

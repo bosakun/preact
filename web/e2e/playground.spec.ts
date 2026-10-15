@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { reconstructEvidence } from '../src/playground/evidence';
+import { cognitiveCycle, cycleStops, firstWorkingCycle } from '../src/playground/cycle';
 
 test.describe.configure({ mode: 'serial' });
 const captureDirectory = process.env.PREACT_E2E_ARTIFACT_DIR || '../.cache/osc-browser-artifacts';
@@ -14,6 +15,74 @@ test('an unexecuted manifest entry is never counted as learned experience', asyn
   expect(reconstructEvidence(prefix).learned).toBe(0);
 });
 
+test('one-round projections keep observed facts, model use and receipt feedback separate', async ({ request }) => {
+  const saved = await (await request.get('/api/playground/sessions/queue-stable_high-learned-11')).json();
+  const end = firstWorkingCycle(saved.events);
+  const prefix = saved.events.slice(0, end);
+  const cycle = cognitiveCycle(prefix);
+  expect(cycle.belief.observed).toEqual(cycle.trace.state);
+  expect(cycle.model.pHigh).toBe(cycle.model.prediction.raw.p_high);
+  expect(cycle.model.version).toBe(cycle.model.prediction.raw.base_model_version);
+  expect(cycle.model.prediction.successor).toBeNull();
+  expect(cycle.model.prediction.future_states).toEqual([]);
+  expect(cycle.feedback.length).toBeGreaterThan(0);
+  for (const receipt of cycle.feedback) expect(cycle.trace.memory_references).toContain(receipt.reference);
+  expect(cycle.selected.fingerprint).toBe(cycle.selection!.event.data.action_fingerprint);
+  expect(cycle.outcome!.event.data.observation.state.payload.tick).toBe(cycle.observed!.event.data.state.payload.tick + 1);
+  const unconfirmed = structuredClone(prefix);
+  for (const item of unconfirmed) item.receipt_verified = false;
+  expect(cognitiveCycle(unconfirmed).feedback).toEqual([]);
+  expect(cognitiveCycle(unconfirmed).outcome).toBeUndefined();
+  const next = saved.events.find((e: any) => e.event.kind === 'observed' && e.index > end);
+  const fresh = cognitiveCycle(saved.events.slice(0, next.index));
+  expect(fresh.run).not.toBe(cycle.run);
+  expect(fresh.trace).toBeUndefined();
+  expect(fresh.selected).toBeUndefined();
+  expect(fresh.outcome).toBeUndefined();
+  expect(fresh.model.pHigh).toBeNull();
+  const unknown = structuredClone(prefix);
+  const comparison = unknown.find((e: any) => e.reference === cycle.deliberation!.reference);
+  for (const candidate of comparison.event.data.simulation.candidates) {
+    candidate.paths = [];
+    for (const record of candidate.records) {
+      record.prediction.raw.status = 'unknown';
+      record.prediction.vectors = {};
+    }
+  }
+  // Retained parameter statistics on an unknown response are not a usable forecast.
+  expect(cognitiveCycle(unknown).model.pHigh).toBeNull();
+});
+
+test('all audited scenarios connect real beliefs, forecasts, choices and next-round memory', async ({ request }) => {
+  const catalog = await (await request.get('/api/playground/catalog')).json();
+  const summaries: Record<string, any[]> = {};
+  for (const row of catalog.sessions.filter((r: any) => r.provenance.audit_status === 'passed')) {
+    const saved = await (await request.get(`/api/playground/sessions/${row.id}`)).json();
+    summaries[row.id] = [];
+    for (const stop of cycleStops(saved.events)) {
+      const cycle = cognitiveCycle(saved.events.slice(0, stop.index));
+      expect(cycle.trace.state.id).toBe(cycle.observed!.event.data.state.id);
+      expect(cycle.selected.action.state_id).toBe(cycle.trace.state.id);
+      expect(cycle.intent!.event.data.receipt).toBe(cycle.outcome!.event.data.observation.receipt);
+      expect(cycle.update!.event.data.belief.observed.payload).toEqual(cycle.outcome!.event.data.observation.state.payload);
+      for (const receipt of cycle.feedback) {
+        expect(receipt.event.run_id).not.toBe(cycle.run);
+        expect(receipt.index).toBeLessThan(cycle.observed!.index);
+      }
+      if (cycle.model.prediction) {
+        expect(cycle.model.prediction.state_id).toBe(cycle.trace.state.id);
+        summaries[row.id].push({ tick: cycle.trace.state.payload.tick, p: cycle.model.pHigh, action: cycle.selected.action.payload.amount, model: cycle.model.version });
+      }
+    }
+  }
+  const high = summaries['queue-stable_high-learned-11'];
+  const low = summaries['queue-stable_low-learned-11'];
+  expect(high[0].p).toBe(1);
+  expect(low[0].p).toBe(0);
+  // Different constructor scenarios really lead to different model-based actions.
+  expect(high.map(c => c.action)).not.toEqual(low.map(c => c.action));
+});
+
 test.afterEach(async ({ request }) => {
   const rows = (await (await request.get('/api/playground/catalog')).json()).sessions;
   for (const row of rows.filter((r: any) => r.mode === 'live')) {
@@ -26,9 +95,14 @@ test('Live controls admit actual single rounds, pause, autoplay and new sessions
   test.setTimeout(90000);
   const errors: string[] = [];
   page.on('pageerror', e => errors.push(e.message));
+  let releaseCatalog!: () => void;
+  const catalogGate = new Promise<void>(resolve => { releaseCatalog = resolve; });
+  await page.route('**/api/playground/catalog', async route => { await catalogGate; await route.continue(); });
   await page.goto('/#playground');
   await expect(page.getByRole('heading', { name: 'Queue World', exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Live', exact: true }).click();
+  releaseCatalog();
+  await expect(page.getByTestId('mode-label')).toContainText('LIVE · 開始待ち');
   await page.getByRole('combobox', { name: 'シナリオ', exact: true }).selectOption('stable_high');
   await page.getByRole('button', { name: 'Start', exact: true }).click();
   await expect(page.locator('.pg-session-line')).toContainText('一時停止', { timeout: 45000 });
@@ -57,6 +131,47 @@ test('Live controls admit actual single rounds, pause, autoplay and new sessions
   expect(errors).toEqual([]);
 });
 
+test('a visitor traces one integrated cycle and its real feedback into the next', async ({ page }) => {
+  const saved = await (await page.request.get('/api/playground/sessions/queue-stable_high-learned-11')).json();
+  const end = firstWorkingCycle(saved.events);
+  const cycle = cognitiveCycle(saved.events.slice(0, end));
+  await page.goto('/#playground');
+  const nav = page.getByRole('region', { name: '一手の認知サイクル' });
+  const slider = page.getByRole('slider', { name: '記録の再生位置' });
+  await expect(slider).toHaveValue(String(end));
+  await expect(page.getByTestId('world-cycle')).toContainText('実処理 3 単位');
+  await nav.getByRole('button', { name: '観測', exact: true }).click();
+  await expect(slider).toHaveValue(String(cycle.observed!.index));
+  await expect(page.getByTestId('internal-model')).toContainText('数値予測なし');
+  await expect(page.getByTestId('world-cycle')).toContainText('Actual未確定');
+  await expect(page.getByTestId('flow-observe-predict')).toHaveAttribute('data-reference', '');
+  await nav.getByRole('button', { name: '予測・比較', exact: true }).click();
+  await expect(page.getByTestId('internal-model')).toContainText('P(service = 3) = 1');
+  await expect(page.getByTestId('flow-observe-predict')).toHaveAttribute('data-reference', cycle.deliberation!.reference);
+  await expect(page.getByTestId('module-decision')).toContainText('選択待ち');
+  await nav.getByRole('button', { name: '選択', exact: true }).click();
+  await expect(page.getByTestId('module-decision')).toContainText('3 単位を投入');
+  await expect(page.getByTestId('world-cycle')).toContainText('Actual未確定');
+  await nav.getByRole('button', { name: '実行結果', exact: true }).click();
+  await expect(page.getByTestId('world-cycle')).toContainText('実処理 3 単位');
+  await expect(page.getByRole('region', { name: '予測と実際の対応' }).getByRole('cell', { name: '3', exact: true })).toBeVisible();
+  await page.locator('.pg-future:not(.chosen)').filter({ hasText: '候補Action' }).first().click();
+  await expect(page.getByRole('region', { name: '予測と実際の対応' }).getByRole('cell', { name: '未確定 / 未選択', exact: true })).toHaveCount(2);
+  await nav.getByRole('button', { name: '経験へ', exact: true }).click();
+  await expect(page.getByTestId('flow-execute-remember')).toHaveAttribute('data-reference', cycle.update!.reference);
+  await nav.getByRole('button', { name: '次の認知サイクル', exact: true }).click();
+  const nextIndex = cycleStops(saved.events).find(e => e.index > end)!.index;
+  const next = cognitiveCycle(saved.events.slice(0, nextIndex));
+  expect(next.feedback.map(e => e.reference)).toContain(cycle.outcome!.reference);
+  await expect(page.getByTestId('feedback-link')).toContainText(`確定Receipt ${next.feedback.length} 件`);
+  await page.getByTestId('module-perception').click();
+  await expect(page.locator('.pg-module-detail')).toContainText(`確定経験 ${next.feedback.length} 件を参照`);
+  await page.getByRole('combobox', { name: 'シナリオ', exact: true }).selectOption('stable_low');
+  await expect(page.getByTestId('internal-model')).toContainText('P(service = 3) = 0');
+  await expect(page.locator('.pg-session-line')).toContainText('安定・低能力');
+  await expect(page.getByTestId('mode-label')).toContainText('RECORDED REPLAY');
+});
+
 test('audited Replay ties module highlights, numeric futures and Actual to original events', async ({ page }) => {
   const rows = (await (await page.request.get('/api/playground/catalog')).json()).sessions;
   const record = rows.find((r: any) => r.provenance.audit_status === 'passed' && r.scenario === 'stable_high');
@@ -74,14 +189,16 @@ test('audited Replay ties module highlights, numeric futures and Actual to origi
   await expect(page.locator('.pg-future')).toHaveCount(4);
   await expect(page.getByTestId('module-prediction')).toHaveClass(/active/);
   await expect(page.getByTestId('module-simulation')).toHaveClass(/active/);
-  await expect(page.getByTestId('module-memory')).not.toHaveClass(/active/);
+  // Deliberation records actual receipt-backed memory retrieval, not a new model update.
+  expect(trace.event.data.memory_references.length).toBeGreaterThan(0);
+  await expect(page.getByTestId('module-memory')).toHaveClass(/active/);
   await expect(page.locator('.pg-future em')).toHaveCount(0);
   await slider.fill(String(outcome.index));
   const expected = reconstructEvidence(original.events.slice(0, outcome.index));
   await expect(page.getByRole('img', { name: `実測World Tick ${expected.state!.payload.tick} 待機${expected.state!.payload.queue} 完了${expected.state!.payload.delivered}` })).toBeVisible();
   await expect(page.locator('.pg-future.chosen em')).toHaveCount(1);
   await page.locator('.pg-future.chosen').click();
-  await expect(page.locator('.pg-plot')).toContainText('H1 Actual');
+  await expect(page.locator('.pg-inspector .pg-plot')).toContainText('H1 Actual');
   await page.getByRole('checkbox', { name: '技術者向け詳細' }).check();
   await page.locator('.pg-inspector details').filter({ hasText: 'Action / Prediction / Gate / Actual' }).locator('summary').click();
   await expect(page.locator('.pg-inspector')).toContainText(outcome.event.data.observation.receipt);
@@ -118,6 +235,10 @@ test('Replay shows real promotion and the adverse Low-to-High comparison', async
   const model = promotion.event.data.backend.epoch.model_version;
   expect(model).not.toBe(before.model_version);
   await expect(page.locator('.pg-learning code').first()).toHaveText(model.slice(0, 16));
+  // A promotion does not retroactively change the model used by the prior decision.
+  const used = cognitiveCycle(saved.events.slice(0, promotion.index));
+  expect(used.model.version).toBe(before.model_version);
+  expect(used.model.version).not.toBe(model);
   await page.getByTestId('module-memory').click();
   await page.getByRole('checkbox', { name: '技術者向け詳細' }).check();
   await expect(page.locator('.pg-inspector pre').first()).toContainText('learning_explicit_promotion');

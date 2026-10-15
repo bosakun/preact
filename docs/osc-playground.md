@@ -1,6 +1,10 @@
 # OSC Interactive Cognitive Playground
 
-This exhibition adds a Queue view to the existing Future Tree. It uses the real
+PreAct modularly reproduces world-model functions and integrates cognition,
+prediction, simulation, decision and execution. The exhibition presents this closed
+loop: the environment is observed, an internal representation supplies uncertain
+action futures, a decision becomes one real action, and its confirmed experience is
+retrieved by the following cognitive round. It uses the real
 `CognitiveAgent`, `DeliberationPlanner`, `LearningCoordinator`, `QueueLearningBackend`
 and domain-independent Core Runtime. It does not implement a second agent, safety
 gate, training coordinator or executor.
@@ -61,13 +65,22 @@ original policies and are explicitly recorded, not newly executed.
 
 ## A thirty-second visitor path
 
-1. Open the default audited stable-high Replay. It opens at the first task decision,
-   after readiness probes; the current Tick remains visible.
-2. Press Start or Next Step. Watch real saved events highlight the architecture.
-3. Click a candidate. Compare its saved numerical futures with the selected action,
-   its Gate and the green actual outcome marker after the receipt.
-4. Click Memory & Learning. Explain that only completed executions become experience.
-5. Use the round selector, timeline or First button to explore earlier/later evidence.
+1. Open the default audited stable-high Replay. It opens at the first completed
+   cognitive round with actual processed work, after readiness probes. The World
+   shows the real outcome; the architecture retains that round's input observation.
+2. Use the five stage buttons above the World to trace observation, future comparison,
+   selection, actual execution and experience. Each jump selects an original event;
+   no intermediate phase or result is synthesized. The full event timeline remains
+   available, and Next Step still advances one original saved event.
+3. Point to the internal representation: observed facts/Belief, known arrival rules
+   and the service distribution used by the actual saved forecast. Current/future
+   service is hidden. A readiness Probe has no predicted service measurement.
+4. Click Next cognitive cycle. The feedback connection identifies prior complete
+   receipts actually referenced by this round's deliberation. A new experience does
+   not automatically imply a new model version.
+5. Select stable-low in the scenario menu. Replay loads that scenario's independently
+   audited execution, with its own observed World, model parameters and decisions.
+   Live instead applies the scenario only when constructing a new World.
 
 For a change example, select High-to-Low or Low-to-High. Both recovery and
 no-recovery records are included. Technical details expose the original event
@@ -121,10 +134,39 @@ from actual receipt events. They create no additional tick, observation or rewar
 Reduced-motion mode shows the same quantities without interpolation.
 
 The six modules highlight only for corresponding saved evidence. A `deliberation`
-contains belief, prediction, simulation and value ranking in a single record; these
-modules highlight together when present. Separate phase timestamps or measured
+contains belief, prediction, simulation, value ranking and receipt-backed memory
+references in a single record; these modules highlight together when present.
+Memory highlighting here means retrieval, not training or promotion.
+Separate phase timestamps or measured
 durations are not invented. A readiness Probe has no invented prediction of its
 future measurement. The inspector displays the actual original class/record context.
+
+The primary workspace is a single-round view, not six unrelated status lights.
+`web/src/playground/cycle.ts` is a read-only presentation adapter over original
+events. It binds the input observation, belief, model use, candidates, selection,
+authorization, intent, complete outcome and cognitive update by the same Runtime
+run ID. Its feedback links are the intersection of that deliberation's exact
+`memory_references` and receipt-verified previous outcomes. Entering a new observed
+round clears predictions/selection/Actual from the previous round. Unknown model
+parameters remain unknown until a saved forecast actually uses them.
+
+The numerical service parameter is read from `Prediction.raw.p_high`, with its
+recorded model version, informative training count and Health. It is a historical
+binary-service marginal under stationary/iid assumptions, not a learned full
+environment, a calibrated safety probability or access to the private schedule.
+Known queue-conservation/arrival rules were not learned. A labelled fixed-prior
+fallback stays a fixed prior. The internal representation is composed across
+existing modules; the display does not add a second world-model engine.
+The current Queue `Belief.inferred` is empty: it retains authoritative observations
+and declared unknowns. The learned service parameter belongs to the existing
+Prediction adapter and is not relabelled as an observed hidden state.
+
+Data-flow connectors carry original source references and become supported only
+when their corresponding record exists. These are logical data dependencies,
+not measured module timings. The selected module also exposes concise input/output
+in the main workspace; technical raw records stay in the Inspector. The separate
+Future → Decision → Actual table matches the selected candidate's saved H1 vectors
+to its receipt. It never attaches an Actual to an unselected candidate.
 
 Queue futures are saved metric paths/distributions, not complete successor State
 objects. React Flow connects the observed root to existing candidate Actions, and

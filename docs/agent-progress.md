@@ -1435,3 +1435,53 @@ wheel/sdist107Python source integrityが成功。CIには固定44case+独立audi
   source integrity118 files passed. Final distribution rebuild after compatibility
   follow-up is next. reports/osc-playground-queue.png and validation.json retain evidence.
 - Next: final publication review, commit and requested PR; no merge/auto-merge.
+
+## Integrated world-model exhibition revision — 2026-10-15
+
+User requested a substantive rework around PreAct's defining integration of modular
+world-model functions. The previous Queue/tree/module layout obscured the causal
+loop despite using the correct underlying Agent.
+
+- Replaced the detached module strip with a same-round closed-loop workspace:
+  actual World, observed/Belief input, recorded model parameter/provenance,
+  candidate numerical futures, qualified decision, authorized execution and receipt,
+  cognitive update and verified prior-receipt references in the next round.
+- Added a read-only TypeScript round projection; no new predictor, trainer,
+  coordinator or execution path. Current-round data clears at the next observation.
+- Added original-event stage navigation, next/previous cognitive cycles and a visible
+  H1 prediction/Actual table. Default Replay opens at the first real processing round.
+  Replay scenario selection now loads the matching audited record.
+- Reproduced and fixed an initial catalog race that could overwrite visitor Live
+  selection. Fixed prior/current model-use, experience-manifest and retrieval labels.
+- New projection and browser tests verify all six audited scenarios, real action
+  differences, exact source references, no Actual before receipt, no stale future
+  in the next round, and actual feedback to subsequent deliberation.
+- Validation in progress: TypeScript/Vite builds pass. First browser rerun exposed
+  the catalog race and a test locator needing scope after adding the second plot;
+  fixes are in place. Next: final regression, screen-size/offline/restart checks,
+  new reviewed screenshots and PR #19 update (no merge).
+- Full browser regression after the integrated layout passed15 cases in14.9s,
+  including all previous Future Tree and kiosk restart tests. Selected/unselected
+  Actual and pre-/post-promotion model-use assertions are being added before the
+  final run. Python API/Live/Replay regression passed26 cases in21.18s; the remaining
+  storage/disconnect/Policy checks and independent source projection audit are running.
+- Final candidate:15 Chromium cases passed in17.9s, including new unselected-Actual
+  and promotion/non-retroactivity checks. Related Python checks passed26+19=45
+  cases (21.18s and11.76s). Independent projection audit again matched6176 exact
+  original events/336 complete receipts and lifecycle summaries across all6 records.
+- Contracts regeneration, TypeScript/Vite and Ruff247 files passed. Python cognition,
+  Core/service, replay assets and frozen evidence are unchanged by this revision;
+  the earlier864-test full suite/source reproduction/Live soak remain historical
+  evidence in the prior validation report, not claimed as rerun now.
+- Reviewed real Chromium captures at1920x1080 and the candidate/Actual panel;
+  1440x1100 and390x844 checks have no horizontal overflow. Capture runs blocked
+  external networking and observed no external request or page error.
+- New evidence: reports/osc-cognitive-loop.png, osc-cognitive-loop-futures.png and
+  osc-cognitive-loop-validation.json. Main original-event/cycle navigation and
+  constructor-only Live remain offline. No automatic promotion or fabricated State.
+- Remaining: human first-time visitor rehearsal and P1 Physical/evaluation-branch
+  drilldown; no external blocker to the implemented P0 revision. Next: commit and
+  update requested PR #19, preserving no-merge/no-auto-merge.
+- Final fixed revision adds a negative case for unknown prediction responses with
+  retained parameter statistics: they do not become usable numerical forecasts.
+  All15 browser tests passed again in19.8s; final screenshots reflect this candidate.

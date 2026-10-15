@@ -21,7 +21,7 @@ export function modulesFor(item: PlaygroundEvent): ModuleId[] {
   if (kind === 'observed') return ['perception'];
   if (kind === 'deliberation') {
     const candidates = data.simulation?.candidates || [];
-    return ['perception', ...(candidates.some((c: any) => c.records?.length) ? ['prediction' as const] : []), ...(candidates.some((c: any) => c.paths?.length) ? ['simulation' as const] : []), 'decision'];
+    return ['perception', ...(candidates.some((c: any) => c.records?.length) ? ['prediction' as const] : []), ...(candidates.some((c: any) => c.paths?.length) ? ['simulation' as const] : []), 'decision', ...(data.memory_references?.length ? ['memory' as const] : [])];
   }
   if (kind === 'candidate_selection') return ['decision'];
   if (kind === 'outcome') return ['execution', 'perception'];
