@@ -43,6 +43,14 @@ Select a branch to inspect evidence, change decision rounds, replay events, or c
 Direct Agent. Data persists in `.preact/`; restart halts interrupted runs for reconciliation.
 For frontend development, run `npm --prefix web run dev` alongside the API.
 
+The [OSC Interactive Cognitive Playground](docs/osc-playground.md) adds an operable
+2D Queue World, six evidence-driven cognitive modules, candidate futures and
+receipt-backed experience. Open `/#playground` for Live step/pause/autoplay or the
+included independently audited recorded experiments. Live uses the existing Agent,
+Deliberation, LearningCoordinator and Core; recorded replay never executes or learns.
+The guide includes offline preparation, a localhost-only kiosk launch and recovery.
+Reviewed Queue replay projections are included; original raw DBs/private bundles remain excluded.
+
 ```bash
 uv run preact demo software
 uv run preact demo physical

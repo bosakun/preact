@@ -336,3 +336,22 @@ restore Queue ownership and committed run prefixes before the next decision. Nev
 relabel a restored World. Missing Program cells inside the trusted vocabulary use
 labelled native proposal-order fallback for the whole comparison; retain unknown
 model predictions and stop on inference/validation corruption instead of falling back.
+
+### OSC cognitive playground
+
+`src/preact/playground/` contains non-authoritative evidence/replay contracts and
+projections; `src/preact/service/playground.py` manages bounded exhibition sessions.
+Queue fixture construction/preparation/evaluation stays in `domains/queue_playground.py`.
+Reuse CognitiveAgent, DeliberationPlanner, LearningCoordinator, QueueLearningBackend
+and the ordinary Runtime. Do not add a second decision/learning/execution path.
+The `#playground` web entry is separate from the default Software/Physical Future Tree.
+Live controls admit one round at a time and pause at the existing observer boundary;
+server Policy limits/calibration still apply. Public presets are constructor-only;
+never edit authoritative payload/private schedule or expose public promotion.
+Replay is a pinned, read-only projection of independently audited source events and
+complete receipts. It never imports executions, teachers or calibration observations.
+Do not invent module timestamps, predicted States from metric vectors or Actual for
+unchosen candidates. Keep historical adverse results and absent promotions visible.
+Use the offline launch/recovery and new-output reproduction commands in
+`docs/osc-playground.md`; preserve original frozen evidence. Keep captures in a new
+PREACT_E2E_ARTIFACT_DIR. Exact projection audits need the retained private source bundle.

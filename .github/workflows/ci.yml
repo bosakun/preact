@@ -36,6 +36,10 @@ jobs:
           uv run python -m scripts.bench_common_learning --protocol benchmarks/common-learning-v2.json --output .cache/common-learning-v2 --report .cache/common-learning-v2-results.json
           uv run python -m scripts.audit_common_learning --bundle .cache/common-learning-v2 --output .cache/common-learning-v2-audit.json
           uv run python -m scripts.summarize_common_learning --bundle .cache/common-learning-v2 --output .cache/common-learning-v2-metrics.json
+      - name: Export and audit new Queue exhibition projections
+        run: |
+          uv run python -m scripts.export_playground --bundle .cache/common-learning-v2 --output .cache/playground-recordings
+          uv run python -m scripts.audit_playground --bundle .cache/common-learning-v2 --recordings .cache/playground-recordings --output .cache/playground-projection-audit.json
       - name: CPU source bridge across API Python 3.12 and SDK Python 3.11
         run: |
           uv venv --python 3.11 .cache/isaac-import-env
@@ -44,7 +48,7 @@ jobs:
       - run: npm --prefix web ci
       - run: npm --prefix web run contracts
       - name: Generated contracts are current
-        run: git diff --exit-code -- web/src/contracts.schema.json web/src/contracts.ts
+        run: git diff --exit-code -- web/src/contracts.schema.json web/src/contracts.ts web/src/playground.schema.json web/src/playground-contracts.ts
       - run: npm --prefix web run build
       - run: cd web && npx playwright install --with-deps chromium
       - run: npm --prefix web run test:e2e

@@ -1,0 +1,354 @@
+{
+  "$defs": {
+    "PlaygroundCommand": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "command": {
+          "enum": [
+            "step",
+            "auto",
+            "pause",
+            "stop"
+          ],
+          "title": "Command",
+          "type": "string"
+        },
+        "revision": {
+          "minimum": 0,
+          "title": "Revision",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "schema_version",
+        "command",
+        "revision"
+      ],
+      "title": "PlaygroundCommand",
+      "type": "object"
+    },
+    "PlaygroundEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "index": {
+          "minimum": 1,
+          "title": "Index",
+          "type": "integer"
+        },
+        "reference": {
+          "title": "Reference",
+          "type": "string"
+        },
+        "scope": {
+          "enum": [
+            "world",
+            "learning",
+            "lifecycle"
+          ],
+          "title": "Scope",
+          "type": "string"
+        },
+        "event": {
+          "$ref": "#/$defs/RunEvent"
+        },
+        "receipt_verified": {
+          "default": false,
+          "title": "Receipt Verified",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "schema_version",
+        "index",
+        "reference",
+        "scope",
+        "event",
+        "receipt_verified"
+      ],
+      "title": "PlaygroundEvent",
+      "type": "object"
+    },
+    "PlaygroundRecording": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "session": {
+          "$ref": "#/$defs/PlaygroundSession"
+        },
+        "events": {
+          "items": {
+            "$ref": "#/$defs/PlaygroundEvent"
+          },
+          "title": "Events",
+          "type": "array"
+        },
+        "artifacts": {
+          "additionalProperties": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Artifacts",
+          "type": "object"
+        },
+        "digest": {
+          "title": "Digest",
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema_version",
+        "session",
+        "events",
+        "artifacts",
+        "digest"
+      ],
+      "title": "PlaygroundRecording",
+      "type": "object"
+    },
+    "PlaygroundSession": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "mode": {
+          "enum": [
+            "live",
+            "recorded"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "scenario": {
+          "enum": [
+            "stable_high",
+            "stable_low",
+            "high_to_low",
+            "low_to_high"
+          ],
+          "title": "Scenario",
+          "type": "string"
+        },
+        "status": {
+          "title": "Status",
+          "type": "string"
+        },
+        "revision": {
+          "default": 0,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "rounds": {
+          "default": 0,
+          "title": "Rounds",
+          "type": "integer"
+        },
+        "auto": {
+          "default": false,
+          "title": "Auto",
+          "type": "boolean"
+        },
+        "event_count": {
+          "default": 0,
+          "title": "Event Count",
+          "type": "integer"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        },
+        "provenance": {
+          "additionalProperties": true,
+          "title": "Provenance",
+          "type": "object"
+        }
+      },
+      "required": [
+        "schema_version",
+        "id",
+        "label",
+        "mode",
+        "scenario",
+        "status",
+        "revision",
+        "rounds",
+        "auto",
+        "event_count",
+        "error",
+        "provenance"
+      ],
+      "title": "PlaygroundSession",
+      "type": "object"
+    },
+    "PlaygroundSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "session": {
+          "$ref": "#/$defs/PlaygroundSession"
+        },
+        "events": {
+          "items": {
+            "$ref": "#/$defs/PlaygroundEvent"
+          },
+          "title": "Events",
+          "type": "array"
+        },
+        "artifacts": {
+          "additionalProperties": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Artifacts",
+          "type": "object"
+        },
+        "reset": {
+          "default": false,
+          "title": "Reset",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "schema_version",
+        "session",
+        "events",
+        "artifacts",
+        "reset"
+      ],
+      "title": "PlaygroundSnapshot",
+      "type": "object"
+    },
+    "PlaygroundStart": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "scenario": {
+          "default": "stable_high",
+          "enum": [
+            "stable_high",
+            "stable_low",
+            "high_to_low",
+            "low_to_high"
+          ],
+          "title": "Scenario",
+          "type": "string"
+        },
+        "seed": {
+          "default": 11,
+          "maximum": 100000,
+          "minimum": 0,
+          "title": "Seed",
+          "type": "integer"
+        }
+      },
+      "title": "PlaygroundStart",
+      "type": "object",
+      "required": [
+        "schema_version",
+        "scenario",
+        "seed"
+      ]
+    },
+    "RunEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "seq": {
+          "title": "Seq",
+          "type": "integer"
+        },
+        "kind": {
+          "title": "Kind",
+          "type": "string"
+        },
+        "timestamp": {
+          "title": "Timestamp",
+          "type": "string"
+        },
+        "data": {
+          "additionalProperties": true,
+          "title": "Data",
+          "type": "object"
+        }
+      },
+      "required": [
+        "schema_version",
+        "run_id",
+        "seq",
+        "kind",
+        "timestamp",
+        "data"
+      ],
+      "title": "RunEvent",
+      "type": "object"
+    }
+  },
+  "anyOf": [
+    {
+      "$ref": "#/$defs/PlaygroundStart"
+    },
+    {
+      "$ref": "#/$defs/PlaygroundCommand"
+    },
+    {
+      "$ref": "#/$defs/PlaygroundEvent"
+    },
+    {
+      "$ref": "#/$defs/PlaygroundSession"
+    },
+    {
+      "$ref": "#/$defs/PlaygroundSnapshot"
+    },
+    {
+      "$ref": "#/$defs/PlaygroundRecording"
+    }
+  ]
+}

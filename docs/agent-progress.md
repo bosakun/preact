@@ -1371,3 +1371,67 @@ wheel/sdist107Python source integrityが成功。CIには固定44case+独立audi
   The Model B assertion follows activated epoch→promotion artifact rather than comparing
   a promotion record to an epoch digest. The induced inference-failure Prediction clears
   metric intervals along with metrics, preserving its contract before testing fail-closed behavior.
+
+
+## 2026-10-15 — Approved OSC Playground P0 implementation
+
+- User approved docs/osc-playground-plan.md. Independent checkout: .cache/osc-playground-pr
+  in the original workspace; branch feat/osc-cognitive-playground, public baseline5dd9372.
+- Locked Python3.12 dependencies installed with uv; npm ci completed from local cache.
+- Frozen common-learning-v2 reproduction is running in an unchanged baseline copy at
+  .cache/replay-source, new private bundle .cache/osc-common-v2. No original evidence changed.
+- Implemented constructor-only Queue fixtures, existing CognitiveAgent/Coordinator-backed
+  session control, CAS command revisions, receipt-validated event projection, restart history
+  and server-side kiosk route restrictions. Core is unchanged. Focused tests are running.
+- Next: shared frontend reducer/scene/modules/candidate inspector, audited replay exporter,
+  full regression/E2E/offline rehearsal and an open PR without auto-merge.
+
+- Implemented the shared React evidence reducer, 2D work-quantity animation, six
+  evidence-triggered modules, React Flow candidate graph, H1 actual comparison,
+  inspector, controls and recorded event/round seeking. No external font requests.
+- Focused Live/service tests:25 passed; recorded projection/negative tests:9 passed.
+  TypeScript/Vite build passes. An initial browser assertion exposed missing event
+  kind in the JSON inspector; the inspector now includes it. Full browser rerun pending.
+- Frozen32-case source reproduction completed:960 task receipts. Existing full-source
+  auditor is running. Six exhibit source cases independently passed audit before export.
+- Separate projection audit passed:6 cases,6176 original events,336 complete receipts;
+  source event/receipt content preserved. Compressed reviewed projections total about4.3MB.
+- Detected/fixed a cross-read session status/round race using durable session head
+  fences. Live now retains existing server Policy limits/calibration; no client policy
+  override or promotion route. Updated history query keeps Queue journals from
+  displacing the existing Software/Physical history. Kiosk uses local artifact storage.
+- Full Python run is still progressing and has one failure to diagnose at completion.
+  Next: finish browser/regression fixes, offline/restart rehearsal, documentation QA,
+  Core/frozen-file integrity check, focused commit/PR and remote CI.
+
+- Full frozen source audit passed:32 cases/960 task receipts/unsafe0.
+- Chromium E2E passed twice, including existing6 cases and new4 playground cases.
+  External-network-blocked recorded exploration, reduced motion, promotion and adverse
+  result inspection, actual Live controls and reconnect were exercised.
+- Initial full Python run:849 passed/8 skipped/2 failures. Queue source-hash audit
+  correctly detected concurrent source edits; isolated frozen-source retest passed.
+  The other failure exposed BaseHTTPMiddleware/SSE receive interference; replaced
+  it with a kiosk-only plain ASGI boundary. Related35 tests pass. Full rerun is active
+  with src frozen; no frozen test/protocol has been weakened.
+- A13-session actual Live soak reached56 High-to-Low rounds and then12 fresh sessions,
+  with no promotion. Its harness failed at final catalog parsing (extra await on JSON);
+  repaired the harness and restarted all13 sessions into a fresh output directory.
+- Re-exporting final reviewed assets to a new directory so lifecycle summaries reflect
+  the final projection logic. The independent projection auditor now checks artifact
+  summaries as well as exact original event/receipt content.
+
+- Final regression:864 passed/8 optional Blender skips in1157.85s. Core/Gate/authority
+  and frozen protocol/report files are unchanged. After retaining actual Software
+  cognitive CLI history, the affected API/Live/Replay/storage/disconnect suite passed45
+  tests in44.38s. The CLI history case reproduced the omission before repair.
+- Final Chromium:12 passed in29.1s, including an isolated kiosk process restart, offline
+  Live/Replay, retained old receipt/no redispatch and a fresh World.
+- Final6 exports passed independent source audits and exact event/complete receipt/
+  allowlisted lifecycle-summary projection checks.
+-13-session Live soak passed:68 primary+208 preparation+108 evaluation complete
+  receipts, no pending receipts or promotion. Changed source remains await_promotion.
+  CPU158.541s/wall165.208s, process peak632078336B; external API cost0, local cost unknown.
+- TypeScript/Vite, Ruff247 files, Core contract byte equality and initial wheel/sdist
+  source integrity118 files passed. Final distribution rebuild after compatibility
+  follow-up is next. reports/osc-playground-queue.png and validation.json retain evidence.
+- Next: final publication review, commit and requested PR; no merge/auto-merge.
