@@ -279,6 +279,15 @@
           "minimum": 0,
           "title": "Seed",
           "type": "integer"
+        },
+        "pipeline": {
+          "default": "native",
+          "enum": [
+            "native",
+            "local_llm"
+          ],
+          "title": "Pipeline",
+          "type": "string"
         }
       },
       "title": "PlaygroundStart",
@@ -286,7 +295,8 @@
       "required": [
         "schema_version",
         "scenario",
-        "seed"
+        "seed",
+        "pipeline"
       ]
     },
     "RunEvent": {

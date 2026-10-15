@@ -127,7 +127,7 @@ async def independent_evaluation(recovery, candidate, generation, *, high, polic
     return cases
 
 
-async def prepare_queue(store, artifacts, scenario, seed, episode, policy=None):
+async def prepare_queue(store, artifacts, scenario, seed, episode, policy=None, *, reasoner=None):
     world = queue_world(scenario, seed)
     high, shift, _ = PRESETS[scenario]
     teacher = InformationQueueWorld(
@@ -158,7 +158,12 @@ async def prepare_queue(store, artifacts, scenario, seed, episode, policy=None):
             recovery, candidate, generation, high=(not high if shift else high), policy=policy
         )
 
-    backend = QueueLearningBackend(lifecycle, evaluate)
+    if reasoner is None:
+        backend = QueueLearningBackend(lifecycle, evaluate)
+    else:
+        from preact.domains.queue_module_proposals import QueueModuleLearningBackend
+
+        backend = QueueModuleLearningBackend(lifecycle, evaluate, reasoner)
     learning = await LearningCoordinator.create(backend)
     return world, learning, training
 

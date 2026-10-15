@@ -12,6 +12,7 @@ Scenario = Literal["stable_high", "stable_low", "high_to_low", "low_to_high"]
 class PlaygroundStart(Contract):
     scenario: Scenario = "stable_high"
     seed: int = Field(default=11, ge=0, le=100000)
+    pipeline: Literal["native", "local_llm"] = "native"
 
 
 class PlaygroundCommand(Contract):

@@ -5,6 +5,7 @@ export type Playground =
 export type SchemaVersion = string;
 export type Scenario = "stable_high" | "stable_low" | "high_to_low" | "low_to_high";
 export type Seed = number;
+export type Pipeline = "native" | "local_llm";
 export type SchemaVersion1 = string;
 export type Command = "step" | "auto" | "pause" | "stop";
 export type Revision = number;
@@ -40,6 +41,7 @@ export interface PlaygroundStart {
   schema_version: SchemaVersion;
   scenario: Scenario;
   seed: Seed;
+  pipeline: Pipeline;
 }
 export interface PlaygroundCommand {
   schema_version: SchemaVersion1;

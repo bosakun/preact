@@ -57,7 +57,7 @@ Normal service mode, without `PREACT_KIOSK=1`, retains Software/Physical executi
 the default Future Tree and a link to the playground. Queue preparation/evaluation
 runs do not displace Software/Physical history in that UI. Kiosk mode rejects the
 generic run, cancellation, arbitrary artifact, ledger and API documentation routes
-on the server. Public Queue requests accept scenario and bounded seed only. They
+on the server. Public Queue requests accept a scenario, bounded seed and fixed module-composition preset only. They
 cannot provide policies, code, state, private schedules, models or promotions.
 Live preparation, evaluation and cognitive runs retain the server-owned Policy
 limits, including calibration. The historical benchmark replays retain their
@@ -65,42 +65,96 @@ original policies and are explicitly recorded, not newly executed.
 
 ## A thirty-second visitor path
 
-1. Read the task: an AI controls how much work to accept for a machine. More completed
-   work is desirable, but accepting too much creates a backlog and risks overflow.
-   The machine's current capacity is hidden from the AI. The four boxes represent
-   accepted work in transit, work waiting for processing, the machine and completed
-   work. A token is one fungible unit of work, not an individually tracked job.
-2. The default audited stable-high Replay opens at the first completed round with
-   real processed work, after readiness probes. The World shows the actual result;
-   the adjacent story states what was observed before that decision.
-3. Read the three Japanese alternative cards: accept3, accept1 or accept nothing.
-   Their numbers are additional completed work predicted from the input observation
-   over the saved horizon, assuming no further acceptance. They are means, not
-   successor States. Clicking an alternative inspects it and never executes it.
-4. Compare the selected action's next-tick forecast with the actual processed amount.
-   Newly submitted work arrives after two ticks: the just-processed work may have
-   been accepted earlier. Click `次の判断を見る` to advance one actual cognitive cycle.
-   `自動で進める` visits original observation, deliberation, selection, outcome and
-   cognitive-update records at a presentation cadence. Polling does not reset it.
-5. Select stable-low in the scenario menu. Replay loads that scenario's independently
-   audited execution, with its own observed World, model parameters and decisions.
-   Live instead applies the scenario only when constructing a new World.
+1. Start with the two large regions: **outside World** and **inside PreAct**.
+   Queue World is the concrete environment used to show the architecture. Accepted
+   work travels to a queue, is processed by a machine and becomes completed work.
+   Its actual capacity is hidden; a square denotes a fungible work unit, not a job ID.
+2. Inside, **cognition** turns a formal observation into an internal representation.
+   **prediction** combines known arrival/conservation rules with the learned service
+   distribution. These are distinct from the outside World and its private schedule.
+3. **Simulation** branches into saved candidate futures. Lines represent numerical
+   queue paths; the large numbers are predicted additional completed work. These
+   are model calculations under no further acceptance, not complete future States.
+   **Decision** narrows these alternatives to one verified action.
+4. Follow **execution** back across the Action boundary to the World. Its Receipt
+   supplies the actual result. **Experience/learning** returns confirmed experience
+   to the following cognitive round. Learning, independent evaluation and explicit
+   promotion remain separate stages.
+5. Click `この循環を再生` to rewind to the observation of this real round and follow
+   its actual stage records. `次の処理を見る` visits the next original observation,
+   deliberation, selection, authorization, intent, confirmed outcome or update.
+   Several functions can share one deliberation record; no separate timestamps are
+   invented. Bright connectors mean supporting source records, not measured latency.
 
-The six plain-language function buttons explain cognition, prediction, simulation,
-decision, execution and memory in the context of this task. Technical class names,
-event kinds, Goal999/Reward/Receipt counters, model parameters and raw JSON are behind
-`技術者向け詳細`. That view retains the integrated dependency diagram, five stage
-buttons, previous/next-cycle navigation and original-event timeline. In that view,
-Next Step advances one saved event; in ordinary Replay, the Japanese next-decision
-button advances a complete cycle. Live always admits one real round, regardless of
-the view. Switching views does not move the replay cursor or create executions.
+The default audited stable-high Replay opens on a completed round with processed
+work, after readiness probes. The three native branches compare accept3, accept1
+and accept0. Clicking an alternative inspects it without executing it. The selected
+candidate alone receives Actual. Newly accepted work arrives two ticks later, so
+just-completed work may have been accepted earlier.
 
-For a change example, select High-to-Low or Low-to-High. Both recovery and
-no-recovery records are included. Technical details expose the original event
-reference, timestamp, implementation classes, inputs/outputs, candidate fingerprints,
-authorization, receipt, model version and available lifecycle artifact summaries.
-Automated/browser rehearsal is not evidence of first-time visitor comprehension;
-have a colleague perform this path before the exhibition.
+All six module roles and implementation families appear in the ordinary diagram.
+`技術者向け詳細` exposes implementation classes, exact input/output records, State,
+Action, Prediction, Gate, Receipt and model identifiers. Switching views preserves
+the cursor and creates no executions. Technical Next Step visits every original
+stored event. Live always admits one real round and pauses at its observer boundary.
+
+Select stable-low or a change scenario to view its own independently audited run.
+Low-to-High's adverse result remains visible. Automated layout/record checks are not
+human comprehension evidence; rehearse this path with a new visitor before OSC.
+
+## Real module implementations and composition
+
+The diagram is backed by the following existing contracts and implementations:
+
+| Function | Implementation | Actual data passed onward |
+| --- | --- | --- |
+| Cognition | Observation adapter, WorldPlanner, CognitiveAgent | Formal State, Belief and receipt-backed memory references |
+| Action proposals | Native Queue candidates, or ModelProposer + local Nemotron | State-bound existing Action candidates |
+| Prediction | QueueLearningBackend binding + QueuePredictionAdapter | Guarded learned service distribution or explicitly labelled fixed prior |
+| Simulation | QueueTemporalEngine / paths | Saved three-tick metric paths, weights and Prediction vectors |
+| Decision | DeliberationPlanner + CandidateSelector | Numeric goal/value comparison, qualification and one chosen Action |
+| Verification/execution | Registry, InformationBoundVerifier, Core Runtime, SelectionWorld | Authorization, durable intent, actual Observation and complete Receipt |
+| Memory/learning | EpisodicMemory, TransitionDataset, LearningCoordinator | Confirmed experience, Health, training/evaluation and explicit promotion |
+
+Choose `Live` and the `実装構成` preset before Start. Native uses the original
+three candidates. The local-LLM preset really calls the existing ModelProposer to
+rank those domain-owned candidates, then passes up to two to the same numerical
+forecast/planner. Thus LLM output affects the formal candidate set; it is not a
+commentary generator. A binding-only QueueLearningBackend subclass composes this
+proposal adapter without replacing learning or execution. It records native inputs,
+actual structured ranking, resulting fingerprints, provider usage and model version
+inside the durable deliberation. Readiness rounds with one probe candidate skip
+LLM inference and are explicitly labelled as not called.
+
+This implementation demonstrates two real compositions, not arbitrary plug-in
+support. It does not make the LLM a simulator, a learned dynamics model or an
+execution authority. Invalid output/identity/deadline failures stop that execution;
+there is no pretend LLM fallback. No comparison establishes an LLM performance gain.
+The included six frozen Replays are native runs. Stopped local-LLM Live sessions
+remain interactively explorable as recorded history with their actual provenance;
+they are not relabelled as independently audited benchmark archives.
+
+### Enable the optional local LLM
+
+Prepare/start the pinned authenticated local runner using [local-model.md](local-model.md)
+before booth hours. From another terminal, use the localhost kiosk command above
+with these additional operator-owned settings (the service stays in `local` mode):
+
+```sh
+export PREACT_PLAYGROUND_LOCAL_LLM=1
+export PREACT_LOCAL_MODEL_MANIFEST=.cache/local-model/manifest.json
+export PREACT_LOCAL_MODEL_KEY_FILE=.cache/local-model/runner-token
+export PREACT_LOCAL_MODEL_URL=http://127.0.0.1:8125
+```
+
+Restart the API after setting them. `/api/playground/catalog` reports
+`module_configurations` with actual availability and model identity. The connector
+checks model/runner files, private token permissions and serving identity through
+existing LocalNemotron. Missing/mismatched configuration leaves LLM unavailable
+while native/Replay remain usable; Start with an unavailable LLM returns503.
+Public clients cannot set model endpoints, paths, credentials or policies. No external
+service or runtime download is required once the optional model is prepared. The API
+owns its client connection only; stopping it does not stop an independently managed runner.
 
 ## Live controls
 
@@ -245,8 +299,9 @@ event coverage/content and complete receipts. Keep historical outputs unchanged.
 Preparation and independent evaluation are not instantaneous. Live waiting is shown
 honestly; use the shipped Replay for an immediate learning/promotion story. Process
 CPU intervals include other work in the service process, and session wall time
-includes pauses. External API cost is zero for this CPU fixture; local monetary
-compute cost is not estimated.
+includes pauses. External API cost is zero for this CPU fixture and the loopback LLM; local monetary
+compute cost is not estimated. Python process CPU/RSS does not attribute resources
+used by a separate llama.cpp process.
 
 ## Recovery and validation
 
@@ -282,7 +337,7 @@ reduced-motion Replay with external requests blocked. Existing Software/Physical
 browser cases remain in the suite. Live environment editing, public promotion,
 extensive cross-model comparisons and Physical linking remain outside P0.
 
-## Local acceptance evidence
+## Historical P0 acceptance evidence
 
 [Validation summary](../reports/osc-playground-validation.json) records actual commands,
 counts, source/projection audits and the bounded13-session Live soak. Python regression
@@ -291,3 +346,11 @@ The12 Chromium cases include actual kiosk process restart with networking limite
 localhost. Core and historical frozen evidence are unchanged.
 
 ![Recorded Queue Tick12 with real candidate selection and completed receipt](../reports/osc-playground-queue.png)
+
+## Modular architecture acceptance evidence
+
+The wholesale architecture rebuild and real native/LLM composition are documented
+in [the new validation report](../reports/osc-modular-validation.json). Previous UI
+reports above describe their historical candidates, not the redesigned screen.
+
+![Outside World and actual modular cognition, simulation and execution using local LLM proposals](../reports/osc-modular-live.png)

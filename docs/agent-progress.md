@@ -1526,3 +1526,69 @@ unchanged. Next: visual review, negative/behavioral browser tests and PR update.
 - Implementation and local validation complete; preparing the requested update to
   PR #19. No merge or automatic promotion. Next external check: remote CI and a
   human visitor rehearsal; P1 Physical/evaluation-branch exploration remains separate.
+
+## Architecture-first rebuild and real interchangeable module composition — 2026-10-15
+
+User explicitly rejected the Queue-task-first explanation and requested a wholesale
+rebuild representing modular world-model cognition/prediction/simulation/decision/
+execution. Also requested real implementations using simulators/LLMs, not just boxes.
+
+- Replacing the ordinary view with one spatial system diagram: outside World;
+  observation boundary; PreAct's internal observed/Belief representation and learned
+  dynamics; branching numerical futures; decision narrowing to one action; formal
+  execution returning to World; receipt-backed experience returning to cognition.
+- Adding a bounded native/local-LLM composition preset. It reuses existing
+  StructuredReasoner/ModelProposer and LocalNemotron. The LLM ranks native actions
+  and proposes up to2 candidates; existing guarded Queue forecasts, numeric values,
+  pure selector, verification, authorization, intent and receipt still execute the
+  one real action. Native defaults and frozen protocols remain intact.
+- Reusing QueueLearningBackend through a binding-only subclass; LearningCoordinator
+  and the lifecycle/training/evaluation/promotion algorithms are not duplicated.
+- Verified the existing local Nemotron4B/llama.cpp model and authenticated runner
+  identities. It is actually reachable; no new download/paid service was requested.
+- Initial focused tests exposed test-fixture capability fields and a native prepare
+  monkeypatch compatibility issue; fixed by preserving the native call signature.
+  Invalid LLM output propagates EngineFailure instead of returning a result; negative
+  tests now assert that boundary and inspect absence of intent/outcome.
+- Next: actual local-LLM composition execution/receipt audit, final architecture
+  rendering and interaction tests, full Python regression with source files frozen,
+  independent record audits, documentation and PR update. No merge.
+
+- Actual local-LLM composition completed12 source rounds,12 complete receipts and
+  4 actual model calls;16 separate preparation receipts. Eight readiness rounds
+  correctly skipped inference. Status was round_limit, Goal success false, unsafe0.
+  Python interval CPU5.003s, wall18.280s, lifetime peak RSS186892288B; existing
+  llama.cpp process resources are separate/unattributed and local monetary cost unknown.
+- Browser-selected local_llm Live completed10 rounds with10 verified receipts and
+  2 actual Nemotron calls. The native3 candidates became2 LLM-ranked candidates,
+  then the existing numeric selector/Runtime executed. Stopping retained original
+  module provenance in interactive recorded history; rewinding cleared stale futures.
+  No browser errors/external browser requests. No claim of performance benefit.
+- A separate read-only audit matched all173 UI-projected events against their
+  original ledger, revalidated10 complete receipt transitions, and checked actual
+  ranking/subset/state/fingerprint/authorization/intent/outcome joins. It also
+  revalidated the12-round direct integration and its4 provider calls. These owned
+  integration runs are not relabelled as frozen benchmark evidence.
+- Independent shipped-record projection audit passed again:6 cases,6176 exact events,
+  336 complete receipts. Historical recordings, benchmark protocols, Core/cognition
+  algorithms and native Queue learning backend are unchanged.
+- Final architecture/Inspector browser regression passed16 cases in17.1s (a final
+  no-forecast wording assertion follows). 1920x1080 and1440x1100 captures have all6
+  module bottoms at977.2px and no horizontal overflow;390px mobile scrolls. No external
+  browser requests/page errors. Human first-time comprehension still needs rehearsal.
+- Ruff check and format249 files passed; regenerated core contracts unchanged.
+  Full Python regression is running with Python sources frozen. Next: inspect its
+  result, capture final candidate, publish the authorized PR #19 update; do not merge.
+
+- Final full Python regression:868 passed,8 optional Blender skips in1069.40s.
+  Python sources remained frozen throughout. No Core/cognition/learning authority change.
+- Final whole-browser suite:16 passed in17.4s. Additional quantity/no-outcome animation
+  assertions passed1 case in2.7s. Real retained LLM history also passed the final
+  implementation Inspector check (input State/native3 candidates, actual structured
+  output, proposed2 candidates and exact model version).
+- Final TypeScript/Vite build and contracts passed; JS506.50kB emits a size warning,
+  not a build failure. Core generated contracts remain unchanged. Ruff check/format
+ 249 files passed. Final report/captures use new `reports/osc-modular-*` paths.
+- Local acceptance complete. Preparing the authorized PR #19 update, with no automatic
+  merge. Human first-time visitor rehearsal and remote CI remain external checks;
+  P1 extensive cross-model comparisons and Physical linking are not claimed complete.

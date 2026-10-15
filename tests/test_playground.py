@@ -49,6 +49,22 @@ async def start(client, scenario="stable_high"):
     return response.json()["id"]
 
 
+async def test_public_module_selection_never_substitutes_an_unconnected_llm(exhibition):
+    app, client = exhibition
+    catalog = (await client.get("/api/playground/catalog")).json()
+    llm = next(c for c in catalog["module_configurations"] if c["id"] == "local_llm")
+    assert llm["available"] is False and llm["status"] == "not_connected"
+    rejected = await client.post("/api/playground/sessions", json={"pipeline": "local_llm"})
+    assert rejected.status_code == 503
+    assert not app.state.playground.active
+    assert (
+        await client.post("/api/playground/sessions", json={"pipeline": "arbitrary"})
+    ).status_code == 422
+    assert (
+        await client.post("/api/playground/sessions", json={"model_url": "http://localhost:9"})
+    ).status_code == 422
+
+
 async def control(client, identifier, command, revision):
     return await client.post(
         f"/api/playground/sessions/{identifier}/control",

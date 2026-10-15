@@ -49,9 +49,11 @@ Belief, internal model used, candidate numerical futures, decision, actual execu
 and confirmed experience referenced by the next round. Open `/#playground` for Live step/pause/autoplay or the
 included independently audited recorded experiments. Live uses the existing Agent,
 Deliberation, LearningCoordinator and Core; recorded replay never executes or learns.
-The ordinary view introduces an AI choosing how much work to accept for a machine,
-with Japanese alternatives and predicted-versus-actual work quantities. The technical
-view exposes the full architecture, original events and model provenance.
+The ordinary view separates outside World from PreAct's internal representation,
+learned dynamics, branching simulation, decision, execution and experience feedback.
+Implementation labels show how these world-model functions are reproduced. An opt-in
+local-LLM preset uses real Nemotron proposals with the same numeric simulator and
+Core; the technical Inspector exposes exact module inputs, outputs and provenance.
 The guide includes offline preparation, a localhost-only kiosk launch and recovery.
 Reviewed Queue replay projections are included; original raw DBs/private bundles remain excluded.
 

@@ -1,6 +1,6 @@
 # OSC 2026 Interactive Cognitive Playground: implementation proposal
 
-Status: approved by the user on 2026-10-15; P0 implementation in progress.
+Status: approved by the user on 2026-10-15; P0 implementation and local modular-composition validation complete. The architecture-first redesign below supersedes the earlier task-first visitor presentation.
 Inspection date: 2026-10-15. Exhibition target: 2026-10-17.
 Source reviewed: public main `5dd9372c69b2dcc2a49590d02e8642685c79b1bf`, which merges PR #18.
 
@@ -60,12 +60,23 @@ Core sources, Gate rules, authorization, durable intents and receipt semantics s
 
 ## Visitor experience
 
-The ordinary view introduces a concrete work-acceptance task: an AI accepts work
-for a machine whose current capacity it cannot observe. It explains the tokens,
-compares recorded additional completed-work quantities for each acceptance option,
-then shows the actual outcome and experience feedback. Six Japanese function buttons
-connect the task to the architecture. Technical counters, class names, dependency
-diagram, model parameters and original-event exploration are in the technical view.
+The ordinary view separates the outside World from PreAct's internal modular
+world-model functions. It shows cognition's internal observed representation,
+prediction's learned dynamics, simulation's branching numerical futures, decision's
+single selected action, execution back into the World and receipt-based feedback.
+Queue is the concrete environment illustrating that architecture, rather than the
+main conceptual subject. Each role names its actual implementation family; technical
+mode exposes exact class/input/output/provenance. Ordinary Replay steps actual
+stage records, and a replay-this-cycle button starts from its original observation.
+
+The user's additional implementation request is fulfilled by two fixed real
+compositions: native Queue candidates, or existing ModelProposer + authenticated
+LocalNemotron proposals, followed by the same guarded learned numeric predictor,
+QueueTemporalEngine, DeliberationPlanner and Core. The binding-only adapter lives
+in the Queue domain, records actual inputs/structured output/usage and cannot execute.
+Readiness with a single candidate skips LLM inference explicitly. Public controls
+cannot set arbitrary engines or endpoints. Missing LLM access is unavailable, not a
+heuristic substitute. LearningCoordinator and explicit promotion stay unchanged.
 
 The main screen uses large Japanese labels with technical English module names. The 2D World
 and the integrated cognitive loop share the primary workspace: submitted work in transit,

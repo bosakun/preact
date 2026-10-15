@@ -1,7 +1,8 @@
 import { test, expect } from '@playwright/test';
 import { reconstructEvidence } from '../src/playground/evidence';
 import { cognitiveCycle, cycleStops, firstWorkingCycle } from '../src/playground/cycle';
-import { visitorOptions } from '../src/playground/VisitorStory';
+import { visitorOptions } from '../src/playground/queueEvidence';
+import { architectureStops } from '../src/playground/ArchitectureWorld';
 
 test.describe.configure({ mode: 'serial' });
 const captureDirectory = process.env.PREACT_E2E_ARTIFACT_DIR || '../.cache/osc-browser-artifacts';
@@ -89,42 +90,52 @@ test('all audited scenarios connect real beliefs, forecasts, choices and next-ro
   expect(high.map(c => c.action)).not.toEqual(low.map(c => c.action));
 });
 
-test('the ordinary view explains the task, alternatives, actual result and next decision', async ({ page }) => {
+test('the system diagram connects observed World, internal model, real branches and execution', async ({ page }) => {
   const writes: string[] = [];
   page.on('request', r => { if (r.method() !== 'GET') writes.push(r.url()); });
   const saved = await (await page.request.get('/api/playground/sessions/queue-stable_high-learned-11')).json();
   const end = firstWorkingCycle(saved.events);
+  const cycle = cognitiveCycle(saved.events.slice(0, end));
   await page.goto('/#playground');
-  await expect(page.getByRole('heading', { name: '仕事の受付を、AIに任せてみる。' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: '仕事の流れ', exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { name: '世界を捉え、内部で未来を試し、選んで動かす。' })).toBeVisible();
+  const world = page.getByRole('region', { name: '外の世界', exact: true });
+  const inside = page.getByRole('region', { name: 'PreActの内部', exact: true });
+  await expect(world).toBeVisible();
+  await expect(world.locator('.aw-transfer i')).toHaveCount(6); // three actual arrivals and completions
+  await expect(inside).toBeVisible();
   await expect(page.locator('.pg-inspection')).not.toBeVisible();
-  await expect(page.locator('.pg-future-stage')).not.toBeVisible();
-  const story = page.getByRole('region', { name: 'AIは何を考えたか' });
-  await expect(story).toContainText('機械がいま何単位処理できるかは、AIには見えていません');
-  await expect(story.locator('.pg-visitor-options>button')).toHaveCount(3);
-  await expect(story).toContainText('このあと追加の受付をせず、3回時間を進めた場合');
-  await expect(story.locator('.pg-story-result')).toContainText('3単位の仕事が終わり');
-  await expect(story.locator('.pg-story-memory')).toContainText('今回の実行結果を');
-  await story.locator('.pg-visitor-options>button:not(.chosen)').first().click();
-  await expect(story.locator('.pg-visitor-match')).toContainText('実際 未実行');
-  await page.getByRole('region', { name: 'PreActが分担する6つの働き' }).getByRole('button', { name: /もしもを試す/ }).click();
-  await expect(story.locator('.pg-visitor-explanation')).toContainText('ここでは現実の仕事は動きません');
-  const next = cycleStops(saved.events).find(e => e.index > end)!;
-  await page.getByRole('button', { name: '次の判断を見る', exact: true }).click();
-  await expect(page.getByTestId('world-time')).toContainText(`時刻 ${next.event.data.belief.observed.payload.tick}`);
-  await expect(story.locator('.pg-story-result')).toContainText('仕事を3単位、受け付ける');
+  await expect(inside.locator('.aw-module-title')).toHaveCount(6);
+  await expect(page.getByTestId('aw-internal-state')).toHaveAttribute('data-state-id', cycle.observed!.event.data.state.id);
+  await expect(page.getByTestId('aw-future')).toHaveCount(3);
+  await expect(inside).toContainText('数値シミュレータ QueueTemporalEngine');
+  await expect(inside).toContainText('ネイティブの候補生成');
+  await expect(inside).toContainText('次tickの処理量：予想 3 → 実際 3');
+  await expect(page.getByTestId('aw-flow-action')).toHaveAttribute('data-reference', cycle.intent!.reference);
+  await expect(page.getByTestId('aw-flow-experience')).toHaveAttribute('data-reference', cycle.outcome!.reference);
+  await expect(page.getByTestId('aw-flow-memory-cognition')).toHaveAttribute('data-reference', cycle.deliberation!.reference);
+  await inside.locator('.aw-future-branches > button:not(.chosen)').first().click();
+  await expect(page.locator('.aw-explanation')).toContainText('Simulation');
   await page.getByRole('checkbox', { name: '技術者向け詳細' }).check();
-  await expect(page.getByRole('slider', { name: '記録の再生位置' })).toHaveValue(String(next.index));
-  await expect(page.locator('.pg-visitor-story')).toHaveCount(0);
+  await expect(page.getByRole('slider', { name: '記録の再生位置' })).toHaveValue(String(end));
   await expect(page.locator('.pg-inspection')).toBeVisible();
+  await expect(page.getByRole('region', { name: '予測と実際の対応' }).getByRole('cell', { name: '未確定 / 未選択', exact: true })).toHaveCount(2);
   await page.getByRole('checkbox', { name: '技術者向け詳細' }).uncheck();
-  await expect(story).toBeVisible();
-  const nextObservation = saved.events.find((e: any) => e.index > next.index && e.scope === 'world' && e.event.kind === 'observed');
+  const next = architectureStops(saved.events).find(e => e.index > end)!;
+  await page.getByRole('button', { name: '次の処理を見る', exact: true }).click();
+  await expect(page.locator('.pg-timeline input')).toHaveValue(String(next.index));
+  await expect(page.getByTestId('aw-internal-state')).toHaveAttribute('data-state-id', next.event.data.state.id);
+  await expect(page.getByTestId('aw-future')).toHaveCount(0);
+  await expect(world.locator('.aw-transfer i')).toHaveCount(0); // no new outcome, no animated actual work
+  await expect(inside).toContainText('この時点にモデル利用を示す予測記録はありません。');
+  await expect(page.getByTestId('aw-flow-action')).toHaveAttribute('data-reference', '');
+  await expect(page.getByTestId('aw-flow-experience')).toHaveAttribute('data-reference', '');
   await page.getByRole('button', { name: '自動で進める', exact: true }).click();
-  await expect(page.locator('.pg-timeline input')).toHaveValue(String(nextObservation.index));
+  const deliberation = architectureStops(saved.events).find(e => e.index > next.index)!;
+  await expect(page.locator('.pg-timeline input')).toHaveValue(String(deliberation.index));
   await page.getByRole('button', { name: '一時停止', exact: true }).click();
-  await expect(story.locator('.pg-story-result')).toContainText('実行結果は、まだ確定していません');
-  await expect(story.locator('.pg-visitor-options>button')).toHaveCount(0);
+  await expect(page.getByTestId('aw-future')).toHaveCount(3);
+  await expect(inside.locator('.chosen')).toHaveCount(0);
+  await expect(page.getByTestId('aw-flow-experience')).toHaveAttribute('data-reference', '');
   expect(writes).toEqual([]);
 });
 
@@ -144,7 +155,7 @@ test('Live controls admit actual single rounds, pause, autoplay and new sessions
   const catalogGate = new Promise<void>(resolve => { releaseCatalog = resolve; });
   await page.route('**/api/playground/catalog', async route => { await catalogGate; await route.continue(); });
   await page.goto('/#playground');
-  await expect(page.getByRole('heading', { name: '仕事の流れ', exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { name: '外の世界', exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Live', exact: true }).click();
   releaseCatalog();
   await expect(page.getByTestId('mode-label')).toContainText('LIVE · 開始待ち');

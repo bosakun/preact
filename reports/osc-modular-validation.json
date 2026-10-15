@@ -1,0 +1,320 @@
+{
+  "base_candidate": "c35e12193be8bdeff8ff6d57acdbf88eded31a2a",
+  "scope": "Architecture-first wholesale visitor redesign and real native/local-LLM composition; Queue domain-owned adapter, no Core/cognition/learning algorithm change",
+  "module_implementations": {
+    "cognition": "Observation adapter / CognitiveAgent / WorldPlanner",
+    "proposal": "Native Queue candidates, or ModelProposer / LocalNemotron",
+    "prediction": "Existing guarded learned service distribution or labelled fixed prior",
+    "simulation": "QueueTemporalEngine / paths / saved numerical vectors",
+    "decision": "DeliberationPlanner / pure selector",
+    "execution": "Independent Registry/InformationBoundVerifier / Core Runtime / SelectionWorld",
+    "experience": "EpisodicMemory / TransitionDataset / LearningCoordinator / QueueLearningBackend"
+  },
+  "real_local_llm": {
+    "status": "passed-real-local-llm-composition",
+    "engine_id": "local-nemotron:nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16",
+    "engine_version": "d97cb9482029c886c4084b75765a1d9a562d117adb385f796f15ea5de1169202",
+    "source_rounds": 12,
+    "complete_receipts": 12,
+    "preparation_receipts": 16,
+    "actual_llm_calls": 4,
+    "result_status": "round_limit",
+    "goal_success": false,
+    "cpu_seconds": 5.003449,
+    "wall_seconds": 18.279946624999866,
+    "peak_process_rss_bytes": 186892288,
+    "resource_scope": "Python process interval and lifetime peak; separate existing llama.cpp process resource use not attributed",
+    "external_paid_api_calls": 0,
+    "local_compute_dollar_cost": null
+  },
+  "browser_real_local_llm": {
+    "status": "passed-real-llm-live-and-history-ui",
+    "session": "768dc10ffbd94c6c8c229681233f7573",
+    "rounds": 10,
+    "pipeline": "local_llm",
+    "actual_llm_calls": 2,
+    "complete_receipts": 10,
+    "errors": [],
+    "external": [],
+    "engine_id": "local-nemotron:nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16",
+    "engine_version": "d97cb9482029c886c4084b75765a1d9a562d117adb385f796f15ea5de1169202",
+    "final_history_inspector": "passed real retained history using final UI: recorded mode, two original futures, implementation/inputs/structured output/version"
+  },
+  "independent_source_receipt_audit": {
+    "live_ui": {
+      "status": "passed-source-receipt-module-audit",
+      "source_rounds": 10,
+      "complete_receipts": 10,
+      "real_llm_calls": 2,
+      "exact_projected_events": 173
+    },
+    "direct_integration": {
+      "status": "passed-source-receipt-module-audit",
+      "source_rounds": 12,
+      "complete_receipts": 12,
+      "real_llm_calls": 4,
+      "exact_projected_events": 0
+    }
+  },
+  "allowlisted_actual_example": {
+    "source_reference": "cabaa026b2dd436f994f582cfaf9f443:5",
+    "state_id": "74dee55654693fb583159d720c92d9cd0893918c872cce3e9c164cb89aa20ab7",
+    "observed_tick": 9,
+    "engine_id": "local-nemotron:nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16",
+    "engine_version": "d97cb9482029c886c4084b75765a1d9a562d117adb385f796f15ea5de1169202",
+    "input_action_amounts": [
+      3,
+      1,
+      0
+    ],
+    "actual_structured_output": {
+      "ranking": [
+        0,
+        1,
+        2
+      ]
+    },
+    "proposed_fingerprints": [
+      "40342dddc345ca0c973af2e55f9413a7119c91ad2724fc8316794ee48f15213e",
+      "31a8d1c2b802f37b8b7f7f2e41365549997d9dda24c4343df28de4fc8b7ebca6"
+    ],
+    "selected_fingerprint": "40342dddc345ca0c973af2e55f9413a7119c91ad2724fc8316794ee48f15213e",
+    "selected_action": {
+      "schema_version": "1",
+      "id": "9fc67a8e5c504837b066bc5a40b368bf",
+      "name": "Submit 3 jobs",
+      "kind": "submit",
+      "state_id": "74dee55654693fb583159d720c92d9cd0893918c872cce3e9c164cb89aa20ab7",
+      "payload": {
+        "amount": 3
+      },
+      "rationale": "",
+      "duration": 1
+    },
+    "saved_numeric_prediction": {
+      "queue": [
+        0,
+        0,
+        0
+      ],
+      "delivered": [
+        3,
+        6,
+        6
+      ],
+      "pending_work": [
+        3,
+        0,
+        0
+      ]
+    },
+    "authorization_reference": "cabaa026b2dd436f994f582cfaf9f443:44",
+    "intent_reference": "cabaa026b2dd436f994f582cfaf9f443:46",
+    "receipt": "c271cad40a821289b7ffeafc17046a7f967cc331cd736f2583d80aa2bc639b73",
+    "actual": {
+      "schema_version": "1",
+      "state": {
+        "schema_version": "1",
+        "id": "abed43945de60dda3aed69bf25edfcf376d5bfcb79b848b09db1ff1f33a12d1c",
+        "domain": "cognitive_queue_v2",
+        "kind": "observed",
+        "payload": {
+          "tick": 10,
+          "queue": 0,
+          "pending": [
+            {
+              "due": 11,
+              "amount": 3
+            }
+          ],
+          "delivered": 3,
+          "capacity": 8,
+          "service_bounds": [
+            1,
+            3
+          ],
+          "arrival_delay": 2,
+          "episode_ticks": 59,
+          "target": 999,
+          "probe_cost": 0.05,
+          "holding_cost": 0.25,
+          "submission_cost": 0.1,
+          "service_values": [
+            1,
+            3
+          ]
+        },
+        "timestamp": "2026-10-15T12:46:05.732175+00:00",
+        "parent_id": null,
+        "uncertainty": 0,
+        "provenance": "actual-cognitive-queue/v2"
+      },
+      "success": false,
+      "unsafe": false,
+      "metrics": {
+        "available_work": 3,
+        "processed": 3,
+        "reward": 2.7,
+        "holding_loss": 0,
+        "submission_cost": 0.30000000000000004,
+        "probe_cost": 0
+      },
+      "vectors": {},
+      "checks": {
+        "capacity": true,
+        "action_success": true
+      },
+      "receipt": "c271cad40a821289b7ffeafc17046a7f967cc331cd736f2583d80aa2bc639b73",
+      "success_metric": "action_postconditions/v1",
+      "risk_metric": "constraint_violation/v1",
+      "artifacts": {},
+      "execution_calls": 1,
+      "cost_usd": 0
+    },
+    "update_reference": "cabaa026b2dd436f994f582cfaf9f443:54"
+  },
+  "projection_audit": {
+    "status": "passed-projection-audit",
+    "cases": [
+      {
+        "case": "queue-high_to_low-learned-11",
+        "events": 992,
+        "complete_receipts": 56,
+        "status": "passed"
+      },
+      {
+        "case": "queue-high_to_low-no_recovery-11",
+        "events": 1049,
+        "complete_receipts": 56,
+        "status": "passed"
+      },
+      {
+        "case": "queue-low_to_high-learned-11",
+        "events": 992,
+        "complete_receipts": 56,
+        "status": "passed"
+      },
+      {
+        "case": "queue-low_to_high-no_recovery-11",
+        "events": 1049,
+        "complete_receipts": 56,
+        "status": "passed"
+      },
+      {
+        "case": "queue-stable_high-learned-11",
+        "events": 1049,
+        "complete_receipts": 56,
+        "status": "passed"
+      },
+      {
+        "case": "queue-stable_low-learned-11",
+        "events": 1045,
+        "complete_receipts": 56,
+        "status": "passed"
+      }
+    ],
+    "scope": "Exact source event/complete receipt projection; source learning audit retained separately"
+  },
+  "capture": {
+    "mode": "Recorded Replay",
+    "session": "queue-stable_high-learned-11",
+    "sizes": [
+      {
+        "width": 1920,
+        "height": 1080,
+        "path": "reports/osc-modular-architecture.png",
+        "horizontal_overflow": false,
+        "diagram_bottom": 1050.078125,
+        "all_module_bottoms": [
+          590.765625,
+          796.984375,
+          796.984375,
+          977.171875,
+          977.171875,
+          977.171875
+        ]
+      },
+      {
+        "width": 1440,
+        "height": 1100,
+        "path": ".cache/osc-modular-1440.png",
+        "horizontal_overflow": false,
+        "diagram_bottom": 1050.078125,
+        "all_module_bottoms": [
+          590.765625,
+          796.984375,
+          796.984375,
+          977.171875,
+          977.171875,
+          977.171875
+        ]
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "path": ".cache/osc-modular-mobile.png",
+        "horizontal_overflow": false,
+        "diagram_bottom": 3184.46875,
+        "all_module_bottoms": [
+          1709.25,
+          1891.46875,
+          2661.15625,
+          2837.59375,
+          2993.03125,
+          3148.46875
+        ]
+      }
+    ],
+    "errors": [],
+    "external": [],
+    "implementation_inspector": "reports/osc-modular-module-inspector.png"
+  },
+  "browser_regression": {
+    "command": "PREACT_E2E_PORT=8020 PREACT_E2E_ARTIFACT_DIR=../.cache/osc-modular-browser-release npm --prefix web run test:e2e",
+    "passed": 16,
+    "wall_seconds": 17.4,
+    "scope": [
+      "All336 original recorded rounds: actual observation/model/selection/receipt/next-memory joins and visitor arithmetic",
+      "Outside/inside architecture, six modules, actual input IDs/source paths, no stale forecasts/Actual, no model-use claim before forecast",
+      "Live native step/pause/auto/reset and original Software/Physical UI",
+      "Real kiosk process restart, external network block and no redispatch",
+      "Learning/promotion remains recorded evidence; adverse Low-to-High preserved"
+    ],
+    "additional_final_check": {
+      "command": "PREACT_E2E_PORT=8020 PREACT_E2E_ARTIFACT_DIR=../.cache/osc-modular-browser-quantity npm --prefix web run test:e2e -- --grep 'system diagram'",
+      "passed": 1,
+      "wall_seconds": 2.7,
+      "scope": "Actual arrival/completion animation counts; no animation without confirmed outcome"
+    }
+  },
+  "python_regression": {
+    "command": ".venv/bin/pytest -q --durations=15",
+    "passed": 868,
+    "skipped": 8,
+    "wall_seconds": 1069.4,
+    "skip_scope": "Optional Blender runtime unavailable"
+  },
+  "integrity": {
+    "core_and_cognition_source": "unchanged",
+    "existing_queue_learning_backend": "unchanged; binding-only subclass composes proposal module",
+    "gate_authorization_intent_receipt": "unchanged",
+    "native_presets": "unchanged",
+    "frozen_protocols_recordings_and_prior_reports": "unchanged",
+    "ruff_check": "passed",
+    "ruff_format_check": "249 files passed",
+    "contracts": "regenerated; only PlaygroundStart pipeline schema/types added; Core contracts unchanged",
+    "typescript_vite": "passed; 506.50kB JS triggers existing 500kB warning threshold"
+  },
+  "limits": [
+    "No arbitrary plug-in system: two bounded real compositions only",
+    "Actual smoke runs do not establish performance benefit; real observed rankings retained native order [0,1,2] and removed the third candidate; an isolated test fixture separately verifies that changed rankings alter formal candidates and numeric selection",
+    "No fabricated future State, inferred hidden service observation, unselected Actual or automatic model promotion",
+    "The6 frozen archives are native independently audited experiments; stopped real-LLM history is owned source-verified integration evidence, not a new audited benchmark archive",
+    "Current predictions use a stationary/iid service marginal plus known rules, not a learned complete World or evidence of generalization",
+    "Public scenario changes apply at Start only; Physical linking and extensive cross-model comparison remain P1",
+    "Python CPU/RSS do not attribute resources in the separately running llama.cpp process; local compute money/energy costs remain unknown",
+    "1920/1440 layout tests are not first-time human comprehension evidence; booth rehearsal remains external validation",
+    "Remote CI is not asserted by local tests"
+  ],
+  "source_package_hash": "b119c3023e9531150db597e93fe40133128fa7a556813098b963883593964f7c"
+}

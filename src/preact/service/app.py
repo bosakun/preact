@@ -110,6 +110,7 @@ def create_app(
     playground_root=None,
     playground_recordings=None,
     kiosk=None,
+    playground_reasoner=None,
 ):
     load_dotenv()
     kiosk = os.getenv("PREACT_KIOSK", "0") == "1" if kiosk is None else kiosk
@@ -143,6 +144,7 @@ def create_app(
         playground_recordings
         or os.getenv("PREACT_PLAYGROUND_RECORDINGS", "assets/playground/recordings"),
         limits,
+        playground_reasoner,
     )
 
     @asynccontextmanager
@@ -153,6 +155,7 @@ def create_app(
             "recover",
         )
         await playground.recover()
+        await playground.connect_modules()
         try:
             yield
         finally:

@@ -97,6 +97,9 @@ class _Session:
         cpu, wall = time.process_time(), time.perf_counter()
         try:
             store, artifacts = self.manager.store, self.manager.artifacts
+            module_options = (
+                {"reasoner": self.manager.reasoner} if self.request.pipeline == "local_llm" else {}
+            )
             world, learning, training = await prepare_queue(
                 store,
                 artifacts,
@@ -104,6 +107,7 @@ class _Session:
                 self.request.seed,
                 self.id,
                 self.manager.policy,
+                **module_options,
             )
             await store.call(
                 "append",
@@ -117,6 +121,7 @@ class _Session:
                     "preparation_cpu_seconds": time.process_time() - cpu,
                     "preparation_wall_seconds": time.perf_counter() - wall,
                     "model_version": learning.backend.lifecycle.epoch.model_version,
+                    "pipeline": self.request.pipeline,
                 },
             )
             await self.admit()
@@ -188,13 +193,41 @@ class _Session:
 
 
 class PlaygroundManager:
-    def __init__(self, store, artifacts, root, recordings, policy=None):
+    def __init__(self, store, artifacts, root, recordings, policy=None, reasoner=None):
         self.store, self.artifacts, self.root = store, artifacts, Path(root)
         self.catalog = RecordingCatalog(recordings)
         self.active = {}
         self.admission = asyncio.Lock()
         self.closing = False
         self.policy = (policy or Policy()).model_copy(deep=True)
+        self.reasoner, self.owns_reasoner = reasoner, False
+        self.reasoner_error = None
+
+    async def connect_modules(self):
+        if self.reasoner is not None or os.getenv("PREACT_PLAYGROUND_LOCAL_LLM") != "1":
+            return
+        from preact.engines.llamacpp import LocalNemotron
+
+        try:
+            self.reasoner = await LocalNemotron.connect()
+            self.owns_reasoner = True
+        except Exception as error:
+            # Keep native/offline Replay available; never substitute a fake LLM.
+            self.reasoner_error = type(error).__name__
+
+    def configurations(self):
+        return [
+            {"id": "native", "label": "数理モデル + 数値シミュレータ", "available": True},
+            {
+                "id": "local_llm",
+                "label": "LLMの行動提案 + 数理モデル + 数値シミュレータ",
+                "available": self.reasoner is not None,
+                "engine_id": self.reasoner.capabilities.engine_id if self.reasoner else None,
+                "engine_version": self.reasoner.capabilities.version if self.reasoner else None,
+                "status": "connected" if self.reasoner else "not_connected",
+                "error_type": self.reasoner_error,
+            },
+        ]
 
     async def recover(self):
         for identifier in await self.identifiers():
@@ -224,6 +257,8 @@ class PlaygroundManager:
         async with self.admission:
             if self.closing:
                 raise HTTPException(503, "Service is shutting down")
+            if request.pipeline == "local_llm" and self.reasoner is None:
+                raise HTTPException(503, "Local LLM module is not connected")
             if any(s.status not in TERMINAL for s in self.active.values()):
                 raise HTTPException(409, "Finish the current Queue session first")
             identifier = uid()
@@ -258,6 +293,8 @@ class PlaygroundManager:
             for task in tasks:
                 task.cancel()
             await asyncio.gather(*tasks, return_exceptions=True)
+            if self.owns_reasoner:
+                await self.reasoner.aclose()
 
     async def snapshot(self, identifier, after=0, reference=None, _attempt=0):
         recorded = self.catalog.get(identifier)
@@ -304,6 +341,7 @@ class PlaygroundManager:
                 "scenario_changes": "Configured at Start only; no live World editing",
                 "promotion": "Explicit only; unavailable to public controls",
                 "order": "Presentation order by recorded timestamp; original per-run sequence retained",
+                "pipeline": request.pipeline,
             }
             if ready:
                 provenance["preparation"] = ready
@@ -347,6 +385,7 @@ def playground_router(manager):
             "replay_errors": manager.catalog.errors,
             "environment_changes": "start_only",
             "public_promotion": False,
+            "module_configurations": manager.configurations(),
         }
 
     @router.post("/sessions", status_code=202)
