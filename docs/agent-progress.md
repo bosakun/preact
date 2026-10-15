@@ -1485,3 +1485,44 @@ loop despite using the correct underlying Agent.
 - Final fixed revision adds a negative case for unknown prediction responses with
   retained parameter statistics: they do not become usable numerical forecasts.
   All15 browser tests passed again in19.8s; final screenshots reflect this candidate.
+
+## Visitor comprehension revision — 2026-10-15
+
+User reports the integrated diagram still does not communicate what it represents.
+The default interface is being rebuilt around a concrete task: an AI chooses how
+much work to accept for a partially observed processing machine. The ordinary view
+explains the work tokens, goal, hidden capacity, saved alternative forecasts, actual
+chosen result and next-round experience in Japanese. Technical class/event/model
+and audit details move behind the existing technical-view switch. Candidate cards
+show differences from the observed delivered total, not synthetic future States.
+Replay visitor steps will advance one actual cognitive cycle and autoplay will
+seek original observed/deliberation/selection/outcome/update events. Detailed replay
+retains original single-event steps. Existing cognition and source records remain
+unchanged. Next: visual review, negative/behavioral browser tests and PR update.
+- First complete browser run passed16 cases in26.6s. Added an ordinary-Replay
+  autoplay assertion, which reproduced a real polling/timer race (cursor192 never
+  reached original observation198). Stable-length playback dependencies repaired it;
+  the same ordinary-view test passed in3.4s. Ordinary autoplay traverses real stage
+  events; no inferred module timestamps are added. Technical view retains its
+  original single-event semantics and all previous source/receipt assertions.
+- Real1920x1080 visual review now includes the task, machine/queue, three readable
+  alternatives, selected result, delayed-arrival explanation and experience on the
+  initial screen. Next: final full browser/API checks, new evidence and PR update.
+- Final candidate: all16 browser cases passed in27.1s, including ordinary Replay
+  autoplay after the repaired race, whole-cycle stepping, technical cursor
+  preservation, all336 rounds' visitor quantity arithmetic and previous Live/kiosk/
+  existing-UI regressions. Related Python/API/Policy/receipt checks passed45 in32.16s.
+- Independent projection audit again matched all6176 source events and336 complete
+  receipts across6 cases. Contracts regeneration, TypeScript/Vite and Ruff247 files
+  passed. Python cognition/Core/service, replay assets, frozen protocols and prior
+  evidence remain unchanged by this UI revision.
+- Reviewed final ordinary/technical captures. At1920x1080 the ordinary story ends
+  at1078.66px; at1440x1100 it ends at1093.75px. No horizontal overflow at either size
+  or390px mobile; mobile uses scrolling. External requests/page errors were zero
+  with external networking blocked during capture.
+- New evidence: reports/osc-visitor-view.png, osc-visitor-technical.png and
+  osc-visitor-validation.json. Human first-time comprehension still needs booth
+  rehearsal; source-level/UI assertions are not presented as human validation.
+- Implementation and local validation complete; preparing the requested update to
+  PR #19. No merge or automatic promotion. Next external check: remote CI and a
+  human visitor rehearsal; P1 Physical/evaluation-branch exploration remains separate.

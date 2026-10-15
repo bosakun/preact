@@ -49,6 +49,9 @@ Belief, internal model used, candidate numerical futures, decision, actual execu
 and confirmed experience referenced by the next round. Open `/#playground` for Live step/pause/autoplay or the
 included independently audited recorded experiments. Live uses the existing Agent,
 Deliberation, LearningCoordinator and Core; recorded replay never executes or learns.
+The ordinary view introduces an AI choosing how much work to accept for a machine,
+with Japanese alternatives and predicted-versus-actual work quantities. The technical
+view exposes the full architecture, original events and model provenance.
 The guide includes offline preparation, a localhost-only kiosk launch and recovery.
 Reviewed Queue replay projections are included; original raw DBs/private bundles remain excluded.
 

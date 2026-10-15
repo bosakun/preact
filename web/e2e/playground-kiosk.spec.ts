@@ -52,7 +52,7 @@ test('kiosk blocks other APIs, works offline and preserves receipts across proce
     await page.evaluate(() => { location.hash = ''; });
     await expect(page).toHaveURL(`${base}/#playground`);
     await page.getByRole('button', { name: 'Live', exact: true }).click();
-    await page.getByRole('button', { name: 'Start', exact: true }).click();
+    await page.getByRole('button', { name: /^(Start|実験を始める)$/, exact: true }).click();
     await expect(page.locator('.pg-session-line')).toContainText('一時停止', { timeout: 45000 });
     await expect(page.getByRole('img', { name: /実測World Tick 1 / })).toBeVisible();
     const active = (await (await page.request.get(`${base}/api/playground/catalog`)).json()).sessions.find((s: any) => s.mode === 'live');
@@ -69,8 +69,8 @@ test('kiosk blocks other APIs, works offline and preserves receipts across proce
     const recovered = await (await page.request.get(`${base}/api/playground/sessions/${active.id}`)).json();
     expect(recovered.events.filter((e: any) => e.event.kind === 'outcome').map((e: any) => e.event.data.observation.receipt)).toEqual([receipt]);
     expect((await page.request.post(`${base}/api/playground/sessions/${active.id}/control`, { data: { command: 'step', revision: 0 } })).status()).toBe(409);
-    await page.getByRole('button', { name: 'New Session', exact: true }).click();
-    await page.getByRole('button', { name: 'Start', exact: true }).click();
+    await page.getByRole('button', { name: /^(New Session|新しい実験)$/, exact: true }).click();
+    await page.getByRole('button', { name: /^(Start|実験を始める)$/, exact: true }).click();
     await expect(page.locator('.pg-session-line')).toContainText('一時停止', { timeout: 45000 });
     await expect(page.getByRole('img', { name: /実測World Tick 1 / })).toBeVisible();
     const next = (await (await page.request.get(`${base}/api/playground/catalog`)).json()).sessions.find((s: any) => s.mode === 'live');

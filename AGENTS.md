@@ -350,6 +350,11 @@ recorded model use, numerical futures, decision, execution and next-round experi
 `web/src/playground/cycle.ts` is a read-only event adapter; parameter displays must
 come from saved predictions and feedback links from exact prior complete receipts
 referenced by that deliberation. Memory retrieval is not training or promotion.
+The default visitor view explains the work-acceptance task in Japanese;
+`VisitorStory` only translates recorded forecasts into increments from the observed
+total. It must not generate predictions, reasons, future States or unchosen Actual.
+Technical event/model/audit detail stays behind the technical-view switch. Ordinary
+Replay steps whole recorded cycles; technical steps individual original events.
 Live controls admit one round at a time and pause at the existing observer boundary;
 server Policy limits/calibration still apply. Public presets are constructor-only;
 never edit authoritative payload/private schedule or expose public promotion.

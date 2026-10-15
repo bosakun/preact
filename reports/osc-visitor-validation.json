@@ -1,0 +1,123 @@
+{
+  "generated_at": "2026-10-15T12:03:42.825351+00:00",
+  "status": "passed-local-validation",
+  "previous_candidate": "0ac205de2fa39794871e67372e65831afac6525c",
+  "scope": "Visitor-first Queue explanation and view-specific replay controls; no cognition/Core/service algorithm change",
+  "ordinary_view": [
+    "Concrete task: AI controls accepted work for a machine with hidden current capacity",
+    "Labelled work quantities, transit delay, waiting work, processing machine and completed work",
+    "Recorded alternatives in Japanese; additional completed work calculated as saved delivered forecast minus observed delivered total",
+    "Mean forecasts and no-additional-acceptance condition distinguished from actual receipt-backed outcomes",
+    "Next decision advances one saved complete cognitive cycle; autoplay visits original stage events",
+    "Six plain-language module explanations; technical evidence remains available without cursor movement"
+  ],
+  "browser": {
+    "command": "PREACT_E2E_PORT=8017 PREACT_E2E_ARTIFACT_DIR=../.cache/osc-visitor-browser-final npm --prefix web run test:e2e",
+    "passed": 16,
+    "wall_seconds": 27.1,
+    "scope": [
+      "All336 recorded rounds: exact visitor quantity arithmetic and original model/selection/receipt/update joins",
+      "Ordinary-view task cues, candidate inspection, unselected Actual absent, whole-cycle stepping and original-stage autoplay",
+      "Ordinary/technical switching preserves cursor and produces no write requests",
+      "Actual Live step/pause/auto/reset and existing Software/Physical UI",
+      "Kiosk external-network block, real process restart and no redispatch",
+      "Detailed event seeking, original source references, explicit promotion and adverse results"
+    ]
+  },
+  "api_regression": {
+    "command": ".venv/bin/pytest -q tests/test_playground.py tests/test_playground_replay.py tests/test_api.py tests/test_service_limits.py tests/test_durable_io.py tests/test_stream_disconnect.py",
+    "passed": 45,
+    "wall_seconds": 32.16
+  },
+  "projection_audit": {
+    "status": "passed-projection-audit",
+    "cases": [
+      {
+        "case": "queue-high_to_low-learned-11",
+        "events": 992,
+        "complete_receipts": 56,
+        "status": "passed"
+      },
+      {
+        "case": "queue-high_to_low-no_recovery-11",
+        "events": 1049,
+        "complete_receipts": 56,
+        "status": "passed"
+      },
+      {
+        "case": "queue-low_to_high-learned-11",
+        "events": 992,
+        "complete_receipts": 56,
+        "status": "passed"
+      },
+      {
+        "case": "queue-low_to_high-no_recovery-11",
+        "events": 1049,
+        "complete_receipts": 56,
+        "status": "passed"
+      },
+      {
+        "case": "queue-stable_high-learned-11",
+        "events": 1049,
+        "complete_receipts": 56,
+        "status": "passed"
+      },
+      {
+        "case": "queue-stable_low-learned-11",
+        "events": 1045,
+        "complete_receipts": 56,
+        "status": "passed"
+      }
+    ],
+    "scope": "Exact source event/complete receipt projection; source learning audit retained separately"
+  },
+  "capture": {
+    "session": "queue-stable_high-learned-11",
+    "cursor": 173,
+    "reference": "03c22cfab4af42c7b35fc059dece1ce2:69",
+    "tick": 10,
+    "mode": "recorded",
+    "sizes": [
+      {
+        "width": 1920,
+        "height": 1080,
+        "path": "reports/osc-visitor-view.png",
+        "overflow": false,
+        "story_bottom": 1078.65625
+      },
+      {
+        "width": 1440,
+        "height": 1100,
+        "path": ".cache/visitor-1440.png",
+        "overflow": false,
+        "story_bottom": 1093.75
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "path": ".cache/visitor-mobile.png",
+        "overflow": false,
+        "story_bottom": 2401.984375
+      }
+    ],
+    "errors": [],
+    "external": []
+  },
+  "integrity": {
+    "python_cognition_core_service": "unchanged from previous candidate",
+    "replay_assets_frozen_protocols_and_prior_reports": "unchanged",
+    "contracts_regeneration": "passed; no tracked generated contract changes",
+    "typescript_vite": "passed",
+    "ruff": "check/format passed247 files"
+  },
+  "repair_evidence": {
+    "ordinary_autoplay": "A new browser assertion reproduced cursor192 failing to reach original observation198 because every850ms poll reset a1200ms playback timer. Stable-length dependencies fixed it; original-event autoplay and all regression tests now pass."
+  },
+  "limits": [
+    "Automated tests establish displayed cues and evidence/control integrity; first-time human comprehension and a30-second visitor rehearsal are not claimed",
+    "Future quantities are saved metric means under the existing stationary/iid assumptions and environment-only continuation; no complete future State is generated",
+    "Public Live retains constructor-only scenarios and no promotion control",
+    "Long frozen experiments/full864-test Python regression remain historical evidence in the previous reports; they were not rerun for this UI-only revision",
+    "Remote CI completion is not asserted by this local report"
+  ]
+}

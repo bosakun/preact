@@ -89,3 +89,89 @@
   .pg-cycle-stages { flex-wrap: wrap; }
   .pg-intro p:last-child { font-size: 11px; }
 }
+
+/* Visitor view starts with the task and explains evidence in everyday language. */
+.pg [hidden] { display: none !important; }
+.pg-visitor-modules { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; margin: 0 0 16px; }
+.pg .pg-visitor-modules button { position: relative; display: grid; grid-template-columns: 24px 1fr; text-align: left; padding: 10px 12px; gap: 0 8px; justify-content: start; }
+.pg-visitor-modules button > span { grid-row: 1 / 3; font-size: 20px; color: #8ca6c2; align-self: center; }
+.pg-visitor-modules strong { font-size: 16px; font-weight: 550; }
+.pg-visitor-modules small { font-size: 10px; color: #8fa7c2; }
+.pg-visitor-modules button > svg { position: absolute; right: -16px; top: 40%; color: #779bba; }
+.pg-visitor-modules button[aria-pressed=true] { border-color: #9ac8fb; background: #213952; }
+.pg-visitor-modules button.active { box-shadow: inset 0 2px #beec83; }
+.pg-visitor-stage { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); align-items: start; }
+.pg-visitor-stage .pg-world-panel { position: sticky; top: 12px; }
+.pg-visitor-stage .pg-world { max-height: none; min-height: 260px; height: auto; width: 100%; flex: none; }
+.pg-visitor-world-intro { padding: 18px 22px 5px; }
+.pg-visitor-world-intro > strong { font-size: 19px; font-weight: 550; }
+.pg-visitor-world-intro > p { font-size: 14px; color: #a6bbd1; margin: 7px 0; }
+.pg-visitor-world-bottom { padding: 18px 22px; border-top: 1px solid #30445c; background: #1a2b36; }
+.pg-visitor-world-bottom > span { font-size: 11px; color: #a9c98f; }
+.pg-visitor-world-bottom > p { font-size: 17px; color: #d9eaca; margin: 6px 0; }
+.pg-visitor-world-bottom small { color: #9bb3c7; font-size: 11px; }
+.pg-visitor-stage .pg-world-note { font-size: 10px; }
+.pg-visitor-story { min-width: 0; border: 1px solid #30445c; border-radius: 10px; overflow: hidden; background: #151f2b; }
+.pg-visitor-story h3 { font-size: 18px; margin: 0 0 5px; font-weight: 550; }
+.pg-visitor-story p { font-size: 13px; margin: 4px 0; color: #c2d3e5; line-height: 1.65; }
+.pg-visitor-story small { font-size: 11px; color: #92abc4; }
+.pg-visitor-story > div { padding: 13px 18px; border-bottom: 1px solid #30445c; }
+.pg-visitor-explanation { background: #1e3248; }
+.pg-visitor-explanation > span { font-size: 12px; color: #a1cdff; font-weight: 550; }
+.pg-story-observation > b { font-size: 12px; color: #a7bed5; font-weight: 500; }
+.pg-visitor-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 10px; }
+.pg .pg-visitor-options > button { min-width: 0; flex-direction: column; align-items: stretch; text-align: left; padding: 12px; gap: 8px; background: #172a40; border: 1px dashed #6a94c8; }
+.pg-visitor-options strong { font-size: 14px; line-height: 1.5; min-height: 42px; }
+.pg-visitor-options span { display: flex; flex-direction: column; font-size: 10px; color: #8fb0d6; }
+.pg-visitor-options span b { font-size: 22px; font-weight: 550; color: #bedbff; }
+.pg-visitor-options span small { font-size: 9px; }
+.pg-visitor-options small { font-size: 10px; }
+.pg-forecast-bar { display: block; height: 6px; background: #273d58; border-radius: 5px; overflow: hidden; }
+.pg-forecast-bar > i { height: 100%; background: #8fbefb; display: block; }
+.pg-visitor-options em { display: flex; gap: 4px; align-items: center; margin-top: auto; font-size: 10px; font-style: normal; color: #94abc4; }
+.pg .pg-visitor-options > button.chosen { border: 2px solid #beec83; background: #25382d; }
+.pg-visitor-options .chosen em { color: #c6eaa4; }
+.pg .pg-visitor-options > button[aria-pressed=true] { outline: 2px solid #8abaf1; outline-offset: 2px; }
+.pg-visitor-story .pg-visitor-model { color: #95afca; font-size: 10px; margin-top: 9px; }
+.pg-story-result { background: #1a2c27; }
+.pg-story-result > span { color: #afcf91; font-size: 11px; }
+.pg-story-result h3 { margin-top: 4px; color: #d6edbd; }
+.pg-story-result p b { font-size: 20px; font-weight: 550; color: #d3edbb; }
+.pg-visitor-match strong { display: block; font-size: 12px; font-weight: 500; color: #ccdfbc; }
+.pg-story-result > small { display: block; margin-top: 5px; }
+.pg-visitor-story > .pg-story-memory { border-bottom: 0; padding-top: 11px; padding-bottom: 11px; }
+.pg-story-memory > b { font-size: 14px; color: #b8d5a0; }
+@media (min-width:1700px) {
+  .pg-visitor-story h3 { font-size: 20px; }
+  .pg-visitor-story p { font-size: 14px; }
+  .pg-visitor-options strong { font-size: 16px; }
+}
+@media (max-width:1200px) {
+  .pg-visitor-stage { grid-template-columns: 1fr; }
+  .pg-visitor-stage .pg-world-panel { position: static; }
+  .pg-visitor-stage .pg-world { max-height: 290px; }
+  .pg-visitor-modules { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .pg-visitor-modules button:nth-child(3) > svg { display: none; }
+}
+@media (max-width:620px) {
+  .pg-visitor-options { grid-template-columns: 1fr; }
+  .pg-visitor-options strong { min-height: 0; }
+  .pg-visitor-options span { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .pg-visitor-options span b { font-size: 20px; }
+  .pg-visitor-modules strong { font-size: 12px; }
+  .pg .pg-visitor-modules button { padding: 6px; grid-template-columns: 14px 1fr; gap: 0 4px; }
+  .pg-visitor-modules button > span { font-size: 14px; }
+  .pg-visitor-world-intro > strong { font-size: 16px; }
+}
+.pg-visitor .pg-header { height: 56px; }
+.pg-visitor .pg-intro { padding: 16px 0; }
+.pg-visitor .pg-intro .pg-eyebrow { display: none; }
+.pg-visitor .pg-controls { padding: 9px 14px; }
+.pg-visitor .pg-session-line { padding: 6px 2px; }
+.pg-visitor-story > div { padding: 10px 15px; }
+.pg-visitor-story p { line-height: 1.5; }
+.pg-visitor-explanation p { font-size: 12px; }
+.pg .pg-visitor-options > button { padding: 10px; gap: 4px; line-height: 1.35; }
+.pg-visitor-options span { line-height: 1.25; }
+.pg-visitor-options strong { min-height: 40px; }
+.pg-visitor-options span b { line-height: 1.3; }

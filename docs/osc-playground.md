@@ -65,22 +65,35 @@ original policies and are explicitly recorded, not newly executed.
 
 ## A thirty-second visitor path
 
-1. Open the default audited stable-high Replay. It opens at the first completed
-   cognitive round with actual processed work, after readiness probes. The World
-   shows the real outcome; the architecture retains that round's input observation.
-2. Use the five stage buttons above the World to trace observation, future comparison,
-   selection, actual execution and experience. Each jump selects an original event;
-   no intermediate phase or result is synthesized. The full event timeline remains
-   available, and Next Step still advances one original saved event.
-3. Point to the internal representation: observed facts/Belief, known arrival rules
-   and the service distribution used by the actual saved forecast. Current/future
-   service is hidden. A readiness Probe has no predicted service measurement.
-4. Click Next cognitive cycle. The feedback connection identifies prior complete
-   receipts actually referenced by this round's deliberation. A new experience does
-   not automatically imply a new model version.
+1. Read the task: an AI controls how much work to accept for a machine. More completed
+   work is desirable, but accepting too much creates a backlog and risks overflow.
+   The machine's current capacity is hidden from the AI. The four boxes represent
+   accepted work in transit, work waiting for processing, the machine and completed
+   work. A token is one fungible unit of work, not an individually tracked job.
+2. The default audited stable-high Replay opens at the first completed round with
+   real processed work, after readiness probes. The World shows the actual result;
+   the adjacent story states what was observed before that decision.
+3. Read the three Japanese alternative cards: accept3, accept1 or accept nothing.
+   Their numbers are additional completed work predicted from the input observation
+   over the saved horizon, assuming no further acceptance. They are means, not
+   successor States. Clicking an alternative inspects it and never executes it.
+4. Compare the selected action's next-tick forecast with the actual processed amount.
+   Newly submitted work arrives after two ticks: the just-processed work may have
+   been accepted earlier. Click `次の判断を見る` to advance one actual cognitive cycle.
+   `自動で進める` visits original observation, deliberation, selection, outcome and
+   cognitive-update records at a presentation cadence. Polling does not reset it.
 5. Select stable-low in the scenario menu. Replay loads that scenario's independently
    audited execution, with its own observed World, model parameters and decisions.
    Live instead applies the scenario only when constructing a new World.
+
+The six plain-language function buttons explain cognition, prediction, simulation,
+decision, execution and memory in the context of this task. Technical class names,
+event kinds, Goal999/Reward/Receipt counters, model parameters and raw JSON are behind
+`技術者向け詳細`. That view retains the integrated dependency diagram, five stage
+buttons, previous/next-cycle navigation and original-event timeline. In that view,
+Next Step advances one saved event; in ordinary Replay, the Japanese next-decision
+button advances a complete cycle. Live always admits one real round, regardless of
+the view. Switching views does not move the replay cursor or create executions.
 
 For a change example, select High-to-Low or Low-to-High. Both recovery and
 no-recovery records are included. Technical details expose the original event

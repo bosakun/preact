@@ -60,6 +60,13 @@ Core sources, Gate rules, authorization, durable intents and receipt semantics s
 
 ## Visitor experience
 
+The ordinary view introduces a concrete work-acceptance task: an AI accepts work
+for a machine whose current capacity it cannot observe. It explains the tokens,
+compares recorded additional completed-work quantities for each acceptance option,
+then shows the actual outcome and experience feedback. Six Japanese function buttons
+connect the task to the architecture. Technical counters, class names, dependency
+diagram, model parameters and original-event exploration are in the technical view.
+
 The main screen uses large Japanese labels with technical English module names. The 2D World
 and the integrated cognitive loop share the primary workspace: submitted work in transit,
 waiting work, processing and delivered work alongside that round's observed/Belief input,
