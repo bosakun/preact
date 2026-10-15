@@ -4,6 +4,7 @@ import { ReactFlow, Background, Controls, MiniMap, Handle, Position, useReactFlo
 import { GitBranch, ArrowUpRight, Play, Square, Code2, Box, ShieldCheck, ChevronRight, RotateCcw } from 'lucide-react';
 import '@xyflow/react/dist/style.css';
 import './style.css';
+import Playground from './playground/Playground';
 
 import type { State, TreeNode, RunEvent, Observation } from './contracts';
 // Domain viewers narrow the schema's intentionally generic domain payload.
@@ -215,7 +216,7 @@ function App() {
   }
   async function open(record: Run) { if (record.config.request?.domain === 'physical' || record.config.request?.domain === 'software') setDomain(record.config.request.domain); setOpenedArchive(true); setEvents(await (await fetch(`/api/runs/${record.id}/events`)).json()); setRun(record); setRound(0); setSelected(null); setCursor(null); setExpanded(new Set()); }
   return <div className="app">
-    <header><a className="brand" href="/" aria-label="PreAct home"><GitBranch size={23}/><b>PreAct</b><span>COUNTERFACTUAL RUNTIME</span></a><div className={`connection ${health.status || 'connecting'}`}><i/>{health.status === 'unavailable' ? 'Disconnected' : health.status !== 'ok' ? 'Connecting…' : health.mode === 'local' ? 'Local execution lab' : health.mode === 'local-model' ? 'Local NVIDIA model lab' : health.mode === 'cloud' ? 'Cloud runtime' : 'Connected runtime'}<span>v0.1</span></div></header>
+    <header><a className="brand" href="/" aria-label="PreAct home"><GitBranch size={23}/><b>PreAct</b><span>COUNTERFACTUAL RUNTIME</span></a><a className="playground-link" href="#playground">Cognitive Playground →</a><div className={`connection ${health.status || 'connecting'}`}><i/>{health.status === 'unavailable' ? 'Disconnected' : health.status !== 'ok' ? 'Connecting…' : health.mode === 'local' ? 'Local execution lab' : health.mode === 'local-model' ? 'Local NVIDIA model lab' : health.mode === 'cloud' ? 'Cloud runtime' : 'Connected runtime'}<span>v0.1</span></div></header>
     <main><section className="intro"><div><p className="eyebrow">A LITTLE FORESIGHT. A BETTER NEXT MOVE.</p><h1>See what could happen.<br/><em>Then decide what should.</em></h1><p className="subtitle">Explore possible futures, verify the consequential ones,<br/>and learn from what actually happens.</p></div><div className="loop"><span>Observe</span><ChevronRight/><span>Imagine</span><ChevronRight/><span className="active">Verify</span><ChevronRight/><span>Act</span><div><RotateCcw size={13}/> Compare reality. Calibrate trust.</div></div></section>
       <section className="workspace"><div className="toolbar"><div className="tabs"><button className={domain==='software'?'active':''} onClick={()=>setDomain('software')}><Code2 size={16}/>Software World</button><button className={domain==='physical'?'active':''} onClick={()=>setDomain('physical')}><Box size={16}/>Physical World</button></div>{domain==='software' && <select className="task-select" aria-label="Software task" value={softwareTask} onChange={e=>setSoftwareTask(e.target.value as 'default'|'release')}><option value="default">Checkout repair</option><option value="release">Migration + release</option></select>}<label className="baseline"><input type="checkbox" checked={baseline} onChange={e=>setBaseline(e.target.checked)}/>Direct Agent baseline</label><button className="start" onClick={start} disabled={busy}><Play size={14}/>{busy?'Exploring futures…':'Run experiment'}</button>{busy && run && <button className="stop" onClick={()=>fetch(`/api/runs/${run!.id}`,{method:'DELETE'})} aria-label="Stop run"><Square size={14}/></button>}</div>
       <div className="experiment-heading"><div><span className="eyebrow">{run?.config.request?.mode==='direct'?'DIRECT AGENT':'PREACT'} / {run?.config.request?.domain || domain}</span><h2>{root?.state.payload.task_title || run?.config.task?.title || ((run?.config.request?.domain || domain)==='software'?run?.config.request?.task==='release'?'Repair, migrate, configure and verify a release.':'Repair a bug without creating a regression.':'Move the cube without crossing the obstacle.')}</h2></div><span className={`run-status ${run?.status}`}>{run?.status || 'Ready to explore'}</span></div>
@@ -231,4 +232,20 @@ function App() {
     </main><footer><span>PreAct explores. Engines predict. Evidence decides.</span><span>{health.evidence_scope || 'Connecting…'}</span></footer>
   </div>;
 }
-createRoot(document.getElementById('root')!).render(<React.StrictMode><App/></React.StrictMode>);
+function Surface() {
+  const [playground, setPlayground] = React.useState(location.hash === '#playground');
+  const [ready, setReady] = React.useState(playground);
+  const kiosk = React.useRef(false);
+  React.useEffect(() => {
+    const changed = () => {
+      if (kiosk.current && location.hash !== '#playground') location.hash = 'playground';
+      setPlayground(kiosk.current || location.hash === '#playground');
+    };
+    window.addEventListener('hashchange', changed);
+    fetch('/api/health').then(r => r.json()).then(h => { kiosk.current = !!h.kiosk; if (h.kiosk) { location.hash = 'playground'; setPlayground(true); } }).catch(() => {}).finally(() => setReady(true));
+    return () => window.removeEventListener('hashchange', changed);
+  }, []);
+  if (!ready) return <p role="status">Connecting to the local PreAct service…</p>;
+  return playground ? <Playground/> : <App/>;
+}
+createRoot(document.getElementById('root')!).render(<React.StrictMode><Surface/></React.StrictMode>);

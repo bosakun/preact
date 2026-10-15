@@ -43,6 +43,20 @@ Select a branch to inspect evidence, change decision rounds, replay events, or c
 Direct Agent. Data persists in `.preact/`; restart halts interrupted runs for reconciliation.
 For frontend development, run `npm --prefix web run dev` alongside the API.
 
+The [OSC Interactive Cognitive Playground](docs/osc-playground.md) adds an operable
+2D Queue World and an integrated round-by-round cognitive loop. Inspect the observed
+Belief, internal model used, candidate numerical futures, decision, actual execution
+and confirmed experience referenced by the next round. Open `/#playground` for Live step/pause/autoplay or the
+included independently audited recorded experiments. Live uses the existing Agent,
+Deliberation, LearningCoordinator and Core; recorded replay never executes or learns.
+The ordinary view separates outside World from PreAct's internal representation,
+learned dynamics, branching simulation, decision, execution and experience feedback.
+Implementation labels show how these world-model functions are reproduced. An opt-in
+local-LLM preset uses real Nemotron proposals with the same numeric simulator and
+Core; the technical Inspector exposes exact module inputs, outputs and provenance.
+The guide includes offline preparation, a localhost-only kiosk launch and recovery.
+Reviewed Queue replay projections are included; original raw DBs/private bundles remain excluded.
+
 ```bash
 uv run preact demo software
 uv run preact demo physical

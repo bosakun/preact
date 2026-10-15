@@ -12,6 +12,7 @@ from fastapi import FastAPI, Header, HTTPException, Query, Request
 from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import Field, model_validator
+from sqlalchemy import or_, select
 from sqlalchemy.exc import SQLAlchemyError
 
 from preact.core.io import durable_io
@@ -100,11 +101,24 @@ async def component_scope(domain: str, seed: int, mode: str, task: str = "defaul
         yield await components(domain, seed, mode, task, stack=stack)
 
 
-def create_app(database_url=None, artifacts_root=None, mode=None, service_policy=None):
+def create_app(
+    database_url=None,
+    artifacts_root=None,
+    mode=None,
+    service_policy=None,
+    *,
+    playground_root=None,
+    playground_recordings=None,
+    kiosk=None,
+    playground_reasoner=None,
+):
     load_dotenv()
+    kiosk = os.getenv("PREACT_KIOSK", "0") == "1" if kiosk is None else kiosk
     store = Store(database_url or os.getenv("PREACT_DATABASE_URL", "sqlite:///.preact/preact.db"))
     if artifacts_root:
         artifacts = Artifacts(artifacts_root)
+    elif kiosk:
+        artifacts = Artifacts(os.getenv("PREACT_ARTIFACTS_DIR", ".preact/artifacts"))
     else:
         from preact.engines.storage import artifact_store
 
@@ -121,6 +135,17 @@ def create_app(database_url=None, artifacts_root=None, mode=None, service_policy
     cleanup = set()
     persistence_failures = {}
     closing = False
+    from preact.service.playground import KioskBoundary, PlaygroundManager, playground_router
+
+    playground = PlaygroundManager(
+        store,
+        artifacts,
+        playground_root or os.getenv("PREACT_PLAYGROUND_ROOT", ".preact/playground"),
+        playground_recordings
+        or os.getenv("PREACT_PLAYGROUND_RECORDINGS", "assets/playground/recordings"),
+        limits,
+        playground_reasoner,
+    )
 
     @asynccontextmanager
     async def lifespan(app):
@@ -129,10 +154,13 @@ def create_app(database_url=None, artifacts_root=None, mode=None, service_policy
         await store.call(
             "recover",
         )
+        await playground.recover()
+        await playground.connect_modules()
         try:
             yield
         finally:
             closing = True
+            await playground.close()
             # Drain native admission writes before snapshotting active runs.
             async with admission:
                 running = list(active.values())
@@ -143,8 +171,20 @@ def create_app(database_url=None, artifacts_root=None, mode=None, service_policy
             if cleanup:
                 await asyncio.gather(*list(cleanup), return_exceptions=True)
 
-    app = FastAPI(title="PreAct", version="0.1.0", lifespan=lifespan)
+    app = FastAPI(
+        title="PreAct",
+        version="0.1.0",
+        lifespan=lifespan,
+        docs_url=None if kiosk else "/docs",
+        redoc_url=None if kiosk else "/redoc",
+        openapi_url=None if kiosk else "/openapi.json",
+    )
     app.state.store = store
+    app.state.playground = playground
+    app.include_router(playground_router(playground))
+
+    if kiosk:
+        app.add_middleware(KioskBoundary)
 
     @app.exception_handler(SQLAlchemyError)
     async def unavailable_storage(request, error):
@@ -178,13 +218,46 @@ def create_app(database_url=None, artifacts_root=None, mode=None, service_policy
                 "cloud": "cloud",
             }[mode],
             "live_sponsor_validation": False,
+            "kiosk": kiosk,
+            "playground_replays": len(playground.catalog.records),
+            "playground_replay_errors": playground.catalog.errors,
         }  # actual evidence is retained per run, not inferred from config
 
     @app.get("/api/runs")
     async def runs():
-        return await store.call(
-            "list_runs",
-        )
+        records = await store.call("list_runs")
+        if all(
+            (
+                r["config"].get("request", {}).get("domain")
+                or r["config"].get("task", {}).get("domain")
+            )
+            in {"software", "physical"}
+            for r in records
+        ):
+            return records
+
+        # Queue preparation/evaluation journals must not displace or appear as
+        # Software/Physical experiments in the existing Future Tree's history.
+        def legacy_history():
+            with store.db.connect() as connection:
+                query = (
+                    select(store.runs)
+                    .where(
+                        or_(
+                            store.runs.c.config["request"]["domain"]
+                            .as_string()
+                            .in_(["software", "physical"]),
+                            store.runs.c.config["task"]["domain"]
+                            .as_string()
+                            .in_(["software", "physical"]),
+                        )
+                    )
+                    .order_by(store.runs.c.created.desc())
+                    .limit(100)
+                )
+                return [dict(row) for row in connection.execute(query).mappings()]
+
+        return await store.call(legacy_history)
 
     @app.post("/api/runs", status_code=202)
     async def start(request: RunRequest):

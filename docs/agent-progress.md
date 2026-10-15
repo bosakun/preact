@@ -1371,3 +1371,224 @@ wheel/sdist107Python source integrityが成功。CIには固定44case+独立audi
   The Model B assertion follows activated epoch→promotion artifact rather than comparing
   a promotion record to an epoch digest. The induced inference-failure Prediction clears
   metric intervals along with metrics, preserving its contract before testing fail-closed behavior.
+
+
+## 2026-10-15 — Approved OSC Playground P0 implementation
+
+- User approved docs/osc-playground-plan.md. Independent checkout: .cache/osc-playground-pr
+  in the original workspace; branch feat/osc-cognitive-playground, public baseline5dd9372.
+- Locked Python3.12 dependencies installed with uv; npm ci completed from local cache.
+- Frozen common-learning-v2 reproduction is running in an unchanged baseline copy at
+  .cache/replay-source, new private bundle .cache/osc-common-v2. No original evidence changed.
+- Implemented constructor-only Queue fixtures, existing CognitiveAgent/Coordinator-backed
+  session control, CAS command revisions, receipt-validated event projection, restart history
+  and server-side kiosk route restrictions. Core is unchanged. Focused tests are running.
+- Next: shared frontend reducer/scene/modules/candidate inspector, audited replay exporter,
+  full regression/E2E/offline rehearsal and an open PR without auto-merge.
+
+- Implemented the shared React evidence reducer, 2D work-quantity animation, six
+  evidence-triggered modules, React Flow candidate graph, H1 actual comparison,
+  inspector, controls and recorded event/round seeking. No external font requests.
+- Focused Live/service tests:25 passed; recorded projection/negative tests:9 passed.
+  TypeScript/Vite build passes. An initial browser assertion exposed missing event
+  kind in the JSON inspector; the inspector now includes it. Full browser rerun pending.
+- Frozen32-case source reproduction completed:960 task receipts. Existing full-source
+  auditor is running. Six exhibit source cases independently passed audit before export.
+- Separate projection audit passed:6 cases,6176 original events,336 complete receipts;
+  source event/receipt content preserved. Compressed reviewed projections total about4.3MB.
+- Detected/fixed a cross-read session status/round race using durable session head
+  fences. Live now retains existing server Policy limits/calibration; no client policy
+  override or promotion route. Updated history query keeps Queue journals from
+  displacing the existing Software/Physical history. Kiosk uses local artifact storage.
+- Full Python run is still progressing and has one failure to diagnose at completion.
+  Next: finish browser/regression fixes, offline/restart rehearsal, documentation QA,
+  Core/frozen-file integrity check, focused commit/PR and remote CI.
+
+- Full frozen source audit passed:32 cases/960 task receipts/unsafe0.
+- Chromium E2E passed twice, including existing6 cases and new4 playground cases.
+  External-network-blocked recorded exploration, reduced motion, promotion and adverse
+  result inspection, actual Live controls and reconnect were exercised.
+- Initial full Python run:849 passed/8 skipped/2 failures. Queue source-hash audit
+  correctly detected concurrent source edits; isolated frozen-source retest passed.
+  The other failure exposed BaseHTTPMiddleware/SSE receive interference; replaced
+  it with a kiosk-only plain ASGI boundary. Related35 tests pass. Full rerun is active
+  with src frozen; no frozen test/protocol has been weakened.
+- A13-session actual Live soak reached56 High-to-Low rounds and then12 fresh sessions,
+  with no promotion. Its harness failed at final catalog parsing (extra await on JSON);
+  repaired the harness and restarted all13 sessions into a fresh output directory.
+- Re-exporting final reviewed assets to a new directory so lifecycle summaries reflect
+  the final projection logic. The independent projection auditor now checks artifact
+  summaries as well as exact original event/receipt content.
+
+- Final regression:864 passed/8 optional Blender skips in1157.85s. Core/Gate/authority
+  and frozen protocol/report files are unchanged. After retaining actual Software
+  cognitive CLI history, the affected API/Live/Replay/storage/disconnect suite passed45
+  tests in44.38s. The CLI history case reproduced the omission before repair.
+- Final Chromium:12 passed in29.1s, including an isolated kiosk process restart, offline
+  Live/Replay, retained old receipt/no redispatch and a fresh World.
+- Final6 exports passed independent source audits and exact event/complete receipt/
+  allowlisted lifecycle-summary projection checks.
+-13-session Live soak passed:68 primary+208 preparation+108 evaluation complete
+  receipts, no pending receipts or promotion. Changed source remains await_promotion.
+  CPU158.541s/wall165.208s, process peak632078336B; external API cost0, local cost unknown.
+- TypeScript/Vite, Ruff247 files, Core contract byte equality and initial wheel/sdist
+  source integrity118 files passed. Final distribution rebuild after compatibility
+  follow-up is next. reports/osc-playground-queue.png and validation.json retain evidence.
+- Next: final publication review, commit and requested PR; no merge/auto-merge.
+
+## Integrated world-model exhibition revision — 2026-10-15
+
+User requested a substantive rework around PreAct's defining integration of modular
+world-model functions. The previous Queue/tree/module layout obscured the causal
+loop despite using the correct underlying Agent.
+
+- Replaced the detached module strip with a same-round closed-loop workspace:
+  actual World, observed/Belief input, recorded model parameter/provenance,
+  candidate numerical futures, qualified decision, authorized execution and receipt,
+  cognitive update and verified prior-receipt references in the next round.
+- Added a read-only TypeScript round projection; no new predictor, trainer,
+  coordinator or execution path. Current-round data clears at the next observation.
+- Added original-event stage navigation, next/previous cognitive cycles and a visible
+  H1 prediction/Actual table. Default Replay opens at the first real processing round.
+  Replay scenario selection now loads the matching audited record.
+- Reproduced and fixed an initial catalog race that could overwrite visitor Live
+  selection. Fixed prior/current model-use, experience-manifest and retrieval labels.
+- New projection and browser tests verify all six audited scenarios, real action
+  differences, exact source references, no Actual before receipt, no stale future
+  in the next round, and actual feedback to subsequent deliberation.
+- Validation in progress: TypeScript/Vite builds pass. First browser rerun exposed
+  the catalog race and a test locator needing scope after adding the second plot;
+  fixes are in place. Next: final regression, screen-size/offline/restart checks,
+  new reviewed screenshots and PR #19 update (no merge).
+- Full browser regression after the integrated layout passed15 cases in14.9s,
+  including all previous Future Tree and kiosk restart tests. Selected/unselected
+  Actual and pre-/post-promotion model-use assertions are being added before the
+  final run. Python API/Live/Replay regression passed26 cases in21.18s; the remaining
+  storage/disconnect/Policy checks and independent source projection audit are running.
+- Final candidate:15 Chromium cases passed in17.9s, including new unselected-Actual
+  and promotion/non-retroactivity checks. Related Python checks passed26+19=45
+  cases (21.18s and11.76s). Independent projection audit again matched6176 exact
+  original events/336 complete receipts and lifecycle summaries across all6 records.
+- Contracts regeneration, TypeScript/Vite and Ruff247 files passed. Python cognition,
+  Core/service, replay assets and frozen evidence are unchanged by this revision;
+  the earlier864-test full suite/source reproduction/Live soak remain historical
+  evidence in the prior validation report, not claimed as rerun now.
+- Reviewed real Chromium captures at1920x1080 and the candidate/Actual panel;
+  1440x1100 and390x844 checks have no horizontal overflow. Capture runs blocked
+  external networking and observed no external request or page error.
+- New evidence: reports/osc-cognitive-loop.png, osc-cognitive-loop-futures.png and
+  osc-cognitive-loop-validation.json. Main original-event/cycle navigation and
+  constructor-only Live remain offline. No automatic promotion or fabricated State.
+- Remaining: human first-time visitor rehearsal and P1 Physical/evaluation-branch
+  drilldown; no external blocker to the implemented P0 revision. Next: commit and
+  update requested PR #19, preserving no-merge/no-auto-merge.
+- Final fixed revision adds a negative case for unknown prediction responses with
+  retained parameter statistics: they do not become usable numerical forecasts.
+  All15 browser tests passed again in19.8s; final screenshots reflect this candidate.
+
+## Visitor comprehension revision — 2026-10-15
+
+User reports the integrated diagram still does not communicate what it represents.
+The default interface is being rebuilt around a concrete task: an AI chooses how
+much work to accept for a partially observed processing machine. The ordinary view
+explains the work tokens, goal, hidden capacity, saved alternative forecasts, actual
+chosen result and next-round experience in Japanese. Technical class/event/model
+and audit details move behind the existing technical-view switch. Candidate cards
+show differences from the observed delivered total, not synthetic future States.
+Replay visitor steps will advance one actual cognitive cycle and autoplay will
+seek original observed/deliberation/selection/outcome/update events. Detailed replay
+retains original single-event steps. Existing cognition and source records remain
+unchanged. Next: visual review, negative/behavioral browser tests and PR update.
+- First complete browser run passed16 cases in26.6s. Added an ordinary-Replay
+  autoplay assertion, which reproduced a real polling/timer race (cursor192 never
+  reached original observation198). Stable-length playback dependencies repaired it;
+  the same ordinary-view test passed in3.4s. Ordinary autoplay traverses real stage
+  events; no inferred module timestamps are added. Technical view retains its
+  original single-event semantics and all previous source/receipt assertions.
+- Real1920x1080 visual review now includes the task, machine/queue, three readable
+  alternatives, selected result, delayed-arrival explanation and experience on the
+  initial screen. Next: final full browser/API checks, new evidence and PR update.
+- Final candidate: all16 browser cases passed in27.1s, including ordinary Replay
+  autoplay after the repaired race, whole-cycle stepping, technical cursor
+  preservation, all336 rounds' visitor quantity arithmetic and previous Live/kiosk/
+  existing-UI regressions. Related Python/API/Policy/receipt checks passed45 in32.16s.
+- Independent projection audit again matched all6176 source events and336 complete
+  receipts across6 cases. Contracts regeneration, TypeScript/Vite and Ruff247 files
+  passed. Python cognition/Core/service, replay assets, frozen protocols and prior
+  evidence remain unchanged by this UI revision.
+- Reviewed final ordinary/technical captures. At1920x1080 the ordinary story ends
+  at1078.66px; at1440x1100 it ends at1093.75px. No horizontal overflow at either size
+  or390px mobile; mobile uses scrolling. External requests/page errors were zero
+  with external networking blocked during capture.
+- New evidence: reports/osc-visitor-view.png, osc-visitor-technical.png and
+  osc-visitor-validation.json. Human first-time comprehension still needs booth
+  rehearsal; source-level/UI assertions are not presented as human validation.
+- Implementation and local validation complete; preparing the requested update to
+  PR #19. No merge or automatic promotion. Next external check: remote CI and a
+  human visitor rehearsal; P1 Physical/evaluation-branch exploration remains separate.
+
+## Architecture-first rebuild and real interchangeable module composition — 2026-10-15
+
+User explicitly rejected the Queue-task-first explanation and requested a wholesale
+rebuild representing modular world-model cognition/prediction/simulation/decision/
+execution. Also requested real implementations using simulators/LLMs, not just boxes.
+
+- Replacing the ordinary view with one spatial system diagram: outside World;
+  observation boundary; PreAct's internal observed/Belief representation and learned
+  dynamics; branching numerical futures; decision narrowing to one action; formal
+  execution returning to World; receipt-backed experience returning to cognition.
+- Adding a bounded native/local-LLM composition preset. It reuses existing
+  StructuredReasoner/ModelProposer and LocalNemotron. The LLM ranks native actions
+  and proposes up to2 candidates; existing guarded Queue forecasts, numeric values,
+  pure selector, verification, authorization, intent and receipt still execute the
+  one real action. Native defaults and frozen protocols remain intact.
+- Reusing QueueLearningBackend through a binding-only subclass; LearningCoordinator
+  and the lifecycle/training/evaluation/promotion algorithms are not duplicated.
+- Verified the existing local Nemotron4B/llama.cpp model and authenticated runner
+  identities. It is actually reachable; no new download/paid service was requested.
+- Initial focused tests exposed test-fixture capability fields and a native prepare
+  monkeypatch compatibility issue; fixed by preserving the native call signature.
+  Invalid LLM output propagates EngineFailure instead of returning a result; negative
+  tests now assert that boundary and inspect absence of intent/outcome.
+- Next: actual local-LLM composition execution/receipt audit, final architecture
+  rendering and interaction tests, full Python regression with source files frozen,
+  independent record audits, documentation and PR update. No merge.
+
+- Actual local-LLM composition completed12 source rounds,12 complete receipts and
+  4 actual model calls;16 separate preparation receipts. Eight readiness rounds
+  correctly skipped inference. Status was round_limit, Goal success false, unsafe0.
+  Python interval CPU5.003s, wall18.280s, lifetime peak RSS186892288B; existing
+  llama.cpp process resources are separate/unattributed and local monetary cost unknown.
+- Browser-selected local_llm Live completed10 rounds with10 verified receipts and
+  2 actual Nemotron calls. The native3 candidates became2 LLM-ranked candidates,
+  then the existing numeric selector/Runtime executed. Stopping retained original
+  module provenance in interactive recorded history; rewinding cleared stale futures.
+  No browser errors/external browser requests. No claim of performance benefit.
+- A separate read-only audit matched all173 UI-projected events against their
+  original ledger, revalidated10 complete receipt transitions, and checked actual
+  ranking/subset/state/fingerprint/authorization/intent/outcome joins. It also
+  revalidated the12-round direct integration and its4 provider calls. These owned
+  integration runs are not relabelled as frozen benchmark evidence.
+- Independent shipped-record projection audit passed again:6 cases,6176 exact events,
+  336 complete receipts. Historical recordings, benchmark protocols, Core/cognition
+  algorithms and native Queue learning backend are unchanged.
+- Final architecture/Inspector browser regression passed16 cases in17.1s (a final
+  no-forecast wording assertion follows). 1920x1080 and1440x1100 captures have all6
+  module bottoms at977.2px and no horizontal overflow;390px mobile scrolls. No external
+  browser requests/page errors. Human first-time comprehension still needs rehearsal.
+- Ruff check and format249 files passed; regenerated core contracts unchanged.
+  Full Python regression is running with Python sources frozen. Next: inspect its
+  result, capture final candidate, publish the authorized PR #19 update; do not merge.
+
+- Final full Python regression:868 passed,8 optional Blender skips in1069.40s.
+  Python sources remained frozen throughout. No Core/cognition/learning authority change.
+- Final whole-browser suite:16 passed in17.4s. Additional quantity/no-outcome animation
+  assertions passed1 case in2.7s. Real retained LLM history also passed the final
+  implementation Inspector check (input State/native3 candidates, actual structured
+  output, proposed2 candidates and exact model version).
+- Final TypeScript/Vite build and contracts passed; JS506.50kB emits a size warning,
+  not a build failure. Core generated contracts remain unchanged. Ruff check/format
+ 249 files passed. Final report/captures use new `reports/osc-modular-*` paths.
+- Local acceptance complete. Preparing the authorized PR #19 update, with no automatic
+  merge. Human first-time visitor rehearsal and remote CI remain external checks;
+  P1 extensive cross-model comparisons and Physical linking are not claimed complete.

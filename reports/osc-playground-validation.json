@@ -1,0 +1,170 @@
+{
+  "generated_at": "2026-10-15T09:23:28.688568+00:00",
+  "status": "passed-local-validation",
+  "baseline_commit": "5dd9372c69b2dcc2a49590d02e8642685c79b1bf",
+  "scope": "CPU Queue exhibition; no GPU sponsor, hardware or broad generalization claim",
+  "regression": {
+    "command": ".venv/bin/pytest -q --durations=15",
+    "passed": 864,
+    "optional_skipped": 8,
+    "wall_seconds": 1157.85,
+    "followup_api_command": ".venv/bin/pytest -q tests/test_playground.py tests/test_playground_replay.py tests/test_api.py tests/test_service_limits.py tests/test_durable_io.py tests/test_stream_disconnect.py",
+    "followup_passed": 45,
+    "followup_note": "Includes additional actual Software cognitive CLI history coverage after history filtering adjustment"
+  },
+  "browser": {
+    "passed": 12,
+    "wall_seconds": 29.1,
+    "scope": [
+      "Existing Software/Physical UI",
+      "Live step/pause/auto/reset",
+      "Recorded event/round seeking",
+      "Prediction/selection/receipt joins",
+      "Historical explicit promotion and adverse result",
+      "External-request-blocked Replay and Live kiosk",
+      "Real service process restart/no redispatch",
+      "Reduced motion",
+      "Unexecuted manifest is not experience"
+    ]
+  },
+  "source_audit": {
+    "status": "passed",
+    "cases": 32,
+    "task_receipts": 960,
+    "unsafe": 0,
+    "source_report_sha256": "62f560b35d31227f35814cbd8afb255eb41d5cae3774fccf0ecab6686ef836be"
+  },
+  "projection_audit": {
+    "status": "passed-projection-audit",
+    "cases": [
+      {
+        "case": "queue-high_to_low-learned-11",
+        "events": 992,
+        "complete_receipts": 56,
+        "status": "passed"
+      },
+      {
+        "case": "queue-high_to_low-no_recovery-11",
+        "events": 1049,
+        "complete_receipts": 56,
+        "status": "passed"
+      },
+      {
+        "case": "queue-low_to_high-learned-11",
+        "events": 992,
+        "complete_receipts": 56,
+        "status": "passed"
+      },
+      {
+        "case": "queue-low_to_high-no_recovery-11",
+        "events": 1049,
+        "complete_receipts": 56,
+        "status": "passed"
+      },
+      {
+        "case": "queue-stable_high-learned-11",
+        "events": 1049,
+        "complete_receipts": 56,
+        "status": "passed"
+      },
+      {
+        "case": "queue-stable_low-learned-11",
+        "events": 1045,
+        "complete_receipts": 56,
+        "status": "passed"
+      }
+    ],
+    "scope": "Exact source event/complete receipt projection; source learning audit retained separately"
+  },
+  "live_soak": {
+    "sessions": 13,
+    "actual_primary_receipts": 68,
+    "all_complete_receipts_including_preparation_and_evaluation": 384,
+    "explicit_promotions": 0,
+    "final_changed_environment_phase": "await_promotion",
+    "cpu_seconds": 158.541474,
+    "wall_seconds": 165.20823104202282,
+    "peak_process_rss_bytes": 632078336,
+    "measurement_scope": "Process CPU/wall interval; process-lifetime peak RSS includes replay catalogs, not per-case attribution",
+    "external_api_cost_usd": 0,
+    "local_compute_dollar_cost": null
+  },
+  "replays": [
+    {
+      "id": "queue-high_to_low-learned-11",
+      "digest": "cbb114e16e839664454e80a719a3be952e62cfa22a388c928061b15b3150d2d0",
+      "source_case_hash": "55601dfc8ad9ffe16a600f24ff627f1ed93639ad93c0fbe8d1909db94b7c8a45",
+      "source_code_hash": "dbf26bd83e35ccaaac22b45422d2b6fc1fa80fea573b91359d73ad5bb0df59f4",
+      "protocol_hash": "5846b0325f3657a483dd6c1ed550ec713a8e21d03482cde70fd940131157f84c",
+      "promotions": 1
+    },
+    {
+      "id": "queue-high_to_low-no_recovery-11",
+      "digest": "3f440637bf75a5a89692dcdf2828b33b943ae2aae7b842a3ef9b870d5ba9778b",
+      "source_case_hash": "608300683707ac453b534b793b8050223bb1b5c8fd4227635aa89a370d47a092",
+      "source_code_hash": "dbf26bd83e35ccaaac22b45422d2b6fc1fa80fea573b91359d73ad5bb0df59f4",
+      "protocol_hash": "5846b0325f3657a483dd6c1ed550ec713a8e21d03482cde70fd940131157f84c",
+      "promotions": 0
+    },
+    {
+      "id": "queue-low_to_high-learned-11",
+      "digest": "f0363cc2899e74e0cdca1a8df905fb815c610f560b779591bfc133ef4d170a88",
+      "source_case_hash": "c149e84c07653543dcd3713d21affb5e665fb4edc040e524f2fde917a94bc5dd",
+      "source_code_hash": "dbf26bd83e35ccaaac22b45422d2b6fc1fa80fea573b91359d73ad5bb0df59f4",
+      "protocol_hash": "5846b0325f3657a483dd6c1ed550ec713a8e21d03482cde70fd940131157f84c",
+      "promotions": 1
+    },
+    {
+      "id": "queue-low_to_high-no_recovery-11",
+      "digest": "6ffa8711bea3db1b94ed177488a86d20050e21a497dc60d6503327a58f011bf7",
+      "source_case_hash": "88edb02f2ca8129e7b32d56f09f70c68e9a6b9aeafd2c8ca8577410d3edcf8af",
+      "source_code_hash": "dbf26bd83e35ccaaac22b45422d2b6fc1fa80fea573b91359d73ad5bb0df59f4",
+      "protocol_hash": "5846b0325f3657a483dd6c1ed550ec713a8e21d03482cde70fd940131157f84c",
+      "promotions": 0
+    },
+    {
+      "id": "queue-stable_high-learned-11",
+      "digest": "9d4915de15f1259aac76e353a868c52ac411d22925674c1588a6964e38328751",
+      "source_case_hash": "1e1c1ed7f7cd753deb5485b193e1311f15d8f29c0316f8961006dc1d09b8c026",
+      "source_code_hash": "dbf26bd83e35ccaaac22b45422d2b6fc1fa80fea573b91359d73ad5bb0df59f4",
+      "protocol_hash": "5846b0325f3657a483dd6c1ed550ec713a8e21d03482cde70fd940131157f84c",
+      "promotions": 0
+    },
+    {
+      "id": "queue-stable_low-learned-11",
+      "digest": "8c6145197655159d698d402f5e3ade60657733dad2629dacbd937cd79a9933dc",
+      "source_case_hash": "916bc56ef6df5e0180363d822cc98662973bdcd1a446a7e91cf96155e06e0dcf",
+      "source_code_hash": "dbf26bd83e35ccaaac22b45422d2b6fc1fa80fea573b91359d73ad5bb0df59f4",
+      "protocol_hash": "5846b0325f3657a483dd6c1ed550ec713a8e21d03482cde70fd940131157f84c",
+      "promotions": 0
+    }
+  ],
+  "integrity": {
+    "core_sources": "unchanged",
+    "frozen_protocols_and_historical_reports": "unchanged",
+    "core_generated_contracts": "byte-identical",
+    "ruff": "passed",
+    "typescript_vite_build": "passed"
+  },
+  "screenshot": {
+    "path": "reports/osc-playground-queue.png",
+    "reference": "3c2787ef366b4c029d6ab930effa5617:63",
+    "receipt": "c32fa7d5cba773c1aae70ecea96ed5420d70c3b67b77dcc3729942dc74e9e506",
+    "tick": 12,
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "mode": "recorded",
+    "errors": [],
+    "overflow": false
+  },
+  "limits": [
+    "Constructor-only environment changes",
+    "Public Live never promotes",
+    "Goal999 continuous fixture is not achieved task success",
+    "Independent evaluation drilldown and Physical linking remain P1",
+    "30-second path rehearsed in browser; first-time visitor comprehension still needs a human dry run",
+    "Remote CI not represented as completed in this local report"
+  ]
+}
