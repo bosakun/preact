@@ -371,3 +371,10 @@ unchosen candidates. Keep historical adverse results and absent promotions visib
 Use the offline launch/recovery and new-output reproduction commands in
 `docs/osc-playground.md`; preserve original frozen evidence. Keep captures in a new
 PREACT_E2E_ARTIFACT_DIR. Exact projection audits need the retained private source bundle.
+
+### Standalone 3D exhibit
+
+`OSC展示/PreAct_3D展示/` contains the self-contained recorded Physical World exhibit.
+`.github/workflows/exhibit-pages.yml` publishes only its allowlisted files to GitHub Pages.
+Preserve recorded provenance, reduced-motion behavior and bundled third-party licenses.
+This static replay never calls the API or executes actions; keep it distinct from Live.
