@@ -1592,3 +1592,20 @@ execution. Also requested real implementations using simulators/LLMs, not just b
 - Local acceptance complete. Preparing the authorized PR #19 update, with no automatic
   merge. Human first-time visitor rehearsal and remote CI remain external checks;
   P1 extensive cross-model comparisons and Physical linking are not claimed complete.
+
+## Public standalone 3D exhibit — 2026-10-19
+
+- User requested publishing the exact local HTML in bosakun/preact for Zenn/X sharing.
+  Remote main had no OSC exhibit and Pages returned 404. Work uses an isolated clone;
+  unrelated uncommitted development in the original checkout remains preserved.
+- Added standalone HTML, owned preview, projected execution trace, README and Apache/MIT
+  license notices. Local screenshot executables and slides are excluded.
+- Added canonical/OG/X metadata and an allowlisted GitHub Pages Actions workflow.
+  Recorded source remains 4439f2c; this replay performs no new inference/actions.
+- Validation: actual Chromium passed WebGL, autoplay, all 27 phases, pause/next/restart/
+  about, 390px mobile overflow and reduced-motion pause/manual play. No page errors
+  or external runtime requests. JavaScript syntax and embedded/external JSON passed.
+  One initial Node check mistakenly treated the JSON data block as JavaScript; corrected
+  validation distinguishes script types. New captures are in /private/tmp (untracked).
+- Next: publish the focused change, enable Pages, confirm successful deployment and
+  repeat browser checks on the public HTTPS URL. X/Zenn card caching is external.
