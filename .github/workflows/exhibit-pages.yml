@@ -1,0 +1,46 @@
+name: Publish 3D exhibit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'OSC展示/PreAct_3D展示/**'
+      - '.github/workflows/exhibit-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: exhibit-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
+      - name: Package the standalone exhibit
+        env:
+          EXHIBIT: OSC展示/PreAct_3D展示
+        run: |
+          mkdir -p _site
+          cp "$EXHIBIT/PreAct_3D展示.html" _site/index.html
+          cp "$EXHIBIT/画面プレビュー.jpg" _site/preview.jpg
+          cp "$EXHIBIT/実行記録.json" _site/trace.json
+          cp "$EXHIBIT/PreAct-LICENSE.txt" "$EXHIBIT/Three-LICENSE.txt" _site/
+          touch _site/.nojekyll
+      - uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
+        with:
+          path: _site
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4

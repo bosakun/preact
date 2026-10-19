@@ -21,7 +21,15 @@ Git ancestors. Public copies normalize machine paths with provenance notes. Sour
 model/protocol identities, benchmark failures and artifact hashes retain their original
 scope. Raw benchmark archives, credentials, local databases, model weights and private
 footage are excluded; public summaries/calibration receipts and owned screenshots remain.
-No live Nebius/Cosmos/Isaac GPU validation or public deployment is claimed.
+No live Nebius/Cosmos/Isaac GPU validation or public API deployment is claimed.
+
+## Browser 3D exhibit
+
+[Open the animated 3D exhibit](https://bosakun.github.io/preact/) — no installation
+or API key required. It automatically replays recorded local Physical World execution;
+it does not run new decisions or actions. Reduced-motion preferences start it paused.
+Share this URL in Zenn articles or on X; social cards use a static preview image.
+[Source, provenance and licenses](OSC展示/PreAct_3D展示/はじめに.md).
 
 ## Run locally
 
